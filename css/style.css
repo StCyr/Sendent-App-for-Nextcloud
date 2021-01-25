@@ -1,0 +1,72 @@
+#hello {
+	color: red;
+}
+.personal-settings-setting-box{
+	position:relative;
+}
+.settingkeyvalueinput{
+	width: 100%;
+	position: relative;
+	grid-area:b;
+	vertical-align: middle;
+}
+select{
+	width:100%;
+}
+textarea{
+	width:100%;
+}
+.editor {overflow:scroll; max-height:300px}
+
+.ok.shown{
+	grid-area: c;
+	text-align:left;
+	display:inline-flex;
+}
+
+.ok.hidden{
+	grid-area: c;
+	text-align:left;
+}
+.error.shown{
+	grid-area: c;
+	text-align:left;
+	display:inline-flex;
+}
+.error.hidden{
+	grid-area: c;
+	text-align:left;
+}
+.settingkeyvalue{
+	grid-template-areas: 
+	"a b c d"
+	"a b c d"
+	"a b c d"
+	"a b c d"
+	"a b c d"
+	"a b c d";
+			width: 800px;
+			grid-column-gap: 5px;
+			grid-auto-rows: min-content max-content auto;
+			grid-auto-columns: 275px 300px 25px 25px;
+			display: grid;
+}
+label{
+	grid-area: a;
+}
+.templatesettingkeyname {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+  }
+.templatesettingkeynametextareakind {
+	vertical-align: text-top;
+  }
+h1{
+		font-size:16px;
+		font-weight: bold;
+		grid-area: a;
+		margin-bottom: 20px;
+}

@@ -1,0 +1,98 @@
+# Changelog
+
+## 1.0.1 - 2020-06-03
+
+### Fixed
+
+- Compatibility issue regarding columntype differences between databases which caused Sendent serverapp to reinitialize itself constantly.
+
+## 1.0.2 - 2020-07-02
+
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.3 - 2020-07-03
+
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.4 - 2020-07-04
+
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.5 - 2020-07-11
+
+### Feature
+
+- We now ship default settings for file, folder and Secure Mail HTML snippets- and paths.
+
+## 1.0.6 - 2020-07-12
+
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.7 - 2020-07-12
+
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.8 - 2020-07-28
+
+### Fixed
+
+- Minor bugfix for a situation where the app could not initialize.
+
+## 1.0.9 - 2020-07-30
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.12 - 2020-07-31
+### Fixed
+
+- Minor bugfix for a situation where the app could not initialize.
+
+## 1.0.13 - 2020-08-10
+### Fixed
+
+- Minor bugfix for a situation where updating html snippets didn't work for some users.
+
+
+## 1.0.14 - 2020-08-26
+### Feature
+
+- Added settings in preparation for a feature we are introducing in an upcomming update for the Sendent Outlook Add-in. The feature, when released, will enable users to send File- and Public Share password in a separate email. The preparations we are adding in this Nextcloud App consists of two new settings: Password communication mode and Password communication snippet.
+
+## 1.0.14 - 2020-09-26
+### Fixed
+
+- Complete rebuild of the file storage system implementation used for storing html snippets.
+
+## 1.0.15 - 2020-09-29
+### Fixed
+
+- Complete rebuild of the file storage system implementation used for storing html snippets.
+- Minor bugfix for a situation where updating html snippets didn't work for some users.
+
+## 1.0.16 - 2020-10-29
+### Support
+
+- Official Nextcloud version 20 support.
+
+## 1.0.17 - 2020-11-03
+### Fixed
+
+- Minor bugfix and improvement.
+
+## 1.0.18 - 2021-01-10
+### Feature
+
+- Advanced Theming support for Premium licenseholders.
+### Fixed
+- "Enable access to settings" setting is now properly set (there was a bug which caused the Outlook add-in to display the inverse functionality based on the Server app setting.)
