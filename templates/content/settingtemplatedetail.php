@@ -1,5 +1,5 @@
 <p>settingTemplateDetail</p>
 <?php
-script('sendent', array('script'));
-script('sendent', array('SettingTemplateScript2'));
+script('sendent', ['script']);
+script('sendent', ['SettingTemplateScript2']);
 ?>

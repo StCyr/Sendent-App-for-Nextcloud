@@ -1,6 +1,6 @@
 <?php
-script('sendent', array('script'));
-script('sendent', array('SettingTemplateScript'));
+script('sendent', ['script']);
+script('sendent', ['SettingTemplateScript']);
 ?>
 
 <div class="personal-settings-setting-box">

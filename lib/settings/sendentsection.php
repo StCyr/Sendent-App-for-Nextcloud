@@ -1,14 +1,14 @@
 <?php
+
 namespace OCA\sendent\settings;
 
 use OCP\IL10N;
-use OCP\Settings\ISection;
 use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;
 
 class sendentsection implements IIconSection {
 
-        /** @var IL10N */
+		/** @var IL10N */
 	private $l;
 
 	/** @var IURLGenerator */
@@ -19,25 +19,25 @@ class sendentsection implements IIconSection {
 		$this->l = $l;
 	}
 
-        /**
-         * returns the ID of the section. It is supposed to be a lower case string
-         *
-         * @returns string
-         */
-        public function getID() {
-                return 'sendent'; //or a generic id if feasible
-        }
+	/**
+	 * returns the ID of the section. It is supposed to be a lower case string
+	 *
+	 * @returns string
+	 */
+	public function getID() {
+		return 'sendent'; //or a generic id if feasible
+	}
 
-        /**
-         * returns the translated name as it should be displayed, e.g. 'LDAP / AD
-         * integration'. Use the L10N service to translate it.
-         *
-         * @return string
-         */
-        public function getName() {
-                return $this->l->t('Sendent');
-        }
-        /**
+	/**
+	 * returns the translated name as it should be displayed, e.g. 'LDAP / AD
+	 * integration'. Use the L10N service to translate it.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->l->t('Sendent');
+	}
+	/**
 	 * returns the relative path to an 16*16 icon describing the section.
 	 * e.g. '/core/img/places/files.svg'
 	 *
@@ -47,13 +47,12 @@ class sendentsection implements IIconSection {
 	public function getIcon(): string {
 		return $this->url->imagePath('sendent', 'app-dark.svg');
 	}
-        /**
-         * @return int whether the form should be rather on the top or bottom of
-         * the settings navigation. The sections are arranged in ascending order of
-         * the priority values. It is required to return a value between 0 and 99.
-         */
-        public function getPriority() {
-                return 80;
-        }
-
+	/**
+	 * @return int whether the form should be rather on the top or bottom of
+	 * the settings navigation. The sections are arranged in ascending order of
+	 * the priority values. It is required to return a value between 0 and 99.
+	 */
+	public function getPriority() {
+		return 80;
+	}
 }

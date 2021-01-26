@@ -1,4 +1,6 @@
 <?php
+
 namespace OCA\sendent\service;
 
-class notfoundexception extends serviceexception {}
+class notfoundexception extends serviceexception {
+}
