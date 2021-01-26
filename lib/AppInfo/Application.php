@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\Sendent\appinfo;
+namespace OCA\Sendent\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
@@ -13,7 +13,7 @@ use OCA\Sendent\Service\InitialLoadManager;
 use OCA\Sendent\Controller\SettingKeyApiController;
 use OCA\Sendent\Controller\SettingGroupValueApiController;
 
-class application extends App {
+class Application extends App {
 
 	/**
 	 * @param array $params
