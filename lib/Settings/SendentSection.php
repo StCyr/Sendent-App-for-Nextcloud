@@ -37,6 +37,7 @@ class SendentSection implements IIconSection {
 	public function getName() {
 		return $this->l->t('Sendent');
 	}
+
 	/**
 	 * returns the relative path to an 16*16 icon describing the section.
 	 * e.g. '/core/img/places/files.svg'
@@ -47,6 +48,7 @@ class SendentSection implements IIconSection {
 	public function getIcon(): string {
 		return $this->url->imagePath('sendent', 'app-dark.svg');
 	}
+
 	/**
 	 * @return int whether the form should be rather on the top or bottom of
 	 * the settings navigation. The sections are arranged in ascending order of

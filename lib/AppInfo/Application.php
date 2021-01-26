@@ -14,7 +14,6 @@ use OCA\Sendent\Controller\SettingKeyApiController;
 use OCA\Sendent\Controller\SettingGroupValueApiController;
 
 class Application extends App {
-
 	/**
 	 * @param array $params
 	 */
@@ -39,7 +38,6 @@ class Application extends App {
 		);
 		$container->query('InitialLoadManager');
 	}
-
 
 	/**
 	 * Register Controllers
@@ -95,6 +93,7 @@ class Application extends App {
 			}
 		);
 	}
+
 	/**
 	 * Register Services
 	 *
@@ -147,7 +146,6 @@ class Application extends App {
 			}
 		);
 	}
-
 
 	/**
 	 * Register Navigation Tab

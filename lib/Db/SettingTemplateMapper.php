@@ -13,7 +13,6 @@ class SettingTemplateMapper extends QBMapper {
 		parent::__construct($db, 'sndnt_stngtmplt');
 	}
 
-
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -30,7 +29,6 @@ class SettingTemplateMapper extends QBMapper {
 		return $this->findEntity($qb);
 	}
 
-
 	public function findAll($limit = null, $offset = null) {
 		$qb = $this->db->getQueryBuilder();
 
@@ -41,7 +39,6 @@ class SettingTemplateMapper extends QBMapper {
 
 		return $this->findEntities($qb);
 	}
-
 
 	public function settingKeyCount($name) {
 		$qb = $this->db->getQueryBuilder();

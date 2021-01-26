@@ -73,6 +73,7 @@ class InitialLoadManager {
 		} catch (Exception $exception) {
 		}
 	}
+
 	private function fixSnippets() {
 		try {
 			$filepath = $this->showBySettingKeyId(10);
@@ -194,6 +195,7 @@ class InitialLoadManager {
 			$this->createGroupValue("0", "80", "false");
 		}
 	}
+
 	public function addAdvancedThemingUpdate() {
 		if (!is_null($this->showNameBySettingKeyId("94")) && $this->showNameBySettingKeyId("94") !== "TaskpaneActivityTrackerFontColor") {
 			$this->updateKey("94", "TaskpaneActivityTrackerFontColor", "0", "text");
@@ -214,6 +216,7 @@ class InitialLoadManager {
 			$this->createGroupValue("0", "96", "#FFFFFF");
 		}
 	}
+
 	public function addAdvancedThemingUpdate2() {
 		if (!is_null($this->showNameBySettingKeyId("97")) && $this->showNameBySettingKeyId("97") !== "ButtonPrimaryIconColor") {
 			$this->updateKey("97", "ButtonPrimaryIconColor", "0", "text");
@@ -228,6 +231,7 @@ class InitialLoadManager {
 			$this->createGroupValue("0", "98", "#151c62");
 		}
 	}
+
 	public function addAdvancedThemingUpdate3() {
 		if (!is_null($this->showNameBySettingKeyId("99")) && $this->showNameBySettingKeyId("99") !== "TaskpaneSecureMailControlColor") {
 			$this->updateKey("99", "TaskpaneSecureMailControlColor", "0", "text");
@@ -236,6 +240,7 @@ class InitialLoadManager {
 			$this->createGroupValue("0", "99", "#FFFFFF");
 		}
 	}
+
 	public function addAdvancedThemingUpdate4() {
 		if (!is_null($this->showNameBySettingKeyId("100")) && $this->showNameBySettingKeyId("100") !== "DialogFooterBackgroundColor") {
 			$this->updateKey("100", "DialogFooterBackgroundColor", "0", "text");
@@ -262,10 +267,12 @@ class InitialLoadManager {
 			$this->createGroupValue("0", "103", "#151c62");
 		}
 	}
+
 	public function addSendmode() {
 		$this->createKey("23", "sendmode", "0", "select-one");
 		$this->createGroupValue("0", "23", "CurrentMail");
 	}
+
 	public function initialLoading() {
 		$this->createKey("20", "setlanguage", "0", "select-one");
 		$this->createKey("19", "passwordcontrolbehavior", "0", "select-one");
@@ -326,6 +333,7 @@ class InitialLoadManager {
 			return null;
 		}
 	}
+
 	public function updateKey(string $key, string $name, string $templateid, string $valuetype) {
 		try {
 			$SettingKey = $this->SettingKeyMapper->findByKey($key);
@@ -352,17 +360,17 @@ class InitialLoadManager {
 		}
 	}
 
-
-
 	private function valueIsSettingGroupValueFilePath($value) {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;
 		}
 		return false;
 	}
+
 	private function valueSizeForDb($value) {
 		return strlen($value) < 256 !== false;
 	}
+
 	public function showBySettingKeyId(int $settingkeyid) {
 		try {
 			$result = $this->SettingGroupValueMapper->findBySettingKeyId($settingkeyid);
@@ -374,6 +382,7 @@ class InitialLoadManager {
 			return null;
 		}
 	}
+
 	public function showNameBySettingKeyId(int $settingkeyid) {
 		try {
 			$result = $this->SettingKeyMapper->findByKey($settingkeyid);
@@ -382,6 +391,7 @@ class InitialLoadManager {
 			return null;
 		}
 	}
+
 	public function update(int $id,int $settingkeyid, int $groupid, string $value) {
 		try {
 			$SettingGroupValue = $this->SettingGroupValueMapper->find($settingkeyid);
@@ -398,6 +408,7 @@ class InitialLoadManager {
 			return null;
 		}
 	}
+
 	public function getsecuremailhtml() {
 		return "<html>
            <head>
@@ -512,6 +523,7 @@ class InitialLoadManager {
                            </body>
                        </html>";
 	}
+
 	public function getsharefilehtml() {
 		return "<html>
            <head>
@@ -620,6 +632,7 @@ class InitialLoadManager {
                            </body>
                        </html>";
 	}
+
 	public function gethtmlpasswordsnippet() {
 		return "<html>
            <head>
@@ -698,6 +711,7 @@ class InitialLoadManager {
                            </body>
                        </html>";
 	}
+
 	public function getsharefolderhtml() {
 		return "<html>
            <head>

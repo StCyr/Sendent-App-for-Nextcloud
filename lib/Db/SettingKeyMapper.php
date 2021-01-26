@@ -10,11 +10,11 @@ use OCP\IDBConnection;
 
 class SettingKeyMapper extends QBMapper {
 	public $db;
+
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'sndnt_stngky', SettingKey::class);
 		$this->db = $db;
 	}
-
 
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
@@ -31,6 +31,7 @@ class SettingKeyMapper extends QBMapper {
 
 		return $this->findEntity($qb);
 	}
+
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -46,6 +47,7 @@ class SettingKeyMapper extends QBMapper {
 
 		return $this->findEntity($qb);
 	}
+
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -61,6 +63,7 @@ class SettingKeyMapper extends QBMapper {
 
 		return $this->findEntity($qb);
 	}
+
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -87,7 +90,6 @@ class SettingKeyMapper extends QBMapper {
 
 		return $this->findEntities($qb);
 	}
-
 
 	public function settingKeyCount($key) {
 		$qb = $this->db->getQueryBuilder();

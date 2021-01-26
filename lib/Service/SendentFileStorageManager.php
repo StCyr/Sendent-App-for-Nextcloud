@@ -12,6 +12,7 @@ class SendentFileStorageManager {
 		$this->appData = $appData;
 		$this->ensureFolderExists();
 	}
+
 	private function ensureFolderExists() {
 		try {
 			$folder = $this->appData->getFolder('settings');
@@ -19,6 +20,7 @@ class SendentFileStorageManager {
 			$folder = $this->appData->newFolder('settings');
 		}
 	}
+
 	public function writeTxt($group, $key, $content) {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');

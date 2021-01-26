@@ -19,6 +19,7 @@
  		$this->service = $service;
  		$this->userId = $userId;
  	}
+
  	/**
  	 * @NoAdminRequired
  	 * @NoCSRFRequired
@@ -53,6 +54,7 @@
  	public function showByTemplateId(int $templateid) {
  		return $this->service->findByTemplateId($templateid);
  	}
+
  	/**
  	 * @NoAdminRequired
  	 * @NoCSRFRequired

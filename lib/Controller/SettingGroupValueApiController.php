@@ -58,6 +58,7 @@ use OCP\IRequest;
  			return new DataResponse([], Http::STATUS_NOT_FOUND);
  		}
  	}
+
  	/**
  	 * @NoAdminRequired
  	 * @NoCSRFRequired
@@ -74,15 +75,18 @@ use OCP\IRequest;
  			return new DataResponse([], Http::STATUS_NOT_FOUND);
  		}
  	}
+
  	private function valueIsSettingGroupValueFilePath($value) {
  		if (strpos($value, 'settinggroupvaluefile') !== false) {
  			return true;
  		}
  		return false;
  	}
+
  	private function valueSizeForDb($value) {
  		return strlen($value) < 255 !== false;
  	}
+
  	/**
  	 * @NoAdminRequired
  	 * @NoCSRFRequired

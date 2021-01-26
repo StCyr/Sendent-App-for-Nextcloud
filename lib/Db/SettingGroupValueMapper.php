@@ -13,7 +13,6 @@ class SettingGroupValueMapper extends QBMapper {
 		parent::__construct($db, 'sndnt_stnggrval', SettingGroupValue::class);
 	}
 
-
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -56,7 +55,6 @@ class SettingGroupValueMapper extends QBMapper {
 
 		return $this->findEntities($qb);
 	}
-
 
 	public function settingKeyCount($groupid) {
 		$qb = $this->db->getQueryBuilder();

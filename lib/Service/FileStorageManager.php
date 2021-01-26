@@ -34,6 +34,7 @@ class FileStorageManager {
 			return 'pleuris';
 		}
 	}
+
 	public function fileExists($group, $key) {
 		try {
 			$file = $this->storage->get('/sendent/settings/' . 'settinggroupvaluefile' . $group . '_' . $key . '.txt');
@@ -42,6 +43,7 @@ class FileStorageManager {
 			return false;
 		}
 	}
+
 	public function fileExsistsOld($filename) {
 		try {
 			$file = $this->storage->get('/sendent/settings/' . $filename);
