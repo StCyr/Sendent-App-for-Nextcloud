@@ -2,16 +2,16 @@
 
 // db/authormapper.php
 
-namespace OCA\sendent\db;
+namespace OCA\Sendent\Db;
 
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
-class settingkeymapper extends QBMapper {
+class SettingKeyMapper extends QBMapper {
 	public $db;
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'sndnt_stngky', settingkey::class);
+		parent::__construct($db, 'sndnt_stngky', SettingKey::class);
 		$this->db = $db;
 	}
 

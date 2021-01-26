@@ -1,7 +1,7 @@
 <?php
 
 // db/author.php
-namespace OCA\sendent\db;
+namespace OCA\Sendent\Db;
 
 use OCP\AppFramework\Db\Entity;
 use JsonSerializable;

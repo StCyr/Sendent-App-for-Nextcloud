@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\sendent\controller;
+namespace OCA\Sendent\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 
-class pagecontroller extends Controller {
+class PageController extends Controller {
 	private $userId;
 
 	public function __construct($AppName, IRequest $request, $UserId) {

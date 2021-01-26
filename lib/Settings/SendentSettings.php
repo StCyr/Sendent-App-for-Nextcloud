@@ -1,11 +1,11 @@
 <?php
 
-namespace OCA\sendent\settings;
+namespace OCA\Sendent\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Settings\ISettings;
 
-class sendentsettings implements ISettings {
+class SendentSettings implements ISettings {
 	/**
 	 * SendentSettings constructor.
 	 */

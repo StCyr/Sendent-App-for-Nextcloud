@@ -1,6 +1,6 @@
 <?php
 
-  namespace OCA\sendent\migration;
+  namespace OCA\Sendent\migration;
 
   use Closure;
   use OCP\DB\ISchemaWrapper;
@@ -25,7 +25,7 @@
   				'autoincrement' => true,
   				'notnull' => true,
   			]);
-			  
+
 
   			$table->addColumn('key', 'string', [
   				'notnull' => true,
@@ -62,7 +62,7 @@
   				'autoincrement' => true,
   				'notnull' => true,
   			]);
-			
+
   			$table->addColumn('settingkeyid', 'integer', [
   				'notnull' => true
   			]);
@@ -86,7 +86,7 @@
   				'autoincrement' => true,
   				'notnull' => true,
   			]);
-		  
+
   			$table->addColumn('templatename', 'string', [
   				'notnull' => true
   			]);

@@ -1,19 +1,19 @@
 <?php
 
-namespace OCA\sendent\service;
+namespace OCA\Sendent\Service;
 
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCA\sendent\db\settingkey;
-use OCA\sendent\db\settingkeymapper;
+use OCA\Sendent\Db\SettingKey;
+use OCA\Sendent\Db\SettingKeymapper;
 
-class settingkeyservice {
+class SettingKeyService {
 	private $mapper;
 
-	public function __construct(settingkeymapper $mapper) {
+	public function __construct(SettingKeyMapper $mapper) {
 		$this->mapper = $mapper;
 	}
 
@@ -24,7 +24,7 @@ class settingkeyservice {
 	private function handleException($e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
-			throw new notfoundexception($e->getMessage());
+			throw new NotFoundException($e->getMessage());
 		} else {
 			throw $e;
 		}

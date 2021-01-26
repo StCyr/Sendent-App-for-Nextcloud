@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\sendent\appinfo;
+namespace OCA\Sendent\appinfo;
 
 $app = new application();
 $app->registerNavigation();

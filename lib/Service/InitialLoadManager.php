@@ -1,47 +1,47 @@
 <?php
 
-namespace OCA\sendent\service;
+namespace OCA\Sendent\Service;
 
 use Exception;
 
 
-use OCA\sendent\db\settingkey;
-use OCA\sendent\db\settingkeymapper;
-use OCA\sendent\db\settinggroupvaluemapper;
-use OCA\sendent\db\settinggroupvalue;
+use OCA\Sendent\Db\SettingKey;
+use OCA\Sendent\Db\SettingKeymapper;
+use OCA\Sendent\Db\SettingGroupValueMapper;
+use OCA\Sendent\Db\SettingGroupValue;
 
-class initialloadmanager {
-	private $settingkeymapper;
-	private $settinggroupvaluemapper;
-	
-	public function __construct(settingkeymapper $settingkeymapper, settinggroupvaluemapper $settinggroupvaluemapper, sendentfilestoragemanager $sendentfilestoragemanager) {
-		$this->settingkeymapper = $settingkeymapper;
-		$this->settinggroupvaluemapper = $settinggroupvaluemapper;
-		$this->sendentfilestoragemanager = $sendentfilestoragemanager;
+class InitialLoadManager {
+	private $SettingKeyMapper;
+	private $SettingGroupValueMapper;
+
+	public function __construct(SettingKeyMapper $SettingKeyMapper, SettingGroupValueMapper $SettingGroupValueMapper, SendentFileStorageManager $SendentFileStorageManager) {
+		$this->SettingKeyMapper = $SettingKeyMapper;
+		$this->SettingGroupValueMapper = $SettingGroupValueMapper;
+		$this->SendentFileStorageManager = $SendentFileStorageManager;
 
 		try {
-			if ($this->settingkeymapper->settingKeyCount("20") < 1) {
+			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
 				$this->initialLoading();
 			}
-			if ($this->settingkeymapper->settingKeyCount("23") < 1) {
+			if ($this->SettingKeyMapper->settingKeyCount("23") < 1) {
 				$this->addSendmode();
 			}
-			if ($this->settingkeymapper->settingKeyCount("30") < 1) {
+			if ($this->SettingKeyMapper->settingKeyCount("30") < 1) {
 				$this->addHtmlpasswordsnippet();
 			}
-			if ($this->settingkeymapper->settingKeyCount("81") < 1 || $this->showNameBySettingKeyId("81") !== "GeneralIconColor") {
+			if ($this->SettingKeyMapper->settingKeyCount("81") < 1 || $this->showNameBySettingKeyId("81") !== "GeneralIconColor") {
 				$this->addAdvancedTheming();
 			}
-			if ($this->settingkeymapper->settingKeyCount("94") < 1 || $this->showNameBySettingKeyId("94") !== "TaskpaneActivityTrackerFontColor") {
+			if ($this->SettingKeyMapper->settingKeyCount("94") < 1 || $this->showNameBySettingKeyId("94") !== "TaskpaneActivityTrackerFontColor") {
 				$this->addAdvancedThemingUpdate();
 			}
-			if ($this->settingkeymapper->settingKeyCount("98") < 1 || $this->showNameBySettingKeyId("98") !== "ButtonSecondaryIconColor") {
+			if ($this->SettingKeyMapper->settingKeyCount("98") < 1 || $this->showNameBySettingKeyId("98") !== "ButtonSecondaryIconColor") {
 				$this->addAdvancedThemingUpdate2();
 			}
-			if ($this->settingkeymapper->settingKeyCount("99") < 1 || $this->showNameBySettingKeyId("99") !== "TaskpaneSecureMailControlColor") {
+			if ($this->SettingKeyMapper->settingKeyCount("99") < 1 || $this->showNameBySettingKeyId("99") !== "TaskpaneSecureMailControlColor") {
 				$this->addAdvancedThemingUpdate3();
 			}
-			if ($this->settingkeymapper->settingKeyCount("100") < 1 || $this->showNameBySettingKeyId("100") !== "DialogFooterBackgroundColor") {
+			if ($this->SettingKeyMapper->settingKeyCount("100") < 1 || $this->showNameBySettingKeyId("100") !== "DialogFooterBackgroundColor") {
 				$this->addAdvancedThemingUpdate4();
 			}
 			$this->fixPaths();
@@ -49,7 +49,7 @@ class initialloadmanager {
 		} catch (Exception $e) {
 		}
 	}
-	
+
 	private function fixPaths() {
 		try {
 			$filepath = $this->showBySettingKeyId(8);
@@ -321,16 +321,16 @@ class initialloadmanager {
 			$SettingKey->setName($name);
 			$SettingKey->setTemplateid($templateid);
 			$SettingKey->setValuetype($valuetype);
-			return $this->settingkeymapper->insert($SettingKey);
+			return $this->SettingKeyMapper->insert($SettingKey);
 		} catch (Exception $e) {
 			return null;
 		}
 	}
 	public function updateKey(string $key, string $name, string $templateid, string $valuetype) {
 		try {
-			$SettingKey = $this->settingkeymapper->findByKey($key);
+			$SettingKey = $this->SettingKeyMapper->findByKey($key);
 			$SettingKey->setName($name);
-			$result = $this->settingkeymapper->update($SettingKey);
+			$result = $this->SettingKeyMapper->update($SettingKey);
 			return $this->showBySettingKeyId($key);
 		} catch (Exception $e) {
 			return null;
@@ -339,21 +339,21 @@ class initialloadmanager {
 
 	public function createGroupValue(string $groupid, string $settingkeyid, string $value) {
 		try {
-			$SettingGroupValue = new settinggroupvalue();
+			$SettingGroupValue = new SettingGroupValue();
 			$SettingGroupValue->setGroupid($groupid);
 			$SettingGroupValue->setSettingkeyid($settingkeyid);
 			if ($this->valueSizeForDb($value) !== true) {
-				$value = $this->sendentfilestoragemanager->writeTxt($groupid, $settingkeyid, $value);
+				$value = $this->SendentFileStorageManager->writeTxt($groupid, $settingkeyid, $value);
 			}
 			$SettingGroupValue->setValue($value);
-			return $this->settinggroupvaluemapper->insert($SettingGroupValue);
+			return $this->SettingGroupValueMapper->insert($SettingGroupValue);
 		} catch (Exception $e) {
 			return null;
 		}
 	}
 
-  
-  
+
+
 	private function valueIsSettingGroupValueFilePath($value) {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;
@@ -365,9 +365,9 @@ class initialloadmanager {
 	}
 	public function showBySettingKeyId(int $settingkeyid) {
 		try {
-			$result = $this->settinggroupvaluemapper->findBySettingKeyId($settingkeyid);
+			$result = $this->SettingGroupValueMapper->findBySettingKeyId($settingkeyid);
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
-				$result->setValue($this->sendentfilestoragemanager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+				$result->setValue($this->SendentFileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
 			}
 			return $result;
 		} catch (Exception $e) {
@@ -376,7 +376,7 @@ class initialloadmanager {
 	}
 	public function showNameBySettingKeyId(int $settingkeyid) {
 		try {
-			$result = $this->settingkeymapper->findByKey($settingkeyid);
+			$result = $this->SettingKeyMapper->findByKey($settingkeyid);
 			return $result->getName();
 		} catch (Exception $e) {
 			return null;
@@ -384,15 +384,15 @@ class initialloadmanager {
 	}
 	public function update(int $id,int $settingkeyid, int $groupid, string $value) {
 		try {
-			$SettingGroupValue = $this->settinggroupvaluemapper->find($settingkeyid);
+			$SettingGroupValue = $this->SettingGroupValueMapper->find($settingkeyid);
 			$SettingGroupValue->setSettingkeyid($settingkeyid);
 			$SettingGroupValue->setGroupid($groupid);
 			if ($this->valueSizeForDb($value) === false) {
-				$value = $this->sendentfilestoragemanager->writeTxt($groupid, $settingkeyid, $value);
+				$value = $this->SendentFileStorageManager->writeTxt($groupid, $settingkeyid, $value);
 			}
 			$SettingGroupValue->setValue($value);
 
-			$result = $this->settinggroupvaluemapper->update($SettingGroupValue);
+			$result = $this->SettingGroupValueMapper->update($SettingGroupValue);
 			return $this->showBySettingKeyId($settingkeyid);
 		} catch (Exception $e) {
 			return null;
@@ -593,7 +593,7 @@ class initialloadmanager {
                                        <tr>
                                            <td width=604 colspan=3 valign=top style='width:503.35pt;border:solid windowtext 1.0pt; border-top:none;background:#E7E6E6;padding:0cm 5.4pt 0cm 5.4pt'>
                                                <p class=MsoNoSpacing>
-                                                   
+
                                                    <span lang=NL style='color:black'>
                                                        <a href='http://www.sendent.nl/'>
                                                            <i>
@@ -671,7 +671,7 @@ class initialloadmanager {
                                        <tr>
                                            <td width=604 colspan=3 valign=top style='width:503.35pt;border:solid windowtext 1.0pt; border-top:none;background:#E7E6E6;padding:0cm 5.4pt 0cm 5.4pt'>
                                                <p class=MsoNoSpacing>
-                                                   
+
                                                    <span lang=NL style='color:black'>
                                                        <a href='http://www.sendent.nl/'>
                                                            <i>

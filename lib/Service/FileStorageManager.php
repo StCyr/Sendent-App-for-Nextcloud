@@ -1,8 +1,8 @@
 <?php
 
-namespace OCA\sendent\service;
+namespace OCA\Sendent\Service;
 
-class filestoragemanager {
+class FileStorageManager {
 	private $storage;
 
 	public function __construct($storage) {

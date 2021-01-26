@@ -1,6 +1,6 @@
 <?php
 
- namespace OCA\sendent\controller;
+ namespace OCA\Sendent\Controller;
 
  use Exception;
 
@@ -9,13 +9,13 @@
  use OCP\AppFramework\Http\DataResponse;
  use OCP\AppFramework\Controller;
 
- use OCA\sendent\db\settingtemplate;
- use OCA\sendent\db\settingtemplatemapper;
+ use OCA\Sendent\Db\SettingTemplate;
+ use OCA\Sendent\Db\SettingTemplatemapper;
 
- class settingtemplateapicontroller extends Controller {
+ class SettingTemplateApiController extends Controller {
  	private $mapper;
 
- 	public function __construct(IRequest $request, settingtemplatemapper $mapper) {
+ 	public function __construct(IRequest $request, SettingTemplateMapper $mapper) {
  		parent::__construct(
 			"sendent",
 			$request,

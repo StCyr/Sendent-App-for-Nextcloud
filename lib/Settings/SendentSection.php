@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\sendent\settings;
+namespace OCA\Sendent\Settings;
 
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;
 
-class sendentsection implements IIconSection {
+class SendentSection implements IIconSection {
 
 		/** @var IL10N */
 	private $l;

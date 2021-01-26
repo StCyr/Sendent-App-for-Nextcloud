@@ -1,17 +1,17 @@
 <?php
 
-namespace OCA\sendent\appinfo;
+namespace OCA\Sendent\appinfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
-use OCA\sendent\db\settingkeymapper;
-use OCA\sendent\controller\pagecontroller;
-use OCA\sendent\service\settingkeyservice;
-use OCA\sendent\db\settinggroupvaluemapper;
-use OCA\sendent\service\sendentfilestoragemanager;
-use OCA\sendent\service\initialloadmanager;
-use OCA\sendent\controller\settingkeyapicontroller;
-use OCA\sendent\controller\settinggroupvalueapicontroller;
+use OCA\Sendent\Db\SettingKeymapper;
+use OCA\Sendent\Controller\PageController;
+use OCA\Sendent\Service\SettingKeyservice;
+use OCA\Sendent\Db\SettingGroupValuemapper;
+use OCA\Sendent\Service\SendentFileStorageManager;
+use OCA\Sendent\Service\InitialLoadManager;
+use OCA\Sendent\Controller\SettingKeyApiController;
+use OCA\Sendent\Controller\SettingGroupValueApiController;
 
 class application extends App {
 
@@ -23,9 +23,9 @@ class application extends App {
 
 		$container = $this->getContainer();
 		$this->appName = $container->query('AppName');
-		
-		
-		
+
+
+
 		self::registerMappers($container);
 		self::registerServices($container);
 		self::registerControllers($container);
@@ -37,7 +37,7 @@ class application extends App {
 					 ->getL10N($c->query('AppName'));
 			}
 		);
-		$container->query('initialloadmanager');
+		$container->query('InitialLoadManager');
 	}
 
 
@@ -48,25 +48,25 @@ class application extends App {
 	 */
 	private static function registerControllers(IAppContainer &$container) {
 		$container->registerService(
-			'pagecontroller', function (IAppContainer $c) {
+			'PageController', function (IAppContainer $c) {
 				return new PageController(
 				$c->query('AppName'), $c->query('Request'), $c->query('UserId')
 			);
 			}
 		);
 		$container->registerService(
-			'settingkeyapicontroller', function (IAppContainer $c) {
-				return new settingkeyapicontroller(
-				$c->query('AppName'), $c->query('Request'), $c->query('settingkeyservice'),
+			'SettingKeyApiController', function (IAppContainer $c) {
+				return new SettingKeyApiController(
+				$c->query('AppName'), $c->query('Request'), $c->query('SettingKeyService'),
 				$c->query('UserId')
 			);
 			}
 		);
 		$container->registerService(
-			'settinggroupvalueapicontroller', function (IAppContainer $c) {
-				return new settinggroupvalueapicontroller(
-				$c->query('Request'), $c->query('settinggroupvaluemapper'),
-				$c->query('sendentfilestoragemanager')
+			'SettingGroupValueApiController', function (IAppContainer $c) {
+				return new SettingGroupValueApiController(
+				$c->query('Request'), $c->query('SettingGroupValueMapper'),
+				$c->query('SendentFileStorageManager')
 			);
 			}
 		);
@@ -79,16 +79,16 @@ class application extends App {
 	 */
 	private static function registerMappers(IAppContainer &$container) {
 		$container->registerService(
-			'settingkeymapper', function (IAppContainer $c) {
-				return new settingkeymapper(
+			'SettingKeyMapper', function (IAppContainer $c) {
+				return new SettingKeyMapper(
 				$c->query('ServerContainer')
 				  ->getDatabaseConnection()
 			);
 			}
 		);
 		$container->registerService(
-			'settinggroupvaluemapper', function (IAppContainer $c) {
-				return new settinggroupvaluemapper(
+			'SettingGroupValueMapper', function (IAppContainer $c) {
+				return new SettingGroupValueMapper(
 				$c->query('ServerContainer')
 				  ->getDatabaseConnection()
 			);
@@ -102,30 +102,30 @@ class application extends App {
 	 */
 	private static function registerServices(IAppContainer $container) {
 		$container->registerService(
-			'settingkeyservice', function (IAppContainer $c) {
-				return new settingkeyservice(
-				$c->query('settingkeymapper')
+			'SettingKeyService', function (IAppContainer $c) {
+				return new SettingKeyService(
+				$c->query('SettingKeyMapper')
 			);
 			}
 		);
-		
+
 		/**
 		 * Storage Layer
 		 */
-		
 
-		$container->registerService('sendentfilestoragemanager', function ($c) {
+
+		$container->registerService('SendentFileStorageManager', function ($c) {
 			$factory = $c->query('ServerContainer')->query(\OC\Files\AppData\Factory::class);
 			$iAppData = $factory->get('sendent');
-			return new sendentfilestoragemanager($iAppData);
+			return new SendentFileStorageManager($iAppData);
 		});
-		
 
-		
+
+
 		$container->registerService(
-			'initialloadmanager', function (IAppContainer $c) {
-				return new initialloadmanager(
-				$c->query('settingkeymapper'), $c->query('settinggroupvaluemapper'), $c->query('sendentfilestoragemanager'));
+			'InitialLoadManager', function (IAppContainer $c) {
+				return new InitialLoadManager(
+				$c->query('SettingKeyMapper'), $c->query('SettingGroupValueMapper'), $c->query('SendentFileStorageManager'));
 			}
 		);
 	}

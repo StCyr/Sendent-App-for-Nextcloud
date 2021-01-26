@@ -1,6 +1,6 @@
 <?php
 
- namespace OCA\sendent\controller;
+ namespace OCA\Sendent\Controller;
 
  use Exception;
 use OCP\IRequest;
@@ -8,16 +8,16 @@ use OCP\IRequest;
  use OCP\AppFramework\Http\DataResponse;
  use OCP\AppFramework\ApiController;
 
- use OCA\sendent\db\settinggroupvalue;
- use OCA\sendent\db\settinggroupvaluemapper;
- use OCA\sendent\service\sendentfilestoragemanager;
- 
- class settinggroupvalueapicontroller extends ApiController {
- 	private $mapper;
- 	private $filestoragemanager;
+ use OCA\Sendent\Db\SettingGroupValue;
+ use OCA\Sendent\Db\SettingGroupValuemapper;
+ use OCA\Sendent\Service\SendentFileStorageManager;
 
- 	public function __construct(IRequest $request, settinggroupvaluemapper $mapper,
-	 sendentfilestoragemanager $filestoragemanager) {
+ class SettingGroupValueApiController extends ApiController {
+ 	private $mapper;
+ 	private $FileStorageManager;
+
+ 	public function __construct(IRequest $request, SettingGroupValueMapper $mapper,
+	 SendentFileStorageManager $FileStorageManager) {
  		parent::__construct(
 			"sendent",
 			$request,
@@ -25,7 +25,7 @@ use OCP\IRequest;
 			'Authorization, Content-Type, Accept',
 			1728000);
  		$this->mapper = $mapper;
- 		$this->filestoragemanager = $filestoragemanager;
+ 		$this->FileStorageManager = $FileStorageManager;
  	}
 
  	/**
@@ -36,7 +36,7 @@ use OCP\IRequest;
  		$list = $this->mapper->findAll();
  		foreach ($list as $result) {
  			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
- 				$result->setValue($this->filestoragemanager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+ 				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
  			}
  		}
  		return new DataResponse($list);
@@ -51,7 +51,7 @@ use OCP\IRequest;
  		try {
  			$result = $this->mapper->find($id);
  			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
- 				$result->setValue($this->filestoragemanager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+ 				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
  			}
  			return new DataResponse($result);
  		} catch (Exception $e) {
@@ -67,7 +67,7 @@ use OCP\IRequest;
  		try {
  			$result = $this->mapper->findBySettingKeyId($settingkeyid);
  			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
- 				$result->setValue($this->filestoragemanager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+ 				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
  			}
  			return new DataResponse($result);
  		} catch (Exception $e) {
@@ -92,7 +92,7 @@ use OCP\IRequest;
  	 */
  	public function create(int $settingkeyid, int $groupid, string $value) {
  		if ($this->valueSizeForDb($value) === false) {
- 			$value = $this->filestoragemanager->writeTxt($groupid, $settingkeyid, $value);
+ 			$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
  		}
  		$SettingGroupValue = new SettingGroupValue();
  		$SettingGroupValue->setSettingkeyid($settingkeyid);
@@ -113,12 +113,12 @@ use OCP\IRequest;
  	public function update(int $id,int $settingkeyid, int $groupid, string $value) {
  		try {
  			if ($this->valueSizeForDb($value) === false) {
- 				$value = $this->filestoragemanager->writeTxt($groupid, $settingkeyid, $value);
+ 				$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
  			}
  			$SettingGroupValue = $this->mapper->find($id);
  			$SettingGroupValue->setSettingkeyid($settingkeyid);
  			$SettingGroupValue->setGroupid($groupid);
-			 
+
  			$SettingGroupValue->setValue($value);
  			$result = $this->mapper->update($SettingGroupValue);
  			return $this->showBySettingKeyId($settingkeyid);

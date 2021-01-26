@@ -2,15 +2,15 @@
 
 // db/authormapper.php
 
-namespace OCA\sendent\db;
+namespace OCA\Sendent\Db;
 
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\QBMapper;
 
-class settinggroupvaluemapper extends QBMapper {
+class SettingGroupValueMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'sndnt_stnggrval', settinggroupvalue::class);
+		parent::__construct($db, 'sndnt_stnggrval', SettingGroupValue::class);
 	}
 
 

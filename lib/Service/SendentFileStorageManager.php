@@ -1,11 +1,11 @@
 <?php
 
-namespace OCA\sendent\service;
+namespace OCA\Sendent\Service;
 
 use OCP\Files\IAppData;
 use OCP\Files\NotFoundException;
 
-class sendentfilestoragemanager {
+class SendentFileStorageManager {
 	private $appData;
 
 	public function __construct(IAppData $appData) {
@@ -31,7 +31,7 @@ class sendentfilestoragemanager {
 		} catch (NotFoundException $e) {
 			$pngFile = $folder->newFile($group . '_' . $key . 'settinggroupvaluefile.txt');
 		}
-	   
+
 		$pngFile->putContent($content);
 		return $group . '_' . $key . 'settinggroupvaluefile.txt';
 	}
@@ -51,7 +51,7 @@ class sendentfilestoragemanager {
 			$folder = $this->appData->getFolder('settings');
 			$file = $folder->getFile($group . '_' . $key . 'settinggroupvaluefile.txt');
 			// check if file exists and read from it if possible
-		
+
 			return $file->getContent();
 		} catch (NotFoundException $e) {
 			return '';

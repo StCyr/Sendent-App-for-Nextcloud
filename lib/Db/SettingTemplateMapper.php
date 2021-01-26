@@ -2,13 +2,13 @@
 
 // db/authormapper.php
 
-namespace OCA\sendent\db;
+namespace OCA\Sendent\Db;
 
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\QBMapper;
 
-class settingtemplatemapper extends QBMapper {
+class SettingTemplateMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'sndnt_stngtmplt');
 	}

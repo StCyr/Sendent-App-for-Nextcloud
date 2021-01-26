@@ -1,13 +1,13 @@
 <?php
 
-namespace OCA\sendent\controller;
+namespace OCA\Sendent\Controller;
 
 use Closure;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 
-use OCA\sendent\service\notfoundexception;
+use OCA\Sendent\Service\NotFoundException;
 
 trait errors {
 	protected function handleNotFound(Closure $callback) {

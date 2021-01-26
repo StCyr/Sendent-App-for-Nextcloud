@@ -1,19 +1,19 @@
 <?php
 
- namespace OCA\sendent\controller;
+ namespace OCA\Sendent\Controller;
 
  use OCP\IRequest;
  use OCP\AppFramework\Http\DataResponse;
  use OCP\AppFramework\ApiController;
 
- use OCA\sendent\service\settingkeyservice;
+ use OCA\Sendent\Service\SettingKeyservice;
 
- class settingkeyapicontroller extends ApiController {
+ class SettingKeyApiController extends ApiController {
  	private $service;
 
  	public function __construct($appName,
 	 IRequest $request,
-	 settingkeyservice $service,
+	 SettingKeyService $service,
 	 $userId) {
  		parent::__construct($appName, $request);
  		$this->service = $service;

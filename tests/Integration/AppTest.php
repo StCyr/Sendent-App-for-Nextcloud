@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\sendent\Tests\Integration\Controller;
+namespace OCA\Sendent\Tests\Integration\Controller;
 
 use OCP\AppFramework\App;
 use Test\TestCase;

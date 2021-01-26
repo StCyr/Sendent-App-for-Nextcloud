@@ -1,12 +1,12 @@
 <?php
 
 // db/author.php
-namespace OCA\sendent\db;
+namespace OCA\Sendent\Db;
 
 use OCP\AppFramework\Db\Entity;
 use JsonSerializable;
 
-class settingkey extends Entity implements JsonSerializable {
+class SettingKey extends Entity implements JsonSerializable {
 	protected $key;
 	protected $name;
 	protected $valuetype;
