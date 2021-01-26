@@ -10,8 +10,6 @@
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'page#settingTemplateDetail', 'url' => '/settingTemplateDetail', 'verb' => 'GET'],
-		['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
 		[
 			'name' => 'settingkey_api#preflighted_cors',
 			'url' => '/api/1.0/{path}',
@@ -47,6 +45,6 @@ return [
 		['name' => 'settingtemplate_api#create', 'url' => '/api/1.0/settingtemplate', 'verb' => 'POST'],
 		['name' => 'settingtemplate_api#update', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'PUT'],
 		['name' => 'settingtemplate_api#destroy', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'DELETE']
-		
+
 	]
 ];
