@@ -3,7 +3,7 @@
 # @author Bernhard Posselt <dev@bernhard-posselt.com>
 # @copyright Bernhard Posselt 2016
 
-# Generic Makefile for building and packaging a Nextcloud app which uses npm and
+# Generic Makefile for building and packaging a Nextcloud app which uses yarn and
 # Composer.
 #
 # Dependencies:
@@ -11,31 +11,31 @@
 # * which
 # * curl: used if phpunit and composer are not installed to fetch them from the web
 # * tar: for building the archive
-# * npm: for building and testing everything JS
+# * yarn: for building and testing everything JS
 #
 # If no composer.json is in the app root directory, the Composer step
 # will be skipped. The same goes for the package.json which can be located in
 # the app root or the js/ directory.
 #
-# The npm command by launches the npm build script:
+# The yarn command by launches the yarn build script:
 #
-#    npm run build
+#    yarn build
 #
-# The npm test command launches the npm test script:
+# The yarn test command launches the yarn test script:
 #
-#    npm run test
+#    yarn test
 #
 # The idea behind this is to be completely testing and build tool agnostic. All
 # build tools and additional package managers should be installed locally in
 # your project, since this won't pollute people's global namespace.
 #
-# The following npm scripts in your package.json install and update the bower
-# and npm dependencies and use gulp as build system (notice how everything is
+# The following yarn scripts in your package.json install and update the bower
+# and yarn dependencies and use gulp as build system (notice how everything is
 # run from the node_modules folder):
 #
 #    "scripts": {
 #        "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-#        "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+#        "prebuild": "yarn install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
 #        "build": "node node_modules/gulp-cli/bin/gulp.js"
 #    },
 
@@ -45,24 +45,24 @@ source_build_directory=$(CURDIR)/build/artifacts/source
 source_package_name=$(source_build_directory)/$(app_name)
 appstore_build_directory=$(CURDIR)/build/artifacts/appstore
 appstore_package_name=$(appstore_build_directory)/$(app_name)
-npm=$(shell which npm 2> /dev/null)
+yarn=$(shell which yarn 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
 
 all: build
 
 # Fetches the PHP and JS dependencies and compiles the JS. If no composer.json
 # is present, the composer step is skipped, if no package.json or js/package.json
-# is present, the npm step is skipped
+# is present, the yarn step is skipped
 .PHONY: build
 build:
 ifneq (,$(wildcard $(CURDIR)/composer.json))
 	make composer
 endif
 ifneq (,$(wildcard $(CURDIR)/package.json))
-	make npm
+	make yarn
 endif
 ifneq (,$(wildcard $(CURDIR)/js/package.json))
-	make npm
+	make yarn
 endif
 
 # Installs and updates the composer dependencies. If composer is not installed
@@ -81,13 +81,13 @@ else
 	composer update --prefer-dist
 endif
 
-# Installs npm dependencies
-.PHONY: npm
-npm:
+# Installs yarn dependencies
+.PHONY: yarn
+yarn:
 ifeq (,$(wildcard $(CURDIR)/package.json))
-	cd js && $(npm) run build
+	cd js && $(yarn) build
 else
-	npm run build
+	yarn build
 endif
 
 # Removes the appstore build
@@ -96,7 +96,7 @@ clean:
 	rm -rf ./build
 
 # Same as clean but also removes dependencies installed by composer, bower and
-# npm
+# yarn
 .PHONY: distclean
 distclean: clean
 	rm -rf vendor
