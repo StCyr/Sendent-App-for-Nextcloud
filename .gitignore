@@ -5,3 +5,4 @@ node_modules/
 /.env
 .php_cs.cache
 .phpunit.result.cache
+/js/filelist.js*
