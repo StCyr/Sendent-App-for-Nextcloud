@@ -15,7 +15,10 @@ const SANITIZE_OPTIONS = {
         html: ['xmlns*'],
         meta: ['name', 'content'],
     },
-    allowedSchemes: ['data', 'mailto', 'tel'],
+    allowedSchemes: ['data'],
+    allowedSchemesByTag: {
+        a: ['http', 'https', 'mailto', 'tel'],
+    }
 };
 
 type NextcloudFile = {
