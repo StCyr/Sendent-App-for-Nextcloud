@@ -1,40 +1,3 @@
-
-
-$(document).ready(function () {
-    var that = this;
-    that.settingGroupId = 0;
-    that.settingTemplateId = 0;
-    that.handler = new SettingFormHandler();
-    that.handler.LoopThroughSettings();
-    $('#settingsform').on('submit', function (e) {
-        e.preventDefault();
-        //I had an issue that the forms were submitted in geometrical progression after the next submit. 
-        // This solved the problem.
-        e.stopImmediatePropagation();
-        //that.handler.SaveSettingsForm();
-    });
-
-    // $('#settingTemplateCreateEditForm').on('submit', function (e) {
-    //     e.preventDefault();
-    //     //I had an issue that the forms were submitted in geometrical progression after the next submit. 
-    //     // This solved the problem.
-    //     e.stopImmediatePropagation();
-    //     if(document.getElementById("templateid").value == '')
-    //     {
-    //         that.settingTemplateCalls.create(document.getElementById("templatename").value);
-    //     }
-    //     else
-    //     {
-    //         that.settingTemplateCalls.update(document.getElementById("templateid").value, document.getElementById("templatename").value);
-    //         var modal = document.getElementById("settingTemplateCreateModal");
-    //         modal.style.display = "none";
-    //         document.getElementById("templateid").value ='';
-    //         document.getElementById("templatename").value ='';
-    //     }
-    // });
-    
-});
-
 class SettingFormHandler {
 
     constructor() {
@@ -124,6 +87,7 @@ class SettingFormHandler {
         that.setShowHideAllSettings();
         });
     }
+
 
     SaveSettingsForm() {
         var that = this;
@@ -303,5 +267,41 @@ class SettingFormHandler {
 
             }
           }
-}
-}
+        }
+    }
+
+$(document).ready(function () {
+    var that = this;
+    that.settingGroupId = 0;
+    that.settingTemplateId = 0;
+    that.handler;
+    that.handler = new SettingFormHandler();
+    that.handler.LoopThroughSettings();
+    $('#settingsform').on('submit', function (e) {
+        e.preventDefault();
+        //I had an issue that the forms were submitted in geometrical progression after the next submit. 
+        // This solved the problem.
+        e.stopImmediatePropagation();
+        //that.handler.SaveSettingsForm();
+    });
+
+    // $('#settingTemplateCreateEditForm').on('submit', function (e) {
+    //     e.preventDefault();
+    //     //I had an issue that the forms were submitted in geometrical progression after the next submit. 
+    //     // This solved the problem.
+    //     e.stopImmediatePropagation();
+    //     if(document.getElementById("templateid").value == '')
+    //     {
+    //         that.settingTemplateCalls.create(document.getElementById("templatename").value);
+    //     }
+    //     else
+    //     {
+    //         that.settingTemplateCalls.update(document.getElementById("templateid").value, document.getElementById("templatename").value);
+    //         var modal = document.getElementById("settingTemplateCreateModal");
+    //         modal.style.display = "none";
+    //         document.getElementById("templateid").value ='';
+    //         document.getElementById("templatename").value ='';
+    //     }
+    // });
+    
+});

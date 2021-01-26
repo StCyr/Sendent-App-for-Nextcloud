@@ -109,8 +109,9 @@ function showHideAdvancedTheming(settingkeyvalues, settingkeyid)
           }
 }
 function settingValueChanged(settingid) {
-  this.handler = new SettingFormHandler();
   var that = this;
+  that.handler = new SettingFormHandler();
+
   $(".section").each(function () {
     var personalsettingboxes = $(this).find(".personal-settings-setting-box#" + settingid);
     personalsettingboxes.each(function (settingboxIndex, settingbox) {
