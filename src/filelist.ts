@@ -140,6 +140,8 @@ function addFooterWatcher() {
 
     fileList.$fileList.on('updated', onFileListUpdated);
     fileList?.$el.on('changeDirectory', onDirectoryChanged);
+
+    onFileListUpdated();
 }
 
 if (document.readyState === 'complete') {
