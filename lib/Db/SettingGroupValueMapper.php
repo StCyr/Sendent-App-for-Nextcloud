@@ -35,7 +35,7 @@ class SettingGroupValueMapper extends QBMapper {
 	 */
 	public function findBySettingKeyId(int $settingkeyid) {
 		$qb = $this->db->getQueryBuilder();
-
+		
 		$qb->select('*')
 		   ->from('sndnt_stnggrval')
 		   ->where(
@@ -44,7 +44,21 @@ class SettingGroupValueMapper extends QBMapper {
 
 		return $this->findEntity($qb);
 	}
+	/**
+	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
+	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
+	 */
+	public function findByGroupId(int $groupId) {
+		$qb = $this->db->getQueryBuilder();
+		
+		$qb->select('*')
+		   ->from('sndnt_stnggrval')
+		   ->where(
+			   $qb->expr()->eq('groupid', $qb->createNamedParameter($groupId, IQueryBuilder::PARAM_INT))
+		   );
 
+		return $this->findEntities($qb);
+	}
 	public function findAll($limit = null, $offset = null) {
 		$qb = $this->db->getQueryBuilder();
 

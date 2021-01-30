@@ -103,9 +103,9 @@ class SettingGroupValueAjaxCalls {
         });
     }
 
-    update($id, $settingkeyid, $value) {
+    update($id, $settingkeyid, $value, $groupid) {
         var that = this;
-        var sgv = new SettingGroupValue($settingkeyid, that.settingGroupId, $value);
+        var sgv = new SettingGroupValue($settingkeyid, $groupid, $value);
         return $.ajax({
             type: 'PUT',
             url: that.url + '/' + $id,
@@ -132,9 +132,9 @@ class SettingGroupValueAjaxCalls {
         });
     }
 
-    create($settingkeyid, $value) {
+    create($settingkeyid, $value, $groupid) {
         var that = this;
-        var sgv = new SettingGroupValue($settingkeyid, that.settingGroupId, $value);
+        var sgv = new SettingGroupValue($settingkeyid, $groupid, $value);
         return $.ajax({
             type: 'POST',
             url: that.url,
