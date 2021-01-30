@@ -1,13 +1,12 @@
 <?php
 
-namespace OCA\sendent\Tests\Unit\Controller;
+namespace OCA\Sendent\Tests\Unit\Controller;
 
 use PHPUnit_Framework_TestCase;
 
 use OCP\AppFramework\Http\TemplateResponse;
 
-use OCA\sendent\Controller\PageController;
-
+use OCA\Sendent\Controller\PageController;
 
 class PageControllerTest extends PHPUnit_Framework_TestCase {
 	private $controller;
@@ -27,5 +26,4 @@ class PageControllerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('index', $result->getTemplateName());
 		$this->assertTrue($result instanceof TemplateResponse);
 	}
-
 }

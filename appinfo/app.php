@@ -1,6 +1,5 @@
 <?php
 
-namespace OCA\sendent\appinfo;
-use OCP\AppFramework\App;
-$app = new application();
-$app->registerNavigation();
+OCP\Util::addScript('sendent', 'filelist');
+
+\OC::$server->query(\OCA\Sendent\AppInfo\Application::class);

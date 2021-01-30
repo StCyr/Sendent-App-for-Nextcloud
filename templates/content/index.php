@@ -1,10 +1,10 @@
 <?php
 script('sendent', '3rdparty/jscolor/jscolor');
-script('sendent', array('script'));
-script('sendent', array('SettingKeyScript'));
-script('sendent', array('SettingGroupValueScript'));
-script('sendent', array('SettingCreator'));
-style('sendent', array('style'));
+script('sendent', ['script']);
+script('sendent', ['SettingKeyScript']);
+script('sendent', ['SettingGroupValueScript']);
+script('sendent', ['SettingCreator']);
+style('sendent', ['style']);
 
 // script('Sendent', array('SettingTemplateScript'));
 // script('Sendent', array('SettingKeyScript'));

@@ -1,10 +1,9 @@
 <?php
 
-namespace OCA\sendent\Tests\Integration\Controller;
+namespace OCA\Sendent\Tests\Integration\Controller;
 
 use OCP\AppFramework\App;
 use Test\TestCase;
-
 
 /**
  * This test shows how to make a small Integration Test. Query your class
@@ -12,18 +11,16 @@ use Test\TestCase;
  * against the database
  */
 class AppTest extends TestCase {
+	private $container;
 
-    private $container;
+	public function setUp() {
+		parent::setUp();
+		$app = new App('Sendent');
+		$this->container = $app->getContainer();
+	}
 
-    public function setUp() {
-        parent::setUp();
-        $app = new App('Sendent');
-        $this->container = $app->getContainer();
-    }
-
-    public function testAppInstalled() {
-        $appManager = $this->container->query('OCP\App\IAppManager');
-        $this->assertTrue($appManager->isInstalled('Sendent'));
-    }
-
+	public function testAppInstalled() {
+		$appManager = $this->container->query('OCP\App\IAppManager');
+		$this->assertTrue($appManager->isInstalled('Sendent'));
+	}
 }

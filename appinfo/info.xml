@@ -8,16 +8,16 @@
     <version>1.0.18</version>
     <licence>agpl</licence>
     <author mail="support@sendent.nl" homepage="https://www.sendent.nl">Sendent B.V.</author>
-    <namespace>sendent</namespace>
+    <namespace>Sendent</namespace>
     <settings>
-        <admin>OCA\sendent\settings\sendentsettings</admin>
-        <admin-section>OCA\sendent\settings\sendentsection</admin-section>
+        <admin>OCA\Sendent\Settings\SendentSettings</admin>
+        <admin-section>OCA\Sendent\Settings\SendentSection</admin-section>
     </settings>
    <category>integration</category>
     <category>office</category>
     <category>social</category>
     <website>https://www.sendent.nl</website>
-    
+
     <bugs>https://www.sendent.nl/support</bugs>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sendentbanner.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sharefilesuploading.png</screenshot>
