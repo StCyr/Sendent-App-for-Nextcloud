@@ -45,6 +45,20 @@ class SettingGroupValueApiController extends ApiController {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 */
+	public function theming() {
+		$list = $this->mapper->findAll();
+		foreach ($list as $result) {
+			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
+				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+			}
+		}
+		return new DataResponse($list);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 * @param int $id
 	 */
 	public function show(int $id) {
@@ -58,7 +72,7 @@ class SettingGroupValueApiController extends ApiController {
 			return new DataResponse([], Http::STATUS_NOT_FOUND);
 		}
 	}
-
+	
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
@@ -75,7 +89,31 @@ class SettingGroupValueApiController extends ApiController {
 			return new DataResponse([], Http::STATUS_NOT_FOUND);
 		}
 	}
-
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 * @param int $groupid
+	 */
+	public function findByGroupId(int $groupid) {
+		try {
+			if($groupid == 1) {
+				$result = $this->mapper->findByGroupId($groupid);
+				foreach($result as $item) {
+					if ($this->valueIsSettingGroupValueFilePath($item->getValue()) !== false) {
+						$item->setValue($this->FileStorageManager->getContent($item->getGroupid(), $item->getSettingkeyid()));
+					}
+				}
+				return new DataResponse($result);
+			}
+			else {
+				return new DataResponse([], Http::STATUS_NOT_FOUND);
+			}
+		} catch (Exception $e) {
+			return new DataResponse([], Http::STATUS_NOT_FOUND);
+		}
+	}
+	
 	private function valueIsSettingGroupValueFilePath($value) {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;

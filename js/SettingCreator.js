@@ -19,6 +19,9 @@ class SettingFormHandler {
                     settingkeyvalues.each(function () {
                         var settingkeyname = $(this).find("#settingkeyname")[0].value;
                         var settingkeykey = $(this).find("#settingkeykey")[0].value;
+                        var settingkeytemplateid = $(this).find("#settingkeytemplateid")[0].value;
+                        var settinggroupid = $(this).find("#settinggroupid")[0].value;
+                        var settingkeykey = $(this).find("#settingkeykey")[0].value;
                         var settingkeyvalue = $(this).find(".settingkeyvalueinput")[0].value;
 
                         var settingkeyvaluetype = $(this).find(".settingkeyvalueinput")[0].type;
@@ -62,12 +65,12 @@ class SettingFormHandler {
                             console.warn(setting[0]);
                             console.warn(err.message);
                             //when no settingkey is present
-                            $.when(calls.create(settingkeykey, settingkeyname, settingkeyvaluetype)).done(function (data) {
+                            $.when(calls.create(settingkeykey, settingkeyname, settingkeyvaluetype, settingkeytemplateid)).done(function (data) {
                                 //when no settingkey is present: create settingkey
                                 $(settingkeyvaluethis).find("#settingkeyid")[0].value = data.key;
                                 $.when(valuecalls.showBySettingKeyId(settingkeykey)).fail(function (failedvalueget) {
                                     //when no settinggroupvalue is present
-                                    $.when(valuecalls.create(data.key, settingkeyvalue)).done(function (data2) {
+                                    $.when(valuecalls.create(data.key, settingkeyvalue, settinggroupid)).done(function (data2) {
                                         //when no settinggroupvalue is present: create settinggroupvalue
                                         //TODO: We have to check if settingkeyvaluetype is indicating DOM element is supposed to contain HTML without rendering it.
                                         if (settingkeyvaluetype == 'select-one') {
@@ -108,6 +111,8 @@ class SettingFormHandler {
         var settingkeyname = $(settingkeyvalueblock).find("#settingkeyname")[0].value;
         var settingkeyid = $(settingkeyvalueblock).find("#settingkeyid")[0].value;
         var settingkeykey = $(settingkeyvalueblock).find("#settingkeykey")[0].value;
+        var settingkeytemplateid = $(settingkeyvalueblock).find("#settingkeytemplateid")[0].value;
+        var settinggroupid = $(settingkeyvalueblock).find("#settinggroupid")[0].value;
         var settingkeyvalue = $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].value;
         var settingkeyvaluetype = $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].type;
         if (settingkeyvaluetype == 'select-one') {
@@ -119,7 +124,7 @@ class SettingFormHandler {
 
         $.when(valuecalls.showBySettingKeyId(settingkeyid)).fail(function (failedvalueget) {
             //when no settinggroupvalue is present
-            $.when(valuecalls.create(settingkeyid, settingkeyvalue)).done(function (data3) {
+            $.when(valuecalls.create(settingkeyid, settingkeyvalue, settinggroupid)).done(function (data3) {
                 //when no settinggroupvalue is present: create settinggroupvalue
                 if (settingkeyvaluetype == 'select-one') {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput option[value='" + data3.value + "']").prop("selected", true);
@@ -143,7 +148,7 @@ class SettingFormHandler {
                 }
             });
         }).done(function (valuedata) {
-            $.when(valuecalls.update(settingkeyid, settingkeyid, settingkeyvalue)).done(function (data3) {
+            $.when(valuecalls.update(settingkeyid, settingkeyid, settingkeyvalue, settinggroupid)).done(function (data3) {
                 //when settinggroupvalue is present: update settinggroupvalue
                 if (settingkeyvaluetype == 'select-one') {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput option[value='" + data3.value + "']").prop("selected", true);

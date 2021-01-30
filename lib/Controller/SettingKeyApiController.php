@@ -6,7 +6,7 @@
  use OCP\AppFramework\Http\DataResponse;
  use OCP\AppFramework\ApiController;
 
- use OCA\Sendent\Service\SettingKeyservice;
+ use OCA\Sendent\Service\SettingKeyService;
 
  class SettingKeyApiController extends ApiController {
  	private $service;
@@ -44,7 +44,17 @@
  	 */
  	public function showByKey(string $key) {
  		return $this->service->findByKey($key);
- 	}
+	 }
+	 
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 */
+	public function showTheming()
+	{
+		return $this->service->findByTemplateId(1);
+	}
 
  	/**
  	 * @NoAdminRequired

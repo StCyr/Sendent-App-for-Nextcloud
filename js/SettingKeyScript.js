@@ -91,13 +91,13 @@ class SettingKeyAjaxCalls {
             }
         });
     }
-    update($id, $key, $name, $valuetype) {
+    update($id, $key, $name, $valuetype, $templateid) {
         var that = this;
         return $.ajax({
             type: 'PUT',
             url: that.url + '/' + $id,
             contentType: 'application/json',
-            data: '{"name" : "'+$name+'","key" : "'+$key+'", "valuetype" : "'+$valuetype+'", "templateid" : "'+ that.settingTemplateId +'"}',
+            data: '{"name" : "'+$name+'","key" : "'+$key+'", "valuetype" : "'+$valuetype+'", "templateid" : "'+ $templateid +'"}',
             beforeSend: function (request) {
                 //request.setRequestHeader("requesttoken", token);
                 //request.setRequestHeader("OCS-APIRequest", true);
@@ -112,13 +112,13 @@ class SettingKeyAjaxCalls {
         });
     }
 
-    create($key, $name, $valuetype) {
+    create($key, $name, $valuetype, $templateid) {
         var that = this;
         return $.ajax({
             type: 'POST',
             url: that.url,
             contentType: 'application/json',
-             data: '{"name" : "'+$name+'","key" : "'+$key+'", "valuetype" : "'+$valuetype+'", "templateid" : "'+ that.settingTemplateId +'"}',
+             data: '{"name" : "'+$name+'","key" : "'+$key+'", "valuetype" : "'+$valuetype+'", "templateid" : "'+ $templateid +'"}',
             beforeSend: function (request) {
                 //request.setRequestHeader("requesttoken", token);
                 //request.setRequestHeader("OCS-APIRequest", true);
