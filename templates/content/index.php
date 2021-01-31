@@ -1,33 +1,121 @@
 <?php
 script('sendent', '3rdparty/jscolor/jscolor');
 script('sendent', ['script']);
+script('sendent', ['LicenseScript']);
 script('sendent', ['SettingKeyScript']);
 script('sendent', ['SettingGroupValueScript']);
 script('sendent', ['SettingCreator']);
 style('sendent', ['style']);
-
-// script('Sendent', array('SettingTemplateScript'));
-// script('Sendent', array('SettingKeyScript'));
 ?>
-<!-- <div id="app-content-wrapper">
-    <div class="app-content-list" id="settingTemplateList">
-        <a href="#domainExceptions" class="app-content-list-item" id="settingtemplate-domainExceptions">
-            <div class="app-content-list-item-line-one">Nextcloud Outlook Add-in</div>
-            <div class="icon-edit"></div>
-        </a>
-    </div> 
-    <div class="app-content-detail" id="settingTemplateDetail">-->
+
 <form class="form" method="post" id="settingsform">
-    <!-- <div class="settingTemplateDetailInclude section" id="domainExceptions">
+
+    <div class="settingTemplateDetailExclude section" id="license">
         <h1>
-            Server settings
+            License
         </h1>
-        
-    </div> -->
+        <div class="license-settings-setting-box" id="licensekey">
+            <div id="licensekey" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">License key</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="licensekey" value=""
+                    placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
+                <input type="hidden" id="settingkeyname" value="licensekey">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licenseEmail">
+            <div id="licenseEmail" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Licensed emailaddress</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="licenseEmail" value=""
+                    placeholder="Enter emailaddress" autocomplete="on" autocapitalize="none" autocorrect="off">
+                <input type="hidden" id="settingkeyname" value="licenseEmail">
+                <input type="hidden" id="settingkeykey" value="901">
+                <input type="hidden" id="settingkeyid" value="901">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licenselevel">
+            <div id="licenselevel" class="settingkeyvalue">
+                <label class="licenselabel">
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">Subscription
+                        level</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselevel"></span>
+                <input type="hidden" id="settingkeyname" value="licenselevel">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licensestatus">
+            <div id="licensestatus" class="settingkeyvalue">
+                <label class="licenselabel">
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License status</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licensestatus"></span>
+                <input type="hidden" id="settingkeyname" value="licensestatus">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licenselastcheck">
+            <div id="licenselastcheck" class="settingkeyvalue">
+                <label class="licenselabel">
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License last
+                        check</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselastcheck"></span>
+                <input type="hidden" id="settingkeyname" value="licenselastcheck">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licenseexpires">
+            <div id="licenseexpires" class="settingkeyvalue">
+                <label class="licenselabel">
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License
+                        expiration</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenseexpires"></span>
+                <input type="hidden" id="settingkeyname" value="licenseexpires">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="license-settings-setting-box" id="licensebutton">
+            <div id="licensebutton" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"></span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input type="button" id="btnLicenseActivation" value="Activate license">
+                <input type="hidden" id="settingkeyname" value="licensebutton">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        <div class="licensesection test" id="licensesection">
+
+        </div>
+    </div>
+
     <div class="settingTemplateDetailInclude section" id="generalsettings">
-
-
-
         <h1>
             General
         </h1>
