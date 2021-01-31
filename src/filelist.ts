@@ -15,6 +15,7 @@ const SANITIZE_OPTIONS = {
         html: ['xmlns*'],
         meta: ['name', 'content'],
     },
+    allowVulnerableTags: true,
     allowedSchemes: ['data'],
     allowedSchemesByTag: {
         a: ['http', 'https', 'mailto', 'tel'],
