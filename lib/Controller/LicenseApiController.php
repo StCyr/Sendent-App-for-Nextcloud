@@ -4,12 +4,12 @@ namespace OCA\Sendent\Controller;
 
 use Exception;
 use OCA\Sendent\Controller\Dto\LicenseStatus;
+use OCA\Sendent\Service\LicenseManager;
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 
 use OCA\Sendent\Service\LicenseService;
-use OCA\Sendent\Service\LicenseManager;
 
 class LicenseApiController extends ApiController {
 	private $service;
@@ -18,8 +18,8 @@ class LicenseApiController extends ApiController {
 	public function __construct(
 			  $appName,
 			  IRequest $request,
-			  LicenseService $licenseservice,
 			  LicenseManager $licensemanager,
+			  LicenseService $licenseservice,
 			  $userId
 	   ) {
 		parent::__construct($appName, $request);
