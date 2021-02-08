@@ -49,6 +49,9 @@ class InitialLoadManager {
             ||  $this->showTemplateBySettingKeyId("100") !== 1 || $this->showGroupIdBySettingKeyId("100") !== 1) {
 				$this->addAdvancedThemingUpdate4();
             }
+            if ($this->SettingKeyMapper->settingKeyCount("104") < 1) {
+				$this->addAdvancedThemingNameUpdate();
+			}
 			$this->fixPaths();
 			$this->fixSnippets();
 		} catch (Exception $e) {
@@ -320,7 +323,17 @@ class InitialLoadManager {
 			$this->createGroupValue("1", "103", "#151c62");
 		}
 	}
-
+    public function addAdvancedThemingNameUpdate()
+    {
+        if (!is_null($this->showNameBySettingKeyId("104"))) {
+            $this->updateKey("104", "VendorName", "1", "text");
+            $value = $this->showBySettingKeyId(104);
+            $this->update($value->getId(), 104, 1, $value->getValue());
+		} else {
+			$this->createKey("104", "VendorName", "1", "text");
+			$this->createGroupValue("1", "104", "Sendent");
+		}
+    }
 	public function addSendmode() {
 		$this->createKey("23", "sendmode", "0", "select-one");
 		$this->createGroupValue("0", "23", "CurrentMail");

@@ -479,6 +479,22 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="80">
             </div>
         </div>
+        <div class="personal-settings-setting-box" id="VendorName">
+            <div id="VendorName" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name  
+                    </span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="VendorName" value="" placeholder="Sendent" autocomplete="on" autocapitalize="none" autocorrect="off">
+                <input type="hidden" id="settingkeyname" value="VendorName">
+                <input type="hidden" id="settingkeytemplateid" value="1">
+                <input type="hidden" id="settinggroupid" value="1">
+                <input type="hidden" id="settingkeykey" value="104">
+                <input type="hidden" id="settingkeyid" value="104">
+            </div>
+        </div>
         <div class="personal-settings-setting-box" id="ButtonPrimaryColor">
             <div id="ButtonPrimaryColor" class="settingkeyvalue">
                 <label>
