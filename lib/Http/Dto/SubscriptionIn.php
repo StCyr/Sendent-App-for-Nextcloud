@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\Sendent\Service\Http\Dto;
+namespace OCA\Sendent\Http\Dto;
 
 use OCA\Sendent\Db\License;
 use JsonSerializable;

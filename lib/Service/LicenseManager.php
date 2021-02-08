@@ -6,7 +6,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Sendent\Db\License;
-use OCA\Sendent\Service\Http\SubscriptionValidationHttpClient;
+use OCA\Sendent\Http\SubscriptionValidationHttpClient;
 
 use Exception;
 

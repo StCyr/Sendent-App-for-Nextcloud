@@ -1,11 +1,11 @@
 <?php
 
-namespace OCA\Sendent\Service\Http;
+namespace OCA\Sendent\Http;
 
 class LicenseHttpClient {
 	protected $baseUrl;
-	public function __construct($baseUrl) {
-		$this->baseUrl = $baseUrl;
+	public function __construct() {
+		$this->baseUrl = "https://api.scwcloud.sendent.nl/";
 	}
 
 	public function Get($request) {

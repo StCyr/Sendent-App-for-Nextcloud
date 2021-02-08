@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\Sendent\Service\Http;
+namespace OCA\Sendent\Http;
 
 use OCA\Sendent\Service\Http\Dto\SubscriptionIn;
 use OCA\Sendent\Service\ConnectedUserService;
