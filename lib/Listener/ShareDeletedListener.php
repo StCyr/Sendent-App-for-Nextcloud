@@ -11,6 +11,7 @@ use OCP\Share\Events\ShareDeletedEvent;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 use OCP\SystemTag\ISystemTagObjectMapper;
+use OCP\SystemTag\TagNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class ShareDeletedListener implements IEventListener {
@@ -105,7 +106,13 @@ class ShareDeletedListener implements IEventListener {
 
 		$this->logger->info('Tag file because share is expired', ['nodeId' => $node->getId()]);
 
-		$this->tagObjectMapper->assignTags($node->getId(), 'files', $expiredTagId);
+		try {
+			$this->tagObjectMapper->assignTags($node->getId(), 'files', $expiredTagId);
+		} catch (TagNotFoundException $e) {
+			$this->logger->warning('Could not tag file, because expired tag does not exist');
+
+			return;
+		}
 
 		$expirationTimestamp = $share->getExpirationDate()->getTimestamp();
 		$node->touch($expirationTimestamp);
@@ -120,7 +127,13 @@ class ShareDeletedListener implements IEventListener {
 
 		$this->logger->info('Tag file because last share has been removed', ['nodeId' => $node->getId()]);
 
-		$this->tagObjectMapper->assignTags($node->getId(), 'files', $removedTagId);
+		try {
+			$this->tagObjectMapper->assignTags($node->getId(), 'files', $removedTagId);
+		} catch (TagNotFoundException $e) {
+			$this->logger->warning('Could not tag file, because removed tag does not exist');
+
+			return;
+		}
 
 		$node->touch();
 	}
