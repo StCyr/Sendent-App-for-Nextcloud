@@ -3,9 +3,11 @@
 namespace OCA\Sendent\AppInfo;
 
 use OCA\Sendent\Listener\ShareCreatedListener;
+use OCA\Sendent\Listener\ShareDeletedListener;
 use OCP\AppFramework\App;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Share\Events\ShareCreatedEvent;
+use OCP\Share\Events\ShareDeletedEvent;
 
 class Application extends App {
 	/**
@@ -20,6 +22,7 @@ class Application extends App {
 		$dispatcher = $this->getContainer()->query(IEventDispatcher::class);
 
 		$dispatcher->addServiceListener(ShareDeletedEvent::class, ShareDeletedListener::class);
+		$dispatcher->addServiceListener(ShareCreatedEvent::class, ShareCreatedListener::class);
 	}
 
 	/**
