@@ -2,7 +2,10 @@
 
 namespace OCA\Sendent\AppInfo;
 
+use OCA\Sendent\Listener\ShareCreatedListener;
 use OCP\AppFramework\App;
+use OCP\EventDispatcher\IEventDispatcher;
+use OCP\Share\Events\ShareCreatedEvent;
 
 class Application extends App {
 	/**
@@ -10,6 +13,13 @@ class Application extends App {
 	 */
 	public function __construct(array $params = []) {
 		parent::__construct('sendent', $params);
+
+		// query is deprecated. Since NC 20 app bootstrap should be used.
+
+		/** @var IEventDispatcher $dispatcher */
+		$dispatcher = $this->getContainer()->query(IEventDispatcher::class);
+
+		$dispatcher->addServiceListener(ShareDeletedEvent::class, ShareDeletedListener::class);
 	}
 
 	/**
