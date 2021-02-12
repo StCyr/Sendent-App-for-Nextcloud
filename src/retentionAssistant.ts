@@ -1,4 +1,4 @@
-import './retentionAssistent.scss';
+import './retentionAssistant.scss';
 import { loadState } from '@nextcloud/initial-state';
 import confirmPassword from '@nextcloud/password-confirmation';
 import { translate as t, translatePlural as p } from '@nextcloud/l10n'
@@ -18,7 +18,7 @@ const DEFAULT_NAMES = {
     [CONFIG_EXPIRED_TAG]: 'retention:expired',
 };
 
-class RetentionAssistent {
+class RetentionAssistant {
     private apps: { [id: string]: string };
 
     private tags: { [id: string]: number }
@@ -30,7 +30,7 @@ class RetentionAssistent {
 
     public start() {
         this.nextStep(0).catch((err) => {
-            logger.error('Error while executing retention assistent', {err});
+            logger.error('Error while executing retention assistant', {err});
         });
     }
 
@@ -286,17 +286,17 @@ class RetentionAssistent {
 }
 
 $(() => {
-    const rootElement = $('#sendent-retention-assistent');
+    const rootElement = $('#sendent-retention-assistant');
 
     if (rootElement.length === 0) {
         return;
     }
 
-    const assistent = new RetentionAssistent(rootElement);
+    const assistant = new RetentionAssistant(rootElement);
 
-    rootElement.find('a[href="#assistent"]').on('click', (ev) => {
+    rootElement.find('a[href="#assistant"]').on('click', (ev) => {
         $(ev.target).remove();
 
-        assistent.start();
+        assistant.start();
     });
 })

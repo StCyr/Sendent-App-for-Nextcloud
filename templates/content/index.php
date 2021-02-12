@@ -10,7 +10,7 @@ style('sendent', ['style']);
 // script('Sendent', array('SettingKeyScript'));
 ?>
 
-<?php print_unescaped($this->inc('content/retentionAssistent')); ?>
+<?php print_unescaped($this->inc('content/retentionAssistant')); ?>
 
 <!-- <div id="app-content-wrapper">
     <div class="app-content-list" id="settingTemplateList">
@@ -485,7 +485,7 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="VendorName">
             <div id="VendorName" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name  
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
