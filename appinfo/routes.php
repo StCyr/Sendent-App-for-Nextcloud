@@ -46,7 +46,9 @@ return [
 		['name' => 'setting_template_api#show', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'GET'],
 		['name' => 'setting_template_api#create', 'url' => '/api/1.0/settingtemplate', 'verb' => 'POST'],
 		['name' => 'setting_template_api#update', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'PUT'],
-		['name' => 'setting_template_api#destroy', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'DELETE']
+		['name' => 'setting_template_api#destroy', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'DELETE'],
 
+		['name' => 'tag#show', 'url' => '/api/1.0/tag/{id}', 'verb' => 'GET'],
+		['name' => 'tag#create', 'url' => '/api/1.0/tag', 'verb' => 'POST'],
 	]
 ];

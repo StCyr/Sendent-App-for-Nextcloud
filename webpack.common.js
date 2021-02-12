@@ -4,6 +4,7 @@ module.exports = {
 	entry: {
 		filelist: [
 			path.join(__dirname, 'src', 'filelist.ts'),
+			path.join(__dirname, 'src', 'retentionAssistent.ts'),
 		],
 	},
 	output: {

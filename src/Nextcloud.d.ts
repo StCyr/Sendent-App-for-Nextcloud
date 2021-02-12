@@ -122,3 +122,9 @@ declare namespace OCA {
         const PublicApp: any;
     }
 }
+
+declare namespace OCP {
+	namespace AppConfig {
+		function setValue(appId: string, key: string, value: any): void;
+	}
+}
