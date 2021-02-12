@@ -293,5 +293,10 @@ $(() => {
     }
 
     const assistent = new RetentionAssistent(rootElement);
-    assistent.start();
+
+    rootElement.find('a[href="#assistent"]').on('click', (ev) => {
+        $(ev.target).remove();
+
+        assistent.start();
+    });
 })
