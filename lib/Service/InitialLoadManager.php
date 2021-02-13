@@ -752,7 +752,7 @@ class InitialLoadManager {
                                            </td>
                                            <td width=475 colspan=2 valign=top style='width:356.4pt;border:none; border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
                                                <p class=MsoNoSpacing>
-                                                   <span lang=EN-GB style='font-size:11.0pt'>{0}&nbsp;</span>
+                                                   <span lang=EN-GB style='font-size:11.0pt'>{PASSWORD}&nbsp;</span>
                                                </p>
                                            </td>
                                        </tr>
