@@ -2,48 +2,39 @@
 
 namespace OCA\Sendent\AppInfo;
 
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
+use OCA\Sendent\Listener\LoadAdditionalScriptsListener;
 use OCA\Sendent\Listener\ShareCreatedListener;
 use OCA\Sendent\Listener\ShareDeletedListener;
+use OCA\Sendent\Service\InitialLoadManager;
 use OCP\AppFramework\App;
-use OCP\EventDispatcher\IEventDispatcher;
-use OCP\Share\Events\ShareCreatedEvent;
-use OCP\Share\Events\ShareDeletedEvent;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
-class Application extends App {
+class Application extends App implements IBootstrap {
+
+	const APPID = 'sendent';
+
 	/**
 	 * @param array $params
 	 */
 	public function __construct(array $params = []) {
 		parent::__construct('sendent', $params);
-
-		// query is deprecated. Since NC 20 app bootstrap should be used.
-
-		/** @var IEventDispatcher $dispatcher */
-		$dispatcher = $this->getContainer()->query(IEventDispatcher::class);
-
-		$dispatcher->addServiceListener(ShareDeletedEvent::class, ShareDeletedListener::class);
-		$dispatcher->addServiceListener(ShareCreatedEvent::class, ShareCreatedListener::class);
 	}
 
-	/**
-	 * Register Navigation Tab
-	 */
-	public function registerNavigation() {
+	public function register(IRegistrationContext $context): void {
+		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalScriptsListener::class);
+		$context->registerEventListener(BeforeTemplateRenderedEvent::class, LoadAdditionalScriptsListener::class);
 
-		// $this->getContainer()
-		// 	 ->getServer()
-		// 	 ->getNavigationManager()
-		// 	 ->add(
-		// 		 function() {
-		// 			 $urlGen = \OC::$server->getURLGenerator();
+		if (class_exists('\\OCP\\Share\\Events\\ShareDeletedEvent')) {
+			$context->registerEventListener(\OCP\Share\Events\ShareDeletedEvent::class, ShareDeletedListener::class);
+			$context->registerEventListener(\OCP\Share\Events\ShareCreatedEvent::class, ShareCreatedListener::class);
+		}
+	}
 
-		// 			 return [
-		// 				 'id'    => $this->appName,
-		// 				 'order' => 10,
-		// 				 'href'  => $urlGen->linkToRoute('Sendent.page.index'),
-		// 				 'name'  => 'Sendent'
-		// 			 ];
-		// 		 }
-		// 	 );
+	public function boot(IBootContext $context): void {
+		$context->getAppContainer()->query(InitialLoadManager::class);
 	}
 }
