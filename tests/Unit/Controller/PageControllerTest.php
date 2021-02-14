@@ -2,21 +2,22 @@
 
 namespace OCA\Sendent\Tests\Unit\Controller;
 
-use PHPUnit_Framework_TestCase;
-
 use OCP\AppFramework\Http\TemplateResponse;
 
 use OCA\Sendent\Controller\PageController;
+use OCP\IRequest;
+use PHPUnit\Framework\TestCase;
 
-class PageControllerTest extends PHPUnit_Framework_TestCase {
+class PageControllerTest extends TestCase {
 	private $controller;
 	private $userId = 'john';
 
-	public function setUp() {
+	public function setUp(): void {
+		/** @var IRequest */
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
 
 		$this->controller = new PageController(
-			'Sendent', $request, $this->userId
+			'sendent', $request, $this->userId
 		);
 	}
 
