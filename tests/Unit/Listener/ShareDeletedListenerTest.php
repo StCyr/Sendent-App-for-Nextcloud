@@ -32,6 +32,10 @@ class ShareDeletedListenerTest extends TestCase {
 	private $listener;
 
 	public function setUp(): void {
+		if (\OCP\Util::getVersion()[0] < 21) {
+			$this->markTestSkipped('Requires at least Nextcloud 21.');
+		}
+
 		/** @var LoggerInterface */
 		$this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 		/** @var ISystemTagObjectMapper */
