@@ -10,7 +10,7 @@ use OCP\AppFramework\Db\QBMapper;
 
 class ConnectedUserMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'sndnt_connuser', connecteduser::class);
+		parent::__construct($db, 'sndnt_connuser', ConnectedUser::class);
 	}
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found

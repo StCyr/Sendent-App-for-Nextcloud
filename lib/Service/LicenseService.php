@@ -90,6 +90,11 @@ class LicenseService {
 	}
 
 	public function createNew(string $license, string $email) {
+		try {
+			$this->cleanupLicenses($license);
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
 		$licenseobj = new License();
 		$licenseobj->setLicensekey($license);
 		$licenseobj->setEmail($email);
@@ -99,6 +104,7 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
+
 		return $this->mapper->insert($licenseobj);
 	}
 
@@ -106,6 +112,7 @@ class LicenseService {
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level) {
 		$this->cleanupLicenses($license);
+		$licenseobj = new License();
 
 		try {
 			$licenseobj = $this->mapper->find($id);
@@ -136,10 +143,10 @@ class LicenseService {
 
 	private function cleanupLicenses($licenseToKeep) {
 		$licenses = $this->mapper->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
-			for ($i = 0; $i < $licenses->count; $i++) {
-				if ($licenses[$i]->getLicensekey() !== $licenseToKeep) {
-					$this->destroy($licenses[$i]->getId());
+		if (isset($licenses)) {
+			foreach ($licenses as $license) {
+				if ($license->getLicensekey() !== $licenseToKeep) {
+					$this->destroy($license->getId());
 				}
 			}
 		}

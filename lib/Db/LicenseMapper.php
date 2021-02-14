@@ -10,7 +10,7 @@ use OCP\AppFramework\Db\QBMapper;
 
 class LicenseMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'sndnt_license', license::class);
+		parent::__construct($db, 'sndnt_license', License::class);
 	}
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
@@ -44,7 +44,9 @@ class LicenseMapper extends QBMapper {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
-		   ->from('sndnt_license');
+		   ->from('sndnt_license')
+		   ->setMaxResults($limit)
+		   ->setFirstResult($offset);
 
 		return $this->findEntities($qb);
 	}

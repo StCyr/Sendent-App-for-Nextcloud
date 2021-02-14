@@ -3,6 +3,7 @@
 namespace OCA\Sendent\Service;
 
 use DateTime;
+use DateInterval;
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -69,21 +70,46 @@ class ConnectedUserService {
 		}
 	}
 	public function create(string $userid, DateTime $dateconnected) {
+		$this->cleanup();
 		$connecteduser = new ConnectedUser();
 		$connecteduser->setUserid($userid);
-		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d"));
+		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d H:i:s"));
 		return $this->mapper->insert($connecteduser);
 	}
 
 	public function update(int $id,string $userid, DateTime $dateconnected) {
+		$this->cleanup();
 		try {
 			$connecteduser = $this->mapper->find($id);
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
 		$connecteduser->setUserid($userid);
-		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d"));
+		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d H:i:s"));
 		return $this->mapper->update($connecteduser);
+	}
+	
+	public function cleanup()
+	{
+		try{
+			$connectedUsers = $this->mapper->findAll();
+			$origin = new DateTime('NOW');
+			$origin->sub(new DateInterval('P10D'));
+			foreach($connectedUsers as $connectedUser){
+				$dateconnected = new DateTime($connectedUser->getDateconnected());
+				if($dateconnected < $origin)
+				{
+					try {
+						$this->destroy($connectedUser->getId());
+					} catch (Exception $e) {
+						$this->handleException($e);
+					}
+				}
+			}
+		}	
+		catch(Exception $e){
+			$this->handleException($e);
+		}
 	}
 
 	public function destroy(int $id) {

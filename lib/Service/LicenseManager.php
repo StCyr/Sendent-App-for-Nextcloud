@@ -75,7 +75,7 @@ class LicenseManager {
 		}
 	}
 
-	public function activateLicense(license $license) {
+	public function activateLicense(License $license) {
 		$activatedLicense = $this->subscriptionvalidationhttpclient->activate($license);
 		if (isset($activatedLicense)) {
 			return $this->licenseservice->update(
@@ -101,16 +101,17 @@ class LicenseManager {
 	}
 	public function isExpired() {
 		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
-			$license = $licenses[0];
-			return $license->isExpired();
+		if (isset($licenses)) {
+			foreach($licenses as $license){
+				return $license->isLicenseExpired();
+			}
 		}
 		return false;
 	}
 
 	public function licenseExists() {
 		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
+		if (isset($licenses)) {
 			return true;
 		}
 		return false;
@@ -118,22 +119,24 @@ class LicenseManager {
 
 	public function isWithinUserCount() {
 		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
-			$license = $licenses[0];
+		if (isset($licenses)) {
+			foreach($licenses as $license){
 			$userCount = $this->connecteduserservice->getCount();
 			$maxUserCount = $license->getMaxusers();
 			return $userCount <= $maxUserCount;
+			}
 		}
 		return false;
 	}
 
 	public function isWithinGraceUserCount() {
 		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
-			$license = $licenses[0];
+		if (isset($licenses)) {
+			foreach($licenses as $license){
 			$userCount = $this->connecteduserservice->getCount();
 			$maxUserCount = $license->getMaxgraceusers();
 			return $userCount <= $maxUserCount;
+			}
 		}
 		return false;
 	}
@@ -143,9 +146,10 @@ class LicenseManager {
 
 	public function isLicenseCheckNeeded() {
 		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses) && $licenses->count > 0) {
-			$license = $licenses[0];
-			return $license->isLicenseCheckNeeded();
+		if (isset($licenses)) {
+			foreach($licenses as $license){
+			return $license->isCheckNeeded();
+			}
 		}
 		return false;
 	}

@@ -2,7 +2,7 @@
 
 namespace OCA\Sendent\Http;
 
-use OCA\Sendent\Service\Http\Dto\SubscriptionIn;
+use OCA\Sendent\Http\Dto\SubscriptionIn;
 use OCA\Sendent\Service\ConnectedUserService;
 use OCA\Sendent\Db\License;
 
@@ -29,7 +29,7 @@ class SubscriptionValidationHttpClient {
 		$validatedLicense->setMaxusers($result->amountUsers);
 		$validatedLicense->setMaxgraceusers($result->amountUsersMax);
 		$validatedLicense->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
-		return $licenseData;
+		return $validatedLicense;
 	}
 	public function activate(License $licenseData) {
 		$data = new SubscriptionIn($licenseData, 1);

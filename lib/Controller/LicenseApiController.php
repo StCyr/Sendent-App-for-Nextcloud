@@ -48,12 +48,22 @@ class LicenseApiController extends ApiController {
 						$statusKind = "check";
 					}
 					if ($result[0]->isLicenseExpired()) {
-						$status = $status . ": " . "Current license has expired";
+						$status = "Current license has expired";
 						$statusKind = "expired";
 					}
 					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
 						$status = "Current license is valid";
 						$statusKind = "valid";
+					}
+					
+					if(!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount())
+					{
+						$status = "Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.";
+						$statusKind = "userlimit";
+					}
+					else if (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
+						$status = "Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.";
+						$statusKind = "userlimit";
 					}
 					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
 				} else {

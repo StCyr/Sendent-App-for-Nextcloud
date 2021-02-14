@@ -121,6 +121,23 @@ class LicenseManager {
             $(".settingkeyvalueinput#licenseEmail").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
             $(".settingkeyvalueinput#licensekey").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
           }
+          else if(status.statusKind === "userlimit")
+          {
+            $(".settingkeyvalueinput#licensestatus").text(status.status);
+            $(".settingkeyvalueinput#licenselastcheck").text(status.dateLastCheck);
+            $(".settingkeyvalueinput#licenseexpires").text(status.dateExpiration);
+            $(".settingkeyvalueinput#licenselevel").text(status.level);
+            $(".settingkeyvalueinput#licenseEmail").val(status.email);
+            $(".settingkeyvalueinput#licensekey").val(status.licensekey);
+            $("#btnLicenseActivation").val("Revalidate license");
+            $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
+            $(".settingkeyvalueinput#licensestatus").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+            $(".settingkeyvalueinput#licenselevel").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+            $(".settingkeyvalueinput#licenselastcheck").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+            $(".settingkeyvalueinput#licenseexpires").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+            $(".settingkeyvalueinput#licenseEmail").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+            $(".settingkeyvalueinput#licensekey").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
+          }
         }
         else {
           $(".settingkeyvalueinput#licensestatus").text(status.status);

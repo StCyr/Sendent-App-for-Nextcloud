@@ -34,6 +34,7 @@ class ConnectedUserApiController extends ApiController {
 			$user = $this->service->findByUserId($this->userId);
 			$this->service->update($user->getId(), $this->userId, date_create("now"));
 		}
+
 		return new DataResponse($user);
 	}
 }

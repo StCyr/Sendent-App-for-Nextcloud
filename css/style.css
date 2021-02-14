@@ -54,6 +54,15 @@ textarea{
 label{
 	grid-area: a;
 }
+.errorStatus{
+	color:darkred;
+}
+.warningStatus{
+	color:darkorange;
+}
+.okStatus{
+	color:darkblue;
+}
 .templatesettingkeyname {
 	margin: 0;
 	position: absolute;
