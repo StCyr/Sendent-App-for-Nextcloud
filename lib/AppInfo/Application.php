@@ -14,8 +14,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
 class Application extends App implements IBootstrap {
-
-	const APPID = 'sendent';
+	public const APPID = 'sendent';
 
 	/**
 	 * @param array $params

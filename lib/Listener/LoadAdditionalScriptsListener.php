@@ -9,7 +9,6 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 
 class LoadAdditionalScriptsListener implements IEventListener {
-
 	public function handle(Event $event): void {
 		if (!($event instanceof LoadAdditionalScriptsEvent) &&
 			!($event instanceof BeforeTemplateRenderedEvent)) {
