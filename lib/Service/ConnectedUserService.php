@@ -94,7 +94,7 @@ class ConnectedUserService {
 		try{
 			$connectedUsers = $this->mapper->findAll();
 			$origin = new DateTime('NOW');
-			$origin->sub(new DateInterval('P10D'));
+			$origin->sub(new DateInterval('P7D'));
 			foreach($connectedUsers as $connectedUser){
 				$dateconnected = new DateTime($connectedUser->getDateconnected());
 				if($dateconnected < $origin)

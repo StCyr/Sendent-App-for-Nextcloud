@@ -33,6 +33,12 @@ class LicenseApiController extends ApiController {
 	 */
 	public function show() {
 		try {
+			try{
+				$this->licensemanager->renewLicense();
+			}
+			catch(Exception $e){
+				
+			}
 			$result = $this->service->findAll();
 			if (isset($result) && $result !== null && $result !== false) {
 				if (is_array($result) && $result[0] !== null && isset($result[0])) {
@@ -100,6 +106,7 @@ class LicenseApiController extends ApiController {
 	 * @NoCSRFRequired
 	 */
 	public function validate() {
+		$this->licensemanager->renewLicense();
 		return $this->licensemanager->isLocalValid();
 	}
 }
