@@ -44,17 +44,16 @@
  	 */
  	public function showByKey(string $key) {
  		return $this->service->findByKey($key);
-	 }
+ 	}
 	 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @PublicPage
-	 */
-	public function showTheming()
-	{
-		return $this->service->findByTemplateId(1);
-	}
+ 	/**
+ 	 * @NoAdminRequired
+ 	 * @NoCSRFRequired
+ 	 * @PublicPage
+ 	 */
+ 	public function showTheming() {
+ 		return $this->service->findByTemplateId(1);
+ 	}
 
  	/**
  	 * @NoAdminRequired
