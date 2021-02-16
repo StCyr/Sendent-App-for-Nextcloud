@@ -26,6 +26,9 @@ class RetentionAssistant {
     constructor(private rootElement: JQuery) {
         this.apps = loadState('sendent', 'apps');
         this.tags = loadState('sendent', 'tags');
+
+        rootElement.find('.sendent-is-loading').remove();
+        rootElement.find('.hidden').removeClass('hidden');
     }
 
     public start() {
