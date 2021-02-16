@@ -73,7 +73,11 @@ class RetentionAssistant {
         const tagIds = await this.getUploadTagIdsFromWorkflow();
 
         if (tagIds.includes(this.tags[CONFIG_UPLOAD_TAG])) {
+            const workflowTag = await api.getTag(this.tags[CONFIG_UPLOAD_TAG]);
+
             element.text(t('sendent', 'Workflow configured for automated file tagging'));
+            element.append('<br />');
+            element.append($('<em>').text(t('sendent', 'All uploaded files are tagged with "{name}"', {name: workflowTag.name})));
 
             return;
         }
@@ -168,7 +172,19 @@ class RetentionAssistant {
         }
 
         if (hasRemovedTag && hasExpiredTag) {
+            const workflowTag = await api.getTag(this.tags[CONFIG_UPLOAD_TAG]);
+            const removedTag = await api.getTag(this.tags[CONFIG_REMOVED_TAG]);
+            const expiredTag = await api.getTag(this.tags[CONFIG_EXPIRED_TAG]);
+
             element.text(t('sendent', 'Retention rules configured'));
+            element.append('<br />');
+            element.append(
+                $('<em>').text(t(
+                    'sendent',
+                    'Expired or removed shares which are tagged with "{workflowName}" are getting the additional tag "{expiredName}" respectively "{removedName}"',
+                    {workflowName: workflowTag.name, expiredName: expiredTag.name, removedName: removedTag.name}
+                ))
+            );
 
             return;
         }
