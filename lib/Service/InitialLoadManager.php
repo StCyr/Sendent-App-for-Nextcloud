@@ -29,6 +29,9 @@ class InitialLoadManager {
 			if ($this->SettingKeyMapper->settingKeyCount("30") < 1) {
 				$this->addHtmlpasswordsnippet();
 			}
+            if ($this->SettingKeyMapper->settingKeyCount("31") < 1) {
+				$this->addPopupExternalMail();
+			}
             if ($this->SettingKeyMapper->settingKeyCount("81") < 1 || $this->showNameBySettingKeyId("81") !== "GeneralIconColor" 
             ||  $this->showTemplateBySettingKeyId("81") !== 1 || $this->showGroupIdBySettingKeyId("81") !== 1) {
 				$this->addAdvancedTheming();
@@ -111,6 +114,11 @@ class InitialLoadManager {
 		} catch (Exception $exception) {
 		}
 	}
+
+    public function addPopupExternalMail() {
+        $this->createKey("31", "attachmentdomainexceptionsexternalpopup", "0", "select-one");
+		$this->createGroupValue("0", "31", "False");
+    }
 
 	public function addHtmlpasswordsnippet() {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
