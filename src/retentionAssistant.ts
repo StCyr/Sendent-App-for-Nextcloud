@@ -31,6 +31,12 @@ class RetentionAssistant {
         rootElement.find('.hidden').removeClass('hidden');
     }
 
+    public isConfigured(): boolean {
+        return this.tags[CONFIG_UPLOAD_TAG] > 0 &&
+            this.tags[CONFIG_REMOVED_TAG] > 0 &&
+            this.tags[CONFIG_EXPIRED_TAG] > 0;
+    }
+
     public start() {
         this.nextStep(0).catch((err) => {
             logger.error('Error while executing retention assistant', {err});
@@ -312,6 +318,10 @@ $(() => {
     }
 
     const assistant = new RetentionAssistant(rootElement);
+
+    if (assistant.isConfigured()) {
+        rootElement.find('a[href="#assistant"]').text(t('sendent', 'Check configuration'));
+    }
 
     rootElement.find('a[href="#assistant"]').on('click', (ev) => {
         $(ev.target).remove();
