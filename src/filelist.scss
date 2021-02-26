@@ -3,10 +3,12 @@
     justify-content: left;
     margin: -100px 0 180px 0;
     max-width: 100%;
+    width:100%;
     position: relative;
     z-index: 10;
 
     iframe {
         max-width: 100%;
+        background-color:white;
     }
 }
