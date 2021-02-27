@@ -96,3 +96,13 @@
 - Advanced Theming support for Premium licenseholders.
 ### Fixed
 - "Enable access to settings" setting is now properly set (there was a bug which caused the Outlook add-in to display the inverse functionality based on the Server app setting.)
+
+## 1.0.19 - 2021-02-22
+### Feature
+
+- New settings added for Advanced Theming
+- Native (built-in) Secure Mail renderer (removing the need for README .md)
+- New setting for External Domain exception notification feature.
+
+### Fixed
+- Many stability and overall impprovements throughout the app.
