@@ -3,10 +3,17 @@
     justify-content: left;
     margin: -100px 0 180px 0;
     max-width: 100%;
+    width:100%;
     position: relative;
     z-index: 10;
 
     iframe {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top:10px;
+        min-width: 100%;
         max-width: 100%;
+        width:100%;
+        background-color:white;
     }
 }

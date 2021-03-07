@@ -304,6 +304,24 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="0">
             </div>
         </div>
+        <div class="personal-settings-setting-box" id="attachmentdomainexceptionsexternalpopup">
+            <div id="attachmentdomainexceptionsexternalpopup" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">External domain exception notification</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="attachmentdomainexceptionsexternalpopup">
+                    <option value="True">Enabled</option>
+                    <option selected value="False">Disabled</option>
+                </select>
+                <input type="hidden" id="settingkeyname" value="attachmentdomainexceptionsexternalpopup">
+                <input type="hidden" id="settingkeytemplateid" value="0">
+                <input type="hidden" id="settinggroupid" value="0">
+                <input type="hidden" id="settingkeykey" value="31">
+                <input type="hidden" id="settingkeyid" value="31">
+            </div>
+        </div>
     </div>
 
     <div class="settingTemplateDetailInclude section" id="attachments">
@@ -565,6 +583,22 @@ style('sendent', ['style']);
                 <input type="hidden" id="settinggroupid" value="1">
                 <input type="hidden" id="settingkeykey" value="80">
                 <input type="hidden" id="settingkeyid" value="80">
+            </div>
+        </div>
+        <div class="personal-settings-setting-box" id="VendorName">
+            <div id="VendorName" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name  
+                    </span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="VendorName" value="" placeholder="Sendent" autocomplete="on" autocapitalize="none" autocorrect="off">
+                <input type="hidden" id="settingkeyname" value="VendorName">
+                <input type="hidden" id="settingkeytemplateid" value="1">
+                <input type="hidden" id="settinggroupid" value="1">
+                <input type="hidden" id="settingkeykey" value="104">
+                <input type="hidden" id="settingkeyid" value="104">
             </div>
         </div>
         <div class="personal-settings-setting-box" id="ButtonPrimaryColor">

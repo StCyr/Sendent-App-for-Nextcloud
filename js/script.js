@@ -78,6 +78,7 @@ function showHideAdvancedTheming(settingkeyvalues, settingkeyid)
               $(".personal-settings-setting-box#DialogFooterFontColor").removeClass("hidden").addClass("shown");
               $(".personal-settings-setting-box#DialogFooterHoverColor").removeClass("hidden").addClass("shown");
               $(".personal-settings-setting-box#DialogFooterIconColor").removeClass("hidden").addClass("shown");
+              $(".personal-settings-setting-box#VendorName").removeClass("hidden").addClass("shown");
             }
             else{
               $(".personal-settings-setting-box#GeneralIconColor").addClass("hidden").removeClass("shown");
@@ -104,7 +105,8 @@ function showHideAdvancedTheming(settingkeyvalues, settingkeyid)
               $(".personal-settings-setting-box#DialogFooterHoverColor").addClass("hidden").removeClass("shown");
               $(".personal-settings-setting-box#DialogFooterIconColor").addClass("hidden").removeClass("shown");
               $(".personal-settings-setting-box#TaskpaneSecureMailControlColor").addClass("hidden").removeClass("shown");
-
+              $(".personal-settings-setting-box#VendorName").addClass("hidden").removeClass("shown");
+              
             }
           }
 }

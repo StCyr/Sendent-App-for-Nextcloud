@@ -96,3 +96,25 @@
 - Advanced Theming support for Premium licenseholders.
 ### Fixed
 - "Enable access to settings" setting is now properly set (there was a bug which caused the Outlook add-in to display the inverse functionality based on the Server app setting.)
+
+## 1.0.19 - 2021-02-28
+### Feature
+
+- New settings added for Advanced Theming
+- Native (built-in) Secure Mail renderer (removing the need for README .md)
+- New setting for External Domain exception notification feature.
+
+### Fixed
+- Many stability and overall impprovements throughout the app.
+
+### Support
+
+- Official Nextcloud version 21 support.
+
+## 1.0.21 - 2021-03-01
+### Fixed
+- Fixed an issue where the setting for External domain exception notifications was not visible.
+
+## 1.0.22 - 2021-03-03
+### Fixed
+- Fixed the rendering of snippets inside a Secure Mail message.

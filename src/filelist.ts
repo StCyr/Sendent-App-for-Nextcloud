@@ -10,7 +10,7 @@ const SANITIZE_OPTIONS = {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'html', 'head', 'body', 'meta', 'style']),
     allowedAttributes: {
         ...sanitizeHtml.defaults.allowedAttributes,
-        '*': ['class', 'style'],
+        '*': ['class', 'style', 'colspan', 'width', 'border', 'valign', 'cellspacing', 'cellpadding', 'align', 'height', 'rowspan', 'rowspacing', 'rowpadding'],
         img: ['src', 'width', 'height', 'style', 'id'],
         html: ['xmlns*'],
         meta: ['name', 'content'],
