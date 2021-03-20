@@ -110,11 +110,36 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="900">
             </div>
         </div>
+        <div class="license-settings-setting-box" id="supportButton">
+            <div id="supportButton" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"></span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input type="button" id="btnSupportButton" value="Contact support">
+                <input type="hidden" id="settingkeyname" value="supportButton">
+                <input type="hidden" id="settingkeykey" value="1100">
+                <input type="hidden" id="settingkeyid" value="1100">
+            </div>
+        </div>
         <div class="licensesection test" id="licensesection">
 
         </div>
+        <div class="license-settings-setting-box" id="addinDownload">
+            <div id="addinDownload" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"></span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input type="button" id="btnAddinDownload" value="Download latest add-in version">
+                <input type="hidden" id="settingkeyname" value="addinDownload">
+                <input type="hidden" id="settingkeykey" value="1000">
+                <input type="hidden" id="settingkeyid" value="1000">
+            </div>
+        </div>
     </div>
-
     <div class="settingTemplateDetailInclude section" id="generalsettings">
         <h1>
             General

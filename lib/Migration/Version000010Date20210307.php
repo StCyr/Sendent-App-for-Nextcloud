@@ -7,7 +7,7 @@ use OCP\DB\ISchemaWrapper;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
-class Version000006Date20200919 extends SimpleMigrationStep {
+class Version000010Date20210307 extends SimpleMigrationStep {
 
   /**
    * @param IOutput $output
@@ -53,6 +53,32 @@ class Version000006Date20200919 extends SimpleMigrationStep {
 			]);
 			$table->setPrimaryKey(['id']);
 			$table->addUniqueIndex(['licensekey'], 'sendent_license_index');
+		}else {
+			$table = $schema->getTable('sndnt_license');
+			// $table->addColumn('email', 'string', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('level', 'string', [
+			// 	'notnull' => false
+			// ]);
+			// $table->addColumn('maxusers', 'integer', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('maxgraceusers', 'integer', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('dategraceperiodend', 'string', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('datelicenseend', 'string', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('datelastchecked', 'string', [
+			// 	'notnull' => true
+			// ]);
+			// $table->addColumn('licensekey', 'string', [
+			// 	'notnull' => true
+			// ]);
 		}
 
 		return $schema;

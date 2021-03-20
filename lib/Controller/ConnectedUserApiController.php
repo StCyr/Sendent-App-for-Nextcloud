@@ -10,7 +10,7 @@ use OCP\AppFramework\ApiController;
 
 use OCA\Sendent\Service\ConnectedUserService;
 
-class ConnectedUserApiController extends ApiController {
+class ConnecteduserApiController extends ApiController {
 	private $service;
 
 	public function __construct(

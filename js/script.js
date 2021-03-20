@@ -3,9 +3,22 @@ $(document).ready(function () {
   // $('.trumbowyg').trumbowyg();
   // $(this).htmlarea();
   subscribeChangedEventSettingKeyValues();
+  setDownloadButton();
+  setSupportButton();
 });
 
-
+function setDownloadButton()
+{
+  $('#btnAddinDownload').on('click', function() {
+    window.location='https://download.sendent.nl/addin/latest/Free/Free.zip';
+  });
+}
+function setSupportButton()
+{
+  $('#btnSupportButton').on('click', function() {
+    window.location='mailto:support@sendent.nl';
+  });
+}
 function subscribeChangedEventSettingKeyValues() {
   $(".section").each(function () {
     var personalsettingboxes = $(this).find(".personal-settings-setting-box");
@@ -21,7 +34,8 @@ showHideAdvancedTheming(settingkeyvalues,settingkeyid);
           settingValueChanged(settingkeyid);
           showHideAttachmentSize(settingkeyvalues,settingkeyid);
           showHideAdvancedTheming(settingkeyvalues,settingkeyid);
-        })
+        });
+        
       });
     });
   });

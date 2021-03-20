@@ -26,7 +26,7 @@ class ConnectedUserService {
 	private function handleException($e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
-			throw new notfoundexception($e->getMessage());
+			throw new NotFoundException($e->getMessage());
 		} else {
 			throw $e;
 		}
