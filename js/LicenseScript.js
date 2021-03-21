@@ -46,13 +46,13 @@ class LicenseManager {
           }
           if (status.statusKind === "valid") {
             $(".settingkeyvalueinput#licensestatus").text(
-              'Status:            ' + status.status);
+              '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
-              'Date last checked: ' + status.dateLastCheck);
+              '' + status.dateLastCheck);
             $(".settingkeyvalueinput#licenseexpires").text(
-              'Expiration date:   ' + status.dateExpiration);
+              '' + status.dateExpiration);
             $(".settingkeyvalueinput#licenselevel").text(
-              'Product:           ' + status.level);
+              '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Activate license");
@@ -67,13 +67,13 @@ class LicenseManager {
           else if(status.statusKind === "check")
           {
             $(".settingkeyvalueinput#licensestatus").text(
-              'Status:            ' + status.status);
+              '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
-              'Date last checked: ' + status.dateLastCheck);
+              '' + status.dateLastCheck);
             $(".settingkeyvalueinput#licenseexpires").text(
-              'Expiration date:   ' + status.dateExpiration);
+              '' + status.dateExpiration);
             $(".settingkeyvalueinput#licenselevel").text(
-              'Product:           ' + status.level);
+              '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Revalidate license");
@@ -88,13 +88,13 @@ class LicenseManager {
           else if(status.statusKind === "expired")
           {
             $(".settingkeyvalueinput#licensestatus").text(
-              'Status:            ' + status.status);
+              '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
-              'Date last checked: ' + status.dateLastCheck);
+              '' + status.dateLastCheck);
             $(".settingkeyvalueinput#licenseexpires").text(
-              'Expiration date:   ' + status.dateExpiration);
+              '' + status.dateExpiration);
             $(".settingkeyvalueinput#licenselevel").text(
-              'Product:           ' + status.level);
+              '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Renew license");
@@ -109,13 +109,13 @@ class LicenseManager {
           else if(status.statusKind === "fatal")
           {
             $(".settingkeyvalueinput#licensestatus").text(
-              'Status:            ' + status.status);
+              '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
-              'Date last checked: ' + status.dateLastCheck);
+              '' + status.dateLastCheck);
             $(".settingkeyvalueinput#licenseexpires").text(
-              'Expiration date:   ' + status.dateExpiration);
+              '' + status.dateExpiration);
             $(".settingkeyvalueinput#licenselevel").text(
-              'Product:           ' + status.level);
+              '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Activate license");
@@ -145,13 +145,13 @@ class LicenseManager {
           else if(status.statusKind === "userlimit")
           {
             $(".settingkeyvalueinput#licensestatus").text(
-              'Status:            ' + status.status);
+              '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
-              'Date last checked: ' + status.dateLastCheck);
+              '' + status.dateLastCheck);
             $(".settingkeyvalueinput#licenseexpires").text(
-              'Expiration date:   ' + status.dateExpiration);
+              '' + status.dateExpiration);
             $(".settingkeyvalueinput#licenselevel").text(
-              'Product:           ' + status.level);
+              '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Revalidate license");
@@ -166,13 +166,13 @@ class LicenseManager {
         }
         else {
           $(".settingkeyvalueinput#licensestatus").text(
-            'Status:            ' + status.status);
+            '' + status.status);
           $(".settingkeyvalueinput#licenselastcheck").text(
-            'Date last checked: ' + status.dateLastCheck);
+            '' + status.dateLastCheck);
           $(".settingkeyvalueinput#licenseexpires").text(
-            'Expiration date:   ' + status.dateExpiration);
+            '' + status.dateExpiration);
           $(".settingkeyvalueinput#licenselevel").text(
-            'Product:           ' + status.level);
+            '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
             $("#btnLicenseActivation").val("Activate license");

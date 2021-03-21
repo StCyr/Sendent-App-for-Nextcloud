@@ -4,6 +4,9 @@
 .personal-settings-setting-box{
 	position:relative;
 }
+.license-settings-setting-box{
+	position:relative;
+}
 .settingkeyvalueinput{
 	width: 100%;
 	position: relative;

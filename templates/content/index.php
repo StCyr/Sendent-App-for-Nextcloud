@@ -52,8 +52,8 @@ style('sendent', ['style']);
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselevel"></span>
                 <input type="hidden" id="settingkeyname" value="licenselevel">
-                <input type="hidden" id="settingkeykey" value="900">
-                <input type="hidden" id="settingkeyid" value="900">
+                <input type="hidden" id="settingkeykey" value="902">
+                <input type="hidden" id="settingkeyid" value="902">
             </div>
         </div>
         <div class="license-settings-setting-box" id="licensestatus">
@@ -65,8 +65,8 @@ style('sendent', ['style']);
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licensestatus"></span>
                 <input type="hidden" id="settingkeyname" value="licensestatus">
-                <input type="hidden" id="settingkeykey" value="900">
-                <input type="hidden" id="settingkeyid" value="900">
+                <input type="hidden" id="settingkeykey" value="903">
+                <input type="hidden" id="settingkeyid" value="903">
             </div>
         </div>
         <div class="license-settings-setting-box" id="licenselastcheck">
@@ -79,8 +79,8 @@ style('sendent', ['style']);
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselastcheck"></span>
                 <input type="hidden" id="settingkeyname" value="licenselastcheck">
-                <input type="hidden" id="settingkeykey" value="900">
-                <input type="hidden" id="settingkeyid" value="900">
+                <input type="hidden" id="settingkeykey" value="904">
+                <input type="hidden" id="settingkeyid" value="904">
             </div>
         </div>
         <div class="license-settings-setting-box" id="licenseexpires">
@@ -93,8 +93,8 @@ style('sendent', ['style']);
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenseexpires"></span>
                 <input type="hidden" id="settingkeyname" value="licenseexpires">
-                <input type="hidden" id="settingkeykey" value="900">
-                <input type="hidden" id="settingkeyid" value="900">
+                <input type="hidden" id="settingkeykey" value="905">
+                <input type="hidden" id="settingkeyid" value="905">
             </div>
         </div>
         <div class="license-settings-setting-box" id="licensebutton">
