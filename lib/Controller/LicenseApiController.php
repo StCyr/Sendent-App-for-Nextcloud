@@ -54,7 +54,7 @@ class LicenseApiController extends ApiController {
 						$statusKind = "check";
 					}
 					if ($result[0]->isLicenseExpired()) {
-						$status = "Current license has expired";
+						$status = "Current license has expired. </br><u><a href='mailto:info@sendent.nl' style='color:blue'>Contact sales</a></u> to renew your license.";
 						$statusKind = "expired";
 					}
 					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {

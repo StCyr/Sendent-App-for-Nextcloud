@@ -87,7 +87,7 @@ class LicenseManager {
           }
           else if(status.statusKind === "expired")
           {
-            $(".settingkeyvalueinput#licensestatus").text(
+            $(".settingkeyvalueinput#licensestatus").html(
               '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
               '' + status.dateLastCheck);
@@ -97,7 +97,7 @@ class LicenseManager {
               '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Renew license");
+            $("#btnLicenseActivation").val("Revalidate license");
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
