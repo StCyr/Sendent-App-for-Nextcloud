@@ -118,3 +118,7 @@
 ## 1.0.22 - 2021-03-03
 ### Fixed
 - Fixed the rendering of snippets inside a Secure Mail message.
+
+## 1.1 - 2021-03-27
+### Feature
+- Starting from this version: If you received a license key with your purchase, you can manage it using this app.
