@@ -912,6 +912,20 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="900">
             </div>
         </div>
+        <div class="license-settings-setting-box" id="licenseClearButton">
+            <div id="licenseClearButton" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"></span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input type="button" id="btnLicenseActivation" value="Clear license">
+                <input type="hidden" id="settingkeyname" value="licenseClearButton">
+                <input type="hidden" id="settingkeykey" value="900">
+                <input type="hidden" id="settingkeyid" value="900">
+            </div>
+        </div>
+        
         <div class="license-settings-setting-box" id="licenselevel">
             <div id="licenselevel" class="settingkeyvalue">
                 <label class="licenselabel">

@@ -269,6 +269,14 @@ $(document).ready(function () {
     var email = $(".settingkeyvalueinput#licenseEmail").val();
     var key = $(".settingkeyvalueinput#licensekey").val();
     that.LicenseValidationCalls.createLicense(email, key);
+    sleep(1000);
+    that.LicenseManager.getLicenseStatus();
+  });
+  $("#licenseClearButton").on('click', function () {
+    $(".settingkeyvalueinput#licenseEmail").val("");
+    $(".settingkeyvalueinput#licensekey").val("");
+    that.LicenseValidationCalls.createLicense("", "");
+    sleep(1000);
     that.LicenseManager.getLicenseStatus();
   });
 
@@ -283,3 +291,8 @@ $(document).ready(function () {
 
   that.LicenseValidationCalls.getLicenseDetails();
 });
+
+function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime() < start + delay);
+}
