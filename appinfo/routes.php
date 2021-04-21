@@ -73,7 +73,9 @@ return [
 			'verb' => 'OPTIONS',
 			'requirements' => ['path' => '.+']
 		],
-		['name' => 'status_api#index', 'url' => '/api/1.0/status', 'verb' => 'GET']
+		['name' => 'status_api#index', 'url' => '/api/1.0/status', 'verb' => 'GET'],
+		['name' => 'tag#show', 'url' => '/api/1.0/tag/{id}', 'verb' => 'GET'],
+		['name' => 'tag#create', 'url' => '/api/1.0/tag', 'verb' => 'POST'],
 	]
 ];
 	?>

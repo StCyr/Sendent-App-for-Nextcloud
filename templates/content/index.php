@@ -8,6 +8,26 @@ script('sendent', ['SettingCreator']);
 style('sendent', ['style']);
 ?>
 
+<?php print_unescaped($this->inc('content/retentionAssistant')); ?>
+
+<!-- <div id="app-content-wrapper">
+    <div class="app-content-list" id="settingTemplateList">
+        <a href="#domainExceptions" class="app-content-list-item" id="settingtemplate-domainExceptions">
+            <div class="app-content-list-item-line-one">Nextcloud Outlook Add-in</div>
+            <div class="icon-edit"></div>
+        </a>
+    </div>
+    <div class="app-content-detail" id="settingTemplateDetail">-->
+<form class="form" method="post" id="settingsform">
+    <!-- <div class="settingTemplateDetailInclude section" id="domainExceptions">
+        <h1>
+            Server settings
+        </h1>
+
+    </div> -->
+    <div class="settingTemplateDetailInclude section" id="generalsettings">
+
+
 <form class="form" method="post" id="settingsform">
 
     
@@ -484,7 +504,7 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="VendorName">
             <div id="VendorName" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name  
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -853,7 +873,7 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneSecureMailControlColor">
             <div id="TaskpaneSecureMailControlColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Secure Mail - control-color    
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Secure Mail - control-color
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
