@@ -54,8 +54,13 @@ textarea{
 			grid-auto-columns: 275px 300px 25px 25px;
 			display: grid;
 }
+
 label{
 	grid-area: a;
+}
+.labelFullWidth{
+	grid-column-start: a;
+	grid-column-end:c;
 }
 .errorStatus{
 	color:darkred;

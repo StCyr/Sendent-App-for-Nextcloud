@@ -871,6 +871,18 @@ style('sendent', ['style']);
         <h1>
             License
         </h1>
+        <div class="license-settings-setting-box" id="licenseMessage">
+            <div id="licenseMessage" class="settingkeyvalue">
+               
+                <div class="labelFullWidth" id="lblLicenseMessage" style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">
+                PLEASE NOTE: We made some adjustments in our licensing and will implement this gradually in several phases to our paid customers. If you haven't received your license key with instructions yet, you don't have to take action at this moment. You will receive a notification from our Team when it's your turn.<br><br>
+                Using Sendent Free? Then you don't need a license key at all!<br><br>
+                </div>
+                <input type="hidden" id="settingkeyname" value="licenseMessage">
+                <input type="hidden" id="settingkeykey" value="1000">
+                <input type="hidden" id="settingkeyid" value="1000">
+            </div>
+        </div>
         <div class="license-settings-setting-box" id="licensekey">
             <div id="licensekey" class="settingkeyvalue">
                 <label>
@@ -998,6 +1010,19 @@ style('sendent', ['style']);
         <div class="licensesection test" id="licensesection">
 
         </div>
+        <!-- <div class="license-settings-setting-box" id="addinDownload">
+            <div id="addinDownload" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"></span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <input type="button" id="btnAddinDownload" value="Download latest add-in version">
+                <input type="hidden" id="settingkeyname" value="addinDownload">
+                <input type="hidden" id="settingkeykey" value="1000">
+                <input type="hidden" id="settingkeyid" value="1000">
+            </div>
+        </div>
         <div class="license-settings-setting-box" id="addinDownload">
             <div id="addinDownload" class="settingkeyvalue">
                 <label>
@@ -1005,12 +1030,12 @@ style('sendent', ['style']);
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
-                <input type="button" id="btnAddinDownload" value="Download latest plugin version">
+                <div id="lblAddinDownload" style="text-align:center;color:darkgray;font-size:smaller;font-style:italic">This downloadable add-in version reverts to Free edition if no license key is applied.</div>
                 <input type="hidden" id="settingkeyname" value="addinDownload">
                 <input type="hidden" id="settingkeykey" value="1000">
                 <input type="hidden" id="settingkeyid" value="1000">
             </div>
-        </div>
+        </div> -->
     </div>
 
 </form>

@@ -9,9 +9,7 @@ $(document).ready(function () {
 
 function setDownloadButton()
 {
-  $('#btnAddinDownload').on('click', function() {
-    window.location='https://download.sendent.nl/addin/latest/Free/Free.zip';
-  });
+  
 }
 function setSupportButton()
 {

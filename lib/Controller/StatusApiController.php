@@ -36,7 +36,7 @@ class StatusApiController extends ApiController {
 		$statusobj->dategraceperiodend = $result->getDategraceperiodend();
 		$statusobj->maxusersgrace = $result->getMaxgraceusers();
 		$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
-		$statusobj->validlicense = !$result->isLicenseExpired() && $statusobj->currentusers <= $statusobj->maxusersgrace;
+		$statusobj->validlicense = !$result->isLicenseExpired();
 		$status = "";
 		if ($result->isCheckNeeded()) {
 			$status = "RevalidationRequired";

@@ -121,4 +121,4 @@
 
 ## 1.1 - 2021-03-27
 ### Feature
-- Starting from this version: If you received a license key with your purchase, you can manage it using this app.
+- Starting from this version: If you received a license key with your purchase, you can configure it using this app.

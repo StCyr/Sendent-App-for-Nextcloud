@@ -24,7 +24,7 @@ class LicenseManager {
 
   getLicenseStatus() {
     $.when(this.licensecalls.getLicenseDetails()).fail(function (failedvalueget) {
-      $(".settingkeyvalueinput#licensestatus").text("Error while fetching license status.");
+      $(".settingkeyvalueinput#licensestatus").text("Error fetching license status.");
       $(".settingkeyvalueinput#licenselastcheck").text("-");
       $(".settingkeyvalueinput#licenseexpires").text("-");
       $(".settingkeyvalueinput#licenselevel").text("-");
@@ -130,9 +130,9 @@ class LicenseManager {
           else if(status.statusKind === "nolicense")
           {
             $(".settingkeyvalueinput#licensestatus").text("No license configured.");
-            $(".settingkeyvalueinput#licenselastcheck").text("");
-            $(".settingkeyvalueinput#licenseexpires").text("");
-            $(".settingkeyvalueinput#licenselevel").text("");
+            $(".settingkeyvalueinput#licenselastcheck").text("-");
+            $(".settingkeyvalueinput#licenseexpires").text("-");
+            $(".settingkeyvalueinput#licenselevel").text("-");
             $("#btnLicenseActivation").val("Activate license");
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
