@@ -263,7 +263,7 @@ $(document).ready(function () {
   that.LicenseValidationCalls = new LicenseValidationCalls();
 
   that.LicenseManager = new LicenseManager();
-  that.LicenseManager.getLicenseStatus();
+  
 
   $("#licensebutton").on('click', function () {
     var email = $(".settingkeyvalueinput#licenseEmail").val();
@@ -288,8 +288,23 @@ $(document).ready(function () {
     $("#btnLicenseActivation").val("Activate license");
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
   });
-
-  that.LicenseValidationCalls.getLicenseDetails();
+  var email = $(".settingkeyvalueinput#licenseEmail").val();
+    var key = $(".settingkeyvalueinput#licensekey").val();
+    if(email != null && email != "" && key != null && key != "")
+    {
+      that.LicenseManager.getLicenseStatus();
+      that.LicenseValidationCalls.getLicenseDetails();
+    }
+    else{
+      $(".settingkeyvalueinput#licensestatus").text(
+        '-');
+      $(".settingkeyvalueinput#licenselastcheck").text(
+        '-');
+      $(".settingkeyvalueinput#licenseexpires").text(
+        '-');
+      $(".settingkeyvalueinput#licenselevel").text(
+        '-');
+    }
 });
 
 function sleep(delay) {
