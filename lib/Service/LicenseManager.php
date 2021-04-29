@@ -41,6 +41,9 @@ class LicenseManager {
 				$license = $licenses[0];
 				$license = $this->subscriptionvalidationhttpclient->validate($license);
 				if (isset($license)) {
+
+					
+
 					return $this->licenseservice->update(
 						$license->getId(),
 						$license->getLicensekey(),

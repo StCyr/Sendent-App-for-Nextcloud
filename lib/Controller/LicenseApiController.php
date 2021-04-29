@@ -8,7 +8,8 @@ use OCA\Sendent\Service\LicenseManager;
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
-
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Sendent\Service\LicenseService;
 
 class LicenseApiController extends ApiController {
@@ -27,6 +28,16 @@ class LicenseApiController extends ApiController {
 		$this->userId = $userId;
 		$this->licensemanager = $licensemanager;
 	}
+	private function handleException($e) {
+		if (
+			$e instanceof DoesNotExistException ||
+			$e instanceof MultipleObjectsReturnedException
+		) {
+			throw new NotFoundException($e->getMessage());
+		} else {
+			throw $e;
+		}
+	}
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
@@ -37,7 +48,7 @@ class LicenseApiController extends ApiController {
 				$this->licensemanager->renewLicense();
 			}
 			catch(Exception $e){
-				
+				$this->handleException($e);
 			}
 			$result = $this->service->findAll();
 			if (isset($result) && $result !== null && $result !== false) {
@@ -79,6 +90,7 @@ class LicenseApiController extends ApiController {
 				return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
 			}
 		} catch (Exception $e) {
+			$this->handleException($e);
 			return new DataResponse(new LicenseStatus("An error occured while fetching your license", "fatal" ,"-", "-", "-", "-", "-"));
 		}
 	}

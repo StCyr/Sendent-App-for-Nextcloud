@@ -290,21 +290,9 @@ $(document).ready(function () {
   });
   var email = $(".settingkeyvalueinput#licenseEmail").val();
     var key = $(".settingkeyvalueinput#licensekey").val();
-    if(email != null && email != "" && key != null && key != "")
-    {
+
       that.LicenseManager.getLicenseStatus();
       that.LicenseValidationCalls.getLicenseDetails();
-    }
-    else{
-      $(".settingkeyvalueinput#licensestatus").text(
-        '-');
-      $(".settingkeyvalueinput#licenselastcheck").text(
-        '-');
-      $(".settingkeyvalueinput#licenseexpires").text(
-        '-');
-      $(".settingkeyvalueinput#licenselevel").text(
-        '-');
-    }
 });
 
 function sleep(delay) {
