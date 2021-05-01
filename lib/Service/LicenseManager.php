@@ -81,8 +81,7 @@ class LicenseManager {
 	public function activateLicense(License $license) {
 		$activatedLicense = $this->subscriptionvalidationhttpclient->activate($license);
 		if (isset($activatedLicense)) {
-			return $this->licenseservice->update(
-				$activatedLicense->getId(),
+			return $this->licenseservice->create(
 				$activatedLicense->getLicensekey(),
 				date_create($activatedLicense->getDategraceperiodend()),
 				date_create($activatedLicense->getDatelicenseend()),

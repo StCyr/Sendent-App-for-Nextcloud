@@ -8,7 +8,7 @@ script('sendent', ['SettingCreator']);
 style('sendent', ['style']);
 ?>
 
-<?php print_unescaped($this->inc('content/retentionAssistant')); ?>
+
 
 <!-- <div id="app-content-wrapper">
     <div class="app-content-list" id="settingTemplateList">
@@ -1028,7 +1028,7 @@ style('sendent', ['style']);
             </div>
         </div>
         <div class="licensesection test" id="licensesection">
-
+        <?php print_unescaped($this->inc('content/retentionAssistant')); ?>
         </div>
         <!-- <div class="license-settings-setting-box" id="addinDownload">
             <div id="addinDownload" class="settingkeyvalue">
@@ -1056,6 +1056,7 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="1000">
             </div>
         </div> -->
+       
     </div>
 
 </form>

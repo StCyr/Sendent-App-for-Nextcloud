@@ -268,6 +268,8 @@ $(document).ready(function () {
   $("#licensebutton").on('click', function () {
     var email = $(".settingkeyvalueinput#licenseEmail").val();
     var key = $(".settingkeyvalueinput#licensekey").val();
+    email  = email.replace(/\s+/g, '');
+    key  = key.replace(/\s+/g, '');
     that.LicenseValidationCalls.createLicense(email, key);
     sleep(1000);
     that.LicenseManager.getLicenseStatus();
@@ -288,8 +290,6 @@ $(document).ready(function () {
     $("#btnLicenseActivation").val("Activate license");
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
   });
-  var email = $(".settingkeyvalueinput#licenseEmail").val();
-    var key = $(".settingkeyvalueinput#licensekey").val();
 
       that.LicenseManager.getLicenseStatus();
       that.LicenseValidationCalls.getLicenseDetails();

@@ -7,21 +7,29 @@ use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCA\Sendent\Service\SendentFileStorageManager;
 
 use OCA\Sendent\Db\License;
 use OCA\Sendent\Db\LicenseMapper;
 
 class LicenseService {
 	private $mapper;
+	private $FileStorageManager;
 
-	public function __construct(LicenseMapper $mapper) {
+	public function __construct(LicenseMapper $mapper, SendentFileStorageManager $FileStorageManager) {
 		$this->mapper = $mapper;
+		$this->FileStorageManager = $FileStorageManager;
 	}
 
 	public function findAll() {
 		try {
-			return $this->mapper->findAll();
-
+			$list = $this->mapper->findAll();
+		foreach ($list as $result) {
+			if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
+				$result->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
+		}
+		return $list;
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
 		// into service related exceptions so controllers and service users
@@ -42,7 +50,10 @@ class LicenseService {
 
 	public function find(int $id) {
 		try {
-			return $this->mapper->find($id);
+			$licensekey = $this->mapper->find($id);
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
+				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
 
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -55,8 +66,10 @@ class LicenseService {
 
 	public function findByLicenseKey(string $key) {
 		try {
-			return $this->mapper->findByLicenseKey($key);
-
+			$licensekey = $this->mapper->findByLicenseKey($key);
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
+				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
 		// into service related exceptions so controllers and service users
@@ -71,13 +84,13 @@ class LicenseService {
 	string $email, DateTime $datelastchecked, string $level) {
 		try {
 			$this->cleanupLicenses($license);
-			$existingLicense = $this->mapper->findByLicenseKey($license);
-			return $this->update($existingLicense->getId(), $license,
+			return $this->update(0, $license,
 			$dategraceperiodend, $datelicenseend,
 			$maxusers, $maxgraceusers, $email, $datelastchecked, $level);
 		} catch (Exception $e) {
 			$licenseobj = new License();
-			$licenseobj->setLicensekey($license);
+			
+			
 			$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
 			$licenseobj->setMaxusers($maxusers);
@@ -85,6 +98,14 @@ class LicenseService {
 			$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
+
+			if ($this->valueSizeForDb($license) === false) {
+				$value = $this->FileStorageManager->writeLicenseTxt($license);
+				$licenseobj->setLicensekey($value);
+			}
+			else{
+				$licenseobj->setLicensekey($license);
+			}
 			return $this->mapper->insert($licenseobj);
 		}
 	}
@@ -96,6 +117,7 @@ class LicenseService {
 			$this->handleException($e);
 		}
 		$licenseobj = new License();
+		
 		$licenseobj->setLicensekey($license);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
@@ -114,13 +136,15 @@ class LicenseService {
 		$this->cleanupLicenses($license);
 		$licenseobj = new License();
 
-		try {
-			$licenseobj = $this->mapper->find($id);
-		} catch (Exception $e) {
-			$this->handleException($e);
+		if ($this->valueSizeForDb($license))
+		{
+			$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$licenseobj->setLicensekey($value);
 		}
-		
-		$licenseobj->setLicensekey($license);
+		else
+		{
+			$licenseobj->setLicensekey($license);
+		}
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
 		$licenseobj->setMaxusers($maxusers);
@@ -128,7 +152,8 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
-		return $this->mapper->update($licenseobj);
+		
+		return $this->mapper->insert($licenseobj);
 	}
 
 	public function destroy(int $id) {
@@ -145,10 +170,18 @@ class LicenseService {
 		$licenses = $this->mapper->findAll();
 		if (isset($licenses)) {
 			foreach ($licenses as $license) {
-				if ($license->getLicensekey() !== $licenseToKeep) {
 					$this->destroy($license->getId());
-				}
 			}
 		}
+	}
+	private function valueIsLicenseKeyFilePath($value) {
+		if (strpos($value, 'licenseKeyFile') !== false) {
+			return true;
+		}
+		return false;
+	}
+
+	private function valueSizeForDb($value) {
+		return strlen($value) > 254;
 	}
 }
