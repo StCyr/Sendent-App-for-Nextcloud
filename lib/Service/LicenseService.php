@@ -25,7 +25,9 @@ class LicenseService {
 		try {
 			$list = $this->mapper->findAll();
 		foreach ($list as $result) {
+			if ($this->valueIsKeyFilePath($result->getKey()) !== false) {
 				$result->setKey($this->FileStorageManager->getLicenseContent());
+			}
 		}
 		return $list;
 			// in order to be able to plug in different storage backends like files
@@ -49,7 +51,9 @@ class LicenseService {
 	public function find(int $id) {
 		try {
 			$Key = $this->mapper->find($id);
+			if ($this->valueIsKeyFilePath($Key->getKey()) !== false) {
 				$Key->setKey($this->FileStorageManager->getLicenseContent());
+			}
 
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -63,7 +67,9 @@ class LicenseService {
 	public function findByKey(string $key) {
 		try {
 			$Key = $this->mapper->findByKey($key);
+			if ($this->valueIsKeyFilePath($Key->getKey()) !== false) {
 				$Key->setKey($this->FileStorageManager->getLicenseContent());
+			}
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
 		// into service related exceptions so controllers and service users
@@ -93,8 +99,13 @@ class LicenseService {
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 
+			if ($this->valueSizeForDb($license) === false) {
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
 				$licenseobj->setKey($value);
+			}
+			else{
+				$licenseobj->setKey($license);
+			}
 			return $this->mapper->insert($licenseobj);
 		}
 	}
@@ -106,10 +117,13 @@ class LicenseService {
 			$this->handleException($e);
 		}
 		$licenseobj = new License();
-
+		if ($this->valueSizeForDb($license) === false) {
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
 				$licenseobj->setKey($value);
-
+			}
+			else{
+				$licenseobj->setKey($license);
+			}
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
 		$licenseobj->setMaxusers(1);
@@ -127,10 +141,15 @@ class LicenseService {
 		$this->cleanupLicenses($license);
 		$licenseobj = new License();
 
-
+		if ($this->valueSizeForDb($license))
+		{
 			$value = $this->FileStorageManager->writeLicenseTxt($license);
 			$licenseobj->setKey($value);
-
+		}
+		else
+		{
+			$licenseobj->setKey($license);
+		}
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
 		$licenseobj->setMaxusers($maxusers);
