@@ -182,6 +182,6 @@ class LicenseService {
 	}
 
 	private function valueSizeForDb($value) {
-		return strlen($value) > 50;
+		return strlen($value) > 49;
 	}
 }
