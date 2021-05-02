@@ -106,8 +106,10 @@ class LicenseService {
 			$this->handleException($e);
 		}
 		$licenseobj = new License();
-		$value = $this->FileStorageManager->writeLicenseTxt($license);
-		$licenseobj->setKey($value);
+
+				$value = $this->FileStorageManager->writeLicenseTxt($license);
+				$licenseobj->setKey($value);
+
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
 		$licenseobj->setMaxusers(1);
