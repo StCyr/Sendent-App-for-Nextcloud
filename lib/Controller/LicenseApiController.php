@@ -54,7 +54,7 @@ class LicenseApiController extends ApiController {
 			if (isset($result) && $result !== null && $result !== false) {
 				if (is_array($result) && $result[0] !== null && isset($result[0])) {
 					$email = $result[0]->getEmail();
-					$licensekey = $result[0]->getLicensekey();
+					$Key = $result[0]->getKey();
 					$dateExpiration = $result[0]->getDatelicenseend();
 					$dateLastCheck = $result[0]->getDatelastchecked();
 					$level = $result[0]->getLevel();
@@ -82,7 +82,7 @@ class LicenseApiController extends ApiController {
 						$status = "Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.";
 						$statusKind = "userlimit";
 					}
-					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
+					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$Key, $dateExpiration, $dateLastCheck, $email));
 				} else {
 					return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
 				}

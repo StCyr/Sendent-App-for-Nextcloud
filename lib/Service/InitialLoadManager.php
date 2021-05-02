@@ -9,17 +9,22 @@ use OCA\Sendent\Db\SettingKey;
 use OCA\Sendent\Db\SettingKeyMapper;
 use OCA\Sendent\Db\SettingGroupValueMapper;
 use OCA\Sendent\Db\SettingGroupValue;
+use OCA\Sendent\Service\LicenseService;
 
 class InitialLoadManager {
 	private $SettingKeyMapper;
 	private $SettingGroupValueMapper;
 
-	public function __construct(SettingKeyMapper $SettingKeyMapper, SettingGroupValueMapper $SettingGroupValueMapper, SendentFileStorageManager $SendentFileStorageManager) {
+	public function __construct(SettingKeyMapper $SettingKeyMapper, 
+	SettingGroupValueMapper $SettingGroupValueMapper, 
+	SendentFileStorageManager $SendentFileStorageManager,
+	LicenseService $licenseService) {
 		$this->SettingKeyMapper = $SettingKeyMapper;
 		$this->SettingGroupValueMapper = $SettingGroupValueMapper;
 		$this->SendentFileStorageManager = $SendentFileStorageManager;
 
 		try {
+			
 			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
 				$this->initialLoading();
 			}

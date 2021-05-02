@@ -8,7 +8,7 @@ use JsonSerializable;
 use OCP\AppFramework\Db\Entity;
 
 class License extends Entity implements JsonSerializable {
-	protected $licensekey;
+	protected $key;
 	protected $email;
 	protected $dategraceperiodend;
 	protected $datelicenseend;
@@ -23,12 +23,12 @@ class License extends Entity implements JsonSerializable {
 	public function jsonSerialize() {
 		return [
 			'id' => $this->id,
-			'licensekey' => $this->licensekey,
 			'email' => $this->email,
 			'dategraceperiodend' => $this->dategraceperiodend,
 			'maxusers' => $this->maxusers,
 			'maxgraceusers' => $this->maxgraceusers,
 			'level' => $this->level,
+			'key' => $this->key,
 			'datelicenseend' => $this->datelicenseend,
 			'datelastchecked' => $this->datelastchecked
 		];

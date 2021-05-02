@@ -46,7 +46,7 @@ class LicenseManager {
 
 					return $this->licenseservice->update(
 						$license->getId(),
-						$license->getLicensekey(),
+						$license->getKey(),
 						date_create($license->getDategraceperiodend()),
 						date_create($license->getDatelicenseend()),
 						$license->getMaxusers(),
@@ -64,7 +64,7 @@ class LicenseManager {
 
 	public function createLicense(string $license, string $email) {
 		try {
-			$existingLicense = $this->licenseservice->findByLicenseKey($license);
+			$existingLicense = $this->licenseservice->findByKey($license);
 			if (isset($existingLicense)) {
 				return $this->activateLicense($existingLicense);
 			}
@@ -82,7 +82,7 @@ class LicenseManager {
 		$activatedLicense = $this->subscriptionvalidationhttpclient->activate($license);
 		if (isset($activatedLicense)) {
 			return $this->licenseservice->create(
-				$activatedLicense->getLicensekey(),
+				$activatedLicense->getKey(),
 				date_create($activatedLicense->getDategraceperiodend()),
 				date_create($activatedLicense->getDatelicenseend()),
 				$activatedLicense->getMaxusers(),

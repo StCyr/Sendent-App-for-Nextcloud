@@ -21,7 +21,7 @@ class SubscriptionValidationHttpClient {
 		$result = $this->licensehttpclient->Post('subscription/validate', $data);
 		$validatedLicense = new License();
 		$validatedLicense->setId($licenseData->getId());
-		$validatedLicense->setLicensekey($licenseData->getLicensekey());
+		$validatedLicense->setKey($licenseData->getKey());
 		$validatedLicense->setLevel($result->level);
 		$validatedLicense->setEmail($licenseData->getEmail());
 		$validatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));
@@ -37,7 +37,7 @@ class SubscriptionValidationHttpClient {
 		$result = $this->licensehttpclient->Post('subscription/validate', $data);
 		$activatedLicense = new License();
 		$activatedLicense->setId($licenseData->getId());
-		$activatedLicense->setLicensekey($licenseData->getLicensekey());
+		$activatedLicense->setKey($licenseData->getKey());
 		$activatedLicense->setLevel($result->level);
 		$activatedLicense->setEmail($licenseData->getEmail());
 		$activatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));

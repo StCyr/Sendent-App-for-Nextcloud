@@ -25,8 +25,8 @@ class LicenseService {
 		try {
 			$list = $this->mapper->findAll();
 		foreach ($list as $result) {
-			if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
-				$result->setLicensekey($this->FileStorageManager->getLicenseContent());
+			if ($this->valueIsKeyFilePath($result->getKey()) !== false) {
+				$result->setKey($this->FileStorageManager->getLicenseContent());
 			}
 		}
 		return $list;
@@ -50,9 +50,9 @@ class LicenseService {
 
 	public function find(int $id) {
 		try {
-			$licensekey = $this->mapper->find($id);
-			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
-				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			$Key = $this->mapper->find($id);
+			if ($this->valueIsKeyFilePath($Key->getKey()) !== false) {
+				$Key->setKey($this->FileStorageManager->getLicenseContent());
 			}
 
 			// in order to be able to plug in different storage backends like files
@@ -64,11 +64,11 @@ class LicenseService {
 		}
 	}
 
-	public function findByLicenseKey(string $key) {
+	public function findByKey(string $key) {
 		try {
-			$licensekey = $this->mapper->findByLicenseKey($key);
-			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
-				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			$Key = $this->mapper->findByKey($key);
+			if ($this->valueIsKeyFilePath($Key->getKey()) !== false) {
+				$Key->setKey($this->FileStorageManager->getLicenseContent());
 			}
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -101,10 +101,10 @@ class LicenseService {
 
 			if ($this->valueSizeForDb($license) === false) {
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
-				$licenseobj->setLicensekey($value);
+				$licenseobj->setKey($value);
 			}
 			else{
-				$licenseobj->setLicensekey($license);
+				$licenseobj->setKey($license);
 			}
 			return $this->mapper->insert($licenseobj);
 		}
@@ -119,10 +119,10 @@ class LicenseService {
 		$licenseobj = new License();
 		if ($this->valueSizeForDb($license) === false) {
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
-				$licenseobj->setLicensekey($value);
+				$licenseobj->setKey($value);
 			}
 			else{
-				$licenseobj->setLicensekey($license);
+				$licenseobj->setKey($license);
 			}
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
@@ -144,11 +144,11 @@ class LicenseService {
 		if ($this->valueSizeForDb($license))
 		{
 			$value = $this->FileStorageManager->writeLicenseTxt($license);
-			$licenseobj->setLicensekey($value);
+			$licenseobj->setKey($value);
 		}
 		else
 		{
-			$licenseobj->setLicensekey($license);
+			$licenseobj->setKey($license);
 		}
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
@@ -179,8 +179,8 @@ class LicenseService {
 			}
 		}
 	}
-	private function valueIsLicenseKeyFilePath($value) {
-		if (strpos($value, 'licenseKeyFile') !== false) {
+	private function valueIsKeyFilePath($value) {
+		if (strpos($value, 'KeyFile') !== false) {
 			return true;
 		}
 		return false;

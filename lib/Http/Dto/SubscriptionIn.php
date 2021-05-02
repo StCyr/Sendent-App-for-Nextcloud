@@ -12,7 +12,7 @@ class SubscriptionIn implements JsonSerializable {
 
 	public function __construct(License $license, int $connectedusercount) {
 		// add types in constructor
-		$this->key = $license->getLicensekey();
+		$this->key = $license->getKey();
 		$this->email = $license->getEmail();
 		$this->amountusers = $connectedusercount;
 	}
