@@ -1028,8 +1028,9 @@ style('sendent', ['style']);
             </div>
         </div>
         <div class="licensesection test" id="licensesection">
-        <?php print_unescaped($this->inc('content/retentionAssistant')); ?>
+
         </div>
+
         <!-- <div class="license-settings-setting-box" id="addinDownload">
             <div id="addinDownload" class="settingkeyvalue">
                 <label>
@@ -1058,5 +1059,6 @@ style('sendent', ['style']);
         </div> -->
        
     </div>
+    <?php print_unescaped($this->inc('content/retentionAssistant')); ?>
 
 </form>

@@ -122,3 +122,11 @@
 ## 1.1 - 2021-03-27
 ### Feature
 - Starting from this version: If you received a license key with your purchase, you can configure it using this app.
+
+##1.1.3 - 2021-05-02
+
+## Features
+- We are excited to release File Retention support: A way to automatically clean folders created by the Outlook Add-in.
+
+## Fixed
+- We improved activation of license keys.

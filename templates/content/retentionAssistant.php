@@ -4,9 +4,8 @@
 
 script('sendent', 'retentionAssistant');
 ?>
-
-<div id="sendent-retention-assistant" class="section">
-    <h1>Retention Assistant</h1>
+<div id="sendent-retention-assistant" class="settingTemplateDetailExclude section">
+    <h1>Retention Assistant <a style="color:darkgray;font-size:large;margin-left:10px" href="https://sendent.freshdesk.com/support/solutions/articles/80000600279">i</a></h1>
 
     <p><?php p($l->t('Our assistant helps you to setup every step to clean up unused content.')); ?> <a href="#assistant" class="button"><?php p($l->t('Start assistant')); ?></a></p>
 
