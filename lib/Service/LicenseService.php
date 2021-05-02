@@ -99,13 +99,9 @@ class LicenseService {
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 
-			if ($this->valueSizeForDb($license) === false) {
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
 				$licenseobj->setLicensekey($value);
-			}
-			else{
-				$licenseobj->setLicensekey($license);
-			}
+
 			return $this->mapper->insert($licenseobj);
 		}
 	}
@@ -136,15 +132,10 @@ class LicenseService {
 		$this->cleanupLicenses($license);
 		$licenseobj = new License();
 
-		if ($this->valueSizeForDb($license))
-		{
+
 			$value = $this->FileStorageManager->writeLicenseTxt($license);
 			$licenseobj->setLicensekey($value);
-		}
-		else
-		{
-			$licenseobj->setLicensekey($license);
-		}
+
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
 		$licenseobj->setMaxusers($maxusers);
@@ -182,6 +173,6 @@ class LicenseService {
 	}
 
 	private function valueSizeForDb($value) {
-		return strlen($value) > 10;
+		return strlen($value) > 254;
 	}
 }

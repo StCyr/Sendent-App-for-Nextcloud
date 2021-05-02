@@ -55,6 +55,9 @@ class Version000010Date20210307 extends SimpleMigrationStep {
 			$table->addUniqueIndex(['licensekey'], 'sendent_license_index');
 		}else {
 			$table = $schema->getTable('sndnt_license');
+			$table->addColumn('licensekey', 'string', [
+				'notnull' => true
+			]);
 			// $table->addColumn('email', 'string', [
 			// 	'notnull' => true
 			// ]);
