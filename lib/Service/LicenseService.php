@@ -114,7 +114,7 @@ class LicenseService {
 		}
 		$licenseobj = new License();
 		
-$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+		$licenseobj->setLicensekey($this->FileStorageManager->getLicenseContent());
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
 		$licenseobj->setMaxusers(1);
