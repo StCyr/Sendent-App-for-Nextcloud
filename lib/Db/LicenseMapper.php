@@ -28,13 +28,13 @@ class LicenseMapper extends QBMapper {
 		return $this->findEntity($qb);
 	}
 
-	public function findByKey(string $key) {
+	public function findByLicenseKey(string $key) {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
 		   ->from('sndnt_license')
 		   ->where(
-			   $qb->expr()->eq('key', $qb->createNamedParameter($key, IQueryBuilder::PARAM_STR))
+			   $qb->expr()->eq('licensekey', $qb->createNamedParameter($key, IQueryBuilder::PARAM_STR))
 		   );
 
 		return $this->findEntity($qb);
