@@ -90,8 +90,9 @@ class LicenseService {
 		} catch (Exception $e) {
 			$licenseobj = new License();
 			
-			$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
-			$licenseobj->setEmail($email);
+$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$licenseobj->setLicensekey($value);
+						$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
 			$licenseobj->setMaxusers($maxusers);
 			$licenseobj->setMaxgraceusers($maxgraceusers);
@@ -114,7 +115,8 @@ class LicenseService {
 		}
 		$licenseobj = new License();
 		
-		$licenseobj->setLicensekey($this->FileStorageManager->getLicenseContent());
+		$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$licenseobj->setLicensekey($value);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
 		$licenseobj->setMaxusers(1);
