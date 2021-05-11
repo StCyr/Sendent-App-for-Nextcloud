@@ -1,9 +1,12 @@
 .sendent-steps li {
+    padding-left: 2em;
+
     &::before {
         content: '\2022';
         display: inline-block;
         height: 1em;
         width: 1em;
+        margin-left: -2em;
         margin-right: 1em;
         background-size: contain;
         background-position: center center;
@@ -14,7 +17,7 @@
         z-index: 2;
         content: '';
         border-radius: 100%;
-        margin-left: -4px;
+        margin-left: calc(-2em - 4px);
         animation: rotate 0.8s infinite linear;
         transform-origin: center;
         border: 2px solid var(--color-loading-light);
