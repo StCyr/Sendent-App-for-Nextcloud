@@ -4,6 +4,9 @@
 .personal-settings-setting-box{
 	position:relative;
 }
+.license-settings-setting-box{
+	position:relative;
+}
 .settingkeyvalueinput{
 	width: 100%;
 	position: relative;
@@ -51,8 +54,22 @@ textarea{
 			grid-auto-columns: 275px 300px 25px 25px;
 			display: grid;
 }
+
 label{
 	grid-area: a;
+}
+.labelFullWidth{
+	grid-column-start: a;
+	grid-column-end:c;
+}
+.errorStatus{
+	color:darkred;
+}
+.warningStatus{
+	color:darkorange;
+}
+.okStatus{
+	color:darkblue;
 }
 .templatesettingkeyname {
 	margin: 0;

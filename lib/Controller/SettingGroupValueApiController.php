@@ -97,16 +97,15 @@ class SettingGroupValueApiController extends ApiController {
 	 */
 	public function findByGroupId(int $groupid) {
 		try {
-			if($groupid == 1) {
+			if ($groupid == 1) {
 				$result = $this->mapper->findByGroupId($groupid);
-				foreach($result as $item) {
+				foreach ($result as $item) {
 					if ($this->valueIsSettingGroupValueFilePath($item->getValue()) !== false) {
 						$item->setValue($this->FileStorageManager->getContent($item->getGroupid(), $item->getSettingkeyid()));
 					}
 				}
 				return new DataResponse($result);
-			}
-			else {
+			} else {
 				return new DataResponse([], Http::STATUS_NOT_FOUND);
 			}
 		} catch (Exception $e) {

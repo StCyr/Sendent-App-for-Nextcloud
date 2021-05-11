@@ -46,7 +46,37 @@ return [
 		['name' => 'setting_template_api#show', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'GET'],
 		['name' => 'setting_template_api#create', 'url' => '/api/1.0/settingtemplate', 'verb' => 'POST'],
 		['name' => 'setting_template_api#update', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'PUT'],
-		['name' => 'setting_template_api#destroy', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'DELETE']
+		['name' => 'setting_template_api#destroy', 'url' => '/api/1.0/settingtemplate/{id}', 'verb' => 'DELETE'],
 
+		[
+			'name' => 'license_api#preflighted_cors',
+			'url' => '/api/1.0/{path}',
+			'verb' => 'OPTIONS',
+			'requirements' => ['path' => '.+']
+		],
+		['name' => 'license_api#show', 'url' => '/api/1.0/licensestatus', 'verb' => 'GET'],
+		['name' => 'license_api#create', 'url' => '/api/1.0/license', 'verb' => 'POST'],
+		['name' => 'license_api#validate', 'url' => '/api/1.0/licensevalidation', 'verb' => 'GET'],
+		['name' => 'license_api#renew', 'url' => '/api/1.0/licenserenew', 'verb' => 'GET'],
+		
+		[
+			'name' => 'connecteduser_api#preflighted_cors',
+			'url' => '/api/1.0/{path}',
+			'verb' => 'OPTIONS',
+			'requirements' => ['path' => '.+']
+		],
+		['name' => 'connecteduser_api#ping', 'url' => '/api/1.0/ping', 'verb' => 'GET'],
+			   
+		[
+			'name' => 'status_api#preflighted_cors',
+			'url' => '/api/1.0/{path}',
+			'verb' => 'OPTIONS',
+			'requirements' => ['path' => '.+']
+		],
+		['name' => 'status_api#index', 'url' => '/api/1.0/status', 'verb' => 'GET'],
+		['name' => 'tag#show', 'url' => '/api/1.0/tag/{id}', 'verb' => 'GET'],
+		['name' => 'tag#create', 'url' => '/api/1.0/tag', 'verb' => 'POST'],
 	]
 ];
+	?>
+
