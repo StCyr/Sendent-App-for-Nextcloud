@@ -130,3 +130,7 @@
 
 ## Fixed
 - We improved activation of license keys.
+
+##1.1.5 - 2021-05-02
+## Fixed
+- Several bugfixes and improvements.
