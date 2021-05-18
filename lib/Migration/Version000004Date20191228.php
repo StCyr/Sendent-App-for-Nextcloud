@@ -27,18 +27,18 @@
 
 
   			$table->addColumn('key', 'string', [
-  				'notnull' => true,
+  				'notnull' => false,
   				'length' => 254,
   			]);
   			$table->addColumn('name', 'string', [
-  				'notnull' => true,
+  				'notnull' => false,
   				'length' => 254,
   			]);
   			$table->addColumn('templateid', 'integer', [
-  				'notnull' => true
+  				'notnull' => false
   			]);
   			$table->addColumn('valuetype', 'string', [
-  				'notnull' => true,
+  				'notnull' => false,
   				'length' => 254,
   			]);
   			$table->setPrimaryKey(['id']);
@@ -63,13 +63,13 @@
   			]);
 
   			$table->addColumn('settingkeyid', 'integer', [
-  				'notnull' => true
+  				'notnull' => false
   			]);
   			$table->addColumn('groupid', 'integer', [
-  				'notnull' => true
+  				'notnull' => false
   			]);
   			$table->addColumn('value', 'string', [
-  				'notnull' => true
+  				'notnull' => false
   			]);
   			$table->setPrimaryKey(['id']);
   			$table->addUniqueIndex(['settingkeyid', 'groupid'], 'sendent_keygroup_index');

@@ -24,29 +24,29 @@ class Version000010Date20210307 extends SimpleMigrationStep {
 			$table = $schema->createTable('sndnt_license');
 			$table->addColumn('id', 'integer', [
 				'autoincrement' => true,
-				'notnull' => true,
+				'notnull' => false,
 			]);
 
 			$table->addColumn('licensekey', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('email', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('maxusers', 'integer', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('maxgraceusers', 'integer', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('dategraceperiodend', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('datelicenseend', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('datelastchecked', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('level', 'string', [
 				'notnull' => false

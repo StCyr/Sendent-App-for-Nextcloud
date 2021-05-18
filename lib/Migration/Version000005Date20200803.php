@@ -28,18 +28,18 @@ class Version000005Date20200803 extends SimpleMigrationStep {
 
 
 			$table->addColumn('key', 'string', [
-				'notnull' => true,
+				'notnull' => false,
 				'length' => 254,
 			]);
 			$table->addColumn('name', 'string', [
-				'notnull' => true,
+				'notnull' => false,
 				'length' => 254,
 			]);
 			$table->addColumn('templateid', 'integer', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('valuetype', 'string', [
-				'notnull' => true,
+				'notnull' => false,
 				'length' => 254,
 			]);
 			$table->setPrimaryKey(['id']);
@@ -64,13 +64,13 @@ class Version000005Date20200803 extends SimpleMigrationStep {
 			]);
 
 			$table->addColumn('settingkeyid', 'integer', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('groupid', 'integer', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('value', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->setPrimaryKey(['id']);
 			$table->addUniqueIndex(['settingkeyid', 'groupid'], 'sendent_keygroup_index');
@@ -88,14 +88,14 @@ class Version000005Date20200803 extends SimpleMigrationStep {
 			]);
 
 			$table->addColumn('templatename', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->setPrimaryKey(['id']);
 		} else {
 			$table = $schema->getTable('sndnt_stngtmplt');
 			$table->dropColumn('templateName');
 			$table->addColumn('templatename', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 		}
 
@@ -104,14 +104,14 @@ class Version000005Date20200803 extends SimpleMigrationStep {
 			$table = $schema->createTable('sndnt_connuser');
 			$table->addColumn('id', 'integer', [
 				'autoincrement' => true,
-				'notnull' => true,
+				'notnull' => false,
 			]);
 
 			$table->addColumn('userid', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->addColumn('dateconnected', 'string', [
-				'notnull' => true
+				'notnull' => false
 			]);
 			$table->setPrimaryKey(['id']);
 			$table->addUniqueIndex(['userid'], 'sendent_connuserid_index');
