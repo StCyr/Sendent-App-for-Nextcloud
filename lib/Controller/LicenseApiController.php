@@ -52,7 +52,7 @@ class LicenseApiController extends ApiController {
 			}
 			$result = $this->service->findAll();
 			if (isset($result) && $result !== null && $result !== false) {
-				if (is_array($result) && $result[0] !== null && isset($result[0])) {
+				if (is_array($result) && count($result) > 0) {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$dateExpiration = $result[0]->getDatelicenseend();
