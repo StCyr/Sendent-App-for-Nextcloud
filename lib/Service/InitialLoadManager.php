@@ -9,16 +9,53 @@ use OCA\Sendent\Db\SettingKey;
 use OCA\Sendent\Db\SettingKeyMapper;
 use OCA\Sendent\Db\SettingGroupValueMapper;
 use OCA\Sendent\Db\SettingGroupValue;
+use OCP\IConfig;
+use OCP\PreConditionNotMetException;
 
 class InitialLoadManager {
 	private $SettingKeyMapper;
 	private $SettingGroupValueMapper;
+	private $config;
 
-	public function __construct(SettingKeyMapper $SettingKeyMapper, SettingGroupValueMapper $SettingGroupValueMapper, SendentFileStorageManager $SendentFileStorageManager) {
+	public function __construct(SettingKeyMapper $SettingKeyMapper, 
+	SettingGroupValueMapper $SettingGroupValueMapper, 
+	SendentFileStorageManager $SendentFileStorageManager,
+			IConfig $config) 
+			{
 		$this->SettingKeyMapper = $SettingKeyMapper;
 		$this->SettingGroupValueMapper = $SettingGroupValueMapper;
 		$this->SendentFileStorageManager = $SendentFileStorageManager;
+		$this->config = $config;
+	
+		$this->checkUpdateNeeded115();
 
+
+		
+	}
+
+	/**
+	 * Return true if this is the first time a user is acessing their instance with deck enabled
+	 *
+	 * @param $userId
+	 * @return bool
+	 */
+	public function checkUpdateNeeded115(): bool {
+		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
+
+		if ($firstRun !== '1.1.5') {
+			try {
+				$this->runInitialLoadTasks115();
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.1.5');
+			} catch (PreConditionNotMetException $e) {
+				return false;
+			}
+			return true;
+		}
+
+		return false;
+	}
+	private function runInitialLoadTasks115()
+	{
 		try {
 			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
 				$this->initialLoading();
