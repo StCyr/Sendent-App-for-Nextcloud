@@ -2,7 +2,7 @@
     "name": "sendent/serverapp",
     "description": "Test",
     "type": "project",
-    "license": "GPL-3.0",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Léon van de Broek"
