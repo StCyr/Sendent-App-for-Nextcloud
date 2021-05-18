@@ -19,6 +19,7 @@
     <website>https://www.sendent.nl</website>
 
     <bugs>https://sendent.nl/support</bugs>
+    <repository>https://github.com/Sendent-B-V/Sendent-App-for-Nextcloud.git</repository>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sendentbanner.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sharefilesuploading.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sharefilesfiles.png</screenshot>
