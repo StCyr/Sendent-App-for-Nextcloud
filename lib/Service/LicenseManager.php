@@ -37,7 +37,7 @@ class LicenseManager {
 	public function renewLicense() {
 		try {
 			$licenses = $this->licenseservice->findAll();
-			if (isset($licenses) && $licenses !== null && $licenses[0] !== null) {
+			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
 				$license = $licenses[0];
 				$license = $this->subscriptionvalidationhttpclient->validate($license);
 				if (isset($license)) {
