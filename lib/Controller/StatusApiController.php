@@ -29,7 +29,7 @@ class StatusApiController extends ApiController {
 		$result = $this->licensemanager->renewLicense();
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.1.0";
+		$statusobj->version = "1.1.7";
 		$statusobj->currentuserid = $this->userId;
 		$statusobj->datelicenseend = $result->getDatelicenseend();
 		$statusobj->maxusers = $result->getMaxusers();

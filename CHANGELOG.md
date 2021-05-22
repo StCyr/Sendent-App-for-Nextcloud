@@ -131,6 +131,14 @@
 ## Fixed
 - We improved activation of license keys.
 
-##1.1.5 - 2021-05-02
+## 1.1.5 - 2021-05-02
 ## Fixed
 - Several bugfixes and improvements.
+
+## 1.1.6 - 2021-05-18
+## Fixed
+- Several bugfixes in licensing and significant performance improvements.
+
+## 1.1.7 - 2021-05-22
+## Features
+- Fixes to ensure compatibility with Oracle DB databases.

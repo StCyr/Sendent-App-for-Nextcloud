@@ -42,10 +42,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '1.1.5') {
+		if ($firstRun !== '1.1.6') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.1.5');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.1.6');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
