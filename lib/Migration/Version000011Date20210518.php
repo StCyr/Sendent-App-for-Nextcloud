@@ -38,7 +38,7 @@ use Exception;
  		$result = $this->ensureColumnIsNullable($schema, 'sndnt_license', 'datelastchecked');
  		$result = $this->ensureColumnIsNullable($schema, 'sndnt_license', 'level');
 
- 		return $result ? $schema : null;
+ 		return $schema;
  	}
 
  	protected function ensureColumnIsNullable(ISchemaWrapper $schema, string $tableName, string $columnName): bool {
