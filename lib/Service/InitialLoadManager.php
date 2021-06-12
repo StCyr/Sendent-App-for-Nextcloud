@@ -42,10 +42,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '1.1.6') {
+		if ($firstRun !== '1.2.0') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.1.6');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.2.0');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -91,6 +91,9 @@ class InitialLoadManager {
             }
             if ($this->SettingKeyMapper->settingKeyCount("104") < 1) {
 				$this->addAdvancedThemingNameUpdate();
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("201") < 1) {
+				$this->addTalkSettingUpdate();
 			}
 			$this->fixPaths();
 			$this->fixSnippets();
@@ -160,6 +163,10 @@ class InitialLoadManager {
 	public function addHtmlpasswordsnippet() {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
+	}
+	public function addTalkSettingUpdate() {
+		$this->createKey("201", "generatetalkpassword", "0", "textarea");
+		$this->createGroupValue("0", "201", "False" );
 	}
 
 	public function addAdvancedTheming() {

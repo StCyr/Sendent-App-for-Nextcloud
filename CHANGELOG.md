@@ -142,3 +142,15 @@
 ## 1.1.7 - 2021-05-22
 ## Features
 - Fixes to ensure compatibility with Oracle DB databases.
+
+## 1.1.8 - 2021-05-24
+## Fixed
+- Several bugfixes and improvements.
+
+## 1.1.9 - 2021-05-24
+## Fixed
+- Several bugfixes and improvements.
+
+## 1.2.0 - 2021-06-12
+## Feature
+- New setting for defining if Talk feature in the Outlook Add-in should generate a password when creating a meeting.

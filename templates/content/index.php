@@ -185,7 +185,29 @@ style('sendent', ['style']);
             </div>
         </div>
     </div>
-
+    <div class="settingTemplateDetailInclude section" id="domainExceptions">
+        <h1>
+            Talk settings
+        </h1>
+        <div class="personal-settings-setting-box" id="generatetalkpassword">
+            <div id="generatetalkpassword" class="settingkeyvalue">
+                <label>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">Generate password for meetings</span>
+                </label>
+                <div id="status-error" class="icon-error error hidden"></div>
+                <div id="status-ok" class="icon-checkmark ok hidden"></div>
+                <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="generatetalkpassword">
+                    <option value="True">Enabled</option>
+                    <option selected value="False">Disabled</option>
+                </select>
+                <input type="hidden" id="settingkeyname" value="generatetalkpassword">
+                <input type="hidden" id="settingkeytemplateid" value="0">
+                <input type="hidden" id="settinggroupid" value="0">
+                <input type="hidden" id="settingkeykey" value="201">
+                <input type="hidden" id="settingkeyid" value="201">
+            </div>
+        </div>
+    </div>
     <div class="settingTemplateDetailInclude section" id="domainExceptions">
         <h1>
             Domain settings
