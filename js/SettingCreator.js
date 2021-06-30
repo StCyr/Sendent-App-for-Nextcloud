@@ -8,7 +8,7 @@ class SettingFormHandler {
         var that = this;
         var calls = new SettingKeyAjaxCalls();
         var valuecalls = new SettingGroupValueAjaxCalls();
-
+        
         $.when(valuecalls.list()).done(function (allSettings) {
 
             $(".section").each(function () {

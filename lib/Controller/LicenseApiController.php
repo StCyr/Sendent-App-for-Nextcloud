@@ -48,11 +48,12 @@ class LicenseApiController extends ApiController {
 				$this->licensemanager->renewLicense();
 			}
 			catch(Exception $e){
-				$this->handleException($e);
+				
 			}
 			$result = $this->service->findAll();
 			if (isset($result) && $result !== null && $result !== false) {
-				if (is_array($result) && count($result) > 0) {
+				if (is_array($result) && count($result) > 0 
+				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_validating" && $result[0]->getLevel() != "Error_incomplete") {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$dateExpiration = $result[0]->getDatelicenseend();
@@ -60,20 +61,28 @@ class LicenseApiController extends ApiController {
 					$level = $result[0]->getLevel();
 					$statusKind = "";
 					$status = "";
-					if ($result[0]->isCheckNeeded()) {
+					if ($result[0]->isCleared()) {
+						$status = "No license configured";
+						$statusKind = "nolicense";
+					}
+					else if ($result[0]->isIncomplete()) {
+						$status = "Missing email address or license key.";
+						$statusKind = "error_incomplete";
+					}
+					else if ($result[0]->isCheckNeeded()) {
 						$status = "Revalidation of your license is required";
 						$statusKind = "check";
 					}
-					if ($result[0]->isLicenseExpired()) {
+					else if ($result[0]->isLicenseExpired()) {
 						$status = "Current license has expired. </br><u><a href='mailto:info@sendent.nl' style='color:blue'>Contact sales</a></u> to renew your license.";
 						$statusKind = "expired";
 					}
-					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+					else if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
 						$status = "Current license is valid";
 						$statusKind = "valid";
 					}
 					
-					if(!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount())
+					else if(!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount())
 					{
 						$status = "Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.";
 						$statusKind = "userlimit";
@@ -83,15 +92,28 @@ class LicenseApiController extends ApiController {
 						$statusKind = "userlimit";
 					}
 					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
-				} else {
+				}
+				else if($result[0]->getLevel() == "Error_incomplete") 
+				{
+					$email = $result[0]->getEmail();
+					$licensekey = $result[0]->getLicensekey();
+					return new DataResponse(new LicenseStatus("Missing email address or license key.", "error_incomplete" ,"-", $licensekey, "-", "-", $email));
+				}
+				else if($result[0]->getLevel() == "Error_validating") 
+				{
+					$email = $result[0]->getEmail();
+					$licensekey = $result[0]->getLicensekey();
+					return new DataResponse(new LicenseStatus("Cannot verify your license. Please make sure your licensekey and emailaddress are correct before you try to 'Activate license'.", "error_validating","-", $licensekey, "-", "-", $email));
+				}
+				else {
 					return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
 				}
 			} else {
 				return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
 			}
 		} catch (Exception $e) {
-			$this->handleException($e);
-			return new DataResponse(new LicenseStatus("An error occured while fetching your license", "fatal" ,"-", "-", "-", "-", "-"));
+			
+			return new DataResponse(new LicenseStatus("Cannot verify your license. Please make sure your licensekey and emailaddress are correct before you try to 'Activate license'.", "fatal" ,"-", "-", "-", "-", "-"));
 		}
 	}
 

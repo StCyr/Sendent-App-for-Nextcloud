@@ -23,9 +23,13 @@ class LicenseManager {
   }
 
   getLicenseStatus() {
+    addLoadindicator('.settingkeyvalueinput#licensestatus');
+    addLoadindicator('.settingkeyvalueinput#licenselastcheck');
+    addLoadindicator('.settingkeyvalueinput#licenseexpires');
+    addLoadindicator('.settingkeyvalueinput#licenselevel');
     $.when(this.licensecalls.getLicenseDetails()).fail(function (failedvalueget) {
-      $(".settingkeyvalueinput#licensestatus").text("Error fetching license status.");
-      $(".settingkeyvalueinput#licenselastcheck").text("-");
+      $(".settingkeyvalueinput#licensestatus").text("Cannot verify your license. Please make sure your licensekey and emailaddress are correct before you try to 'Activate license'.");
+      $(".settingkeyvalueinput#licenselastcheck").text("Just now");
       $(".settingkeyvalueinput#licenseexpires").text("-");
       $(".settingkeyvalueinput#licenselevel").text("-");
       $("#btnLicenseActivation").val("Activate license");
@@ -39,8 +43,9 @@ class LicenseManager {
       $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("okStatus").removeClass("warningStatus");
     })
       .done(function (status) {
+        
         if (status !== false) {
-          if(status.level != "Free" && status.level != "")
+          if(status.level != "Free" && status.level != "-" && status.level != " ")
           {
             $("#btnSupportButton").removeClass("hidden").addClass("shown");
           }
@@ -163,7 +168,48 @@ class LicenseManager {
             $(".settingkeyvalueinput#licenseEmail").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
             $(".settingkeyvalueinput#licensekey").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
           }
-        }
+        else if(status.statusKind === "error_validating")
+          {
+            $(".settingkeyvalueinput#licensestatus").text(
+              '' + status.status);
+            $(".settingkeyvalueinput#licenselastcheck").text(
+              '' + status.dateLastCheck);
+            $(".settingkeyvalueinput#licenseexpires").text(
+              '' + status.dateExpiration);
+            $(".settingkeyvalueinput#licenselevel").text(
+              '' + status.level);
+            $(".settingkeyvalueinput#licenseEmail").val(status.email);
+            $(".settingkeyvalueinput#licensekey").val(status.licensekey);
+            $("#btnLicenseActivation").val("Activate license");
+            $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
+            $(".settingkeyvalueinput#licensestatus").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenselastcheck").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenseexpires").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenseEmail").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+          }
+          else if(status.statusKind === "error_incomplete")
+          {
+            $(".settingkeyvalueinput#licensestatus").text(
+              '' + status.status);
+            $(".settingkeyvalueinput#licenselastcheck").text(
+              '' + status.dateLastCheck);
+            $(".settingkeyvalueinput#licenseexpires").text(
+              '' + status.dateExpiration);
+            $(".settingkeyvalueinput#licenselevel").text(
+              '' + status.level);
+            $(".settingkeyvalueinput#licenseEmail").val(status.email);
+            $(".settingkeyvalueinput#licensekey").val(status.licensekey);
+            $("#btnLicenseActivation").val("Activate license");
+            $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
+            $(".settingkeyvalueinput#licensestatus").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenselastcheck").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenseexpires").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licenseEmail").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+            $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+          }
         else {
           $(".settingkeyvalueinput#licensestatus").text(
             '' + status.status);
@@ -183,8 +229,8 @@ class LicenseManager {
             $(".settingkeyvalueinput#licenseexpires").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenseEmail").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
+          }
         }
-      
       });
   }
 }
@@ -202,9 +248,11 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
+        disableButtons();
       },
       success: function (data) {
         console.log('validation was submitted with result: ' + data);
+        enableButtons();
         return data;
       }
     });
@@ -218,9 +266,12 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
+        disableButtons();
       },
       success: function (data) {
         console.log('status was returned with result: ' + data);
+        enableButtons();
+
         return data;
       },
       error: function (xhr, ajaxOptions, thrownError) {
@@ -228,6 +279,8 @@ class LicenseValidationCalls {
           console.warn(xhr.status);
           return false;
         }
+        enableButtons();
+
         console.warn(thrownError);
         console.warn(xhr.data);
         console.warn(thrownError);
@@ -246,10 +299,12 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
+        disableButtons();
       },
       success: function (data) {
         console.log('licensekey was created with result: ' + data);
         //that.getLicenseDetails();
+        enableButtons();
         return data;
       }
     });
@@ -265,16 +320,22 @@ $(document).ready(function () {
   that.LicenseManager = new LicenseManager();
   
 
-  $("#licensebutton").on('click', function () {
+  $("#btnLicenseActivation").on('click', function () {
     var email = $(".settingkeyvalueinput#licenseEmail").val();
     var key = $(".settingkeyvalueinput#licensekey").val();
     email  = email.replace(/\s+/g, '');
     key  = key.replace(/\s+/g, '');
-    that.LicenseValidationCalls.createLicense(email, key);
+    if(email == "" || key == "")
+    {
+      that.LicenseValidationCalls.createLicense("", "");
+    }
+    else{
+      that.LicenseValidationCalls.createLicense(email, key);
+    }
     sleep(1000);
     that.LicenseManager.getLicenseStatus();
   });
-  $("#licenseClearButton").on('click', function () {
+  $("#btnClearLicense").on('click', function () {
     $(".settingkeyvalueinput#licenseEmail").val("");
     $(".settingkeyvalueinput#licensekey").val("");
     that.LicenseValidationCalls.createLicense("", "");
@@ -283,18 +344,34 @@ $(document).ready(function () {
   });
 
   $(".settingkeyvalueinput#licenseEmail").on('change', function () {
-    $("#btnLicenseActivation").val("Activate license");
+    //$("#btnLicenseActivation").val("Activate license");
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
   });
   $(".settingkeyvalueinput#licensekey").on('change', function () {
-    $("#btnLicenseActivation").val("Activate license");
+    //$("#btnLicenseActivation").val("Activate license");
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
   });
-
       that.LicenseManager.getLicenseStatus();
       that.LicenseValidationCalls.getLicenseDetails();
-});
 
+});
+function enableButtons()
+{
+
+    $("#btnSupportButton").removeAttr("disabled");
+    $("#btnClearLicense").removeAttr("disabled");
+    $("#btnLicenseActivation").removeAttr("disabled");
+}
+function disableButtons()
+{
+    $("#btnSupportButton").prop('disabled', true);
+    $("#btnClearLicense").prop('disabled', true);
+    $("#btnLicenseActivation").prop('disabled', true);
+}
+function addLoadindicator(id)
+{
+  $(id).html('<div class="spinner">  <div class="bounce1"></div>  <div class="bounce2"></div>  <div class="bounce3"></div></div>');
+}
 function sleep(delay) {
   var start = new Date().getTime();
   while (new Date().getTime() < start + delay);

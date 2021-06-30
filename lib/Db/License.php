@@ -41,8 +41,22 @@ class License extends Entity implements JsonSerializable {
 		}
 		return true;
 	}
-
+	public function isIncomplete() {
+		if((!isset($this->licensekey) || !isset($this->licensekey)) || ($this->licensekey == "" || $this->email == ""))
+		{
+			return true;
+		}
+		return false;
+	}
+	public function isCleared() {
+		if((!isset($this->licensekey) && !isset($this->licensekey)) || ($this->licensekey == "" && $this->email == ""))
+		{
+			return true;
+		}
+		return false;
+	}
 	public function isLicenseExpired() {
+		
 		if (date_create($this->datelicenseend) < date_create("now")
 		&& date_create($this->dategraceperiodend) < date_create("now")) {
 			return true;

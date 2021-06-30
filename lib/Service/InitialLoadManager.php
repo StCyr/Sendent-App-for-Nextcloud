@@ -42,10 +42,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '1.2.0') {
+		if ($firstRun !== '1.2.3') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.2.0');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.2.3');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -94,6 +94,9 @@ class InitialLoadManager {
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("201") < 1) {
 				$this->addTalkSettingUpdate();
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("202") < 1) {
+				$this->addTalkEnabledUpdate();
 			}
 			$this->fixPaths();
 			$this->fixSnippets();
@@ -168,7 +171,10 @@ class InitialLoadManager {
 		$this->createKey("201", "generatetalkpassword", "0", "textarea");
 		$this->createGroupValue("0", "201", "False" );
 	}
-
+	public function addTalkEnabledUpdate() {
+		$this->createKey("202", "talkenabled", "0", "select-one");
+		$this->createGroupValue("0", "202", "True" );
+	}
 	public function addAdvancedTheming() {
 		if (!is_null($this->showNameBySettingKeyId("81"))) {
 			$this->updateKey("81", "GeneralIconColor", "1", "text");

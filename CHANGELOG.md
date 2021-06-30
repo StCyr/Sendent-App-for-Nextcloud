@@ -154,3 +154,12 @@
 ## 1.2.0 - 2021-06-12
 ## Feature
 - New setting for defining if Talk feature in the Outlook Add-in should generate a password when creating a meeting.
+
+## 1.2.1 - 2021-06-13
+## Fixed
+- A problem which caused the license not to be displayed correctly in the Outlook Add-in.
+
+
+## 1.2.2 - 2021-06-20
+## Feature
+- Better experience when configurating your Sendent license.

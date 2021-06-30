@@ -1,6 +1,7 @@
 <?php
-
 namespace OCA\Sendent\Http;
+use Exception;
+use OCA\Sendent\Service\NotFoundException;
 
 class LicenseHttpClient {
 	protected $baseUrl;
@@ -21,21 +22,30 @@ class LicenseHttpClient {
 	}
 
 	public function Post($request, $data) {
-		$url = $this->baseUrl . $request;
-		$options = [
-			'http' => [
-				'method' => 'POST',
-				'content' => json_encode($data),
-				'header' => "api-version:1\r\n".
-							"Content-Type: application/json\r\n" .
-							"Accept: application/json\r\n"
-			]
-		];
+		try {
+			$url = $this->baseUrl . $request;
+			$options = [
+				'http' => [
+					'method' => 'POST',
+					'content' => json_encode($data),
+					'header' => "api-version:1\r\n".
+								"Content-Type: application/json\r\n" .
+								"Accept: application/json\r\n"
+				]
+			];
 
-		$context = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		$response = json_decode($result);
-		return $response;
+			$context = stream_context_create($options);
+			$result = file_get_contents($url, false, $context);
+			$response = json_decode($result);
+			return $response;
+			// in order to be able to plug in different storage backends like files
+		// for instance it is a good idea to turn storage related exceptions
+		// into service related exceptions so controllers and service users
+		// have to deal with only one type of exception
+		} catch (Exception $e) {
+			//throw new NotFoundException($e->getMessage());
+		}
+		
 	}
 
 	public function Put($request, $data) {
@@ -58,4 +68,5 @@ class LicenseHttpClient {
 		$result = curl_exec($ch);
 		return $result;
 	}
+	
 }

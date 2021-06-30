@@ -90,9 +90,9 @@ class LicenseService {
 		} catch (Exception $e) {
 			$licenseobj = new License();
 			
-$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$value = $this->FileStorageManager->writeLicenseTxt($license);
 			$licenseobj->setLicensekey($value);
-						$licenseobj->setEmail($email);
+			$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
 			$licenseobj->setMaxusers($maxusers);
 			$licenseobj->setMaxgraceusers($maxgraceusers);
@@ -103,7 +103,11 @@ $value = $this->FileStorageManager->writeLicenseTxt($license);
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
 				$licenseobj->setLicensekey($value);
 
-			return $this->mapper->insert($licenseobj);
+				$licenseresult = $this->mapper->insert($licenseobj);
+				if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
+					$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+				}
+				return $licenseresult;
 		}
 	}
 
@@ -125,7 +129,11 @@ $value = $this->FileStorageManager->writeLicenseTxt($license);
 		$licenseobj->setDatelicenseend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
 
-		return $this->mapper->insert($licenseobj);
+		$licenseresult = $this->mapper->insert($licenseobj);
+		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
+			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+		}
+		return $licenseresult;
 	}
 
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
@@ -146,7 +154,11 @@ $value = $this->FileStorageManager->writeLicenseTxt($license);
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 		
-		return $this->mapper->insert($licenseobj);
+		$licenseresult = $this->mapper->insert($licenseobj);
+		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
+			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+		}
+		return $licenseresult;
 	}
 
 	public function destroy(int $id) {
