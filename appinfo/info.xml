@@ -26,6 +26,6 @@
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/publicshare.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/publicsharedate.png</screenshot>
     <dependencies>
-        <nextcloud min-version="20" max-version="21"/>
+        <nextcloud min-version="20" max-version="22"/>
     </dependencies>
 </info>
