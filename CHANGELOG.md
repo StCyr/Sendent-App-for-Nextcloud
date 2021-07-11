@@ -169,3 +169,8 @@
 - Fix where the app could cause performance issues with Outlook
 - Ability to enable- or disable Talk integration for Outlook (starting from Add-in version 2.3, soon to be released)
 - Official support for Nextcloud 22
+
+## 1.2.4 - 2021-07-12
+## Fixed
+- Better experience when configurating your Sendent license.
+- Several bugfixes and improvements to make the experience smoother when using our app.
