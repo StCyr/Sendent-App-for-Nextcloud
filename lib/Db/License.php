@@ -36,13 +36,18 @@ class License extends Entity implements JsonSerializable {
 
 	public function isCheckNeeded() {
 		$diffDay = new DateInterval('P7D');
-		if (date_create($this->datelastchecked) >= date_sub(date_create("now"), $diffDay)) {
+		if (date_create($this->datelastchecked) >= date_sub(date_create("now"), $diffDay) && $this->level != "Error_validating") {
+			error_log(print_r("LICENSE-ISCHECKNEEDED: FALSE", TRUE)); 
+
 			return false;
+
 		}
+		error_log(print_r("LICENSE-ISCHECKNEEDED: TRUE", TRUE)); 
+
 		return true;
 	}
 	public function isIncomplete() {
-		if((!isset($this->licensekey) || !isset($this->licensekey)) || ($this->licensekey == "" || $this->email == ""))
+		if($this->level == "Error_incomplete" || (!isset($this->licensekey) || !isset($this->licensekey)) || ($this->licensekey == "" || $this->email == ""))
 		{
 			return true;
 		}

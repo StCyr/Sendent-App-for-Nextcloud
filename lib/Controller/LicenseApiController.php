@@ -45,15 +45,35 @@ class LicenseApiController extends ApiController {
 	public function show() {
 		try {
 			try{
-				$this->licensemanager->renewLicense();
+				$this->licensemanager->pingLicensing();
 			}
-			catch(Exception $e){
+			catch(Exception $e)
+			{
 				
 			}
 			$result = $this->service->findAll();
 			if (isset($result) && $result !== null && $result !== false) {
 				if (is_array($result) && count($result) > 0 
-				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_validating" && $result[0]->getLevel() != "Error_incomplete") {
+				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
+					if($result[0]->isCheckNeeded())
+					{
+						try{
+							$this->licensemanager->renewLicense();
+							$result = $this->service->findAll();
+							if (isset($result) && $result !== null && $result !== false) {
+								if (is_array($result) && count($result) > 0 
+								&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
+									
+								}
+								else{
+									throw new Exception();
+								}
+							}
+						}
+						catch(Exception $e){
+							
+						}
+					}
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$dateExpiration = $result[0]->getDatelicenseend();
@@ -93,13 +113,13 @@ class LicenseApiController extends ApiController {
 					}
 					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
 				}
-				else if($result[0]->getLevel() == "Error_incomplete") 
+				else if(count($result) > 0 && $result[0]->getLevel() == "Error_incomplete") 
 				{
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
-					return new DataResponse(new LicenseStatus("Missing email address or license key.", "error_incomplete" ,"-", $licensekey, "-", "-", $email));
+					return new DataResponse(new LicenseStatus("Missing (or incorrect) email address or license key. <u><a href='mailto:support@sendent.nl' style='color:blue'>Contact support</a></u> to get your correct license information.", "error_incomplete" ,"-", $licensekey, "-", "-", $email));
 				}
-				else if($result[0]->getLevel() == "Error_validating") 
+				else if(count($result) > 0 && $result[0]->getLevel() == "Error_validating") 
 				{
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();

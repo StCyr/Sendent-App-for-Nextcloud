@@ -82,12 +82,18 @@ class LicenseService {
 	public function create(string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level) {
+		error_log(print_r("LICENSESERVICE-CREATE", TRUE)); 
+
 		try {
 			$this->cleanupLicenses($license);
+			error_log(print_r("LICENSESERVICE-LEVEL=		" . $level, TRUE)); 
+
 			return $this->update(0, $license,
 			$dategraceperiodend, $datelicenseend,
 			$maxusers, $maxgraceusers, $email, $datelastchecked, $level);
 		} catch (Exception $e) {
+			error_log(print_r("LICENSESERVICE-EXCEPTION=" . $e, TRUE)); 
+
 			$licenseobj = new License();
 			
 			$value = $this->FileStorageManager->writeLicenseTxt($license);
@@ -102,11 +108,13 @@ class LicenseService {
 
 				$value = $this->FileStorageManager->writeLicenseTxt($license);
 				$licenseobj->setLicensekey($value);
+				error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), TRUE)); 
 
 				$licenseresult = $this->mapper->insert($licenseobj);
 				if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
 					$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
 				}
+
 				return $licenseresult;
 		}
 	}
@@ -139,6 +147,8 @@ class LicenseService {
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level) {
+		error_log(print_r("LICENSESERVICE-UPDATE", TRUE)); 
+
 		$this->cleanupLicenses($license);
 		$licenseobj = new License();
 

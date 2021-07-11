@@ -191,7 +191,7 @@ class LicenseManager {
           }
           else if(status.statusKind === "error_incomplete")
           {
-            $(".settingkeyvalueinput#licensestatus").text(
+            $(".settingkeyvalueinput#licensestatus").html(
               '' + status.status);
             $(".settingkeyvalueinput#licenselastcheck").text(
               '' + status.dateLastCheck);

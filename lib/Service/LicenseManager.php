@@ -33,7 +33,20 @@ class LicenseManager {
 			throw $e;
 		}
 	}
+	public function pingLicensing()
+	{
+		try{
+			$licenses = $this->licenseservice->findAll();
+			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
+				$license = $licenses[0];
+				$license = $this->subscriptionvalidationhttpclient->validate($license);
+			}
+		}
+			catch(Exception $e)
+			{
 
+			}
+		}
 	public function renewLicense() {
 		try {
 			$licenses = $this->licenseservice->findAll();
@@ -102,27 +115,35 @@ class LicenseManager {
 	}
 
 	public function activateLicense(License $license) {
+		error_log(print_r("LICENSEMANAGER-ACTIVATELICENSE", TRUE)); 
+
 		$activatedLicense = $this->subscriptionvalidationhttpclient->activate($license);
 		if (isset($activatedLicense)) {
-			$level = $license->getLevel();
-					if(!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == ""))
+			$level = $activatedLicense->getLevel();
+			error_log(print_r("LICENSEMANAGER-LEVEL=		" . $level, TRUE)); 
+
+					if(!isset($level) && ($activatedLicense->getEmail() == "" || $activatedLicense->getLicensekey() == ""))
 					{
 						$level = "Error_incomplete";
+						error_log(print_r("LICENSEMANAGER-LEVEL=		Error_incomplete", TRUE)); 
 					}
 					else if(!isset($level))
 					{
-						$level = "Error_validating";
+						$level = "Error_validating";						
+						error_log(print_r("LICENSEMANAGER-LEVEL=		Error_validating", TRUE)); 
 					}
-					$maxUsers = $license->getMaxusers();
+					$maxUsers = $activatedLicense->getMaxusers();
 					if(!isset($maxUsers))
 					{
 						$maxUsers = 1;
 					}
-					$maxGraceUsers = $license->getMaxgraceusers();
+					$maxGraceUsers = $activatedLicense->getMaxgraceusers();
 					if(!isset($maxGraceUsers))
 					{
 						$maxGraceUsers = 1;
 					}
+					error_log(print_r("LICENSEMANAGER-LEVEL=		" . $level, TRUE)); 
+
 			return $this->licenseservice->create(
 				$activatedLicense->getLicensekey(),
 				date_create($activatedLicense->getDategraceperiodend()),
