@@ -24,11 +24,11 @@ class LicenseManager {
 
   getLicenseStatus() {
     $.when(this.licensecalls.getLicenseDetails()).fail(function (failedvalueget) {
-      $(".settingkeyvalueinput#licensestatus").text("Error fetching license status.");
+      $(".settingkeyvalueinput#licensestatus").text(t("sendent", "Error fetching license status."));
       $(".settingkeyvalueinput#licenselastcheck").text("-");
       $(".settingkeyvalueinput#licenseexpires").text("-");
       $(".settingkeyvalueinput#licenselevel").text("-");
-      $("#btnLicenseActivation").val("Activate license");
+      $("#btnLicenseActivation").val(t("sendent", "Activate license"));
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
       $("#btnSupportButton").removeClass("shown").addClass("hidden");
       $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("okStatus").removeClass("warningStatus");
@@ -55,7 +55,7 @@ class LicenseManager {
               '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Activate license");
+            $("#btnLicenseActivation").val(t("sendent", "Activate license"));
             $("#btnLicenseActivation").removeClass("shown").addClass("hidden");
             $(".settingkeyvalueinput#licenselevel").addClass("okStatus").removeClass("warningStatus").removeClass("errorStatus");
             $(".settingkeyvalueinput#licensestatus").addClass("okStatus").removeClass("warningStatus").removeClass("errorStatus");
@@ -76,7 +76,7 @@ class LicenseManager {
               '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Revalidate license");
+            $("#btnLicenseActivation").val(t("sendent", "Revalidate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("warningStatus").removeClass("errorStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("warningStatus").removeClass("errorStatus").removeClass("okStatus");
@@ -97,7 +97,7 @@ class LicenseManager {
               '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Revalidate license");
+            $("#btnLicenseActivation").val(t("sendent", "Revalidate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
@@ -129,11 +129,11 @@ class LicenseManager {
           }
           else if(status.statusKind === "nolicense")
           {
-            $(".settingkeyvalueinput#licensestatus").text("No license configured.");
+            $(".settingkeyvalueinput#licensestatus").text(t("sendent", "No license configured."));
             $(".settingkeyvalueinput#licenselastcheck").text("-");
             $(".settingkeyvalueinput#licenseexpires").text("-");
             $(".settingkeyvalueinput#licenselevel").text("-");
-            $("#btnLicenseActivation").val("Activate license");
+            $("#btnLicenseActivation").val(t("sendent", "Activate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
@@ -154,7 +154,7 @@ class LicenseManager {
               '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Revalidate license");
+            $("#btnLicenseActivation").val(t("sendent", "Revalidate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("warningStatus").removeClass("okStatus").removeClass("errorStatus");
@@ -175,7 +175,7 @@ class LicenseManager {
             '' + status.level);
             $(".settingkeyvalueinput#licenseEmail").val(status.email);
             $(".settingkeyvalueinput#licensekey").val(status.licensekey);
-            $("#btnLicenseActivation").val("Activate license");
+            $("#btnLicenseActivation").val(t("sendent", "Activate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $(".settingkeyvalueinput#licensestatus").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenselevel").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
@@ -184,7 +184,7 @@ class LicenseManager {
             $(".settingkeyvalueinput#licenseEmail").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
         }
-      
+
       });
   }
 }
@@ -209,7 +209,7 @@ class LicenseValidationCalls {
       }
     });
   }
-  
+
   getLicenseDetails() {
     var that = this;
     return $.ajax({
@@ -263,7 +263,7 @@ $(document).ready(function () {
   that.LicenseValidationCalls = new LicenseValidationCalls();
 
   that.LicenseManager = new LicenseManager();
-  
+
 
   $("#licensebutton").on('click', function () {
     var email = $(".settingkeyvalueinput#licenseEmail").val();
