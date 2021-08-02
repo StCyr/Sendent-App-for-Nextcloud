@@ -11,22 +11,29 @@ use OCP\AppFramework\ApiController;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Sendent\Service\LicenseService;
+use OCA\Sendent\Service\NotFoundException;
+use OCP\IL10N;
 
 class LicenseApiController extends ApiController {
 	private $service;
 	private $licensemanager;
+
+	/** @var IL10N */
+	private $l;
 
 	public function __construct(
 			  $appName,
 			  IRequest $request,
 			  LicenseManager $licensemanager,
 			  LicenseService $licenseservice,
+			  IL10N $l,
 			  $userId
 	   ) {
 		parent::__construct($appName, $request);
 		$this->service = $licenseservice;
 		$this->userId = $userId;
 		$this->licensemanager = $licensemanager;
+		$this->l = $l;
 	}
 	private function handleException($e) {
 		if (
@@ -61,37 +68,39 @@ class LicenseApiController extends ApiController {
 					$statusKind = "";
 					$status = "";
 					if ($result[0]->isCheckNeeded()) {
-						$status = "Revalidation of your license is required";
+						$status = $this->l->t("Revalidation of your license is required");
 						$statusKind = "check";
 					}
 					if ($result[0]->isLicenseExpired()) {
-						$status = "Current license has expired. </br><u><a href='mailto:info@sendent.nl' style='color:blue'>Contact sales</a></u> to renew your license.";
+						$status = $this->l->t("Current license has expired.") .
+							"</br>" .
+							$this->l->t('%1$sContact sales%$s to renew your license.', ["<a href='mailto:info@sendent.nl' style='color:blue'>", "</a>"]);
 						$statusKind = "expired";
 					}
 					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
-						$status = "Current license is valid";
+						$status = $this->l->t("Current license is valid");
 						$statusKind = "valid";
 					}
-					
+
 					if(!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount())
 					{
-						$status = "Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.";
+						$status = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
 						$statusKind = "userlimit";
 					}
 					else if (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
-						$status = "Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.";
+						$status = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
 						$statusKind = "userlimit";
 					}
 					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
 				} else {
-					return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
+					return new DataResponse(new LicenseStatus($this->l->t("No license configured"), "nolicense" ,"-", "-", "-", "-", "-"));
 				}
 			} else {
-				return new DataResponse(new LicenseStatus("No license configured", "nolicense" ,"-", "-", "-", "-", "-"));
+				return new DataResponse(new LicenseStatus($this->l->t("No license configured"), "nolicense" ,"-", "-", "-", "-", "-"));
 			}
 		} catch (Exception $e) {
 			$this->handleException($e);
-			return new DataResponse(new LicenseStatus("An error occured while fetching your license", "fatal" ,"-", "-", "-", "-", "-"));
+			return new DataResponse(new LicenseStatus($this->l->t("An error occured while fetching your license"), "fatal" ,"-", "-", "-", "-", "-"));
 		}
 	}
 
