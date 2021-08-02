@@ -5,6 +5,6 @@
 		></button>
 	</div>
 	<div id="app-settings-content">
-		<p>These are our settings</p>
+		<p><?php p($l->t('These are our settings')); ?></p>
 	</div>
 </div>

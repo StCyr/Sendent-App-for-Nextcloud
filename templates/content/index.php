@@ -30,15 +30,17 @@ style('sendent', ['style']);
 
 <form class="form" method="post" id="settingsform">
 
-    
+
     <div class="settingTemplateDetailInclude section" id="generalsettings">
         <h1>
-            General
+            <?php p($l->t('General')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="setlanguage">
             <div id="setlanguage" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Language</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Language')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -61,13 +63,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="insertatcursor">
             <div id="insertatcursor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Insert snippet location</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Insert snippet location')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="insertatcursor">
-                    <option selected value="True">At cursor</option>
-                    <option value="False">Top of email body</option>
+                    <option selected value="True"><?php p($l->t('At cursor')); ?></option>
+                    <option value="False"><?php p($l->t('Top of email body')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="insertatcursor">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -79,13 +83,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="dateaddition">
             <div id="dateaddition" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Add upload date to folder path</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Add upload date to folder path')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="dateaddition">
-                    <option selected value="True">Add upload date to folder path</option>
-                    <option value="False">Do not add upload date to folder path</option>
+                    <option selected value="True"><?php p($l->t('Add upload date to folder path')); ?></option>
+                    <option value="False"><?php p($l->t('Do not add upload date to folder path')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="dateaddition">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -97,13 +103,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="debugmode">
             <div id="debugmode" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Debug mode</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Debug mode')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="debugmode">
-                    <option value="True">Enabled</option>
-                    <option value="False" selected>Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option value="False" selected><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="debugmode">
                 <input type="hidden" id="settingkeykey" value="22">
@@ -115,13 +123,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="disablesettings">
             <div id="disablesettings" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Access to settings</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Access to settings')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="disablesettings">
-                    <option value="False" selected>Enabled</option>
-                    <option value="True">Disabled</option>
+                    <option value="False" selected><?php p($l->t('Enabled')); ?></option>
+                    <option value="True"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="disablesettings">
                 <input type="hidden" id="settingkeykey" value="17">
@@ -133,14 +143,16 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="passwordcontrolbehavior">
             <div id="passwordcontrolbehavior" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Password control behavior</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Password control behavior')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="passwordcontrolbehavior">
-                    <option value="Off">Off</option>
-                    <option value="BeforeSend" selected>Before sending</option>
-                    <option value="BeforeSendAndAfter">Before and after sending</option>
+                    <option value="Off"><?php p($l->t('Off')); ?></option>
+                    <option value="BeforeSend" selected><?php p($l->t('Before sending')); ?></option>
+                    <option value="BeforeSendAndAfter"><?php p($l->t('Before and after sending')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="passwordcontrolbehavior">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -152,14 +164,16 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="sendmode">
             <div id="sendmode" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Password communication mode</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Password communication mode')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="sendmode">
-                    <option value="CurrentMail">Include in email body</option>
-                    <option selected value="Separate">Send in separate email</option>
-                    <option disabled value="External">Use external service (like sms-gateway)</option>
+                    <option value="CurrentMail"><?php p($l->t('Include in email body')); ?></option>
+                    <option selected value="Separate"><?php p($l->t('Send in separate email')); ?></option>
+                    <option disabled value="External"><?php p($l->t('Use external service (like sms-gateway)')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="sendmode">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -172,7 +186,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="htmlsnippetpassword">
             <div id="htmlsnippetpassword" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">Password communication snippet</span>
+                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">
+                        <?php p($l->t('Password communication snippet')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -187,18 +203,20 @@ style('sendent', ['style']);
     </div>
     <div class="settingTemplateDetailInclude section" id="domainExceptions">
         <h1>
-            Talk settings
+            <?php p($l->t('Talk settings')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="generatetalkpassword">
             <div id="generatetalkpassword" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Generate password for meetings</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Generate password for meetings')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="generatetalkpassword">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="generatetalkpassword">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -210,12 +228,14 @@ style('sendent', ['style']);
     </div>
     <div class="settingTemplateDetailInclude section" id="domainExceptions">
         <h1>
-            Domain settings
+            <?php p($l->t('Domain settings')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="attachmentdomainexceptionsinternal">
             <div id="attachmentdomainexceptionsinternal" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Internal domain exceptions</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Internal domain exceptions')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -230,7 +250,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="attachmentdomainexceptions">
             <div id="attachmentdomainexceptions" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">External domain exceptions</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('External domain exceptions')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -245,13 +267,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="attachmentdomainexceptionsexternalpopup">
             <div id="attachmentdomainexceptionsexternalpopup" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">External domain exception notification</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('External domain exception notification')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="attachmentdomainexceptionsexternalpopup">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="attachmentdomainexceptionsexternalpopup">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -264,19 +288,19 @@ style('sendent', ['style']);
 
     <div class="settingTemplateDetailInclude section" id="attachments">
         <h1>
-            Attachment settings
+            <?php p($l->t('Attachment settings')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="attachmentmode">
             <div id="attachmentmode" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Attachment mode</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"><?php p($l->t('Attachment mode')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="attachmentmode">
-                    <option selected value="MaximumAttachmentSize">Trigger on maximum attachment size</option>
-                    <option value="Ask">Ask every time</option>
-                    <option value="Off">None</option>
+                    <option selected value="MaximumAttachmentSize"><?php p($l->t('Trigger on maximum attachment size')); ?></option>
+                    <option value="Ask"><?php p($l->t('Ask every time')); ?></option>
+                    <option value="Off"><?php p($l->t('None')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="attachmentmode">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -288,8 +312,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="attachmentsize">
             <div id="attachmentsize" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Auto upload attachment size
-                        (MB)</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Auto upload attachment size (MB)')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -306,13 +331,15 @@ style('sendent', ['style']);
     </div>
     <div class="settingTemplateDetailInclude section" id="filehandling">
         <h1>
-            Share Files & Share Public Folder
+            <?php p($l->t('Share Files & Share Public Folder')); ?>
         </h1>
 
         <div class="personal-settings-setting-box" id="pathuploadfiles">
             <div id="pathuploadfiles" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Path for Share Files</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Path for Share Files')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -329,8 +356,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="sharefilehtml">
             <div id="sharefilehtml" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">Share Files
-                        snippet</span>
+                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">
+                        <?php p($l->t('Share Files snippet')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -347,8 +375,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="pathpublicshare">
             <div id="pathpublicshare" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Path for Share Public
-                        Folder</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Path for Share Public Folder')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -363,8 +392,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="sharefolderhtml">
             <div id="sharefolderhtml" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">Share Public Folder
-                        snippet</span>
+                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">
+                        <?php p($l->t('Share Public Folder snippet')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -381,18 +411,18 @@ style('sendent', ['style']);
     </div>
     <div class="settingTemplateDetailInclude section" id="securemail">
         <h1>
-            Secure Mail
+            <?php p($l->t('Secure Mail')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="securemail">
             <div id="securemail" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Activate Secure Mail</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname"><?php p($l->t('Activate Secure Mail')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="securemail">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="securemail">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -404,13 +434,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="securemailenforced">
             <div id="securemailenforced" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Enforce Secure Mail</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Enforce Secure Mail')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="securemailenforced">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -424,7 +456,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="pathsecuremailbox">
             <div id="pathsecuremailbox" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Path for Secure Mail</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Path for Secure Mail')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -441,7 +475,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="securemailhtml">
             <div id="securemailhtml" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">Secure Mail snippet</span>
+                    <span class="templatesettingkeynametextareakind" for="templatesettingkeyname">
+                        <?php p($l->t('Secure Mail snippet')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -459,18 +495,20 @@ style('sendent', ['style']);
 
     <div class="settingTemplateDetailInclude section" id="guestaccounts">
         <h1>
-            Guest accounts
+            <?php p($l->t('Guest accounts')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="guestaccountsenabled">
             <div id="guestaccountsenabled" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Activate Guest accounts</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Activate Guest accounts')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" name="settingkeyvalueinput" id="guestaccountsenabled">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="guestaccountsenabled">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -482,13 +520,15 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="guestaccountsenforced">
             <div id="guestaccountsenforced" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Enforce Guest accounts</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Enforce Guest accounts')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="guestaccountsenforced">
-                    <option value="True">Enabled</option>
-                    <option selected value="False">Disabled</option>
+                    <option value="True"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="False"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="guestaccountsenforced">
                 <input type="hidden" id="settingkeytemplateid" value="0">
@@ -503,18 +543,20 @@ style('sendent', ['style']);
 
     <div class="settingTemplateDetailInclude section" id="AdvancedTheming">
         <h1>
-            Theming
+            <?php p($l->t('Theming')); ?>
         </h1>
         <div class="personal-settings-setting-box" id="AdvancedThemingEnabled">
             <div id="AdvancedThemingEnabled" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Advanced Theming enabled</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Advanced Theming enabled')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
                 <select class="settingkeyvalueinput" name="settingkeyvalueinput" id="AdvancedThemingEnabled">
-                    <option value="true">Enabled</option>
-                    <option selected value="false">Disabled</option>
+                    <option value="true"><?php p($l->t('Enabled')); ?></option>
+                    <option selected value="false"><?php p($l->t('Disabled')); ?></option>
                 </select>
                 <input type="hidden" id="settingkeyname" value="AdvancedThemingEnabled">
                 <input type="hidden" id="settingkeytemplateid" value="1">
@@ -526,7 +568,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="VendorName">
             <div id="VendorName" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Vendor name
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Vendor name')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -542,7 +585,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonPrimaryColor">
             <div id="ButtonPrimaryColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button primary - color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button primary - color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -558,7 +603,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonPrimaryFontColor">
             <div id="ButtonPrimaryFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button primary - font-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button primary - font-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -575,7 +621,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonPrimaryHoverColor">
             <div id="ButtonPrimaryHoverColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button primary - hover color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button primary - hover color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -590,7 +638,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonPrimaryIconColor">
             <div id="ButtonPrimaryIconColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button primary - icon color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button primary - icon color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -606,7 +655,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonSecondaryColor">
             <div id="ButtonSecondaryColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button secondary - color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button secondary - color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -622,7 +672,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonSecondaryFontColor">
             <div id="ButtonSecondaryFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button secondary - font-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button secondary - font-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -638,7 +689,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonSecondaryHoverColor">
             <div id="ButtonSecondaryHoverColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button secondary - hover color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button secondary - hover color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -654,7 +706,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="ButtonSecondaryIconColor">
             <div id="ButtonSecondaryIconColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Button secondary - icon color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Button secondary - icon color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -670,7 +723,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogFooterBackgroundColor">
             <div id="DialogFooterBackgroundColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - footer background-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - footer background-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -686,7 +740,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogFooterFontColor">
             <div id="DialogFooterFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - footer font-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - footer font-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -702,7 +757,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogFooterHoverColor">
             <div id="DialogFooterHoverColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - footer hover-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - footer hover-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -718,7 +774,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogFooterIconColor">
             <div id="DialogFooterIconColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - footer icon color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - footer icon color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -734,7 +791,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogFooterIconBackgroundColor">
             <div id="DialogFooterIconBackgroundColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - footer icon background color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - footer icon background color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -749,7 +808,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogHeaderColor">
             <div id="DialogHeaderColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - header color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - header color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -765,7 +826,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="DialogHeaderFontColor">
             <div id="DialogHeaderFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Dialog - header font-color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Dialog - header font-color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -780,7 +843,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="PopupBackgroundColor">
             <div id="PopupBackgroundColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Popup - background color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Popup - background color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -797,7 +861,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="GeneralFontColor" style="display:none">
             <div id="GeneralFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">General font - color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('General font - color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -813,7 +879,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="GeneralIconColor">
             <div id="GeneralIconColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Icon - color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Icon - color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -833,7 +901,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneActivityTrackerColor">
             <div id="TaskpaneActivityTrackerColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Activity Tracker - color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Taskpane - Activity Tracker - color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -848,7 +918,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneActivityTrackerFontColor">
             <div id="TaskpaneActivityTrackerFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Activity Tracker - font-color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Taskpane - Activity Tracker - font-color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -864,7 +936,9 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneSecureMailColor">
             <div id="TaskpaneSecureMailColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Secure Mail - color</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Taskpane - Secure Mail - color')); ?>
+                    </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -879,7 +953,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneSecureMailFontColor">
             <div id="TaskpaneSecureMailFontColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Secure Mail - font-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Taskpane - Secure Mail - font-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -895,7 +970,8 @@ style('sendent', ['style']);
         <div class="personal-settings-setting-box" id="TaskpaneSecureMailControlColor">
             <div id="TaskpaneSecureMailControlColor" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Taskpane - Secure Mail - control-color
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Taskpane - Secure Mail - control-color')); ?>
                     </span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
@@ -911,14 +987,16 @@ style('sendent', ['style']);
     </div>
     <div class="settingTemplateDetailExclude section" id="license">
         <h1>
-            License
+            <?php p($l->t('License')); ?>
         </h1>
         <div class="license-settings-setting-box" id="licenseMessage">
             <div id="licenseMessage" class="settingkeyvalue">
-               
+
                 <div class="labelFullWidth" id="lblLicenseMessage" style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">
-                PLEASE NOTE: We made some adjustments in our licensing and will implement this gradually in several phases to our paid customers. If you haven't received your license key with instructions yet, you don't have to take action at this moment. You will receive a notification from our Team when it's your turn.<br><br>
-                Using Sendent Free? Then you don't need a license key at all!<br><br>
+                <?php p($l->t('PLEASE NOTE: We made some adjustments in our licensing and will implement this gradually in several phases to our paid customers. If you haven\'t received your license key with instructions yet, you don\'t have to take action at this moment. You will receive a notification from our Team when it\'s your turn.')); ?>
+                <br><br>
+                <?php p($l->t('Using Sendent Free? Then you don\'t need a license key at all!')); ?>
+                <br><br>
                 </div>
                 <input type="hidden" id="settingkeyname" value="licenseMessage">
                 <input type="hidden" id="settingkeykey" value="1000">
@@ -928,7 +1006,8 @@ style('sendent', ['style']);
         <div class="license-settings-setting-box" id="licensekey">
             <div id="licensekey" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">License key</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('License key')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -942,7 +1021,8 @@ style('sendent', ['style']);
         <div class="license-settings-setting-box" id="licenseEmail">
             <div id="licenseEmail" class="settingkeyvalue">
                 <label>
-                    <span class="templatesettingkeyname" for="templatesettingkeyname">Licensed email address</span>
+                    <span class="templatesettingkeyname" for="templatesettingkeyname">
+                        <?php p($l->t('Licensed email address')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -979,12 +1059,12 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="900">
             </div>
         </div>
-        
+
         <div class="license-settings-setting-box" id="licenselevel">
             <div id="licenselevel" class="settingkeyvalue">
                 <label class="licenselabel">
-                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">Subscription
-                        level</span>
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">
+                    <?php p($l->t('Subscription level')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -997,7 +1077,8 @@ style('sendent', ['style']);
         <div class="license-settings-setting-box" id="licensestatus">
             <div id="licensestatus" class="settingkeyvalue">
                 <label class="licenselabel">
-                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License status</span>
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">
+                    <?php p($l->t('License status')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -1007,12 +1088,12 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="903">
             </div>
         </div>
-        
+
         <div class="license-settings-setting-box" id="licenseexpires">
             <div id="licenseexpires" class="settingkeyvalue">
                 <label class="licenselabel">
-                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License
-                        expiration date</span>
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">
+                        <?php p($l->t('License expiration date')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -1025,8 +1106,8 @@ style('sendent', ['style']);
         <div class="license-settings-setting-box" id="licenselastcheck">
             <div id="licenselastcheck" class="settingkeyvalue">
                 <label class="licenselabel">
-                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">License last
-                        check</span>
+                    <span class="templatesettingkeyname licenseitem" for="templatesettingkeyname">
+                        <?php p($l->t('License last check')); ?></span>
                 </label>
                 <div id="status-error" class="icon-error error hidden"></div>
                 <div id="status-ok" class="icon-checkmark ok hidden"></div>
@@ -1079,7 +1160,7 @@ style('sendent', ['style']);
                 <input type="hidden" id="settingkeyid" value="1000">
             </div>
         </div> -->
-       
+
     </div>
     <?php print_unescaped($this->inc('content/retentionAssistant')); ?>
 

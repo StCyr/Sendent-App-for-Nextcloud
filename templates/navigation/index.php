@@ -1,3 +1,3 @@
 <ul>
-	<li><a href="#">Manage settings</a></li>
+	<li><a href="#"><?php p($l->t('Manage settings')); ?></a></li>
 </ul>
