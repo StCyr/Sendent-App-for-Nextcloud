@@ -1,6 +1,7 @@
 <?php
-
 namespace OCA\Sendent\Http;
+use Exception;
+use OCA\Sendent\Service\NotFoundException;
 
 class LicenseHttpClient {
 	protected $baseUrl;
@@ -21,21 +22,67 @@ class LicenseHttpClient {
 	}
 
 	public function Post($request, $data) {
-		$url = $this->baseUrl . $request;
-		$options = [
-			'http' => [
-				'method' => 'POST',
-				'content' => json_encode($data),
-				'header' => "api-version:1\r\n".
-							"Content-Type: application/json\r\n" .
-							"Accept: application/json\r\n"
-			]
-		];
+		try {
+			$url = $this->baseUrl . $request;
+			$options = [
+				'http' => [
+					'method' => 'POST',
+					'content' => json_encode($data),
+					'header' => "api-version:1\r\n".
+								"Content-Type: application/json\r\n" .
+								"Accept: application/json\r\n"
+				]
+			];
+			$status = "";
+			$status_line = "";
+			$result = "";
+				$context = stream_context_create($options);
+				try{
+					$result = file_get_contents($url, false, $context);
+				}
+				catch(Exception $e)
+				{
+					
+				}
+				if(isset($http_response_header) && count($http_response_header) > 0){
+				$status_line = $http_response_header[0];
+				}
 
-		$context = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		$response = json_decode($result);
-		return $response;
+				preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+
+				if(isset($match) && count($match) > 0)
+				{
+				$status = $match[1];
+				}
+			if ($status !== "200" && $status !== "404") {
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-NOT-200-NOT-404", TRUE)); 
+				error_log(print_r("unexpected response status: {$status_line}\n" . $result, TRUE)); 
+				return null;
+			}
+			if($status == "404")
+			{
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-404", TRUE)); 
+				throw new Exception();
+			}
+			else
+			{
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-200", TRUE)); 
+				$response = json_decode($result);
+				return $response;
+			}
+		
+		
+			// in order to be able to plug in different storage backends like files
+		// for instance it is a good idea to turn storage related exceptions
+		// into service related exceptions so controllers and service users
+		// have to deal with only one type of exception
+		} catch (Exception $e) {
+			error_log(print_r("LICENSEHTTPCLIENT-STATUS-THROW", TRUE));
+			throw new Exception();
+
+			//throw new NotFoundException($e->getMessage());
+		}
+		
 	}
 
 	public function Put($request, $data) {
@@ -57,5 +104,8 @@ class LicenseHttpClient {
 		//Execute the request
 		$result = curl_exec($ch);
 		return $result;
+	}
+	private function handleException($e) {
+			throw new NotFoundException($e->getMessage());
 	}
 }

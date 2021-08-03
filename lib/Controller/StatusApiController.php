@@ -7,47 +7,61 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 use OCA\Sendent\Db\Status;
 use OCA\Sendent\Service\LicenseManager;
+use OCA\Sendent\Service\LicenseService;
 
 class StatusApiController extends ApiController {
 	private $licensemanager;
-
+	private $licenseservice;
 	public function __construct(
 		$appName,
 		IRequest $request,
 		$userId,
-		LicenseManager $licensemanager
+		LicenseManager $licensemanager,
+		LicenseService $licenseservice
 	) {
 		parent::__construct($appName, $request);
 		$this->userId = $userId;
 		$this->licensemanager = $licensemanager;
+		$this->licenseservice = $licenseservice;
 	}
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		$result = $this->licensemanager->renewLicense();
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.1.9";
+		$statusobj->version = "1.2.4";
 		$statusobj->currentuserid = $this->userId;
-		$statusobj->datelicenseend = $result->getDatelicenseend();
-		$statusobj->maxusers = $result->getMaxusers();
-		$statusobj->dategraceperiodend = $result->getDategraceperiodend();
-		$statusobj->maxusersgrace = $result->getMaxgraceusers();
-		$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
-		$statusobj->validlicense = !$result->isLicenseExpired();
-		$status = "";
-		if ($result->isCheckNeeded()) {
-			$status = "RevalidationRequired";
+		if($this->licensemanager->isLicenseCheckNeeded())
+		{
+			$result = $this->licensemanager->renewLicense();
 		}
-		if ($result->isLicenseExpired()) {
-			$status = "Expired";
-		}
-		if (!$result->isCheckNeeded() && !$result->isLicenseExpired()) {
-			$status = "Valid";
-		}
-		$statusobj->licenseaction = $status;
+			$result = $this->licenseservice->findAll();
+			if (isset($result) && $result !== null && $result !== false) {
+				if (is_array($result) && count($result) > 0 
+				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
+					$statusobj->datelicenseend = $result[0]->getDatelicenseend();
+					$statusobj->maxusers = $result[0]->getMaxusers();
+					$statusobj->dategraceperiodend = $result[0]->getDategraceperiodend();
+					$statusobj->maxusersgrace = $result[0]->getMaxgraceusers();
+					$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
+					$statusobj->validlicense = !$result[0]->isLicenseExpired();
+					$status = "";
+					if ($result[0]->isCheckNeeded()) {
+						$status = "RevalidationRequired";
+					}
+					if ($result[0]->isLicenseExpired()) {
+						$status = "Expired";
+					}
+					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+						$status = "Valid";
+					}
+					$statusobj->licenseaction = $status;
+				}
+			}
+		
+		
 		return new DataResponse($statusobj);
 	}
 }

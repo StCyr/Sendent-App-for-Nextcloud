@@ -154,3 +154,23 @@
 ## 1.2.0 - 2021-06-12
 ## Feature
 - New setting for defining if Talk feature in the Outlook Add-in should generate a password when creating a meeting.
+
+## 1.2.1 - 2021-06-13
+## Fixed
+- A problem which caused the license not to be displayed correctly in the Outlook Add-in.
+
+
+## 1.2.2 - 2021-06-20
+## Feature
+- Better experience when configurating your Sendent license.
+
+## 1.2.3 - 2021-07-06
+## Feature
+- Fix where the app could cause performance issues with Outlook
+- Ability to enable- or disable Talk integration for Outlook (starting from Add-in version 2.3, soon to be released)
+- Official support for Nextcloud 22
+
+## 1.2.4 - 2021-07-12
+## Fixed
+- Better experience when configurating your Sendent license.
+- Several bugfixes and improvements to make the experience smoother when using our app.
