@@ -1,14 +1,7 @@
 $(document).ready(function () {
 
   subscribeChangedEventSettingKeyValues();
-  setSupportButton();
 });
-
-function setSupportButton() {
-  $('#btnSupportButton').on('click', function () {
-    window.location = 'mailto:support@sendent.nl';
-  });
-}
 
 function subscribeChangedEventSettingKeyValues() {
   var personalSettingBoxes = $('.section').find(".personal-settings-setting-box");

@@ -1,7 +1,11 @@
 <?php
+/** @var $l \OCP\IL10N */
+/** @var $_ array */
+
+script('sendent', 'settings');
+
 script('sendent', '3rdparty/jscolor/jscolor');
 script('sendent', ['script']);
-script('sendent', ['LicenseScript']);
 script('sendent', ['SettingKeyScript']);
 script('sendent', ['SettingGroupValueScript']);
 script('sendent', ['SettingCreator']);
@@ -26,8 +30,9 @@ style('sendent', ['style']);
 
     <?php print_unescaped($this->inc('sections/advancedTheming')); ?>
 
-    <?php print_unescaped($this->inc('sections/license')); ?>
-
-    <?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
-
 </form>
+
+<?php print_unescaped($this->inc('sections/license')); ?>
+
+<?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
+

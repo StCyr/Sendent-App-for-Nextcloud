@@ -1,3 +1,7 @@
+<?php
+/** @var $l \OCP\IL10N */
+/** @var $_ array */
+?>
 <div class="settingTemplateDetailExclude section" id="license">
     <h1>
         <?php p($l->t('License')); ?>
@@ -17,7 +21,7 @@
             <input type="hidden" name="settingkeyid" value="1000">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licensekey">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
@@ -32,7 +36,7 @@
             <input type="hidden" name="settingkeyid" value="900">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licenseEmail">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
@@ -47,7 +51,7 @@
             <input type="hidden" name="settingkeyid" value="901">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licensebutton">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname"></span>
@@ -60,21 +64,21 @@
             <input type="hidden" name="settingkeyid" value="900">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licenseClearButton">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname"></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input type="button" id="btnLicenseClear" value="Clear license">
+            <input type="button" id="btnClearLicense" value="Clear license">
             <input type="hidden" name="settingkeyname" value="licenseClearButton">
             <input type="hidden" name="settingkeykey" value="900">
             <input type="hidden" name="settingkeyid" value="900">
         </div>
     </div>
 
-    <div class="license-settings-setting-box" id="licenselevel">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
@@ -88,7 +92,7 @@
             <input type="hidden" name="settingkeyid" value="902">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licensestatus">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
@@ -103,7 +107,7 @@
         </div>
     </div>
 
-    <div class="license-settings-setting-box" id="licenseexpires">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
@@ -117,7 +121,7 @@
             <input type="hidden" name="settingkeyid" value="905">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="licenselastcheck">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
@@ -131,7 +135,7 @@
             <input type="hidden" name="settingkeyid" value="904">
         </div>
     </div>
-    <div class="license-settings-setting-box" id="supportButton">
+    <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname"></span>
