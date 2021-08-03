@@ -44,7 +44,6 @@ class LicenseManager {
       $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("okStatus").removeClass("warningStatus");
     })
       .done(function (status) {
-        
         if (status !== false) {
           if(status.level != "Free" && status.level != "-" && status.level != " ")
           {
@@ -230,8 +229,8 @@ class LicenseManager {
             $(".settingkeyvalueinput#licenseexpires").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licenseEmail").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
             $(".settingkeyvalueinput#licensekey").addClass("errorStatus").removeClass("warningStatus").removeClass("okStatus");
-          }
         }
+
       });
   }
 }
@@ -249,11 +248,9 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
-        disableButtons();
       },
       success: function (data) {
         console.log('validation was submitted with result: ' + data);
-        enableButtons();
         return data;
       }
     });
@@ -267,12 +264,9 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
-        disableButtons();
       },
       success: function (data) {
         console.log('status was returned with result: ' + data);
-        enableButtons();
-
         return data;
       },
       error: function (xhr, ajaxOptions, thrownError) {
@@ -280,8 +274,6 @@ class LicenseValidationCalls {
           console.warn(xhr.status);
           return false;
         }
-        enableButtons();
-
         console.warn(thrownError);
         console.warn(xhr.data);
         console.warn(thrownError);
@@ -300,12 +292,10 @@ class LicenseValidationCalls {
       beforeSend: function (request) {
         //request.setRequestHeader("requesttoken", token);
         //request.setRequestHeader("OCS-APIRequest", true);
-        disableButtons();
       },
       success: function (data) {
         console.log('licensekey was created with result: ' + data);
         //that.getLicenseDetails();
-        enableButtons();
         return data;
       }
     });
@@ -352,6 +342,7 @@ $(document).ready(function () {
     //$("#btnLicenseActivation").val("Activate license");
       $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
   });
+
       that.LicenseManager.getLicenseStatus();
       that.LicenseValidationCalls.getLicenseDetails();
 

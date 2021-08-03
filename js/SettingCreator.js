@@ -17,11 +17,11 @@ class SettingFormHandler {
 
                     var settingkeyvalues = $(this).find(".settingkeyvalue");
                     settingkeyvalues.each(function () {
-                        var settingkeyname = $(this).find("#settingkeyname")[0].value;
-                        var settingkeykey = $(this).find("#settingkeykey")[0].value;
-                        var settingkeytemplateid = $(this).find("#settingkeytemplateid")[0].value;
-                        var settinggroupid = $(this).find("#settinggroupid")[0].value;
-                        var settingkeykey = $(this).find("#settingkeykey")[0].value;
+                        var settingkeyname = $(this).find("[name='settingkeyname']")[0].value;
+                        var settingkeykey = $(this).find("[name='settingkeykey']")[0].value;
+                        var settingkeytemplateid = $(this).find("[name='settingkeytemplateid']")[0].value;
+                        var settinggroupid = $(this).find("[name='settinggroupid']")[0].value;
+                        var settingkeykey = $(this).find("[name='settingkeykey']")[0].value;
                         var settingkeyvalue = $(this).find(".settingkeyvalueinput")[0].value;
 
                         var settingkeyvaluetype = $(this).find(".settingkeyvalueinput")[0].type;
@@ -44,19 +44,18 @@ class SettingFormHandler {
                         }
                         //when settingkey is present: populate UI
                         try {
-                            $(settingkeyvaluethis).find("#settingkeyid")[0].value = setting[0].settingkeyid;
+                            $(settingkeyvaluethis).find("[name='settingkeyid']")[0].value = setting[0].settingkeyid;
                             if (settingkeyvaluetype == 'select-one') {
                                 $(settingkeyvaluethis).find(".settingkeyvalueinput option[value='" + setting[0].value + "']").prop("selected", true);
                             }
                             else {
                                 $(settingkeyvaluethis).find(".settingkeyvalueinput")[0].value = setting[0].value;
-                                    try{
-                                    var jscolor = new window.jscolor($(settingkeyvaluethis).find(".settingkeyvalueinput.theming-color")[0], {hash: true});
-                                    }
-                                    catch(errr)
-                                    {
-                                        
-                                    }
+                                try {
+                                    var jscolor = new window.jscolor($(settingkeyvaluethis).find(".settingkeyvalueinput.theming-color")[0], { hash: true });
+                                }
+                                catch (errr) {
+
+                                }
                             }
                         }
                         catch (err) {
@@ -67,7 +66,7 @@ class SettingFormHandler {
                             //when no settingkey is present
                             $.when(calls.create(settingkeykey, settingkeyname, settingkeyvaluetype, settingkeytemplateid)).done(function (data) {
                                 //when no settingkey is present: create settingkey
-                                $(settingkeyvaluethis).find("#settingkeyid")[0].value = data.key;
+                                $(settingkeyvaluethis).find("[name='settingkeyid']")[0].value = data.key;
                                 $.when(valuecalls.showBySettingKeyId(settingkeykey)).fail(function (failedvalueget) {
                                     //when no settinggroupvalue is present
                                     $.when(valuecalls.create(data.key, settingkeyvalue, settinggroupid)).done(function (data2) {
@@ -87,7 +86,7 @@ class SettingFormHandler {
                     });
                 });
             });
-        that.setShowHideAllSettings();
+            that.setShowHideAllSettings();
         });
     }
 
@@ -108,11 +107,11 @@ class SettingFormHandler {
         var that = this;
         var valuecalls = new SettingGroupValueAjaxCalls();
         var settingkeyvalueblock = $(settingbox).find(".settingkeyvalue")[0];
-        var settingkeyname = $(settingkeyvalueblock).find("#settingkeyname")[0].value;
-        var settingkeyid = $(settingkeyvalueblock).find("#settingkeyid")[0].value;
-        var settingkeykey = $(settingkeyvalueblock).find("#settingkeykey")[0].value;
-        var settingkeytemplateid = $(settingkeyvalueblock).find("#settingkeytemplateid")[0].value;
-        var settinggroupid = $(settingkeyvalueblock).find("#settinggroupid")[0].value;
+        var settingkeyname = $(settingkeyvalueblock).find("[name='settingkeyname']")[0].value;
+        var settingkeyid = $(settingkeyvalueblock).find("[name='settingkeyid']")[0].value;
+        var settingkeykey = $(settingkeyvalueblock).find("[name='settingkeykey']")[0].value;
+        var settingkeytemplateid = $(settingkeyvalueblock).find("[name='settingkeytemplateid']")[0].value;
+        var settinggroupid = $(settingkeyvalueblock).find("[name='settinggroupid']")[0].value;
         var settingkeyvalue = $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].value;
         var settingkeyvaluetype = $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].type;
         if (settingkeyvaluetype == 'select-one') {
@@ -128,7 +127,7 @@ class SettingFormHandler {
                 //when no settinggroupvalue is present: create settinggroupvalue
                 if (settingkeyvaluetype == 'select-one') {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput option[value='" + data3.value + "']").prop("selected", true);
-                    var statusspan = $(settingkeyvalueblock).find("#status-ok")[0];
+                    var statusspan = $(settingkeyvalueblock).find(".status-ok")[0];
                     $(statusspan).removeClass("hidden").addClass("shown").delay(1000).queue(function (next) {
                         $(this).addClass("hidden");
                         $(this).removeClass("shown")
@@ -138,7 +137,7 @@ class SettingFormHandler {
                 }
                 else {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].value = data3.value;
-                    var statusspan = $(settingkeyvalueblock).find("#status-ok")[0];
+                    var statusspan = $(settingkeyvalueblock).find(".status-ok")[0];
                     $(statusspan).removeClass("hidden").addClass("shown").delay(1000).queue(function (next) {
                         $(this).addClass("hidden");
                         $(this).removeClass("shown")
@@ -152,7 +151,7 @@ class SettingFormHandler {
                 //when settinggroupvalue is present: update settinggroupvalue
                 if (settingkeyvaluetype == 'select-one') {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput option[value='" + data3.value + "']").prop("selected", true);
-                    var statusspan = $(settingkeyvalueblock).find("#status-ok")[0];
+                    var statusspan = $(settingkeyvalueblock).find(".status-ok")[0];
                     $(statusspan).removeClass("hidden").addClass("shown").delay(1000).queue(function (next) {
                         $(this).addClass("hidden");
                         $(this).removeClass("shown")
@@ -162,7 +161,7 @@ class SettingFormHandler {
                 }
                 else {
                     $(settingkeyvalueblock).find(".settingkeyvalueinput")[0].value = data3.value;
-                    var statusspan = $(settingkeyvalueblock).find("#status-ok")[0];
+                    var statusspan = $(settingkeyvalueblock).find(".status-ok")[0];
                     $(statusspan).removeClass("hidden").addClass("shown").delay(1000).queue(function (next) {
                         $(this).addClass("hidden");
                         $(this).removeClass("shown")
@@ -185,7 +184,7 @@ class SettingFormHandler {
             var personalsettingboxes = $(this).find(".personal-settings-setting-box");
             personalsettingboxes.each(function (settingboxIndex, settingbox) {
                 var settingkeyvalues = $(settingbox).find(".settingkeyvalueinput");
-                var settingkeyid = $(settingbox).find("#settingkeyname")[0].value;
+                var settingkeyid = $(settingbox).find("[name='settingkeyname']")[0].value;
                 settingkeyvalues.each(function (settingkeyvalueIndex, settingkeyvaluebox) {
                     that.showHideAttachmentSize(settingkeyvalues, settingkeyid);
                     that.showHideAdvancedTheming(settingkeyvalues, settingkeyid);
@@ -204,77 +203,26 @@ class SettingFormHandler {
             }
         }
         else if (settingkeyid == "sendmode") {
-            if(settingkeyvalue == "Separate")
-            {
-              $(".personal-settings-setting-box#htmlsnippetpassword").removeClass("hidden").addClass("shown");
+            if (settingkeyvalue == "Separate") {
+                $(".personal-settings-setting-box#htmlsnippetpassword").removeClass("hidden").addClass("shown");
             }
-            else{
-              $(".personal-settings-setting-box#htmlsnippetpassword").addClass("hidden").removeClass("shown");
+            else {
+                $(".personal-settings-setting-box#htmlsnippetpassword").addClass("hidden").removeClass("shown");
             }
-          }
-    }
-    showHideAdvancedTheming(settingkeyvalues, settingkeyid)
-{
-          var settingkeyvalue = settingkeyvalues[0].value;
-          if (settingkeyid == "AdvancedThemingEnabled") {
-            if(settingkeyvalue == "true")
-            {
-              $(".personal-settings-setting-box#GeneralIconColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogFooterIconBackgroundColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#TaskpaneActivityTrackerColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#TaskpaneActivityTrackerFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogHeaderColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogHeaderFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryIconColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryIconColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryHoverColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryHoverColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailControlColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#SecureMailControlColorHex").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#PopupBackgroundColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#GeneralFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogFooterBackgroundColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogFooterFontColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogFooterHoverColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#DialogFooterIconColor").removeClass("hidden").addClass("shown");
-              $(".personal-settings-setting-box#VendorName").removeClass("hidden").addClass("shown");
-            }
-            else{
-              $(".personal-settings-setting-box#GeneralIconColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogFooterIconBackgroundColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#TaskpaneActivityTrackerColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#TaskpaneActivityTrackerFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogHeaderColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogHeaderFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryIconColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryIconColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonPrimaryHoverColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryHoverColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#ButtonSecondaryFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#SecureMailControlColorHex").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#PopupBackgroundColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#GeneralFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogFooterBackgroundColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogFooterFontColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogFooterHoverColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#DialogFooterIconColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#TaskpaneSecureMailControlColor").addClass("hidden").removeClass("shown");
-              $(".personal-settings-setting-box#VendorName").addClass("hidden").removeClass("shown");
-            }
-          }
         }
     }
+    showHideAdvancedTheming(settingkeyvalues, settingkeyid) {
+        var settingkeyvalue = settingkeyvalues[0].value;
+        if (settingkeyid == "AdvancedThemingEnabled") {
+            if (settingkeyvalue == "true") {
+                $(".advancedTheming").removeClass("hidden").addClass("shown");
+            }
+            else {
+                $(".advancedTheming").addClass("hidden").removeClass("shown");
+            }
+        }
+    }
+}
 
 $(document).ready(function () {
     var that = this;
@@ -285,7 +233,7 @@ $(document).ready(function () {
     that.handler.LoopThroughSettings();
     $('#settingsform').on('submit', function (e) {
         e.preventDefault();
-        //I had an issue that the forms were submitted in geometrical progression after the next submit. 
+        //I had an issue that the forms were submitted in geometrical progression after the next submit.
         // This solved the problem.
         e.stopImmediatePropagation();
         //that.handler.SaveSettingsForm();
@@ -293,7 +241,7 @@ $(document).ready(function () {
 
     // $('#settingTemplateCreateEditForm').on('submit', function (e) {
     //     e.preventDefault();
-    //     //I had an issue that the forms were submitted in geometrical progression after the next submit. 
+    //     //I had an issue that the forms were submitted in geometrical progression after the next submit.
     //     // This solved the problem.
     //     e.stopImmediatePropagation();
     //     if(document.getElementById("templateid").value == '')
@@ -309,5 +257,5 @@ $(document).ready(function () {
     //         document.getElementById("templatename").value ='';
     //     }
     // });
-    
+
 });
