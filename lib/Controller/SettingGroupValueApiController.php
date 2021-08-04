@@ -30,9 +30,12 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
-	public function index() {
+	public function index(): DataResponse {
 		$list = $this->mapper->findAll();
 		foreach ($list as $result) {
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
@@ -44,9 +47,12 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
-	public function theming() {
+	public function theming(): DataResponse {
 		$list = $this->mapper->findAll();
 		foreach ($list as $result) {
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
@@ -58,10 +64,14 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
 	 * @param int $id
+	 *
+	 * @return DataResponse
 	 */
-	public function show(int $id) {
+	public function show(int $id): DataResponse {
 		try {
 			$result = $this->mapper->find($id);
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
@@ -75,10 +85,14 @@ class SettingGroupValueApiController extends ApiController {
 	
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
 	 * @param int $settingkeyid
+	 *
+	 * @return DataResponse
 	 */
-	public function showBySettingKeyId(int $settingkeyid) {
+	public function showBySettingKeyId(int $settingkeyid): DataResponse {
 		try {
 			$result = $this->mapper->findBySettingKeyId($settingkeyid);
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
@@ -91,11 +105,16 @@ class SettingGroupValueApiController extends ApiController {
 	}
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
 	 * @PublicPage
+	 *
 	 * @param int $groupid
+	 *
+	 * @return DataResponse
 	 */
-	public function findByGroupId(int $groupid) {
+	public function findByGroupId(int $groupid): DataResponse {
 		try {
 			if ($groupid == 1) {
 				$result = $this->mapper->findByGroupId($groupid);
@@ -113,14 +132,14 @@ class SettingGroupValueApiController extends ApiController {
 		}
 	}
 	
-	private function valueIsSettingGroupValueFilePath($value) {
+	private function valueIsSettingGroupValueFilePath($value): bool {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;
 		}
 		return false;
 	}
 
-	private function valueSizeForDb($value) {
+	private function valueSizeForDb(string $value): bool {
 		return strlen($value) < 255 !== false;
 	}
 
@@ -170,10 +189,14 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
 	 * @param int $id
+	 *
+	 * @return DataResponse
 	 */
-	public function destroy(int $id) {
+	public function destroy(int $id): DataResponse {
 		try {
 			$SettingGroupValue = $this->mapper->find($id);
 		} catch (Exception $e) {

@@ -28,9 +28,12 @@ class StatusApiController extends ApiController {
 	}
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
-	public function index() {
+	public function index(): DataResponse {
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
 		$statusobj->version = "1.2.4";

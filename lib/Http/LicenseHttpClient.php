@@ -11,6 +11,9 @@ class LicenseHttpClient {
 		$this->baseUrl = "https://api.scwcloud.sendent.nl/";
 	}
 
+	/**
+	 * @return bool|string
+	 */
 	public function Get($request) {
 		//Initiate cURL.
 		$ch = curl_init($this->baseUrl . $request);
@@ -23,7 +26,10 @@ class LicenseHttpClient {
 		return $result;
 	}
 
-	public function Post($request, $data) {
+	/**
+	 * @param string $request
+	 */
+	public function Post(string $request, Dto\SubscriptionIn $data) {
 		try {
 			$url = $this->baseUrl . $request;
 			$options = [
@@ -79,6 +85,9 @@ class LicenseHttpClient {
 		}
 	}
 
+	/**
+	 * @return bool|string
+	 */
 	public function Put($request, $data) {
 		//Initiate cURL.
 		$ch = curl_init($this->baseUrl . $request);
@@ -99,6 +108,9 @@ class LicenseHttpClient {
 		$result = curl_exec($ch);
 		return $result;
 	}
+	/**
+	 * @return never
+	 */
 	private function handleException($e) {
 		throw new NotFoundException($e->getMessage());
 	}

@@ -97,6 +97,9 @@ class ShareDeletedListener implements IEventListener {
 		return false;
 	}
 
+	/**
+	 * @return void
+	 */
 	private function handleExpiredShare(Node $node, IShare $share) {
 		$expiredTagId = $this->appConfig->getAppValue(Constants::CONFIG_EXPIRED_TAG);
 
@@ -118,6 +121,9 @@ class ShareDeletedListener implements IEventListener {
 		$node->touch($expirationTimestamp);
 	}
 
+	/**
+	 * @return void
+	 */
 	private function handleRemovedShare(Node $node) {
 		$removedTagId = $this->appConfig->getAppValue(Constants::CONFIG_REMOVED_TAG);
 

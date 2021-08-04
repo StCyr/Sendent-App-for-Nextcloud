@@ -35,7 +35,7 @@ class FileStorageManager {
 		}
 	}
 
-	public function fileExists($group, $key) {
+	public function fileExists($group, $key): bool {
 		try {
 			$file = $this->storage->get('/sendent/settings/' . 'settinggroupvaluefile' . $group . '_' . $key . '.txt');
 			return true;
@@ -44,7 +44,7 @@ class FileStorageManager {
 		}
 	}
 
-	public function fileExsistsOld($filename) {
+	public function fileExsistsOld($filename): bool {
 		try {
 			$file = $this->storage->get('/sendent/settings/' . $filename);
 			return true;
@@ -53,6 +53,9 @@ class FileStorageManager {
 		}
 	}
 
+	/**
+	 * @return null|string
+	 */
 	public function getContent($group, $key) {
 		// check if file exists and read from it if possible
 		try {

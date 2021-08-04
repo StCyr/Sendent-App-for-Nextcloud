@@ -20,9 +20,14 @@ class SendentSection implements IIconSection {
 	}
 
 	/**
-	 * returns the ID of the section. It is supposed to be a lower case string
+	 * 	 * returns the ID of the section. It is supposed to be a lower case string
+	 * 	 *
 	 *
 	 * @returns string
+	 *
+	 * @return string
+	 *
+	 * @psalm-return 'sendent'
 	 */
 	public function getID() {
 		return 'sendent'; //or a generic id if feasible

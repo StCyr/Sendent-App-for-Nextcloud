@@ -36,6 +36,9 @@ class LicenseApiController extends ApiController {
 		$this->licensemanager = $licensemanager;
 		$this->l = $l;
 	}
+	/**
+	 * @return never
+	 */
 	private function handleException($e) {
 		if (
 			$e instanceof DoesNotExistException ||
@@ -48,9 +51,12 @@ class LicenseApiController extends ApiController {
 	}
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
-	public function show() {
+	public function show(): DataResponse {
 		try {
 			try {
 				$this->licensemanager->pingLicensing();

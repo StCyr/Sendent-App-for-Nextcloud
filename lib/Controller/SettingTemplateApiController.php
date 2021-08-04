@@ -27,18 +27,25 @@
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function index() {
+ 	public function index(): DataResponse {
  		return new DataResponse($this->mapper->findAll());
  	}
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
  	 * @param int $id
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function show(int $id) {
+ 	public function show(int $id): DataResponse {
  		try {
  			return new DataResponse($this->mapper->find($id));
  		} catch (Exception $e) {
@@ -48,10 +55,14 @@
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
  	 * @param string $name
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function create($name) {
+ 	public function create($name): DataResponse {
  		$body = $_POST;
  		$SettingTemplate = new SettingTemplate();
  		$SettingTemplate->setTemplatename($name);
@@ -60,11 +71,15 @@
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
  	 * @param int $id
  	 * @param string $templatename
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function update(int $id, string $templatename) {
+ 	public function update(int $id, string $templatename): DataResponse {
  		try {
  			$SettingTemplate = $this->mapper->find($id);
  		} catch (Exception $e) {
@@ -76,10 +91,14 @@
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
  	 * @param int $id
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function destroy(int $id) {
+ 	public function destroy(int $id): DataResponse {
  		try {
  			$SettingTemplate = $this->mapper->find($id);
  		} catch (Exception $e) {

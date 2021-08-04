@@ -26,9 +26,12 @@ class ConnecteduserApiController extends ApiController {
 	}
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
-	public function ping() {
+	public function ping(): DataResponse {
 		try {
 			$user = $this->service->create($this->userId, date_create("now"));
 		} catch (Exception $e) {

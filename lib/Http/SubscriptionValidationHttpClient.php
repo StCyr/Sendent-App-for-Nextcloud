@@ -15,7 +15,7 @@ class SubscriptionValidationHttpClient {
 		$this->connecteduserservice = $connecteduserservice;
 	}
 
-	public function validate(License $licenseData) {
+	public function validate(License $licenseData): ?License {
 		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE", true));
 
 		$connectedUserCount = $this->connecteduserservice->getCount();
@@ -58,7 +58,7 @@ class SubscriptionValidationHttpClient {
 			return $validatedLicense;
 		}
 	}
-	public function activate(License $licenseData) {
+	public function activate(License $licenseData): ?License {
 		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-ACTIVATE", true));
 
 		$data = new SubscriptionIn($licenseData, 1);

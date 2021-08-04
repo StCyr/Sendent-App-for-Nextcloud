@@ -23,7 +23,10 @@ class ConnectedUserService {
 		return $this->mapper->findAll();
 	}
 
-	private function handleException($e) {
+	/**
+	 * @return never
+	 */
+	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
 			throw new NotFoundException($e->getMessage());
@@ -69,7 +72,7 @@ class ConnectedUserService {
 			return 0;
 		}
 	}
-	public function create(string $userid, DateTime $dateconnected) {
+	public function create(string $userid, DateTime $dateconnected): \OCP\AppFramework\Db\Entity {
 		$this->cleanup();
 		$connecteduser = new ConnectedUser();
 		$connecteduser->setUserid($userid);
@@ -77,7 +80,7 @@ class ConnectedUserService {
 		return $this->mapper->insert($connecteduser);
 	}
 
-	public function update(int $id,string $userid, DateTime $dateconnected) {
+	public function update(int $id,string $userid, DateTime $dateconnected): \OCP\AppFramework\Db\Entity {
 		$this->cleanup();
 		try {
 			$connecteduser = $this->mapper->find($id);
@@ -89,7 +92,7 @@ class ConnectedUserService {
 		return $this->mapper->update($connecteduser);
 	}
 	
-	public function cleanup() {
+	public function cleanup(): void {
 		try {
 			$connectedUsers = $this->mapper->findAll();
 			$origin = new DateTime('NOW');
@@ -109,7 +112,7 @@ class ConnectedUserService {
 		}
 	}
 
-	public function destroy(int $id) {
+	public function destroy(int $id): \OCP\AppFramework\Db\Entity {
 		try {
 			$connecteduser = $this->mapper->find($id);
 		} catch (Exception $e) {

@@ -20,9 +20,12 @@
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function index() {
+ 	public function index(): DataResponse {
  		return new DataResponse($this->service->findAll());
  	}
 

@@ -23,7 +23,10 @@ class LicenseManager {
 		$this->subscriptionvalidationhttpclient = $subscriptionvalidationhttpclient;
 	}
 
-	private function handleException($e) {
+	/**
+	 * @return never
+	 */
+	private function handleException(Exception $e) {
 		if (
 			$e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException
@@ -33,7 +36,7 @@ class LicenseManager {
 			throw $e;
 		}
 	}
-	public function pingLicensing() {
+	public function pingLicensing(): void {
 		try {
 			$licenses = $this->licenseservice->findAll();
 			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
@@ -146,10 +149,10 @@ class LicenseManager {
 		return false;
 	}
 
-	public function isLocalValid() {
+	public function isLocalValid(): bool {
 		return $this->licenseExists() && !$this->isExpired() && ($this->isWithinUserCount() || $this->isWithinGraceUserCount()) && !$this->isLicenseCheckNeeded();
 	}
-	public function isValidLicense() {
+	public function isValidLicense(): bool {
 		return $this->licenseExists() && !$this->isExpired() && ($this->isWithinUserCount() || $this->isWithinGraceUserCount());
 	}
 	public function isExpired() {
@@ -162,7 +165,7 @@ class LicenseManager {
 		return false;
 	}
 
-	public function licenseExists() {
+	public function licenseExists(): bool {
 		$licenses = $this->licenseservice->findAll();
 		if (isset($licenses)) {
 			return true;
@@ -170,7 +173,7 @@ class LicenseManager {
 		return false;
 	}
 
-	public function isWithinUserCount() {
+	public function isWithinUserCount(): bool {
 		$licenses = $this->licenseservice->findAll();
 		if (isset($licenses)) {
 			foreach ($licenses as $license) {
@@ -182,7 +185,7 @@ class LicenseManager {
 		return false;
 	}
 
-	public function isWithinGraceUserCount() {
+	public function isWithinGraceUserCount(): bool {
 		$licenses = $this->licenseservice->findAll();
 		if (isset($licenses)) {
 			foreach ($licenses as $license) {

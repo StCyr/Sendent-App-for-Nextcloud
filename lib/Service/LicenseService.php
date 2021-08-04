@@ -38,7 +38,10 @@ class LicenseService {
 		}
 	}
 
-	private function handleException($e) {
+	/**
+	 * @return never
+	 */
+	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
 			throw new NotFoundException($e->getMessage());
@@ -47,7 +50,7 @@ class LicenseService {
 		}
 	}
 
-	public function find(int $id) {
+	public function find(int $id): void {
 		try {
 			$licensekey = $this->mapper->find($id);
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
@@ -63,7 +66,7 @@ class LicenseService {
 		}
 	}
 
-	public function findByLicenseKey(string $key) {
+	public function findByLicenseKey(string $key): void {
 		try {
 			$licensekey = $this->mapper->findByLicenseKey($key);
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
@@ -118,7 +121,7 @@ class LicenseService {
 		}
 	}
 
-	public function createNew(string $license, string $email) {
+	public function createNew(string $license, string $email): \OCP\AppFramework\Db\Entity {
 		try {
 			$this->cleanupLicenses($license);
 		} catch (Exception $e) {
@@ -145,7 +148,7 @@ class LicenseService {
 
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level) {
+	string $email, DateTime $datelastchecked, string $level): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
 
 		$this->cleanupLicenses($license);
@@ -170,7 +173,7 @@ class LicenseService {
 		return $licenseresult;
 	}
 
-	public function destroy(int $id) {
+	public function destroy(int $id): \OCP\AppFramework\Db\Entity {
 		try {
 			$license = $this->mapper->find($id);
 		} catch (Exception $e) {
@@ -180,7 +183,7 @@ class LicenseService {
 		return $license;
 	}
 
-	private function cleanupLicenses($licenseToKeep) {
+	private function cleanupLicenses(string $licenseToKeep): void {
 		$licenses = $this->mapper->findAll();
 		if (isset($licenses)) {
 			foreach ($licenses as $license) {
@@ -188,14 +191,14 @@ class LicenseService {
 			}
 		}
 	}
-	private function valueIsLicenseKeyFilePath($value) {
+	private function valueIsLicenseKeyFilePath($value): bool {
 		if (strpos($value, 'licenseKeyFile') !== false) {
 			return true;
 		}
 		return false;
 	}
 
-	private function valueSizeForDb($value) {
+	private function valueSizeForDb($value): bool {
 		return strlen($value) > 254;
 	}
 }

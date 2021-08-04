@@ -51,7 +51,7 @@ class InitialLoadManager {
 
 		return false;
 	}
-	private function runInitialLoadTasks115() {
+	private function runInitialLoadTasks115(): void {
 		try {
 			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
 				$this->initialLoading();
@@ -100,7 +100,7 @@ class InitialLoadManager {
 		}
 	}
 
-	private function fixPaths() {
+	private function fixPaths(): void {
 		try {
 			$filepath = $this->showBySettingKeyId(8);
 			$folderpath = $this->showBySettingKeyId(7);
@@ -124,7 +124,7 @@ class InitialLoadManager {
 		}
 	}
 
-	private function fixSnippets() {
+	private function fixSnippets(): void {
 		try {
 			$filepath = $this->showBySettingKeyId(10);
 			$folderpath = $this->showBySettingKeyId(9);
@@ -154,24 +154,24 @@ class InitialLoadManager {
 		}
 	}
 
-	public function addPopupExternalMail() {
+	public function addPopupExternalMail(): void {
 		$this->createKey("31", "attachmentdomainexceptionsexternalpopup", "0", "select-one");
 		$this->createGroupValue("0", "31", "False");
 	}
 
-	public function addHtmlpasswordsnippet() {
+	public function addHtmlpasswordsnippet(): void {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
 	}
-	public function addTalkSettingUpdate() {
+	public function addTalkSettingUpdate(): void {
 		$this->createKey("201", "generatetalkpassword", "0", "textarea");
 		$this->createGroupValue("0", "201", "False");
 	}
-	public function addTalkEnabledUpdate() {
+	public function addTalkEnabledUpdate(): void {
 		$this->createKey("202", "talkenabled", "0", "select-one");
 		$this->createGroupValue("0", "202", "True");
 	}
-	public function addAdvancedTheming() {
+	public function addAdvancedTheming(): void {
 		if (!is_null($this->showNameBySettingKeyId("81"))) {
 			$this->updateKey("81", "GeneralIconColor", "1", "text");
 			$value = $this->showBySettingKeyId(81);
@@ -286,7 +286,7 @@ class InitialLoadManager {
 		}
 	}
 
-	public function addAdvancedThemingUpdate() {
+	public function addAdvancedThemingUpdate(): void {
 		if (!is_null($this->showNameBySettingKeyId("94"))) {
 			$this->updateKey("94", "TaskpaneActivityTrackerFontColor", "1", "text");
 			$value = $this->showBySettingKeyId(94);
@@ -313,7 +313,7 @@ class InitialLoadManager {
 		}
 	}
 
-	public function addAdvancedThemingUpdate2() {
+	public function addAdvancedThemingUpdate2(): void {
 		if (!is_null($this->showNameBySettingKeyId("97"))) {
 			$this->updateKey("97", "ButtonPrimaryIconColor", "1", "text");
 			$value = $this->showBySettingKeyId(97);
@@ -332,7 +332,7 @@ class InitialLoadManager {
 		}
 	}
 
-	public function addAdvancedThemingUpdate3() {
+	public function addAdvancedThemingUpdate3(): void {
 		if (!is_null($this->showNameBySettingKeyId("99"))) {
 			$this->updateKey("99", "TaskpaneSecureMailControlColor", "1", "text");
 			$value = $this->showBySettingKeyId(99);
@@ -343,7 +343,7 @@ class InitialLoadManager {
 		}
 	}
 
-	public function addAdvancedThemingUpdate4() {
+	public function addAdvancedThemingUpdate4(): void {
 		if (!is_null($this->showNameBySettingKeyId("100"))) {
 			$this->updateKey("100", "DialogFooterBackgroundColor", "1", "text");
 			$value = $this->showBySettingKeyId(100);
@@ -377,7 +377,7 @@ class InitialLoadManager {
 			$this->createGroupValue("1", "103", "#151c62");
 		}
 	}
-	public function addAdvancedThemingNameUpdate() {
+	public function addAdvancedThemingNameUpdate(): void {
 		if (!is_null($this->showNameBySettingKeyId("104"))) {
 			$this->updateKey("104", "VendorName", "1", "text");
 			$value = $this->showBySettingKeyId(104);
@@ -387,12 +387,12 @@ class InitialLoadManager {
 			$this->createGroupValue("1", "104", "Sendent");
 		}
 	}
-	public function addSendmode() {
+	public function addSendmode(): void {
 		$this->createKey("23", "sendmode", "0", "select-one");
 		$this->createGroupValue("0", "23", "CurrentMail");
 	}
 
-	public function initialLoading() {
+	public function initialLoading(): void {
 		$this->createKey("20", "setlanguage", "0", "select-one");
 		$this->createKey("19", "passwordcontrolbehavior", "0", "select-one");
 		$this->createKey("28", "insertatcursor", "0", "select-one");
@@ -480,14 +480,14 @@ class InitialLoadManager {
 		}
 	}
 
-	private function valueIsSettingGroupValueFilePath($value) {
+	private function valueIsSettingGroupValueFilePath($value): bool {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;
 		}
 		return false;
 	}
 
-	private function valueSizeForDb($value) {
+	private function valueSizeForDb(string $value): bool {
 		return strlen($value) < 256 !== false;
 	}
 
@@ -544,7 +544,7 @@ class InitialLoadManager {
 		}
 	}
 
-	public function getsecuremailhtml() {
+	public function getsecuremailhtml(): string {
 		return "<html>
         <head>
             <meta http-equiv='Content-Type' content='text/html; charset=windows-1252'>
@@ -659,7 +659,7 @@ class InitialLoadManager {
                     </html>";
 	}
 
-	public function getsharefilehtml() {
+	public function getsharefilehtml(): string {
 		return "
         <html>
             <head>
@@ -769,7 +769,7 @@ class InitialLoadManager {
                         </html>";
 	}
 
-	public function gethtmlpasswordsnippet() {
+	public function gethtmlpasswordsnippet(): string {
 		return "
         <html>
                 <head>
@@ -849,7 +849,7 @@ class InitialLoadManager {
                             </html>";
 	}
 
-	public function getsharefolderhtml() {
+	public function getsharefolderhtml(): string {
 		return "<html>
         <head>
             <meta http-equiv='Content-Type' content='text/html; charset=windows-1252'>
