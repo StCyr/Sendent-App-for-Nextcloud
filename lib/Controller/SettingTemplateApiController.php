@@ -10,7 +10,7 @@
  use OCP\AppFramework\Controller;
 
  use OCA\Sendent\Db\SettingTemplate;
- use OCA\Sendent\Db\SettingTemplatemapper;
+ use OCA\Sendent\Db\SettingTemplateMapper;
 
  class SettingTemplateApiController extends Controller {
  	private $mapper;
@@ -53,7 +53,7 @@
  	 */
  	public function create($name) {
  		$body = $_POST;
- 		$SettingTemplate = new settingtemplate();
+ 		$SettingTemplate = new SettingTemplate();
  		$SettingTemplate->setTemplatename($name);
  		return new DataResponse($this->mapper->insert($SettingTemplate));
  	}

@@ -19,7 +19,7 @@ class SendentSettings implements ISettings {
 	/** @var IInitialState */
 	private $initialState;
 
-	/** @var AppConfig */
+	/** @var IAppConfig */
 	private $appConfig;
 
 	/** @var ISystemTagManager */

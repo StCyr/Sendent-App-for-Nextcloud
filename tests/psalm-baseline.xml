@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.9.2@00c062267d6e3229d91a1939992987e2d46f2393">
+  <file src="lib/AppInfo/Application.php">
+    <InvalidArgument occurrences="2">
+      <code>registerEventListener</code>
+      <code>registerEventListener</code>
+    </InvalidArgument>
+    <UndefinedClass occurrences="2">
+      <code>BeforeTemplateRenderedEvent</code>
+      <code>LoadAdditionalScriptsEvent</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Listener/LoadAdditionalScriptsListener.php">
+    <UndefinedClass occurrences="1">
+      <code>LoadAdditionalScriptsEvent</code>
+    </UndefinedClass>
+  </file>
+</files>

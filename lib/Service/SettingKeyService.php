@@ -8,7 +8,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Sendent\Db\SettingKey;
-use OCA\Sendent\Db\SettingKeymapper;
+use OCA\Sendent\Db\SettingKeyMapper;
 
 class SettingKeyService {
 	private $mapper;

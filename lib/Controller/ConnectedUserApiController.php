@@ -12,6 +12,7 @@ use OCA\Sendent\Service\ConnectedUserService;
 
 class ConnecteduserApiController extends ApiController {
 	private $service;
+	private $userId;
 
 	public function __construct(
 			  $appName,

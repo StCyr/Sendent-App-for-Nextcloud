@@ -10,8 +10,10 @@ use OCA\Sendent\Service\LicenseManager;
 use OCA\Sendent\Service\LicenseService;
 
 class StatusApiController extends ApiController {
+	private $userId;
 	private $licensemanager;
 	private $licenseservice;
+
 	public function __construct(
 		$appName,
 		IRequest $request,
@@ -45,7 +47,7 @@ class StatusApiController extends ApiController {
 				$statusobj->dategraceperiodend = $result[0]->getDategraceperiodend();
 				$statusobj->maxusersgrace = $result[0]->getMaxgraceusers();
 				$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
-				$statusobj->validlicense = !$result[0]->isLicenseExpired();
+				$statusobj->validLicense = !$result[0]->isLicenseExpired();
 				$status = "";
 				if ($result[0]->isCheckNeeded()) {
 					$status = "RevalidationRequired";
@@ -59,8 +61,8 @@ class StatusApiController extends ApiController {
 				$statusobj->licenseaction = $status;
 			}
 		}
-		
-		
+
+
 		return new DataResponse($statusobj);
 	}
 }

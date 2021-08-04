@@ -6,7 +6,7 @@ namespace OCA\Sendent\Db;
 use OCP\AppFramework\Db\Entity;
 use JsonSerializable;
 
-class settingtemplate extends Entity implements JsonSerializable {
+class SettingTemplate extends Entity implements JsonSerializable {
 	protected $templatename;
 
 	public function __construct() {

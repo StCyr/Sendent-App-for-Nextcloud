@@ -16,6 +16,7 @@ use OCP\IL10N;
 
 class LicenseApiController extends ApiController {
 	private $service;
+	private $userId;
 	private $licensemanager;
 
 	/** @var IL10N */

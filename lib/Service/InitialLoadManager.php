@@ -15,6 +15,7 @@ use OCP\PreConditionNotMetException;
 class InitialLoadManager {
 	private $SettingKeyMapper;
 	private $SettingGroupValueMapper;
+	private $SendentFileStorageManager;
 	private $config;
 
 	public function __construct(SettingKeyMapper $SettingKeyMapper,
@@ -25,7 +26,7 @@ class InitialLoadManager {
 		$this->SettingGroupValueMapper = $SettingGroupValueMapper;
 		$this->SendentFileStorageManager = $SendentFileStorageManager;
 		$this->config = $config;
-	
+
 		$this->checkUpdateNeeded115();
 	}
 
@@ -740,7 +741,7 @@ class InitialLoadManager {
                                         <tr>
                                             <td width='604' colspan='3' valign='top' style='width:503.35pt;border:solid windowtext 1.0pt; border-top:none;background:#E7E6E6;padding:0cm 5.4pt 0cm 5.4pt'>
                                                 <p class='MsoNoSpacing'>
-                                                    
+
                                                     <span lang='NL' style='color:black'>
                                                         <a href='http://www.sendent.nl/'>
                                                             <i>
@@ -820,7 +821,7 @@ class InitialLoadManager {
                                             <tr>
                                                 <td width='604' colspan='3' valign='top' style='width:503.35pt;border:solid windowtext 1.0pt; border-top:none;background:#E7E6E6;padding:0cm 5.4pt 0cm 5.4pt'>
                                                     <p class='MsoNoSpacing'>
-                                                        
+
                                                         <span lang='NL' style='color:black'>
                                                             <a href='http://www.sendent.nl/'>
                                                                 <i>
