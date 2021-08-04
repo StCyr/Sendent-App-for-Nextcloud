@@ -1,5 +1,7 @@
 <?php
+
 namespace OCA\Sendent\Http;
+
 use Exception;
 use OCA\Sendent\Service\NotFoundException;
 
@@ -36,37 +38,30 @@ class LicenseHttpClient {
 			$status = "";
 			$status_line = "";
 			$result = "";
-				$context = stream_context_create($options);
-				try{
-					$result = file_get_contents($url, false, $context);
-				}
-				catch(Exception $e)
-				{
-					
-				}
-				if(isset($http_response_header) && count($http_response_header) > 0){
+			$context = stream_context_create($options);
+			try {
+				$result = file_get_contents($url, false, $context);
+			} catch (Exception $e) {
+			}
+			if (isset($http_response_header) && count($http_response_header) > 0) {
 				$status_line = $http_response_header[0];
-				}
+			}
 
-				preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+			preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
 
-				if(isset($match) && count($match) > 0)
-				{
+			if (isset($match) && count($match) > 0) {
 				$status = $match[1];
-				}
+			}
 			if ($status !== "200" && $status !== "404") {
-				error_log(print_r("LICENSEHTTPCLIENT-STATUS-NOT-200-NOT-404", TRUE)); 
-				error_log(print_r("unexpected response status: {$status_line}\n" . $result, TRUE)); 
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-NOT-200-NOT-404", true));
+				error_log(print_r("unexpected response status: {$status_line}\n" . $result, true));
 				return null;
 			}
-			if($status == "404")
-			{
-				error_log(print_r("LICENSEHTTPCLIENT-STATUS-404", TRUE)); 
+			if ($status == "404") {
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-404", true));
 				throw new Exception();
-			}
-			else
-			{
-				error_log(print_r("LICENSEHTTPCLIENT-STATUS-200", TRUE)); 
+			} else {
+				error_log(print_r("LICENSEHTTPCLIENT-STATUS-200", true));
 				$response = json_decode($result);
 				return $response;
 			}
@@ -77,12 +72,11 @@ class LicenseHttpClient {
 		// into service related exceptions so controllers and service users
 		// have to deal with only one type of exception
 		} catch (Exception $e) {
-			error_log(print_r("LICENSEHTTPCLIENT-STATUS-THROW", TRUE));
+			error_log(print_r("LICENSEHTTPCLIENT-STATUS-THROW", true));
 			throw new Exception();
 
 			//throw new NotFoundException($e->getMessage());
 		}
-		
 	}
 
 	public function Put($request, $data) {
@@ -106,6 +100,6 @@ class LicenseHttpClient {
 		return $result;
 	}
 	private function handleException($e) {
-			throw new NotFoundException($e->getMessage());
+		throw new NotFoundException($e->getMessage());
 	}
 }

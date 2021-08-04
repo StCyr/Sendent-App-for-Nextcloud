@@ -7,7 +7,6 @@ use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCA\Sendent\Service\SendentFileStorageManager;
 
 use OCA\Sendent\Db\License;
 use OCA\Sendent\Db\LicenseMapper;
@@ -24,12 +23,12 @@ class LicenseService {
 	public function findAll() {
 		try {
 			$list = $this->mapper->findAll();
-		foreach ($list as $result) {
-			if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
-				$result->setLicensekey($this->FileStorageManager->getLicenseContent());
+			foreach ($list as $result) {
+				if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
+					$result->setLicensekey($this->FileStorageManager->getLicenseContent());
+				}
 			}
-		}
-		return $list;
+			return $list;
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
 		// into service related exceptions so controllers and service users
@@ -82,17 +81,17 @@ class LicenseService {
 	public function create(string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level) {
-		error_log(print_r("LICENSESERVICE-CREATE", TRUE)); 
+		error_log(print_r("LICENSESERVICE-CREATE", true));
 
 		try {
 			$this->cleanupLicenses($license);
-			error_log(print_r("LICENSESERVICE-LEVEL=		" . $level, TRUE)); 
+			error_log(print_r("LICENSESERVICE-LEVEL=		" . $level, true));
 
 			return $this->update(0, $license,
 			$dategraceperiodend, $datelicenseend,
 			$maxusers, $maxgraceusers, $email, $datelastchecked, $level);
 		} catch (Exception $e) {
-			error_log(print_r("LICENSESERVICE-EXCEPTION=" . $e, TRUE)); 
+			error_log(print_r("LICENSESERVICE-EXCEPTION=" . $e, true));
 
 			$licenseobj = new License();
 			
@@ -106,16 +105,16 @@ class LicenseService {
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 
-				$value = $this->FileStorageManager->writeLicenseTxt($license);
-				$licenseobj->setLicensekey($value);
-				error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), TRUE)); 
+			$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$licenseobj->setLicensekey($value);
+			error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), true));
 
-				$licenseresult = $this->mapper->insert($licenseobj);
-				if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
-					$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
-				}
+			$licenseresult = $this->mapper->insert($licenseobj);
+			if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
+				$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
 
-				return $licenseresult;
+			return $licenseresult;
 		}
 	}
 
@@ -128,7 +127,7 @@ class LicenseService {
 		$licenseobj = new License();
 		
 		$value = $this->FileStorageManager->writeLicenseTxt($license);
-			$licenseobj->setLicensekey($value);
+		$licenseobj->setLicensekey($value);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
 		$licenseobj->setMaxusers(1);
@@ -147,14 +146,14 @@ class LicenseService {
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level) {
-		error_log(print_r("LICENSESERVICE-UPDATE", TRUE)); 
+		error_log(print_r("LICENSESERVICE-UPDATE", true));
 
 		$this->cleanupLicenses($license);
 		$licenseobj = new License();
 
 
-			$value = $this->FileStorageManager->writeLicenseTxt($license);
-			$licenseobj->setLicensekey($value);
+		$value = $this->FileStorageManager->writeLicenseTxt($license);
+		$licenseobj->setLicensekey($value);
 
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
@@ -185,7 +184,7 @@ class LicenseService {
 		$licenses = $this->mapper->findAll();
 		if (isset($licenses)) {
 			foreach ($licenses as $license) {
-					$this->destroy($license->getId());
+				$this->destroy($license->getId());
 			}
 		}
 	}

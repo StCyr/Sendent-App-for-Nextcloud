@@ -16,24 +16,22 @@ class SubscriptionValidationHttpClient {
 	}
 
 	public function validate(License $licenseData) {
-		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE", TRUE)); 
+		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE", true));
 
 		$connectedUserCount = $this->connecteduserservice->getCount();
 		$data = new SubscriptionIn($licenseData, $connectedUserCount);
 		//Initiate cURL.
-		try{
-			if($licenseData->getLicensekey() == "" || $licenseData->getEmail() == "")
-			{
+		try {
+			if ($licenseData->getLicensekey() == "" || $licenseData->getEmail() == "") {
 				return null;
 			}
 			$result = $this->licensehttpclient->Post('subscription/validate', $data);
 			$validatedLicense = new License();
-			if(isset($result))
-			{
+			if (isset($result)) {
 				$validatedLicense->setId($licenseData->getId());
 				$validatedLicense->setLicensekey($licenseData->getLicensekey());
 				$validatedLicense->setLevel($result->level);
-				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		" . $result->level, TRUE)); 
+				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		" . $result->level, true));
 				$validatedLicense->setEmail($licenseData->getEmail());
 				$validatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));
 				$validatedLicense->setDatelicenseend(date_format(date_create($result->expirationDate), "Y-m-d"));
@@ -41,9 +39,7 @@ class SubscriptionValidationHttpClient {
 				$validatedLicense->setMaxgraceusers($result->amountUsersMax);
 				$validatedLicense->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
 				return $validatedLicense;
-			}
-			else
-			{
+			} else {
 				$validatedLicense = new License();
 				$validatedLicense->setId($licenseData->getId());
 				$validatedLicense->setLevel("Error_validating");
@@ -51,10 +47,8 @@ class SubscriptionValidationHttpClient {
 				$validatedLicense->setEmail($licenseData->getEmail());
 				return $validatedLicense;
 			}
-		}
-		catch(Exception $e)
-		{			
-			error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION", TRUE)); 
+		} catch (Exception $e) {
+			error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION", true));
 
 			$validatedLicense = new License();
 			$validatedLicense->setId($licenseData->getId());
@@ -63,26 +57,23 @@ class SubscriptionValidationHttpClient {
 			$validatedLicense->setEmail($licenseData->getEmail());
 			return $validatedLicense;
 		}
-		
 	}
 	public function activate(License $licenseData) {
-		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-ACTIVATE", TRUE)); 
+		error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-ACTIVATE", true));
 
 		$data = new SubscriptionIn($licenseData, 1);
 		//Initiate cURL.
-		try{
-			if($licenseData->getLicensekey() == "" || $licenseData->getEmail() == "")
-			{
+		try {
+			if ($licenseData->getLicensekey() == "" || $licenseData->getEmail() == "") {
 				return null;
 			}
 			$result = $this->licensehttpclient->Post('subscription/validate', $data);
-			if(isset($result))
-			{
+			if (isset($result)) {
 				$activatedLicense = new License();
 				$activatedLicense->setId($licenseData->getId());
 				$activatedLicense->setLicensekey($licenseData->getLicensekey());
 				$activatedLicense->setLevel($result->level);
-				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		" . $result->level, TRUE)); 
+				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		" . $result->level, true));
 
 				$activatedLicense->setEmail($licenseData->getEmail());
 				$activatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));
@@ -91,19 +82,15 @@ class SubscriptionValidationHttpClient {
 				$activatedLicense->setMaxgraceusers($result->amountUsersMax);
 				$activatedLicense->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
 				return $activatedLicense;
-			}
-			else
-			{
+			} else {
 				$validatedLicense = new License();
 				$validatedLicense->setLevel("Error_validating");
 				$validatedLicense->setLicensekey($licenseData->getLicensekey());
 				$validatedLicense->setEmail($licenseData->getEmail());
 				return $validatedLicense;
 			}
-		}
-		catch(Exception $e)
-		{				
-			error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-ACTIVATE-EXCEPTION", TRUE)); 
+		} catch (Exception $e) {
+			error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-ACTIVATE-EXCEPTION", true));
 
 			$validatedLicense = new License();
 			$validatedLicense->setLevel("Error_incomplete");

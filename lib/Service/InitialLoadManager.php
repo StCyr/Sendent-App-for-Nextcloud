@@ -17,20 +17,16 @@ class InitialLoadManager {
 	private $SettingGroupValueMapper;
 	private $config;
 
-	public function __construct(SettingKeyMapper $SettingKeyMapper, 
-	SettingGroupValueMapper $SettingGroupValueMapper, 
+	public function __construct(SettingKeyMapper $SettingKeyMapper,
+	SettingGroupValueMapper $SettingGroupValueMapper,
 	SendentFileStorageManager $SendentFileStorageManager,
-			IConfig $config) 
-			{
+			IConfig $config) {
 		$this->SettingKeyMapper = $SettingKeyMapper;
 		$this->SettingGroupValueMapper = $SettingGroupValueMapper;
 		$this->SendentFileStorageManager = $SendentFileStorageManager;
 		$this->config = $config;
 	
 		$this->checkUpdateNeeded115();
-
-
-		
 	}
 
 	/**
@@ -54,8 +50,7 @@ class InitialLoadManager {
 
 		return false;
 	}
-	private function runInitialLoadTasks115()
-	{
+	private function runInitialLoadTasks115() {
 		try {
 			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
 				$this->initialLoading();
@@ -66,11 +61,11 @@ class InitialLoadManager {
 			if ($this->SettingKeyMapper->settingKeyCount("30") < 1) {
 				$this->addHtmlpasswordsnippet();
 			}
-            if ($this->SettingKeyMapper->settingKeyCount("31") < 1) {
+			if ($this->SettingKeyMapper->settingKeyCount("31") < 1) {
 				$this->addPopupExternalMail();
 			}
-            if ($this->SettingKeyMapper->settingKeyCount("81") < 1 || $this->showNameBySettingKeyId("81") !== "GeneralIconColor" 
-            ||  $this->showTemplateBySettingKeyId("81") !== 1 || $this->showGroupIdBySettingKeyId("81") !== 1) {
+			if ($this->SettingKeyMapper->settingKeyCount("81") < 1 || $this->showNameBySettingKeyId("81") !== "GeneralIconColor"
+			|| $this->showTemplateBySettingKeyId("81") !== 1 || $this->showGroupIdBySettingKeyId("81") !== 1) {
 				$this->addAdvancedTheming();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("94") < 1 || $this->showNameBySettingKeyId("94") !== "TaskpaneActivityTrackerFontColor"
@@ -88,8 +83,8 @@ class InitialLoadManager {
 			if ($this->SettingKeyMapper->settingKeyCount("100") < 1 || $this->showNameBySettingKeyId("100") !== "DialogFooterBackgroundColor"
 			|| $this->showTemplateBySettingKeyId("100") !== 1 || $this->showGroupIdBySettingKeyId("100") !== 1) {
 				$this->addAdvancedThemingUpdate4();
-            }
-            if ($this->SettingKeyMapper->settingKeyCount("104") < 1) {
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("104") < 1) {
 				$this->addAdvancedThemingNameUpdate();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("201") < 1) {
@@ -158,10 +153,10 @@ class InitialLoadManager {
 		}
 	}
 
-    public function addPopupExternalMail() {
-        $this->createKey("31", "attachmentdomainexceptionsexternalpopup", "0", "select-one");
+	public function addPopupExternalMail() {
+		$this->createKey("31", "attachmentdomainexceptionsexternalpopup", "0", "select-one");
 		$this->createGroupValue("0", "31", "False");
-    }
+	}
 
 	public function addHtmlpasswordsnippet() {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
@@ -169,11 +164,11 @@ class InitialLoadManager {
 	}
 	public function addTalkSettingUpdate() {
 		$this->createKey("201", "generatetalkpassword", "0", "textarea");
-		$this->createGroupValue("0", "201", "False" );
+		$this->createGroupValue("0", "201", "False");
 	}
 	public function addTalkEnabledUpdate() {
 		$this->createKey("202", "talkenabled", "0", "select-one");
-		$this->createGroupValue("0", "202", "True" );
+		$this->createGroupValue("0", "202", "True");
 	}
 	public function addAdvancedTheming() {
 		if (!is_null($this->showNameBySettingKeyId("81"))) {
@@ -381,17 +376,16 @@ class InitialLoadManager {
 			$this->createGroupValue("1", "103", "#151c62");
 		}
 	}
-    public function addAdvancedThemingNameUpdate()
-    {
-        if (!is_null($this->showNameBySettingKeyId("104"))) {
-            $this->updateKey("104", "VendorName", "1", "text");
-            $value = $this->showBySettingKeyId(104);
-            $this->update($value->getId(), 104, 1, $value->getValue());
+	public function addAdvancedThemingNameUpdate() {
+		if (!is_null($this->showNameBySettingKeyId("104"))) {
+			$this->updateKey("104", "VendorName", "1", "text");
+			$value = $this->showBySettingKeyId(104);
+			$this->update($value->getId(), 104, 1, $value->getValue());
 		} else {
 			$this->createKey("104", "VendorName", "1", "text");
 			$this->createGroupValue("1", "104", "Sendent");
 		}
-    }
+	}
 	public function addSendmode() {
 		$this->createKey("23", "sendmode", "0", "select-one");
 		$this->createGroupValue("0", "23", "CurrentMail");

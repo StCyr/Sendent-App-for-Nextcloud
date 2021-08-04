@@ -33,33 +33,32 @@ class StatusApiController extends ApiController {
 		$statusobj->app = "sendent";
 		$statusobj->version = "1.2.4";
 		$statusobj->currentuserid = $this->userId;
-		if($this->licensemanager->isLicenseCheckNeeded())
-		{
+		if ($this->licensemanager->isLicenseCheckNeeded()) {
 			$result = $this->licensemanager->renewLicense();
 		}
-			$result = $this->licenseservice->findAll();
-			if (isset($result) && $result !== null && $result !== false) {
-				if (is_array($result) && count($result) > 0 
+		$result = $this->licenseservice->findAll();
+		if (isset($result) && $result !== null && $result !== false) {
+			if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
-					$statusobj->datelicenseend = $result[0]->getDatelicenseend();
-					$statusobj->maxusers = $result[0]->getMaxusers();
-					$statusobj->dategraceperiodend = $result[0]->getDategraceperiodend();
-					$statusobj->maxusersgrace = $result[0]->getMaxgraceusers();
-					$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
-					$statusobj->validlicense = !$result[0]->isLicenseExpired();
-					$status = "";
-					if ($result[0]->isCheckNeeded()) {
-						$status = "RevalidationRequired";
-					}
-					if ($result[0]->isLicenseExpired()) {
-						$status = "Expired";
-					}
-					if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
-						$status = "Valid";
-					}
-					$statusobj->licenseaction = $status;
+				$statusobj->datelicenseend = $result[0]->getDatelicenseend();
+				$statusobj->maxusers = $result[0]->getMaxusers();
+				$statusobj->dategraceperiodend = $result[0]->getDategraceperiodend();
+				$statusobj->maxusersgrace = $result[0]->getMaxgraceusers();
+				$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
+				$statusobj->validlicense = !$result[0]->isLicenseExpired();
+				$status = "";
+				if ($result[0]->isCheckNeeded()) {
+					$status = "RevalidationRequired";
 				}
+				if ($result[0]->isLicenseExpired()) {
+					$status = "Expired";
+				}
+				if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+					$status = "Valid";
+				}
+				$statusobj->licenseaction = $status;
 			}
+		}
 		
 		
 		return new DataResponse($statusobj);

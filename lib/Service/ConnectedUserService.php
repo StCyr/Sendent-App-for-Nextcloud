@@ -89,16 +89,14 @@ class ConnectedUserService {
 		return $this->mapper->update($connecteduser);
 	}
 	
-	public function cleanup()
-	{
-		try{
+	public function cleanup() {
+		try {
 			$connectedUsers = $this->mapper->findAll();
 			$origin = new DateTime('NOW');
 			$origin->sub(new DateInterval('P7D'));
-			foreach($connectedUsers as $connectedUser){
+			foreach ($connectedUsers as $connectedUser) {
 				$dateconnected = new DateTime($connectedUser->getDateconnected());
-				if($dateconnected < $origin)
-				{
+				if ($dateconnected < $origin) {
 					try {
 						$this->destroy($connectedUser->getId());
 					} catch (Exception $e) {
@@ -106,8 +104,7 @@ class ConnectedUserService {
 					}
 				}
 			}
-		}	
-		catch(Exception $e){
+		} catch (Exception $e) {
 			$this->handleException($e);
 		}
 	}
