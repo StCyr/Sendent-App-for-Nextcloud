@@ -2,13 +2,8 @@
 /** @var $l \OCP\IL10N */
 /** @var $_ array */
 
-script('sendent', 'settings');
-
 script('sendent', '3rdparty/jscolor/jscolor');
-script('sendent', ['script']);
-script('sendent', ['SettingKeyScript']);
-script('sendent', ['SettingGroupValueScript']);
-script('sendent', ['SettingCreator']);
+script('sendent', 'settings');
 style('sendent', ['style']);
 ?>
 

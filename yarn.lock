@@ -856,6 +856,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@eastdesire/jscolor@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@eastdesire/jscolor/-/jscolor-2.4.5.tgz#df46f049fb2b86a0cb450401ed6f7e46cd96fc43"
+  integrity sha512-LDCEGN7qKKO3tq6yYtx6cbz/tQlr9LqKNSFaG2GIIn03y67ot3doucpDGoQjCwXG2xUB4pDXRuH2lobjjxhtJA==
+
 "@eslint/eslintrc@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.3.0.tgz#d736d6963d7003b6514e6324bec9c602ac340318"
