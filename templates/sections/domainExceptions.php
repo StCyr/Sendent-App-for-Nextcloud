@@ -11,9 +11,10 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput"
+            <input class="settingkeyvalueinput multiValueInput" type="text" name="settingkeyvalueinput"
                 id="attachmentdomainexceptionsinternal" value="" placeholder="yourdomain.com;info@yourotherdomain.com"
                 autocomplete="on" autocapitalize="none" autocorrect="off">
+            <div class="multiInputContainer"></div>
             <input type="hidden" name="settingkeyname" value="attachmentdomainexceptionsinternal">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -30,9 +31,10 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="text" name="settingkeyvalue" id="attachmentdomainexceptions"
+            <input class="settingkeyvalueinput multiValueInput" type="text" name="settingkeyvalue" id="attachmentdomainexceptions"
                 value="" placeholder="thirdparty-domain.com;info@thirdparty-domain.com" autocomplete="on"
                 autocapitalize="none" autocorrect="off">
+            <div class="multiInputContainer"></div>
             <input type="hidden" name="settingkeyname" value="attachmentdomainexceptions">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
