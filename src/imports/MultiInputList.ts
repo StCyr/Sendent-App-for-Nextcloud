@@ -1,8 +1,11 @@
 /* eslint-disable @nextcloud/no-deprecations */
+import { translate as t, translatePlural as p } from '@nextcloud/l10n';
 
 export default class MultiInputList {
-    constructor(private container: JQuery<HTMLElement>, private value: string, private target: JQuery<HTMLElement>) {
+    constructor(private container: JQuery<HTMLElement>, value: string, private target: JQuery<HTMLElement>) {
         const values = value.split(';').map(value => value.trim());
+
+        this.appendListToggle();
 
         for (const value of values) {
             this.appendInput(value);
@@ -13,6 +16,37 @@ export default class MultiInputList {
         }
 
         this.target.hide();
+    }
+
+    private appendListToggle(): void {
+        const element = $('<a>');
+        const updateLabel = () => {
+            const targetValue = this.target.val()?.toString() || '';
+            const numberOfEntries = targetValue ? targetValue.split(';').length : 0;
+
+            element.text(this.container.hasClass('collapsed') ?
+                (
+                    numberOfEntries > 0 ?
+                        n('sendent', 'Show %n entry', 'Show %n entries', numberOfEntries)
+                        :
+                        t('sendet', 'Add new entry')
+                )
+                :
+                n('sendent', 'Hide entry', 'Hide entries', numberOfEntries)
+            );
+        };
+
+        this.container.addClass('collapsed');
+        updateLabel();
+
+        element.appendTo(this.container);
+        element.on('click', (ev) => {
+            ev.preventDefault();
+
+            this.container.toggleClass('collapsed');
+
+            updateLabel();
+        });
     }
 
     private appendInput(value = '') {

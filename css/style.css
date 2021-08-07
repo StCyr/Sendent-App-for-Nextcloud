@@ -13,7 +13,19 @@
 	grid-area:b;
 	vertical-align: middle;
 }
+.multiInputContainer a {
+	line-height: 34px;
+	margin-top: 4px;
+	display: block;
+	font-style: italic;
+}
+.multiInputContainer .multiInputRow:last-child {
+	margin-bottom: 1em;
+}
 .multiInputContainer .multiInputRow:last-child button {
+	display: none;
+}
+.multiInputContainer.collapsed .multiInputRow {
 	display: none;
 }
 .multiInputRow {
