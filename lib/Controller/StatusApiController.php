@@ -31,7 +31,7 @@ class StatusApiController extends ApiController {
 	public function index() {
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.2.4";
+		$statusobj->version = "1.2.5";
 		$statusobj->currentuserid = $this->userId;
 		if($this->licensemanager->isLicenseCheckNeeded())
 		{
@@ -59,6 +59,17 @@ class StatusApiController extends ApiController {
 					}
 					$statusobj->licenseaction = $status;
 				}
+			}
+			else{
+					$statusobj->datelicenseend = date_create("2021-01-01");
+					$statusobj->maxusers = 0;
+					$statusobj->dategraceperiodend = date_create("2021-01-01");
+					$statusobj->maxusersgrace = 0;
+					$statusobj->currentusers = 0;
+					$statusobj->validlicense = false;
+					$status = "";
+						$status = "Free";
+					$statusobj->licenseaction = $status;
 			}
 		
 		
