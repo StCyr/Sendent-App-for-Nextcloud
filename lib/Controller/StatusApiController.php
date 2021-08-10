@@ -32,7 +32,7 @@ class StatusApiController extends ApiController {
 	public function index() {
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.2.6";
+		$statusobj->version = "1.2.7";
 		$statusobj->currentuserid = $this->userId;
 		if($this->licensemanager->isLicenseCheckNeeded())
 		{
