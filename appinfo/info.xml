@@ -1,31 +1,33 @@
 <?xml version="1.0"?>
-<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>sendent</id>
     <name>Sendent</name>
     <summary lang="en">Sendent allows you to securely exchange files and emails</summary>
     <description lang="en">Sendent allows you to securely exchange files and emails. Sendent is linked to Microsoft Outlook, so you can continue to work from your trusted email program while you mail more easily and securely. Very useful, for example, to share privacy-sensitive documents or content or to send attachments that are normally too large to email. All files are uploaded to your personal Nextcloud environment from which you determine who has access to them.</description>
-    <version>1.2.4</version>
+    <version>1.2.7</version>
     <licence>agpl</licence>
     <author mail="support@sendent.nl" homepage="https://www.sendent.nl">Sendent B.V.</author>
     <namespace>Sendent</namespace>
-    <settings>
-        <admin>OCA\Sendent\Settings\SendentSettings</admin>
-        <admin-section>OCA\Sendent\Settings\SendentSection</admin-section>
-    </settings>
-   <category>integration</category>
+
+    <category>integration</category>
     <category>office</category>
     <category>social</category>
     <website>https://www.sendent.nl</website>
-
     <bugs>https://sendent.nl/support</bugs>
     <repository>https://github.com/Sendent-B-V/Sendent-App-for-Nextcloud.git</repository>
+
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sendentbanner.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sharefilesuploading.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/sharefilesfiles.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/publicshare.png</screenshot>
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/publicsharedate.png</screenshot>
+
     <dependencies>
         <nextcloud min-version="20" max-version="22"/>
     </dependencies>
+
+    <settings>
+        <admin>OCA\Sendent\Settings\SendentSettings</admin>
+        <admin-section>OCA\Sendent\Settings\SendentSection</admin-section>
+    </settings>
 </info>

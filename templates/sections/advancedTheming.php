@@ -270,7 +270,7 @@
             <input type="hidden" name="settingkeyid" value="103">
         </div>
     </div>
-    <div class="personal-settings-setting-box">
+    <div class="personal-settings-setting-box advancedTheming">
         <div class="settingkeyvalue advancedTheming">
             <label>
                 <span class="templatesettingkeyname">
