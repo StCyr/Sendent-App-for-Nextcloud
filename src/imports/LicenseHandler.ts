@@ -17,7 +17,7 @@ export default class LicenseHandler {
     private static instance: LicenseHandler;
 
     private constructor() {
-        $("#licensebutton").on('click', (ev) => {
+        $("#btnLicenseActivation").on('click', (ev) => {
             ev.preventDefault();
 
             const email = $("#licenseEmail").val()?.toString().replace(/\s+/g, '') || '';
