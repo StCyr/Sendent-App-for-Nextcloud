@@ -3,7 +3,6 @@
 namespace OCA\Sendent\Controller;
 
 use OCP\IRequest;
-use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 use OCA\Sendent\Db\Status;
