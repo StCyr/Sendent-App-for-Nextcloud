@@ -44,7 +44,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="licenseEmail" value=""
+            <input class="settingkeyvalueinput" type="email" name="settingkeyvalueinput" id="licenseEmail" value=""
                 placeholder="Enter email address" autocomplete="on" autocapitalize="none" autocorrect="off">
             <input type="hidden" name="settingkeyname" value="licenseEmail">
             <input type="hidden" name="settingkeykey" value="901">
