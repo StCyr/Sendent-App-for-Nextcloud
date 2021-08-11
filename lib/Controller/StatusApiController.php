@@ -9,8 +9,12 @@ use OCP\AppFramework\ApiController;
 use OCA\Sendent\Db\Status;
 use OCA\Sendent\Service\LicenseManager;
 use OCA\Sendent\Service\LicenseService;
+use OCP\App\IAppManager;
 
 class StatusApiController extends ApiController {
+	/** @var IAppManager */
+	private $appManager;
+
 	private $userId;
 	private $licensemanager;
 	private $licenseservice;
@@ -18,11 +22,13 @@ class StatusApiController extends ApiController {
 	public function __construct(
 		$appName,
 		IRequest $request,
+		IAppManager $appManager,
 		$userId,
 		LicenseManager $licensemanager,
 		LicenseService $licenseservice
 	) {
 		parent::__construct($appName, $request);
+		$this->appManager = $appManager;
 		$this->userId = $userId;
 		$this->licensemanager = $licensemanager;
 		$this->licenseservice = $licenseservice;
@@ -37,7 +43,7 @@ class StatusApiController extends ApiController {
 	public function index(): DataResponse {
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.2.7";
+		$statusobj->version = $this->appManager->getAppVersion("sendent");
 		$statusobj->currentuserid = $this->userId;
 		$statusobj->licenseaction = "Free";
 		$statusobj->maxusersgrace = 0;
