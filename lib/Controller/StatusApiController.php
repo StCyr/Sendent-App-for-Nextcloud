@@ -3,6 +3,7 @@
 namespace OCA\Sendent\Controller;
 
 use OCP\IRequest;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 use OCA\Sendent\Db\Status;
@@ -36,12 +37,20 @@ class StatusApiController extends ApiController {
 	public function index(): DataResponse {
 		$statusobj = new Status();
 		$statusobj->app = "sendent";
-		$statusobj->version = "1.2.4";
+		$statusobj->version = "1.2.7";
 		$statusobj->currentuserid = $this->userId;
+		$statusobj->licenseaction = "Free";
+		$statusobj->maxusersgrace = 0;
+		$statusobj->maxusers = 0;
+		$statusobj->currentusers = 0;
+		$statusobj->validlicense = false;
+
 		if ($this->licensemanager->isLicenseCheckNeeded()) {
 			$result = $this->licensemanager->renewLicense();
 		}
+
 		$result = $this->licenseservice->findAll();
+
 		if (isset($result) && $result !== null && $result !== false) {
 			if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
