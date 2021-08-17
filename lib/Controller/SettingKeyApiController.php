@@ -13,18 +13,19 @@
 
  	public function __construct($appName,
 	 IRequest $request,
-	 SettingKeyService $service,
-	 $userId) {
+	 SettingKeyService $service) {
  		parent::__construct($appName, $request);
  		$this->service = $service;
- 		$this->userId = $userId;
  	}
 
  	/**
  	 * @NoAdminRequired
+ 	 *
  	 * @NoCSRFRequired
+ 	 *
+ 	 * @return DataResponse
  	 */
- 	public function index() {
+ 	public function index(): DataResponse {
  		return new DataResponse($this->service->findAll());
  	}
 
@@ -45,7 +46,7 @@
  	public function showByKey(string $key) {
  		return $this->service->findByKey($key);
  	}
-	 
+
  	/**
  	 * @NoAdminRequired
  	 * @NoCSRFRequired

@@ -21,7 +21,7 @@ class TagController extends Controller {
 		$this->tagManager = $tagManager;
 	}
 
-	public function show(string $id) {
+	public function show(string $id): JSONResponse {
 		try {
 			$tags = $this->tagManager->getTagsByIds($id);
 		} catch (TagNotFoundException $e) {
@@ -31,7 +31,7 @@ class TagController extends Controller {
 		return new JSONResponse($this->serializeTag($tags[$id]));
 	}
 
-	public function create(string $name) {
+	public function create(string $name): JSONResponse {
 		try {
 			$tag = $this->tagManager->createTag($name, true, false);
 		} catch (TagAlreadyExistsException $e) {
@@ -41,7 +41,12 @@ class TagController extends Controller {
 		return new JSONResponse($this->serializeTag($tag));
 	}
 
-	private function serializeTag(ISystemTag $tag) {
+	/**
+	 * @return (bool|int|string)[]
+	 *
+	 * @psalm-return array{id: int, name: string, isVisible: bool, isAssignable: bool}
+	 */
+	private function serializeTag(ISystemTag $tag): array {
 		return [
 			"id" => (int)$tag->getId(),
 			"name" => $tag->getName(),

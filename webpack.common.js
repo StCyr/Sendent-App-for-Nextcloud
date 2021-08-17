@@ -1,4 +1,5 @@
-const path = require('path')
+const path = require('path');
+const webpack = require("webpack");
 
 module.exports = {
 	entry: {
@@ -7,6 +8,9 @@ module.exports = {
 		],
 		retentionAssistant: [
 			path.join(__dirname, 'src', 'retentionAssistant.ts'),
+		],
+		settings: [
+			path.join(__dirname, 'src', 'settings.ts'),
 		],
 	},
 	output: {
@@ -40,6 +44,10 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery'
+		}),
 	],
 	resolve: {
 		extensions: ['*', '.ts', '.js', '.scss'],

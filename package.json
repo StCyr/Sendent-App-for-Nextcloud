@@ -13,6 +13,7 @@
     "lint:fix:script": "eslint --ext .ts src --fix"
   },
   "devDependencies": {
+    "@eastdesire/jscolor": "^2.4.5",
     "@nextcloud/axios": "^1.6.0",
     "@nextcloud/eslint-plugin": "^2.0.0",
     "@nextcloud/router": "^1.2.0",

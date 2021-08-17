@@ -8,7 +8,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Sendent\Db\SettingKey;
-use OCA\Sendent\Db\SettingKeymapper;
+use OCA\Sendent\Db\SettingKeyMapper;
 
 class SettingKeyService {
 	private $mapper;
@@ -21,7 +21,10 @@ class SettingKeyService {
 		return $this->mapper->findAll();
 	}
 
-	private function handleException($e) {
+	/**
+	 * @return never
+	 */
+	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
 			throw new NotFoundException($e->getMessage());
@@ -51,7 +54,7 @@ class SettingKeyService {
 		}
 	}
 
-	public function create(string $key, string $name, string $templateid, string $valuetype) {
+	public function create(string $key, string $name, string $templateid, string $valuetype): \OCP\AppFramework\Db\Entity {
 		$SettingKey = new settingkey();
 		$SettingKey->setKey($key);
 		$SettingKey->setName($name);
@@ -60,7 +63,7 @@ class SettingKeyService {
 		return $this->mapper->insert($SettingKey);
 	}
 
-	public function update(int $id, string $key, string $name, string $templateid, string $valuetype) {
+	public function update(int $id, string $key, string $name, string $templateid, string $valuetype): \OCP\AppFramework\Db\Entity {
 		try {
 			$SettingKey = $this->mapper->find($id);
 		} catch (Exception $e) {
@@ -73,7 +76,7 @@ class SettingKeyService {
 		return $this->mapper->update($SettingKey);
 	}
 
-	public function destroy(int $id) {
+	public function destroy(int $id): \OCP\AppFramework\Db\Entity {
 		try {
 			$SettingKey = $this->mapper->findById($id);
 		} catch (Exception $e) {

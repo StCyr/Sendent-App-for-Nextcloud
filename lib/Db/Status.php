@@ -26,7 +26,7 @@ class Status implements JsonSerializable {
 			'App' => $this->app,
 			'DateLicenseEnd' => $this->datelicenseend,
 			'MaxUsers' => $this->maxusers,
-			'ValidLicense' => $this->validlicense,
+			'ValidLicense' => $this->validLicense,
 			'LicenseAction' => $this->licenseaction,
 			'DateGracePeriodEnd' => $this->dategraceperiodend,
 			'MaxGraceUsers' => $this->maxusersgrace,

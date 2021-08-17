@@ -44,17 +44,17 @@ use Exception;
  	protected function ensureColumnIsNullable(ISchemaWrapper $schema, string $tableName, string $columnName): bool {
  		$table = $schema->getTable($tableName);
  		$column = $table->getColumn($columnName);
-		// try{
-			if ($column->getNotnull()) {
-				$column->setNotnull(false);
-				return true;
-			}
-		// }
-		// catch(Exception $e){
+ 		// try{
+ 		if ($column->getNotnull()) {
+ 			$column->setNotnull(false);
+ 			return true;
+ 		}
+ 		// }
+ 		// catch(Exception $e){
 		
-		// 	return false;
+ 		// 	return false;
 
-		// }
+ 		// }
  		return false;
  	}
-}
+ }

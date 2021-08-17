@@ -13,7 +13,7 @@ class SendentFileStorageManager {
 		$this->ensureFolderExists();
 	}
 
-	private function ensureFolderExists() {
+	private function ensureFolderExists(): void {
 		try {
 			$folder = $this->appData->getFolder('settings');
 		} catch (NotFoundException $e) {
@@ -21,7 +21,7 @@ class SendentFileStorageManager {
 		}
 	}
 
-	public function writeTxt($group, $key, $content) {
+	public function writeTxt($group, $key, $content): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
 		try {
@@ -37,7 +37,7 @@ class SendentFileStorageManager {
 		$pngFile->putContent($content);
 		return $group . '_' . $key . 'settinggroupvaluefile.txt';
 	}
-	public function writeLicenseTxt($content) {
+	public function writeLicenseTxt(string $content): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
 		try {
@@ -53,7 +53,7 @@ class SendentFileStorageManager {
 		$pngFile->putContent($content);
 		return 'licenseKeyFile.txt';
 	}
-	public function fileExists($group, $key) {
+	public function fileExists($group, $key): bool {
 		try {
 			$folder = $this->appData->getFolder('settings');
 			$folder->getFile($group . '_' . $key . 'settinggroupvaluefile.txt');
@@ -62,7 +62,7 @@ class SendentFileStorageManager {
 			return false;
 		}
 	}
-	public function fileLicenseExists() {
+	public function fileLicenseExists(): bool {
 		try {
 			$folder = $this->appData->getFolder('settings');
 			$folder->getFile('licenseKeyFile.txt');

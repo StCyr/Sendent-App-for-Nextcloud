@@ -19,7 +19,7 @@ class SendentSettings implements ISettings {
 	/** @var IInitialState */
 	private $initialState;
 
-	/** @var AppConfig */
+	/** @var IAppConfig */
 	private $appConfig;
 
 	/** @var ISystemTagManager */
@@ -51,7 +51,12 @@ class SendentSettings implements ISettings {
 		return new TemplateResponse('sendent', 'index');
 	}
 
-	private function getEnabledAppVersion($appId) {
+	/**
+	 * @param string $appId
+	 *
+	 * @return false|string
+	 */
+	private function getEnabledAppVersion(string $appId) {
 		if (!$this->appManager->isInstalled($appId)) {
 			return false;
 		}
@@ -59,7 +64,7 @@ class SendentSettings implements ISettings {
 		return $this->appManager->getAppVersion($appId);
 	}
 
-	private function getTagState() {
+	private function getTagState(): array {
 		$tagKeys = [Constants::CONFIG_UPLOAD_TAG, Constants::CONFIG_EXPIRED_TAG, Constants::CONFIG_REMOVED_TAG];
 		$state = array_flip($tagKeys);
 
