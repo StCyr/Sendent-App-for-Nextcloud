@@ -1,4 +1,5 @@
 /* eslint-disable @nextcloud/no-deprecations */
+import MultiInputList from "./MultiInputList";
 import SettingGroupValueAjaxCalls from "./SettingGroupValueAjaxCalls";
 import SettingKeyAjaxCalls from "./SettingKeyAjaxCalls";
 
@@ -26,12 +27,13 @@ export default class SettingFormHandler {
         const allSettings = await this.valuecalls.list();
 
         $(".settingkeyvalue").each((index, element) => {
+            const inputElement = $(element).find('.settingkeyvalueinput');
             const name = $(element).find("[name='settingkeyname']").val()?.toString();
             const key = $(element).find("[name='settingkeykey']").val()?.toString();
             const templateId = $(element).find("[name='settingkeytemplateid']").val()?.toString();
             const groupId = $(element).find("[name='settinggroupid']").val()?.toString();
-            const value = $(element).find(".settingkeyvalueinput").val()?.toString();
-            const valueType = $(element).find(".settingkeyvalueinput").prop('type');
+            const value = inputElement.val()?.toString();
+            const valueType = inputElement.prop('type');
 
             if (!key || !name || !templateId || !valueType || typeof value !== 'string' || !groupId) {
                 return;
@@ -43,11 +45,19 @@ export default class SettingFormHandler {
                 this.saveSetting($(element).parents('.personal-settings-setting-box'));
             }
 
+            this.updateUI($(element));
+
+            inputElement.on('change', () => {
+                this.saveSetting($(element).parents('.personal-settings-setting-box'));
+
+                this.updateUI($(element));
+            });
+
             //when settingkey is present: populate UI
             try {
-                $(element).find("[name='settingkeyvalueinput']").val(setting[0].value);
+                inputElement.val(setting[0].value);
 
-                if ($(element).find(".settingkeyvalueinput.theming-color").length > 0) {
+                if (inputElement.hasClass('theming-color')) {
                     this.refreshColorPicker(element);
                 }
             } catch (err) {
@@ -58,6 +68,13 @@ export default class SettingFormHandler {
 
                 //when no settingkey is present
                 this.initSettingKey(element, key, name, valueType, templateId, value, groupId);
+            }
+
+            if (inputElement.hasClass('multiValueInput')) {
+                const multiInputContainer = $(element).find('.multiInputContainer');
+                const currentValue = setting.length > 0 ? setting[0].value : '';
+
+                new MultiInputList(multiInputContainer, currentValue, inputElement);
             }
         });
 
@@ -145,7 +162,7 @@ export default class SettingFormHandler {
         });
     }
 
-    showHideAttachmentSize(settingkeyvalues: JQuery<HTMLElement>, settingkeyid: string): void {
+    private showHideAttachmentSize(settingkeyvalues: JQuery<HTMLElement>, settingkeyid: string): void {
         const settingkeyvalue = settingkeyvalues.val();
 
         if (settingkeyid == "attachmentmode") {
@@ -166,11 +183,42 @@ export default class SettingFormHandler {
         }
     }
 
-    showHideAdvancedTheming(settingkeyvalues: JQuery<HTMLElement>, settingkeyid: string): void {
+    private showHideAdvancedTheming(settingkeyvalues: JQuery<HTMLElement>, settingkeyid: string): void {
         const settingkeyvalue = settingkeyvalues.val();
 
         if (settingkeyid == "AdvancedThemingEnabled") {
             if (settingkeyvalue == "true") {
+                $(".advancedTheming").removeClass("hidden").addClass("shown");
+            }
+            else {
+                $(".advancedTheming").addClass("hidden").removeClass("shown");
+            }
+        }
+    }
+
+    private updateUI(settingbox: JQuery<HTMLElement>): void {
+        const keyValue = $(settingbox).find(".settingkeyvalueinput").first().val()?.toString();
+        const keyId = $(settingbox).find("[name='settingkeyname']").val()?.toString();
+
+        if (!keyId || typeof keyValue !== 'string') {
+            return;
+        }
+
+        if (keyId === "attachmentmode") {
+            if (keyValue === "MaximumAttachmentSize") {
+                $(".personal-settings-setting-box.attachmentSize").removeClass("hidden").addClass("shown");
+            } else {
+                $(".personal-settings-setting-box.attachmentSize").addClass("hidden").removeClass("shown");
+            }
+        }
+        else if (keyId === "sendmode") {
+            if (keyValue == "Separate") {
+                $(".personal-settings-setting-box.htmlSnippetPassword").removeClass("hidden").addClass("shown");
+            } else {
+                $(".personal-settings-setting-box.htmlSnippetPassword").addClass("hidden").removeClass("shown");
+            }
+        } else if (keyId === "AdvancedThemingEnabled") {
+            if (keyValue === "true") {
                 $(".advancedTheming").removeClass("hidden").addClass("shown");
             }
             else {
