@@ -6,6 +6,9 @@ module.exports = {
 		filelist: [
 			path.join(__dirname, 'src', 'filelist.ts'),
 		],
+		termsAgreement: [
+			path.join(__dirname, 'src', 'termsAgreement.ts'),
+		],
 		retentionAssistant: [
 			path.join(__dirname, 'src', 'retentionAssistant.ts'),
 		],
