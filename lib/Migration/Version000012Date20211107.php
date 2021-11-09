@@ -2,6 +2,7 @@
 
 namespace OCA\Sendent\migration;
 
+<<<<<<< HEAD
 use Closure;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;

@@ -2,6 +2,8 @@
 
 namespace OCA\Sendent\Service;
 
+use DateTime;
+use DateInterval;
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -98,7 +100,6 @@ class TermsAgreementService {
 			$this->handleException($e);
 		}
 	}
-
 
 	public function destroy(string $version): \OCP\AppFramework\Db\Entity {
 		try {
