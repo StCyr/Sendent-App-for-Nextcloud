@@ -21,6 +21,8 @@ import 'tinymce/plugins/save';
 
 /* Import content css */
 import 'tinymce/skins/ui/oxide/content.css';
+import { generateFilePath } from '@nextcloud/router';
+import axios from '@nextcloud/axios';
 
 const tags = {
     URL: t('sendent', 'URL'),
@@ -50,7 +52,7 @@ export default class TemplateEditor {
             resize: 'both',
             plugins: 'code fullpage link lists table image save',
             menubar: 'edit view format tools table',
-            toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentTags',
+            toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentTags sendentReset',
             setup: function (editor) {
                 editor.ui.registry.addMenuButton('sendentTags', {
                     text: t('sendent', 'Tags'),
@@ -66,6 +68,20 @@ export default class TemplateEditor {
                         });
 
                         callback(items);
+                    },
+                });
+
+                editor.ui.registry.addButton('sendentReset', {
+                    text: t('sendent', 'Reset'),
+                    onAction: function() {
+                        const url = generateFilePath('sendent', 'assets', `templates/${element.id}.html`);
+
+                        axios.get<string>(url).then(response => {
+
+                            editor.setContent(response.data);
+                            editor.setDirty(true);
+                            editor.undoManager.add();
+                        });
                     },
                 });
             },
