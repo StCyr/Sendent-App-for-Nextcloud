@@ -46,6 +46,8 @@ export default class TemplateEditor {
             skin: false,
             target: element,
             height: 600,
+            width: 700,
+            resize: 'both',
             plugins: 'code fullpage link lists table image save',
             menubar: 'edit view format tools table',
             toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentTags',

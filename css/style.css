@@ -70,9 +70,6 @@ textarea{
 .settingkeyvalue .settingkeyvalueinput {
 	width: 300px;
 }
-.settingkeyvalue .tox-tinymce {
-	flex-grow: 1;
-}
 
 label{
 	grid-area: a;
