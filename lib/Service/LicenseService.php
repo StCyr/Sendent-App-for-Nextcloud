@@ -37,7 +37,36 @@ class LicenseService {
 			$this->handleException($e);
 		}
 	}
+	public function find(int $id): void {
+		try {
+			$licensekey = $this->mapper->find($id);
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
+				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
 
+			// in order to be able to plug in different storage backends like files
+		// for instance it is a good idea to turn storage related exceptions
+		// into service related exceptions so controllers and service users
+		// have to deal with only one type of exception
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
+	public function findByLicenseKey(string $key): void {
+		try {
+			$licensekey = $this->mapper->findByLicenseKey($key);
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
+				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
+			// in order to be able to plug in different storage backends like files
+		// for instance it is a good idea to turn storage related exceptions
+		// into service related exceptions so controllers and service users
+		// have to deal with only one type of exception
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
 	/**
 	 * @return never
 	 */
