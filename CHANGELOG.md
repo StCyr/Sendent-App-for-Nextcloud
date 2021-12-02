@@ -174,3 +174,7 @@
 ## Fixed
 - Better experience when configurating your Sendent license.
 - Several bugfixes and improvements to make the experience smoother when using our app.
+
+## 1.2.8 - 2021-12-02
+### Support
+- Official Nextcloud version 23 support.
