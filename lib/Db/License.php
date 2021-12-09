@@ -8,6 +8,9 @@ use JsonSerializable;
 use OCP\AppFramework\Db\Entity;
 
 class License extends Entity implements JsonSerializable {
+	public const ERROR_INCOMPLETE = 'Error_incomplete';
+	public const ERROR_VALIDATING = 'Error_validating';
+
 	protected $licensekey;
 	protected $email;
 	protected $dategraceperiodend;
@@ -16,7 +19,7 @@ class License extends Entity implements JsonSerializable {
 	protected $maxgraceusers;
 	protected $datelastchecked;
 	protected $level;
-	
+
 	public function __construct() {
 		// add types in constructor
 	}
