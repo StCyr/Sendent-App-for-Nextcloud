@@ -25,7 +25,7 @@ class SubscriptionValidationHttpClient {
 			if ($licenseData->getLicensekey() == "" || $licenseData->getEmail() == "") {
 				return null;
 			}
-			$result = $this->licensehttpclient->Post('subscription/validate', $data);
+			$result = $this->licensehttpclient->post('subscription/validate', $data);
 			$validatedLicense = new License();
 			if (isset($result)) {
 				$validatedLicense->setId($licenseData->getId());
