@@ -60,21 +60,15 @@ textarea{
 	text-align:left;
 }
 .settingkeyvalue{
-	grid-template-areas:
-	"a b c d"
-	"a b c d"
-	"a b c d"
-	"a b c d"
-	"a b c d"
-	"a b c d";
-			width: 800px;
-			grid-column-gap: 5px;
-			grid-auto-rows: min-content max-content auto;
-			grid-auto-columns: 275px 300px 25px 25px;
-			display: grid;
+	display: flex;
 }
 .settingkeyvalue label {
 	margin-top: 4px;
+	min-width: 275px;
+	display: block;
+}
+.settingkeyvalue .settingkeyvalueinput {
+	width: 300px;
 }
 
 label{
