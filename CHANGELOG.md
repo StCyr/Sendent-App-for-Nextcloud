@@ -178,3 +178,7 @@
 ## 1.2.8 - 2021-12-02
 ### Support
 - Official Nextcloud version 23 support.
+
+## 1.2.9 - 2021-12-10
+### Fix
+- Fix for some users experiencing issues activating their license.
