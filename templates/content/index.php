@@ -4,9 +4,13 @@
 
 script('sendent', '3rdparty/jscolor/jscolor');
 script('sendent', 'settings');
+script('sendent', 'termsAgreement');
 style('sendent', ['style']);
 ?>
-
+<div class="TermsAgreement">
+<?php print_unescaped($this->inc('sections/termsAgreement')); ?>
+</div>
+<div class="Settingspage">
 <form class="form" method="post" id="settingsform">
 
     <?php print_unescaped($this->inc('sections/general')); ?>
@@ -30,4 +34,4 @@ style('sendent', ['style']);
 <?php print_unescaped($this->inc('sections/license')); ?>
 
 <?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
-
+</div>

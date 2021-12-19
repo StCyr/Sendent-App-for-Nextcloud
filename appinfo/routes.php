@@ -76,6 +76,8 @@ return [
 		['name' => 'status_api#index', 'url' => '/api/1.0/status', 'verb' => 'GET'],
 		['name' => 'tag#show', 'url' => '/api/1.0/tag/{id}', 'verb' => 'GET'],
 		['name' => 'tag#create', 'url' => '/api/1.0/tag', 'verb' => 'POST'],
+		['name' => 'termsagreement_api#agree', 'url' => '/api/1.0/termsagreement/agree/{version}', 'verb' => 'GET'],
+		['name' => 'termsagreement_api#isagreed', 'url' => '/api/1.0/termsagreement/isagreed/{version}', 'verb' => 'GET'],
 	]
 ];
 	?>
