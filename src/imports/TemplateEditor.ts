@@ -56,10 +56,11 @@ export default class TemplateEditor {
             skin: false,
             target: element,
             convert_urls: false,
+            content_css: false,
             height: 600,
             width: 700,
             resize: 'both',
-            plugins: 'code fullpage link lists table image save',
+            plugins: 'code link lists table image save',
             menubar: 'edit view format tools table',
             toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentLogo sendentTags sendentReset',
             setup: function (editor) {
