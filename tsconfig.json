@@ -2,8 +2,7 @@
     "compilerOptions": {
       "lib": [
         "dom",
-        "es2015.promise",
-        "es6"
+        "es2021"
       ],
       "module": "ES6",
       "moduleResolution": "node",

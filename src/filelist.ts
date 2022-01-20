@@ -89,8 +89,8 @@ class FooterFile {
         iframeElement.width(0);
         iframeElement.height(0);
         iframeElement.on('load', () => {
-            const innerHeight = iframeElement.get(0).contentDocument?.documentElement?.scrollHeight;
-            const innerWidth = iframeElement.get(0).contentDocument?.documentElement?.scrollWidth;
+            const innerHeight = iframeElement.get(0)?.contentDocument?.documentElement?.scrollHeight;
+            const innerWidth = iframeElement.get(0)?.contentDocument?.documentElement?.scrollWidth;
 
             innerHeight && iframeElement.height(innerHeight);
             innerWidth && iframeElement.width(innerWidth);
