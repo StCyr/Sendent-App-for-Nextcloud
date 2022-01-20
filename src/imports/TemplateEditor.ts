@@ -36,23 +36,32 @@ const tags = {
     CURRENTTIME: t('sendent', 'Current time'),
 }
 
+const LOGO_VAR = '{LOGO}';
+
 export default class TemplateEditor {
-    constructor(private element: HTMLTextAreaElement) {
+    constructor(private element: HTMLTextAreaElement, private logoUrl: string) {
+        this.replaceLogoVariable();
         this.init();
+    }
+
+    private replaceLogoVariable() {
+        this.element.value = this.element.value.replaceAll(LOGO_VAR, this.logoUrl);
     }
 
     private init() {
         const element = this.element;
+        const logoUrl = this.logoUrl;
 
         tinymce.init({
             skin: false,
             target: element,
+            convert_urls: false,
             height: 600,
             width: 700,
             resize: 'both',
             plugins: 'code fullpage link lists table image save',
             menubar: 'edit view format tools table',
-            toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentTags sendentReset',
+            toolbar: 'save | undo redo | styleselect | bold italic | link image | sendentLogo sendentTags sendentReset',
             setup: function (editor) {
                 editor.ui.registry.addMenuButton('sendentTags', {
                     text: t('sendent', 'Tags'),
@@ -78,10 +87,17 @@ export default class TemplateEditor {
 
                         axios.get<string>(url).then(response => {
 
-                            editor.setContent(response.data);
+                            editor.setContent(response.data.replaceAll(LOGO_VAR, logoUrl));
                             editor.setDirty(true);
                             editor.undoManager.add();
                         });
+                    },
+                });
+
+                editor.ui.registry.addButton('sendentLogo', {
+                    text: t('sendent', 'Logo'),
+                    onAction: function() {
+                        editor.insertContent(`<img width='120' height='28' src='${logoUrl}'>`, {format: 'raw'});
                     },
                 });
             },
@@ -90,6 +106,13 @@ export default class TemplateEditor {
 
                 $(element).trigger('change');
             },
+            urlconverter_callback: function(url, node: any, on_save, name) {
+                if (url === logoUrl && node === 'img' && name === 'src') {
+                    return LOGO_VAR;
+                }
+
+                return url;
+            }
         })
     }
 }

@@ -20,10 +20,12 @@ export default class SettingFormHandler {
 
     private calls: SettingKeyAjaxCalls;
     private valuecalls: SettingGroupValueAjaxCalls;
+    private logoUrl: string;
 
     private constructor() {
         this.calls = new SettingKeyAjaxCalls();
         this.valuecalls = new SettingGroupValueAjaxCalls();
+        this.logoUrl = $('#header .logo').css('background-image').replace(/url\(("|')(.+)("|')\)/gi, '$2').trim();
     }
 
     public async loopThroughSettings(): Promise<void> {
@@ -81,7 +83,7 @@ export default class SettingFormHandler {
             }
 
             if (inputElement.prop('tagName') === 'TEXTAREA') {
-                new TemplateEditor(inputElement.get(0));
+                new TemplateEditor(inputElement.get(0) as HTMLTextAreaElement, this.logoUrl);
             }
         });
 
