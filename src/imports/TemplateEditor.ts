@@ -100,6 +100,14 @@ export default class TemplateEditor {
                         editor.insertContent(`<img width='120' height='28' src='${logoUrl}'>`, {format: 'raw'});
                     },
                 });
+
+                addEventListener('beforeunload', (ev) => {
+                    if (editor.isDirty()) {
+                        ev.preventDefault();
+
+                        return ev.returnValue = t('sendent', 'You have unsaved changes');
+                    }
+                }, {capture: true})
             },
             save_onsavecallback: function () {
                 this.save();
