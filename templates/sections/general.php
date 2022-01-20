@@ -157,10 +157,15 @@
                     <?php p($l->t('Password communication snippet')); ?>
                 </span>
             </label>
+            <details>
+                <summary><?php p($l->t('Toggle editor')); ?></summary>
+
+                <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
+                id="htmlsnippetpassword"></textarea>
+            </details>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
-                id="htmlsnippetpassword"></textarea>
+
             <input type="hidden" name="settingkeyname" value="htmlsnippetpassword">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">

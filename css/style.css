@@ -13,10 +13,10 @@
 	grid-area:b;
 	vertical-align: middle;
 }
-.multiInputContainer a {
+.multiInputContainer a,
+.settingkeyvalue summary {
 	line-height: 34px;
 	margin-top: 4px;
-	display: block;
 	font-style: italic;
 }
 .multiInputContainer .multiInputRow:last-child {
