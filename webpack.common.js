@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require("webpack");
 
@@ -20,7 +21,7 @@ module.exports = {
 		path: path.resolve(__dirname, './js'),
 		publicPath: '/js/',
 		filename: '[name].js',
-		chunkFilename: 'chunks/[name]-[hash].js',
+		chunkFilename: 'chunks/[name]-[contenthash].js',
 	},
 	module: {
 		rules: [
@@ -40,7 +41,7 @@ module.exports = {
 				test: /\.(png|jpg|gif|svg)$/,
 				loader: 'url-loader',
 				options: {
-					name: '[name].[ext]?[hash]',
+					name: '[name].[ext]?[contenthash]',
 					limit: 8192,
 				},
 			},
