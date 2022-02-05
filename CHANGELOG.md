@@ -182,3 +182,7 @@
 ## 1.2.9 - 2021-12-10
 ### Fix
 - Fix for some users experiencing issues activating their license.
+
+## 1.2.10 - 2021-12-19
+### Feature
+- Improved terms and conditions upon using the app for the first time or after updating to this version.
