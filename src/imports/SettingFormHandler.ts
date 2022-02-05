@@ -2,6 +2,9 @@
 import MultiInputList from "./MultiInputList";
 import SettingGroupValueAjaxCalls from "./SettingGroupValueAjaxCalls";
 import SettingKeyAjaxCalls from "./SettingKeyAjaxCalls";
+import TemplateEditor from "./TemplateEditor";
+
+
 
 export default class SettingFormHandler {
 
@@ -17,17 +20,19 @@ export default class SettingFormHandler {
 
     private calls: SettingKeyAjaxCalls;
     private valuecalls: SettingGroupValueAjaxCalls;
+    private logoUrl: string;
 
     private constructor() {
         this.calls = new SettingKeyAjaxCalls();
         this.valuecalls = new SettingGroupValueAjaxCalls();
+        this.logoUrl = $('#header .logo').css('background-image').replace(/url\(("|')(.+)("|')\)/gi, '$2').trim();
     }
 
     public async loopThroughSettings(): Promise<void> {
         const allSettings = await this.valuecalls.list();
 
         $(".settingkeyvalue").each((index, element) => {
-            const inputElement = $(element).find('.settingkeyvalueinput');
+            const inputElement = $(element).find<HTMLTextAreaElement>('.settingkeyvalueinput');
             const name = $(element).find("[name='settingkeyname']").val()?.toString();
             const key = $(element).find("[name='settingkeykey']").val()?.toString();
             const templateId = $(element).find("[name='settingkeytemplateid']").val()?.toString();
@@ -75,6 +80,10 @@ export default class SettingFormHandler {
                 const currentValue = setting.length > 0 ? setting[0].value : '';
 
                 new MultiInputList(multiInputContainer, currentValue, inputElement);
+            }
+
+            if (inputElement.prop('tagName') === 'TEXTAREA') {
+                new TemplateEditor(inputElement.get(0) as HTMLTextAreaElement, this.logoUrl);
             }
         });
 

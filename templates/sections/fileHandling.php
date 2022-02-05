@@ -32,8 +32,12 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
-                id="sharefilehtml"></textarea>
+            <details>
+                <summary><?php p($l->t('Toggle editor')); ?></summary>
+
+                <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
+                    id="sharefilehtml"></textarea>
+            </details>
             <input type="hidden" name="settingkeyname" type="html" value="sharefilehtml">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -70,8 +74,12 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
+            <details>
+                <summary><?php p($l->t('Toggle editor')); ?></summary>
+
+                <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                 id="sharefolderhtml"></textarea>
+            </details>
             <input type="hidden" name="settingkeyname" value="sharefolderhtml">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
