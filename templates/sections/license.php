@@ -4,16 +4,15 @@
 ?>
 <div class="settingTemplateDetailExclude section" id="license">
     <h1>
-        <?php p($l->t('License')); ?>
+        <?php p($l->t('License information')); ?>
     </h1>
     <div class="license-settings-setting-box" id="licenseMessage">
         <div class="settingkeyvalue">
 
             <div class="labelFullWidth" id="lblLicenseMessage"
                 style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">
-                <?php p($l->t('PLEASE NOTE: We made some adjustments in our licensing and will implement this gradually in several phases to our paid customers. If you haven\'t received your license key with instructions yet, you don\'t have to take action at this moment. You will receive a notification from our Team when it\'s your turn.')); ?>
-                <br><br>
-                <?php p($l->t('Using Sendent Free? Then you don\'t need a license key at all!')); ?>
+                <p>Find out how to configure your license <a style="color:blue;text-decoration:underline"  href="https://sendent.freshdesk.com/support/solutions/articles/80000592300-configuring-your-license">here</a>.</p>
+                <?php p($l->t('You only need a license key if you are using one of the paid plans of Sendent. If you don’t have a valid license key anymore, you will automatically be downgraded to Sendent Free.')); ?>
                 <br><br>
             </div>
             <input type="hidden" name="settingkeyname" value="licenseMessage">
@@ -135,7 +134,7 @@
             <input type="hidden" name="settingkeyid" value="904">
         </div>
     </div>
-    <div class="license-settings-setting-box">
+    <!-- <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname"></span>
@@ -147,7 +146,7 @@
             <input type="hidden" name="settingkeykey" value="1100">
             <input type="hidden" name="settingkeyid" value="1100">
         </div>
-    </div>
+    </div> -->
 
 
     <div class="licensesection test" id="licensesection">
