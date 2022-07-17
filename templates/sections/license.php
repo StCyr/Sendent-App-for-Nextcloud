@@ -28,7 +28,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="licensekey" value=""
+            <input class="settingkeyvalueinput" type="text" name="licensekeyvalueinput" id="licensekey" value=""
                 placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
             <input type="hidden" name="settingkeyname" value="licensekey">
             <input type="hidden" name="settingkeykey" value="900">
@@ -43,7 +43,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="email" name="settingkeyvalueinput" id="licenseEmail" value=""
+            <input class="settingkeyvalueinput" type="email" name="licensekeyvalueinput" id="licenseEmail" value=""
                 placeholder="Enter email address" autocomplete="on" autocapitalize="none" autocorrect="off">
             <input type="hidden" name="settingkeyname" value="licenseEmail">
             <input type="hidden" name="settingkeykey" value="901">
@@ -85,7 +85,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselevel"></span>
+            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenselevel"></span>
             <input type="hidden" name="settingkeyname" value="licenselevel">
             <input type="hidden" name="settingkeykey" value="902">
             <input type="hidden" name="settingkeyid" value="902">
@@ -99,7 +99,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licensestatus"></span>
+            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licensestatus"></span>
             <input type="hidden" name="settingkeyname" value="licensestatus">
             <input type="hidden" name="settingkeykey" value="903">
             <input type="hidden" name="settingkeyid" value="903">
@@ -114,7 +114,7 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenseexpires"></span>
+            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenseexpires"></span>
             <input type="hidden" name="settingkeyname" value="licenseexpires">
             <input type="hidden" name="settingkeykey" value="905">
             <input type="hidden" name="settingkeyid" value="905">
@@ -128,10 +128,38 @@
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <span class="settingkeyvalueinput licenseitem" name="settingkeyvalueinput" id="licenselastcheck"></span>
+            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenselastcheck"></span>
             <input type="hidden" name="settingkeyname" value="licenselastcheck">
             <input type="hidden" name="settingkeykey" value="904">
             <input type="hidden" name="settingkeyid" value="904">
+        </div>
+    </div>
+    <div class="license-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname statusitem">
+                    <?php p($l->t('Latest Outlook Add-in version')); ?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <span class="statuskeyvalueinput statusitem" name="statuskeyvalueinput" id="latestVSTOVersion"></span>
+            <a style="color:blue; text-decoration:underline; margin-left:5px" class="statuskeyvalueinput statusitem" name="statuskeyvalueinput" id="latestVSTOVersionDownload"><?php p($l->t('Download')); ?></a>
+            <input type="hidden" name="settingkeyname" value="latestVSTOVersion">
+            <input type="hidden" name="settingkeykey" value="905">
+            <input type="hidden" name="settingkeyid" value="905">
+        </div>
+    </div>
+    <div class="license-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname latestVSTOVersionDownload">
+                    </span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <input type="hidden" name="settingkeyname" value="latestVSTOVersionDownload">
+            <input type="hidden" name="settingkeykey" value="906">
+            <input type="hidden" name="settingkeyid" value="906">
         </div>
     </div>
     <!-- <div class="license-settings-setting-box">
