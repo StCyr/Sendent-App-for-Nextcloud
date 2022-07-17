@@ -11,6 +11,7 @@ style('sendent', ['style']);
 <?php print_unescaped($this->inc('sections/termsAgreement')); ?>
 </div>
 <div class="Settingspage">
+<?php print_unescaped($this->inc('sections/license')); ?>
 <form class="form" method="post" id="settingsform">
 
     <?php print_unescaped($this->inc('sections/general')); ?>
@@ -31,7 +32,7 @@ style('sendent', ['style']);
 
 </form>
 
-<?php print_unescaped($this->inc('sections/license')); ?>
+
 
 <?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
 </div>
