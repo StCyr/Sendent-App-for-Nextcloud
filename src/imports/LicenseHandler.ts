@@ -87,7 +87,9 @@ export default class LicenseHandler {
             if (status.level !== 'Free' && status.level !== '-' && status.level !== '') {
                 $("#btnSupportButton").removeClass("hidden").addClass("shown");
                 $("#latestVSTOVersion").text(appStatus.LatestVSTOAddinVersion.Version);
+                $("#latestVSTOVersionReleaseDate").text(appStatus.LatestVSTOAddinVersion.ReleaseDate);
                 document.getElementById("latestVSTOVersionDownload")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlBinary);
+                document.getElementById("latestVSTOVersionReleaseNotes")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlReleaseNotes);
             }
 
             $("#licensestatus").html(status.status);
