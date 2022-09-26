@@ -186,3 +186,30 @@
 ## 1.2.10 - 2021-12-19
 ### Feature
 - Improved terms and conditions upon using the app for the first time or after updating to this version.
+
+## 1.2.11 - 2022-04-11
+### Feature
+- Small UI improvement with regards to licensing section of the settings page.
+
+## 1.2.12 - 2022-05-13
+### Support
+- Preliminary support for Nextcloud version 24. <br>
+<i>Note: Retention assistant does not work properly and will be fixed in a future Sendent app for Nextcloud update.</i>
+
+## 1.2.13 - 2022-06-21
+### Support
+- Added the 'Activate Talk' setting. <br>
+<i>Note: Retention assistant does not work properly and will be fixed in a future Sendent app for Nextcloud update.</i>
+
+## 1.2.14 - 2022-07-13
+### Fix
+- File Retention fixed.
+
+## 1.3.0 - 2022-09-24
+### Feature
+- Added WYSIWYG support for editing all HTML snippets.
+- Added ability to check information about the latest add-in release, access the releasenotes and download the latest release.
+
+## 1.3.1 - 2022-09-26
+### Fix
+- Updated terms and conditions link
