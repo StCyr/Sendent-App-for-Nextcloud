@@ -100,6 +100,9 @@ class InitialLoadManager {
 			if ($this->SettingKeyMapper->settingKeyCount("202") < 1) {
 				$this->addTalkEnabledUpdate();
 			}
+			if($this->SettingKeyMapper->settingKeyCount("301") < 1) {
+				$this->addGuestAccountSettings();
+			}
 			$this->fixPaths();
 			$this->fixSnippets();
 		} catch (Exception $e) {
@@ -393,6 +396,27 @@ class InitialLoadManager {
 			$this->createGroupValue("1", "104", "Sendent");
 		}
 	}
+
+	public function addGuestAccountSettings(): void {
+		if (!is_null($this->showNameBySettingKeyId("301"))) {
+			$this->updateKey("301", "disableanonymousshare", "0", "select-one");
+			$value = $this->showBySettingKeyId(301);
+			$this->update($value->getId(), 301, 0, $value->getValue());
+		} else {
+			$this->createKey("301", "disableanonymousshare", "0", "select-one");
+			$this->createGroupValue("0", "301", "False");
+		}
+
+		if (!is_null($this->showNameBySettingKeyId("302"))) {
+			$this->updateKey("302", "htmlsnippetguestaccounts", "0", "textarea");
+			$value = $this->showBySettingKeyId(302);
+			$this->update($value->getId(), 302, 0, $value->getValue());
+		} else {
+			$this->createKey("302", "htmlsnippetguestaccounts", "0", "textarea");
+			$this->createGroupValue("0", "302", $this->getguestaccountshtml());
+		}
+	}
+
 	public function addSendmode(): void {
 		$this->createKey("23", "sendmode", "0", "select-one");
 		$this->createGroupValue("0", "23", "CurrentMail");
@@ -421,6 +445,8 @@ class InitialLoadManager {
 		$this->createKey("12", "securemailhtml", "0", "textarea");
 		$this->createKey("27", "guestaccountsenabled", "0", "select-one");
 		$this->createKey("26", "guestaccountsenforced", "0", "select-one");
+		$this->createKey("301", "disableanonymousshare", "0", "select-one");
+		$this->createKey("302", "htmlsnippetguestaccounts", "0", "textarea");
 
 		$this->createGroupValue("0", "20", "en");
 		$this->createGroupValue("0", "19", "BeforeSend");
@@ -444,6 +470,8 @@ class InitialLoadManager {
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
 		$this->createGroupValue("0", "27", "False");
 		$this->createGroupValue("0", "26", "False");
+		$this->createGroupValue("0", "301", "False");
+		$this->createGroupValue("0", "302", $this->getguestaccountshtml());
 	}
 
 	public function createKey(string $key, string $name, string $templateid, string $valuetype) {
@@ -564,6 +592,10 @@ class InitialLoadManager {
 
 	public function getsharefolderhtml(): string {
 		return $this->getHTMLTemplate('sharefolderhtml');
+	}
+
+	public function getguestaccountshtml(): string{
+		return $this->getHTMLTemplate('guestaccountshtml');
 	}
 
 	private function getHTMLTemplate(string $id): string {
