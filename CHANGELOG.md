@@ -213,3 +213,7 @@
 ## 1.3.1 - 2022-09-26
 ### Fix
 - Updated terms and conditions link
+
+## 1.3.2 - 2022-11-27
+### Feature
+- New settings for Guest Accounts feature

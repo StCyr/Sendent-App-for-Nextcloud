@@ -45,10 +45,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '1.2.3') {
+		if ($firstRun !== '1.3.2') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.2.3');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.3.2');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -139,6 +139,7 @@ class InitialLoadManager {
 			$folderpath = $this->showBySettingKeyId(9);
 			$securemailpath = $this->showBySettingKeyId(12);
 			$passwordhtmlsnippet = $this->showBySettingKeyId(30);
+			$guestaccounthtmlsnippet = $this->showBySettingKeyId(302);
 			if (!is_null($folderpath)) {
 				if ($folderpath->getValue() === '') {
 					$this->update($folderpath->getId(), $folderpath->getSettingkeyid(), $folderpath->getGroupid(), $this->getsharefolderhtml());
@@ -157,6 +158,11 @@ class InitialLoadManager {
 			if (!is_null($passwordhtmlsnippet)) {
 				if ($passwordhtmlsnippet->getValue() === '') {
 					$this->update($passwordhtmlsnippet->getId(), $passwordhtmlsnippet->getSettingkeyid(), $passwordhtmlsnippet->getGroupid(), $this->gethtmlpasswordsnippet());
+				}
+			}
+			if (!is_null($guestaccounthtmlsnippet)) {
+				if ($guestaccounthtmlsnippet->getValue() === '') {
+					$this->update($guestaccounthtmlsnippet->getId(), $guestaccounthtmlsnippet->getSettingkeyid(), $guestaccounthtmlsnippet->getGroupid(), $this->getguestaccountshtml());
 				}
 			}
 		} catch (Exception $exception) {
