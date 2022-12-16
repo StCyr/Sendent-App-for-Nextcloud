@@ -1,19 +1,16 @@
 /* eslint-disable @nextcloud/no-deprecations */
 import LicenseHandler from "./imports/LicenseHandler"
 import SettingFormHandler from "./imports/SettingFormHandler";
+import GroupsManagementHandler from "./imports/GroupsManagementHandler";
 
 require("jquery-ui/ui/widgets/sortable");
 
 $(() => {
     console.log('Setting script loaded');
 
-	// Makes the Sendent groups lists sortable
-	$("#ncGroups, #sendentGroups").sortable({
-      connectWith: ".connectedSortable"
-    });
-
     LicenseHandler.setup();
     SettingFormHandler.get().loopThroughSettings();
+	GroupsManagementHandler.setup();
 
     $('#settingsform').on('submit', function (ev) {
         ev.preventDefault();
