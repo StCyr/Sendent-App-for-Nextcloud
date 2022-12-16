@@ -16,6 +16,8 @@ style('sendent', ['style']);
 
 <form class="form" method="post" id="settingsform">
 
+    <?php print_unescaped($this->inc('sections/groupsManagement')); ?>
+
     <?php print_unescaped($this->inc('sections/general')); ?>
 
     <?php print_unescaped($this->inc('sections/talk')); ?>
