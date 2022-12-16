@@ -5,19 +5,15 @@
 
 	<div style="display: flex;">
 		<ul id="ncGroups" class="connectedSortable" style="min-width:270px; margin-right: 5px">
-			<li class="ui-state-default">Item 1</li>
-			<li class="ui-state-default">Item 2</li>
-			<li class="ui-state-default">Item 3</li>
-			<li class="ui-state-default">Item 4</li>
-			<li class="ui-state-default">Item 5</li>
+			<?php foreach($_['ncGroups'] as $group) { ?>
+				<li class="ui-state-default"> <?php p($group); ?> </li>
+			<?php } ?>
 		</ul>
  
 		<ul id="sendentGroups" class="connectedSortable" style="min-width:270px; margin-right: 5px">
-			<li class="ui-state-highlight">Item 1</li>
-			<li class="ui-state-highlight">Item 2</li>
-			<li class="ui-state-highlight">Item 3</li>
-			<li class="ui-state-highlight">Item 4</li>
-			<li class="ui-state-highlight">Item 5</li>
+			<?php foreach($_['sendentGroups'] as $group) { ?>
+				<li class="ui-state-default"> <?php p($group); ?> </li>
+			<?php } ?>
 		</ul>
 	</div>
 </div>

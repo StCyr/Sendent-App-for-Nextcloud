@@ -7,6 +7,7 @@ use OCP\App\IAppManager;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\IGroupManager;
 use OCP\Settings\ISettings;
 use OCP\SystemTag\ISystemTagManager;
 use OCP\SystemTag\TagNotFoundException;
@@ -15,6 +16,9 @@ class SendentSettings implements ISettings {
 
 	/** @var IAppManager */
 	private $appManager;
+
+	/** @var IGroupManager */
+	private $groupManager;
 
 	/** @var IInitialState */
 	private $initialState;
@@ -27,11 +31,13 @@ class SendentSettings implements ISettings {
 
 	public function __construct(
 		IAppManager $appManager,
+		IGroupManager $groupManager,
 		IInitialState $initialState,
 		IAppConfig $appConfig,
 		ISystemTagManager $tagManager
 			) {
 		$this->appManager = $appManager;
+		$this->groupManager = $groupManager;
 		$this->initialState = $initialState;
 		$this->appConfig = $appConfig;
 		$this->tagManager = $tagManager;
@@ -48,7 +54,20 @@ class SendentSettings implements ISettings {
 
 		$this->initialState->provideInitialState('tags', $this->getTagState());
 
-		return new TemplateResponse('sendent', 'index');
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = $sendentGroups !=='' ? explode(',',$sendentGroups) : [];
+
+		$NCGroups = $this->groupManager->search('');
+		$NCGroups = array_map(function($group) {
+			return $group->getDisplayName();
+		}, $NCGroups);
+
+		$NCGroups = array_diff($NCGroups, $sendentGroups);
+
+		$params['ncGroups'] = $NCGroups;
+		$params['sendentGroups'] = $sendentGroups;
+
+		return new TemplateResponse('sendent', 'index', $params);
 	}
 
 	/**
