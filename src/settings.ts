@@ -3,8 +3,6 @@ import LicenseHandler from "./imports/LicenseHandler"
 import SettingFormHandler from "./imports/SettingFormHandler";
 import GroupsManagementHandler from "./imports/GroupsManagementHandler";
 
-require("jquery-ui/ui/widgets/sortable");
-
 $(() => {
     console.log('Setting script loaded');
 

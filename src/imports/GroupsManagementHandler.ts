@@ -2,6 +2,8 @@
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
+require("jquery-ui/ui/widgets/sortable");
+
 export default class GroupsManagementHandler {
     private static instance: GroupsManagementHandler;
 
