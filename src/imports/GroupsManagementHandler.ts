@@ -1,7 +1,6 @@
 /* eslint-disable @nextcloud/no-deprecations */
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
-import { translate as t } from '@nextcloud/l10n'
 
 export default class GroupsManagementHandler {
     private static instance: GroupsManagementHandler;
@@ -28,9 +27,17 @@ export default class GroupsManagementHandler {
         return this.instance;
     }
 
-	private updateSendentGroups(event, ui) {
-		let li = $('#sendentGroups li');
-		let sendentGroups = Object.values(li).map(htmlElement => htmlElement.textContent).filter(text => text !== undefined);
+	private updateSendentGroups() {
+		console.log('Updating backend');
+
+		/* Get the list of sendent groups from the UI */
+		const li = $('#sendentGroups li');
+		const sendentGroups = Object.values(li).map(htmlElement => htmlElement.textContent).filter(text => text !== undefined);
 		console.log(sendentGroups);
+
+		/* Update backend */
+		const url = generateUrl('/apps/sendent/api/2.0/groups/update');
+		return axios.post(url, {sendentGroups});
+
 	}
 }

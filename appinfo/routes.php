@@ -10,6 +10,8 @@
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+
+		/* V1.0 API's */
 		[
 			'name' => 'setting_key_api#preflighted_cors',
 			'url' => '/api/1.0/{path}',
@@ -78,6 +80,15 @@ return [
 		['name' => 'tag#create', 'url' => '/api/1.0/tag', 'verb' => 'POST'],
 		['name' => 'termsagreement_api#agree', 'url' => '/api/1.0/termsagreement/agree/{version}', 'verb' => 'GET'],
 		['name' => 'termsagreement_api#isAgreed', 'url' => '/api/1.0/termsagreement/isagreed/{version}', 'verb' => 'GET'],
+
+		/* V2.0 API's */
+		[
+			'name' => 'setting_groups_management#preflighted_cors',
+			'url' => '/api/2.0/{path}',
+			'verb' => 'OPTIONS',
+			'requirements' => ['path' => '.+']
+		],
+		['name' => 'setting_groups_management#update', 'url' => '/api/2.0/groups/update', 'verb' => 'POST'],
 	]
 ];
 	?>
