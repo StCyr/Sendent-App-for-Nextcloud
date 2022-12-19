@@ -14,7 +14,8 @@ export default class GroupsManagementHandler {
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
 			connectWith: ".connectedSortable"
-		});
+		}).find( "li" )
+        .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#sendentGroups").sortable({
 			connectWith: ".connectedSortable",
 			handle: ".handle",
@@ -24,7 +25,6 @@ export default class GroupsManagementHandler {
 			filter: "li",
 			selected: function(event,ui){console.log('selected')},
 		}).find( "li" )
-        .addClass( "ui-corner-all" )
         .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 
     }
