@@ -89,6 +89,13 @@ return [
 			'requirements' => ['path' => '.+']
 		],
 		['name' => 'setting_groups_management#update', 'url' => '/api/2.0/groups/update', 'verb' => 'POST'],
+		[
+			'name' => 'setting_group_value_v2_api#preflighted_cors',
+			'url' => '/api/2.0/{path}',
+			'verb' => 'OPTIONS',
+			'requirements' => ['path' => '.+']
+		],
+		['name' => 'setting_group_value_v2_api#index', 'url' => '/api/2.0/settinggroupvalue/index', 'verb' => 'GET'],
 	]
 ];
 	?>

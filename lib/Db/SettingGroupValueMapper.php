@@ -48,6 +48,7 @@ class SettingGroupValueMapper extends QBMapper {
 
 		return $this->findEntity($qb);
 	}
+
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -67,6 +68,7 @@ class SettingGroupValueMapper extends QBMapper {
 
 		return $this->findEntities($qb);
 	}
+
 	/**
 	 * @return \OCP\AppFramework\Db\Entity[]
 	 *
@@ -79,6 +81,24 @@ class SettingGroupValueMapper extends QBMapper {
 		   ->from('sndnt_stnggrval')
 		   ->setMaxResults($limit)
 		   ->setFirstResult($offset);
+
+		return $this->findEntities($qb);
+	}
+
+	/**
+	 * @return \OCP\AppFramework\Db\Entity[]
+	 *
+	 * @psalm-return array<\OCP\AppFramework\Db\Entity>
+	 */
+	public function findSettingsForNCGroup($gid='', $limit = null, $offset = null): array {
+		$qb = $this->db->getQueryBuilder();
+
+		$qb->select('*')
+			->from('sndnt_stnggrval')
+			->where(
+				$qb->expr()->eq('ncgroup', $qb->createNamedParameter($gid, IQueryBuilder::PARAM_STR))
+			)->setMaxResults($limit)
+			->setFirstResult($offset);
 
 		return $this->findEntities($qb);
 	}

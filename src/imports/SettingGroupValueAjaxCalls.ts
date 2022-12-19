@@ -4,13 +4,20 @@ import { generateUrl } from '@nextcloud/router';
 export default class SettingGroupValueAjaxCalls {
 
     private endpoint: string;
+    private endpointV2: string;
 
     constructor() {
         this.endpoint = generateUrl('/apps/sendent/api/1.0/settinggroupvalue');
+        this.endpointV2 = generateUrl('/apps/sendent/api/2.0/settinggroupvalue');
     }
 
-    public async list(): Promise<any> {
-        const response = await axios.get(this.endpoint + '/index');
+    public async list(ncgroup?: string): Promise<any> {
+
+		let group = '';
+		if (typeof ncgroup !== 'undefined') {
+			group = ncgroup;
+		}
+        const response = await axios.get(this.endpointV2 + '/index?ncgroup=' + group);
 
         return response.data;
     }
