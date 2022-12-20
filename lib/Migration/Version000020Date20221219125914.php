@@ -51,17 +51,21 @@ class Version000020Date20221219125914 extends SimpleMigrationStep {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
-		/* Adds a column to store the gid of the group to which the license applies */
+		// Adds a column to store the gid of the group to which the license applies
 		$table = $schema->getTable('sndnt_license');
 		$table->addColumn('ncgroup', \OCP\DB\Types::STRING, [
 			'length' => 64,
 		]);
 
-		/* Adds a column to store the gid of the group to which the setting applies */
+		// Adds a column to store the gid of the group to which the setting applies
 		$table = $schema->getTable('sndnt_stnggrval');
 		$table->addColumn('ncgroup', \OCP\DB\Types::STRING, [
 			'length' => 64,
 		]);
+
+		// Recreates index
+		$table->dropIndex('sendent_keygroup_index');
+		$table->addUniqueIndex(['settingkeyid', 'groupid', 'ncgroup'], 'sendent_keygroup_index');
 
 		return $schema;
 	}
