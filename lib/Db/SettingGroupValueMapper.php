@@ -19,13 +19,14 @@ class SettingGroupValueMapper extends QBMapper {
 	 *
 	 * @return \OCP\AppFramework\Db\Entity
 	 */
-	public function find(int $id): \OCP\AppFramework\Db\Entity {
+	public function find(int $id, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
 		   ->from('sndnt_stnggrval')
 		   ->where(
-			   $qb->expr()->eq('settingkeyid', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			   $qb->expr()->eq('settingkeyid', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)),
+			   $qb->expr()->eq('ncgroup', $qb->createNamedParameter($ncgroup, IQueryBuilder::PARAM_STR))
 		   );
 
 		return $this->findEntity($qb);
@@ -37,13 +38,14 @@ class SettingGroupValueMapper extends QBMapper {
 	 *
 	 * @return \OCP\AppFramework\Db\Entity
 	 */
-	public function findBySettingKeyId(int $settingkeyid): \OCP\AppFramework\Db\Entity {
+	public function findBySettingKeyId(int $settingkeyid, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
 		$qb = $this->db->getQueryBuilder();
 		
 		$qb->select('*')
 		   ->from('sndnt_stnggrval')
 		   ->where(
-			   $qb->expr()->eq('settingkeyid', $qb->createNamedParameter($settingkeyid, IQueryBuilder::PARAM_INT))
+			   $qb->expr()->eq('settingkeyid', $qb->createNamedParameter($settingkeyid, IQueryBuilder::PARAM_INT)),
+			   $qb->expr()->eq('ncgroup', $qb->createNamedParameter($ncgroup, IQueryBuilder::PARAM_STR))
 		   );
 
 		return $this->findEntity($qb);

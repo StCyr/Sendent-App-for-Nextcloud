@@ -96,6 +96,8 @@ return [
 			'requirements' => ['path' => '.+']
 		],
 		['name' => 'setting_group_value_v2_api#index', 'url' => '/api/2.0/settinggroupvalue/index', 'verb' => 'GET'],
+		['name' => 'setting_group_value_v2_api#create', 'url' => '/api/2.0/settinggroupvalue', 'verb' => 'POST'],
+		['name' => 'setting_group_value_v2_api#update', 'url' => '/api/2.0/settinggroupvalue/{id}', 'verb' => 'PUT'],
 	]
 ];
 	?>

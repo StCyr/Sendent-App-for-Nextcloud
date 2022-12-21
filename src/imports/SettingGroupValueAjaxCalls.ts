@@ -17,6 +17,7 @@ export default class SettingGroupValueAjaxCalls {
 		if (typeof ncgroup !== 'undefined') {
 			group = ncgroup;
 		}
+
         const response = await axios.get(this.endpointV2 + '/index?ncgroup=' + group);
 
         return response.data;
@@ -35,18 +36,26 @@ export default class SettingGroupValueAjaxCalls {
     }
 
 
-    public async update(id: string, settingkeyid: string, value: string, groupid: string): Promise<any> {
-        const data = { settingkeyid, value, groupid };
-        const response = await axios.put(this.endpoint + '/' + id, data);
+    public async update(id: string, settingkeyid: string, value: string, groupid: string, ncgroup?: string): Promise<any> {
+		let group = '';
+		if (typeof ncgroup !== 'undefined') {
+			group = ncgroup;
+		}
+        const data = { settingkeyid, value, groupid, group };
+        const response = await axios.put(this.endpointV2 + '/' + id, data);
 
         console.log('updated settingkey was submitted new value: ' + value + ' and settingkeyid: ' + settingkeyid);
 
         return response.data;
     }
 
-    public async create(settingkeyid: string, value: string, groupid: string): Promise<any> {
-        const data = { settingkeyid, value, groupid };
-        const response = await axios.post(this.endpoint, data);
+    public async create(settingkeyid: string, value: string, groupid: string, ncgroup?: string): Promise<any> {
+		let group = '';
+		if (typeof ncgroup !== 'undefined') {
+			group = ncgroup;
+		}
+        const data = { settingkeyid, value, groupid, group };
+        const response = await axios.post(this.endpointV2, data);
 
         console.log('new settingkey was submitted with value: ' + value);
 

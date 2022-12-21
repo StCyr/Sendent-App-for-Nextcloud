@@ -32,6 +32,7 @@ class SettingGroupValueV2ApiController extends ApiController {
 	}
 
 	/**
+	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
 	public function index(string $ncgroup=''): DataResponse {
@@ -86,11 +87,77 @@ class SettingGroupValueV2ApiController extends ApiController {
 		return new DataResponse($list);
 	}
 
+	/**
+	 * @param int $settingkeyid
+	 * @param int $groupid
+	 * @param string $value
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function create(int $settingkeyid, int $groupid, string $value, string $group) {
+		if ($this->valueSizeForDb($value) === false) {
+			$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
+		}
+		$SettingGroupValue = new SettingGroupValue();
+		$SettingGroupValue->setSettingkeyid($settingkeyid);
+		$SettingGroupValue->setGroupid($groupid);
+		$SettingGroupValue->setValue($value);
+		$SettingGroupValue->setNcgroup($group);
+		$result = $this->mapper->insert($SettingGroupValue);
+		return $this->showBySettingKeyId($settingkeyid, $group);
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $settingkeyid
+	 * @param int $groupid
+	 * @param string $value
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function update(int $id,int $settingkeyid, int $groupid, string $value, string $group) {
+		try {
+			if ($this->valueSizeForDb($value) === false) {
+				$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
+			}
+			$SettingGroupValue = $this->mapper->find($id, $group);
+			$SettingGroupValue->setSettingkeyid($settingkeyid);
+			$SettingGroupValue->setGroupid($groupid);
+			$SettingGroupValue->setValue($value);
+			$SettingGroupValue->setNcgroup($group);
+			$result = $this->mapper->update($SettingGroupValue);
+			return $this->showBySettingKeyId($settingkeyid, $group);
+		} catch (Exception $e) {
+			return new DataResponse([], Http::STATUS_NOT_FOUND);
+		}
+	}
+
+	/**
+	 * @param int $settingkeyid
+	 *
+	 * @return DataResponse
+	 */
+	private function showBySettingKeyId(int $settingkeyid, string $ncgroup): DataResponse {
+		try {
+			$result = $this->mapper->findBySettingKeyId($settingkeyid, $ncgroup);
+			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
+				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+			}
+			return new DataResponse($result);
+		} catch (Exception $e) {
+			return new DataResponse([], Http::STATUS_NOT_FOUND);
+		}
+	}
+
 	private function valueIsSettingGroupValueFilePath($value): bool {
 		if (strpos($value, 'settinggroupvaluefile') !== false) {
 			return true;
 		}
 		return false;
+	}
+
+	private function valueSizeForDb(string $value): bool {
+		return strlen($value) < 255 !== false;
 	}
 
 }

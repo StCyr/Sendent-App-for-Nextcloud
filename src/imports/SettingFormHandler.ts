@@ -48,13 +48,24 @@ export default class SettingFormHandler {
             const setting = allSettings.filter(candidate => candidate.settingkeyid.toString() === key);
 
             if (setting.length < 1) {
-                this.saveSetting($(element).parents('.personal-settings-setting-box'));
+                this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
             }
 
             this.updateUI($(element));
 
+			// Removes existing event handler in case of refresh
+			try {
+				inputElement.off('change');
+			} catch (err) {}
+
+			// Adds an onChange event handler
             inputElement.on('change', () => {
-                this.saveSetting($(element).parents('.personal-settings-setting-box'));
+                this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
+
+				// Unchecks inherited checkbox if needed
+				if (ncgroup !== '') {
+					inputElement.next().find('input').prop('checked', false);
+				}
 
                 this.updateUI($(element));
             });
@@ -67,11 +78,19 @@ export default class SettingFormHandler {
 				if (ncgroup !== '') {
 					const label = inputElement.next();
 					label.addClass('settingkeyvalueinherited');
+					const input = label.find('input');
 					if (setting[0].ncgroup === '') {
-						label.find('input').prop('checked', true);
+						input.prop('checked', true);
 					} else {
-						label.find('input').prop('checked', false);
+						input.prop('checked', false);
 					}
+					try {
+						input.off('change');
+					} catch (err) {}
+					input.on('change', () => {
+						console.log('checked/unchecked');
+						// TODO: Delete entry in the DB, fetch setting's default value, and update the setting in the UI
+					});
 				}
             } catch (err) {
                 console.warn(key);
@@ -127,7 +146,7 @@ export default class SettingFormHandler {
         }
     }
 
-    public async saveSetting(settingbox: JQuery<HTMLElement>): Promise<boolean> {
+    public async saveSetting(settingbox: JQuery<HTMLElement>, ncgroup: string): Promise<boolean> {
         const settingkeyvalueblock = $(settingbox).find(".settingkeyvalue")[0]; //@TODO
 
         //@TODO move to method
@@ -137,24 +156,20 @@ export default class SettingFormHandler {
         const groupId = $(settingkeyvalueblock).find("[name='settinggroupid']").val()?.toString();
         const value = $(settingkeyvalueblock).find(".settingkeyvalueinput").val()?.toString();
 
-        console.log("settingkeyname     = " + name);
-        console.log("settingkeykey      = " + key);
-        console.log("settingkeyvalue    = " + value);
-
         if (!id || !groupId || typeof value !== 'string') {
             return false;
         }
 
         try {
-            const valuedata = await this.valuecalls.showBySettingKeyId(id);
-            const data3 = await this.valuecalls.update(id, id, value, groupId);
+			console.log('updating for group "' + ncgroup + '"');
+            const data3 = await this.valuecalls.update(id, id, value, groupId, ncgroup);
 
             $(settingkeyvalueblock).find(".settingkeyvalueinput").val(data3.value);
 
 
         } catch (err) {
             //when no settinggroupvalue is present
-            const data3 = await this.valuecalls.create(id, value, groupId);
+            const data3 = await this.valuecalls.create(id, value, groupId, ncgroup);
 
             $(settingkeyvalueblock).find(".settingkeyvalueinput").val(data3.value);
         }
