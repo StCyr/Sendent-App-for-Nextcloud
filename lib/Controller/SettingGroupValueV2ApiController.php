@@ -37,8 +37,11 @@ class SettingGroupValueV2ApiController extends ApiController {
 	public function index(string $ncgroup=''): DataResponse {
 		
 		// Find group's gid
-		$group = $this->groupManager->search($ncgroup);
-		$ncgroup = $group[0]->getGID();
+		if ($ncgroup !== '') {
+			// TODO: Needs an exact match of the displayName here
+			$group = $this->groupManager->search($ncgroup);
+			$ncgroup = $group[0]->getGID();
+		}
 
 		// Gets settings for group
 		$list = $this->mapper->findSettingsForNCGroup($ncgroup);
@@ -60,12 +63,22 @@ class SettingGroupValueV2ApiController extends ApiController {
 
 			// Merges group settings with default group settings
 			foreach ($defaults as $result) {
+				// Initializes value
 				if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
 					$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
 				}
+				// Merges group settings
 				if (!in_array($result->getSettingkeyid(), $settingkeyidList)) {
 					// Setting is not defined for group, let's set the one from the default group
 					array_push($list, $result);
+				} else if (in_array($result->getSettingkeyid(), [0, 2])) {
+					// multivalue settings must be merged with the ones from the default group
+					$list = array_map(function($setting) use ($result) {
+						if ($setting->getSettingkeyid() === $result->getSettingkeyid()) {
+							$setting->setValue($setting->getValue() . ';' . $result->getValue());
+						}
+						return $setting;
+					},$list);
 				}
 			}
 		}
