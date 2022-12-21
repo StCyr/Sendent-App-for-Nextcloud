@@ -7,6 +7,13 @@ export default class MultiInputList {
 
         this.appendListToggle();
 
+		// Removes existing values in case of refresh
+		try {
+			this.container.find('.multiInputRow').remove();
+		} catch (err) {
+		}
+
+		// Insert new values
         for (const value of values) {
             this.appendInput(value);
         }
@@ -19,6 +26,13 @@ export default class MultiInputList {
     }
 
     private appendListToggle(): void {
+
+		// Removes existing toggle in case of refresh
+		try {
+			this.container.find('a').remove();
+		} catch (err) {
+		}
+
         const element = $('<a>');
         const updateLabel = () => {
             const targetValue = this.target.val()?.toString() || '';
@@ -50,6 +64,7 @@ export default class MultiInputList {
     }
 
     private appendInput(value = '') {
+
         const rowElement = $('<div class="multiInputRow">');
         const valueElement = $('<input type="text" placeholder="thirdparty.com or mail@thirdparty.com"/>');
         const deleteElement = $('<button type="button"><span class="icon-delete icon-visible"></span></button>');
