@@ -15,6 +15,10 @@
                 <option value="true"><?php p($l->t('Enabled')); ?></option>
                 <option selected value="false"><?php p($l->t('Disabled')); ?></option>
             </select>
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="AdvancedThemingEnabled">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -33,6 +37,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="VendorName" value=""
                 placeholder="Sendent" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="VendorName">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -52,6 +60,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonPrimaryColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonPrimaryColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -72,6 +84,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonPrimaryFontColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonPrimaryFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -92,6 +108,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonPrimaryHoverColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonPrimaryHoverColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -111,6 +131,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonPrimaryIconColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonPrimaryIconColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -130,6 +154,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonSecondaryColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonSecondaryColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -149,6 +177,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonSecondaryFontColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonSecondaryFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -168,6 +200,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonSecondaryHoverColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonSecondaryHoverColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -187,6 +223,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="ButtonSecondaryIconColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="ButtonSecondaryIconColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -206,6 +246,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogFooterBackgroundColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogFooterBackgroundColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -225,6 +269,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogFooterFontColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogFooterFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -244,6 +292,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogFooterHoverColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogFooterHoverColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -263,6 +315,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogFooterIconColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogFooterIconColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -282,6 +338,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogFooterIconBackgroundColor" value="" placeholder="#FFFFFF" autocomplete="on"
                 autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogFooterIconBackgroundColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -301,6 +361,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogHeaderColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogHeaderColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -321,6 +385,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="DialogHeaderFontColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="DialogHeaderFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -340,6 +408,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="PopupBackgroundColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="PopupBackgroundColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -359,6 +431,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input id="GeneralFontColor" class="settingkeyvalueinput theming-color" name="settingkeyvalueinput"
                 type="text" maxlength="7" value="" autocomplete="on" autocapitalize="none" autocorrect="off" />
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="GeneralFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -379,6 +455,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="GeneralIconColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="GeneralIconColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -398,6 +478,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="TaskpaneActivityTrackerColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="TaskpaneActivityTrackerColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -417,6 +501,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="TaskpaneActivityTrackerFontColor" value="" placeholder="#FFFFFF" autocomplete="on"
                 autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="TaskpaneActivityTrackerFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -437,6 +525,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="TaskpaneSecureMailColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="TaskpaneSecureMailColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -456,6 +548,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="TaskpaneSecureMailFontColor" value="" placeholder="#FFFFFF" autocomplete="on" autocapitalize="none"
                 autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="TaskpaneSecureMailFontColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">
@@ -475,6 +571,10 @@
             <input class="settingkeyvalueinput theming-color" type="text" name="settingkeyvalueinput"
                 id="TaskpaneSecureMailControlColor" value="" placeholder="#FFFFFF" autocomplete="on"
                 autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="TaskpaneSecureMailControlColor">
             <input type="hidden" name="settingkeytemplateid" value="1">
             <input type="hidden" name="settinggroupid" value="1">

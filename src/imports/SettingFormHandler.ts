@@ -28,8 +28,9 @@ export default class SettingFormHandler {
         this.logoUrl = $('#header .logo').css('background-image').replace(/url\(("|')(.+)("|')\)/gi, '$2').trim();
     }
 
-    public async loopThroughSettings(): Promise<void> {
-        const allSettings = await this.valuecalls.list();
+    public async loopThroughSettings(ncgroup=''): Promise<void> {
+		console.log('Displaying settings for group "' + ncgroup + '"');
+        const allSettings = await this.valuecalls.list(ncgroup);
 
         $(".settingkeyvalue").each((index, element) => {
             const inputElement = $(element).find<HTMLTextAreaElement>('.settingkeyvalueinput');
@@ -60,11 +61,18 @@ export default class SettingFormHandler {
 
             //when settingkey is present: populate UI
             try {
+				// Sets setting's value
                 inputElement.val(setting[0].value);
-
-                if (inputElement.hasClass('theming-color')) {
-                    this.refreshColorPicker(element);
-                }
+				// Shows inherited checkbox if needed
+				if (ncgroup !== '') {
+					const label = inputElement.next();
+					label.addClass('settingkeyvalueinherited');
+					if (setting[0].ncgroup === '') {
+						label.find('input').prop('checked', true);
+					} else {
+						label.find('input').prop('checked', false);
+					}
+				}
             } catch (err) {
                 console.warn(key);
                 console.warn(name);
@@ -74,6 +82,14 @@ export default class SettingFormHandler {
                 //when no settingkey is present
                 this.initSettingKey(element, key, name, valueType, templateId, value, groupId);
             }
+
+			// Adds color picker to theming color settings
+			try {
+				if (inputElement.hasClass('theming-color')) {
+					this.refreshColorPicker(element);
+				}
+			} catch (err) {
+			}
 
             if (inputElement.hasClass('multiValueInput')) {
                 const multiInputContainer = $(element).find('.multiInputContainer');

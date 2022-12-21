@@ -1,19 +1,17 @@
 /* eslint-disable @nextcloud/no-deprecations */
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
-import SettingGroupValueAjaxCalls from "./SettingGroupValueAjaxCalls";
+import SettingFormHandler from "./SettingFormHandler";
 
 require("jquery-ui/ui/widgets/sortable");
 require("jquery-ui/ui/widgets/selectable");
 
 export default class GroupsManagementHandler {
     private static instance: GroupsManagementHandler;
-	private valuecalls: SettingGroupValueAjaxCalls;
+	private settingFormHandler: SettingFormHandler;
 
     private constructor() {
 		console.log('Initializing sendent groups lists');
-
-		this.valuecalls = new SettingGroupValueAjaxCalls();
 
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
@@ -33,18 +31,19 @@ export default class GroupsManagementHandler {
 
     }
 
-    public static setup(): GroupsManagementHandler {
+    public static setup(settingFormHandler): GroupsManagementHandler {
         if (!this.instance) {
             this.instance = new GroupsManagementHandler();
         }
+
+		this.instance.settingFormHandler = settingFormHandler;
 
         return this.instance;
     }
 
 	private showSettingsForGroup(event, ui) {
-		console.log('Retrieving settings from server');
 		const ncgroup = ui.selected.textContent;
-		this.valuecalls.list(ncgroup);
+		this.settingFormHandler.loopThroughSettings(ncgroup);
 	}
 
 	private updateSendentGroups() {

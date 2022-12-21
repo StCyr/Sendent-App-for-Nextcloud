@@ -14,7 +14,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathuploadfiles" value=""
                 placeholder="e.g: /Outlook/Public-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
-
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="pathuploadfiles">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -58,6 +61,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathpublicshare" value=""
                 placeholder="e.g:/Outlook/Upload-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="pathpublicshare">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">

@@ -13,6 +13,11 @@
 	grid-area:b;
 	vertical-align: middle;
 }
+.settingkeyvalueinherited {
+	display: flex !important;
+	align-items: center;
+	margin-left: 5px;
+}
 .multiInputContainer a,
 .settingkeyvalue summary {
 	line-height: 34px;

@@ -7,8 +7,9 @@ $(() => {
     console.log('Setting script loaded');
 
     LicenseHandler.setup();
-    SettingFormHandler.get().loopThroughSettings();
-	GroupsManagementHandler.setup();
+    const settingFormHandler = SettingFormHandler.get()
+	settingFormHandler.loopThroughSettings();
+	GroupsManagementHandler.setup(settingFormHandler);
 
     $('#settingsform').on('submit', function (ev) {
         ev.preventDefault();

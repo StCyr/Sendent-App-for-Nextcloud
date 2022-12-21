@@ -19,6 +19,10 @@
                 <option value="it">Italiano</option>
                 <option value="es">Español</option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="setlanguage">
             <input type="hidden" name="settingkeykey" value="20">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -40,6 +44,10 @@
                 <option selected value="True"><?php p($l->t('At cursor')); ?></option>
                 <option value="False"><?php p($l->t('Top of email body')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="insertatcursor">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -60,6 +68,10 @@
                 <option selected value="True"><?php p($l->t('Add upload date to folder path')); ?></option>
                 <option value="False"><?php p($l->t('Do not add upload date to folder path')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="dateaddition">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -80,6 +92,10 @@
                 <option value="True"><?php p($l->t('Enabled')); ?></option>
                 <option value="False" selected><?php p($l->t('Disabled')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="debugmode">
             <input type="hidden" name="settingkeykey" value="22">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -100,6 +116,10 @@
                 <option value="False" selected><?php p($l->t('Enabled')); ?></option>
                 <option value="True"><?php p($l->t('Disabled')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="disablesettings">
             <input type="hidden" name="settingkeykey" value="17">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -121,6 +141,10 @@
                 <option value="BeforeSend" selected><?php p($l->t('Before sending')); ?></option>
                 <option value="BeforeSendAndAfter"><?php p($l->t('Before and after sending')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="passwordcontrolbehavior">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -142,6 +166,10 @@
                 <option selected value="Separate"><?php p($l->t('Send in separate email')); ?></option>
                 <option disabled value="External"><?php p($l->t('Use external service (like sms-gateway)')); ?></option>
             </select>
+			<label style="display:none">
+				<input type="checkbox">
+				<?php p($l->t('Inherited'));?>
+			</label>
             <input type="hidden" name="settingkeyname" value="sendmode">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">

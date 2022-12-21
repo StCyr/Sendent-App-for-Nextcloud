@@ -13,6 +13,10 @@
                 <option value="True"><?php p($l->t('Enabled')); ?></option>
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="securemail">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
@@ -33,6 +37,10 @@
                 <option value="True"><?php p($l->t('Enabled')); ?></option>
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input type="hidden" name="settingkeyname" value="securemailenforced">
@@ -53,6 +61,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathsecuremailbox" value=""
                 placeholder="e.g: /Outlook/SecureMail-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="pathsecuremailbox">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">

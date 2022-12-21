@@ -35,6 +35,10 @@
                 <option value="True"><?php p($l->t('Enabled')); ?></option>
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="generatetalkpassword">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">
