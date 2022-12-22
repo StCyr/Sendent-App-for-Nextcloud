@@ -601,7 +601,7 @@ class InitialLoadManager {
 	}
 
 	public function getguestaccountshtml(): string{
-		return $this->getHTMLTemplate('guestaccountshtml');
+		return $this->getHTMLTemplate('htmlsnippetguestaccounts');
 	}
 
 	private function getHTMLTemplate(string $id): string {
