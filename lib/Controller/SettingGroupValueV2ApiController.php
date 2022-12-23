@@ -108,6 +108,21 @@ class SettingGroupValueV2ApiController extends ApiController {
 	}
 
 	/**
+	 * @param int $settingkeyid
+	 * @param int $groupid
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function delete(int $settingkeyid, string $group) {
+		// Deletes requested setting
+		$SettingGroupValue = $this->mapper->find($settingkeyid, $group);
+		$this->mapper->delete($SettingGroupValue);
+		// Returns corresponding default settting
+		return $this->showBySettingKeyId($settingkeyid, '');
+	}
+
+
+	/**
 	 * @param int $id
 	 * @param int $settingkeyid
 	 * @param int $groupid

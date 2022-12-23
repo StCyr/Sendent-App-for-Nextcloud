@@ -23,6 +23,12 @@ export default class SettingGroupValueAjaxCalls {
         return response.data;
     }
 
+    public async delete(id: string, ncgroup: string): Promise<any> {
+        const response = await axios.delete(this.endpointV2, { data: { settingkeyid: id, group: ncgroup } });
+
+        return response.data;
+    }
+
     public async show(id: string): Promise<any> {
         const response = await axios.get(this.endpoint + '/' + id);
 

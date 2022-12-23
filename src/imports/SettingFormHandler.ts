@@ -5,7 +5,6 @@ import SettingKeyAjaxCalls from "./SettingKeyAjaxCalls";
 import TemplateEditor from "./TemplateEditor";
 
 
-
 export default class SettingFormHandler {
 
     private static instance: SettingFormHandler;
@@ -74,24 +73,6 @@ export default class SettingFormHandler {
             try {
 				// Sets setting's value
                 inputElement.val(setting[0].value);
-				// Shows inherited checkbox if needed
-				if (ncgroup !== '') {
-					const label = inputElement.next();
-					label.addClass('settingkeyvalueinherited');
-					const input = label.find('input');
-					if (setting[0].ncgroup === '') {
-						input.prop('checked', true);
-					} else {
-						input.prop('checked', false);
-					}
-					try {
-						input.off('change');
-					} catch (err) {}
-					input.on('change', () => {
-						console.log('checked/unchecked');
-						// TODO: Delete entry in the DB, fetch setting's default value, and update the setting in the UI
-					});
-				}
             } catch (err) {
                 console.warn(key);
                 console.warn(name);
@@ -102,13 +83,38 @@ export default class SettingFormHandler {
                 this.initSettingKey(element, key, name, valueType, templateId, value, groupId);
             }
 
+			// When we are not showing the default group'settings, we show the inheritedCheckbox
+			if (ncgroup !== '') {
+				// Shows inherited checkbox
+				const label = inputElement.next();
+				label.addClass('settingkeyvalueinherited');
+				const inheritedCheckbox = label.find('input');
+				if (setting[0].ncgroup === '') {
+					inheritedCheckbox.prop('checked', true);
+				} else {
+					inheritedCheckbox.prop('checked', false);
+				}
+				// Adds onChange action
+				try {
+					inheritedCheckbox.off('change');
+				} catch (err) {}
+				inheritedCheckbox.on('change', () => {
+					if (label.find('input:checked').val()) {
+						this.valuecalls.delete(key, ncgroup).then((defaultSetting) => {
+							inputElement.val(defaultSetting.value);
+						})
+					} else {
+						this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
+					}
+				});
+			}
+
 			// Adds color picker to theming color settings
 			try {
 				if (inputElement.hasClass('theming-color')) {
 					this.refreshColorPicker(element);
 				}
-			} catch (err) {
-			}
+			} catch (err) {}
 
             if (inputElement.hasClass('multiValueInput')) {
                 const multiInputContainer = $(element).find('.multiInputContainer');
