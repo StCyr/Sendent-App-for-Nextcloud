@@ -21,22 +21,24 @@ class SendentFileStorageManager {
 		}
 	}
 
-	public function writeTxt($group, $key, $content): string {
+	public function writeTxt($group, $key, $content, $ncgroup=''): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
+		$filename = $ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt';
 		try {
 			if (!$folder->fileExists($key)) {
-				$pngFile = $folder->newFile($group . '_' . $key . 'settinggroupvaluefile.txt');
+				$pngFile = $folder->newFile($filename);
 			} else {
-				$pngFile = $folder->getFile($group . '_' . $key . 'settinggroupvaluefile.txt');
+				$pngFile = $folder->getFile($filename);
 			}
 		} catch (NotFoundException $e) {
-			$pngFile = $folder->newFile($group . '_' . $key . 'settinggroupvaluefile.txt');
+			$pngFile = $folder->newFile($filename);
 		}
 
 		$pngFile->putContent($content);
-		return $group . '_' . $key . 'settinggroupvaluefile.txt';
+		return $filename;
 	}
+
 	public function writeLicenseTxt(string $content): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
@@ -71,10 +73,10 @@ class SendentFileStorageManager {
 			return false;
 		}
 	}
-	public function getContent($group, $key) {
+	public function getContent($group, $key, $ncgroup='') {
 		try {
 			$folder = $this->appData->getFolder('settings');
-			$file = $folder->getFile($group . '_' . $key . 'settinggroupvaluefile.txt');
+			$file = $folder->getFile($ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt');
 			// check if file exists and read from it if possible
 
 			return $file->getContent();

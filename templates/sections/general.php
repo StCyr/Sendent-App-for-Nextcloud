@@ -190,10 +190,13 @@
 
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                 id="htmlsnippetpassword"></textarea>
+				<label style="display:none">
+					<input type="checkbox">
+					<?php p($l->t('Inherited'));?>
+				</label>
             </details>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-
             <input type="hidden" name="settingkeyname" value="htmlsnippetpassword">
             <input type="hidden" name="settingkeytemplateid" value="0">
             <input type="hidden" name="settinggroupid" value="0">

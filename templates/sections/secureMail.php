@@ -88,6 +88,10 @@
 
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                     id="securemailhtml"></textarea>
+                <label style="display:none">
+                    <input type="checkbox">
+                    <?php p($l->t('Inherited'));?>
+                </label>
             </details>
             <input type="hidden" name="settingkeyname" value="securemailhtml">
             <input type="hidden" name="settingkeytemplateid" value="0">

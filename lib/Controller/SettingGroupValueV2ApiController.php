@@ -48,7 +48,7 @@ class SettingGroupValueV2ApiController extends ApiController {
 		$list = $this->mapper->findSettingsForNCGroup($ncgroup);
 		foreach ($list as $result) {
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
-				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid()));
+				$result->setValue($this->FileStorageManager->getContent($result->getGroupid(), $result->getSettingkeyid(), $ncgroup));
 			}
 		}
 
@@ -96,7 +96,7 @@ class SettingGroupValueV2ApiController extends ApiController {
 	 */
 	public function create(int $settingkeyid, int $groupid, string $value, string $group) {
 		if ($this->valueSizeForDb($value) === false) {
-			$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
+			$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value, $group);
 		}
 		$SettingGroupValue = new SettingGroupValue();
 		$SettingGroupValue->setSettingkeyid($settingkeyid);
@@ -133,7 +133,7 @@ class SettingGroupValueV2ApiController extends ApiController {
 	public function update(int $id,int $settingkeyid, int $groupid, string $value, string $group) {
 		try {
 			if ($this->valueSizeForDb($value) === false) {
-				$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value);
+				$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value, $group);
 			}
 			$SettingGroupValue = $this->mapper->find($id, $group);
 			$SettingGroupValue->setSettingkeyid($settingkeyid);

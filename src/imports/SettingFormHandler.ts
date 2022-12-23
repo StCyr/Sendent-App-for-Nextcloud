@@ -3,6 +3,7 @@ import MultiInputList from "./MultiInputList";
 import SettingGroupValueAjaxCalls from "./SettingGroupValueAjaxCalls";
 import SettingKeyAjaxCalls from "./SettingKeyAjaxCalls";
 import TemplateEditor from "./TemplateEditor";
+import tinymce from 'tinymce';
 
 
 export default class SettingFormHandler {
@@ -63,7 +64,12 @@ export default class SettingFormHandler {
 
 				// Unchecks inherited checkbox if needed
 				if (ncgroup !== '') {
-					inputElement.next().find('input').prop('checked', false);
+					let label = inputElement.next();
+					if (!label.is('label')) {
+						// In case of free-text settings, the tincymce editor comes in the way between the input and the label
+						label = label.next();
+					}
+					label.find('input').prop('checked', false);
 				}
 
                 this.updateUI($(element));
@@ -86,7 +92,11 @@ export default class SettingFormHandler {
 			// When we are not showing the default group'settings, we show the inheritedCheckbox
 			if (ncgroup !== '') {
 				// Shows inherited checkbox
-				const label = inputElement.next();
+				let label = inputElement.next();
+				if (!label.is('label')) {
+					// In case of free-text settings, the tincymce editor comes in the way between the input and the label
+					label = label.next();
+				}
 				label.addClass('settingkeyvalueinherited');
 				const inheritedCheckbox = label.find('input');
 				if (setting[0].ncgroup === '') {
@@ -100,8 +110,14 @@ export default class SettingFormHandler {
 				} catch (err) {}
 				inheritedCheckbox.on('change', () => {
 					if (label.find('input:checked').val()) {
+						console.log('refreshing setting');
 						this.valuecalls.delete(key, ncgroup).then((defaultSetting) => {
-							inputElement.val(defaultSetting.value);
+							// Refresh group setting with default setting after inheritance has been removed
+							if (inputElement.prop('tagName') === 'TEXTAREA') {
+								this.refreshTinymceEditor(inputElement, defaultSetting.value);
+				            } else {
+								inputElement.val(defaultSetting.value);
+							}
 						})
 					} else {
 						this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
@@ -123,13 +139,27 @@ export default class SettingFormHandler {
                 new MultiInputList(multiInputContainer, currentValue, inputElement);
             }
 
+			// Free text settings
             if (inputElement.prop('tagName') === 'TEXTAREA') {
-                new TemplateEditor(inputElement.get(0) as HTMLTextAreaElement, this.logoUrl);
+				this.refreshTinymceEditor(inputElement, setting[0].value);
             }
         });
 
         this.setShowHideAllSettings();
     }
+
+	private refreshTinymceEditor(element: JQuery<HTMLTextAreaElement>, value: string): void {
+		const id = element.get(0)!.id;
+
+		// Removes existing tinymce if any
+		try {
+			tinymce.get(id).remove();
+			element.get(0)!.value = value;
+		} catch (error) {}
+
+		// Attaches a tinymce editor to the setting
+		new TemplateEditor(element.get(0) as HTMLTextAreaElement, this.logoUrl);
+	}
 
     private refreshColorPicker(element: HTMLElement): void {
         new (<any>window).jscolor($(element).find(".settingkeyvalueinput.theming-color")[0], { hash: true });

@@ -40,6 +40,10 @@
 
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                     id="sharefilehtml"></textarea>
+				<label style="display:none">
+					<input type="checkbox">
+					<?php p($l->t('Inherited'));?>
+				</label>
             </details>
             <input type="hidden" name="settingkeyname" type="html" value="sharefilehtml">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -86,6 +90,10 @@
 
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                 id="sharefolderhtml"></textarea>
+				<label style="display:none">
+					<input type="checkbox">
+					<?php p($l->t('Inherited'));?>
+				</label>
             </details>
             <input type="hidden" name="settingkeyname" value="sharefolderhtml">
             <input type="hidden" name="settingkeytemplateid" value="0">
