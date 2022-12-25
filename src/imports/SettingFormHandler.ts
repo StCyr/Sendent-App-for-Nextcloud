@@ -136,7 +136,7 @@ export default class SettingFormHandler {
                 const multiInputContainer = $(element).find('.multiInputContainer');
                 const currentValue = setting.length > 0 ? setting[0].value : '';
 
-                new MultiInputList(multiInputContainer, currentValue, inputElement);
+                new MultiInputList(multiInputContainer, currentValue, inputElement, ncgroup)
             }
 
 			// Free text settings

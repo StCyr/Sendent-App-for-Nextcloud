@@ -76,7 +76,10 @@ class SettingGroupValueV2ApiController extends ApiController {
 					// multivalue settings must be merged with the ones from the default group
 					$list = array_map(function($setting) use ($result) {
 						if ($setting->getSettingkeyid() === $result->getSettingkeyid()) {
-							$setting->setValue($setting->getValue() . ';' . $result->getValue());
+							$setting->setValue([
+								'defaultSetting' => $result->getValue(),
+								'groupSetting' => $setting->getValue()
+							]);
 						}
 						return $setting;
 					},$list);

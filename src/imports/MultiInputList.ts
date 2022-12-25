@@ -2,58 +2,69 @@
 import { translate as t, translatePlural as p } from '@nextcloud/l10n';
 
 export default class MultiInputList {
-    constructor(private container: JQuery<HTMLElement>, value: string, private target: JQuery<HTMLElement>) {
-        const values = value.split(';').map(value => value.trim());
+    constructor(private container: JQuery<HTMLElement>, value, private target: JQuery<HTMLElement>, ncgroup: string) {
 
-        this.appendListToggle();
+		// Retrieve group and default settings value
+		let defaultValues: string[] = [];
+		let groupValues: string[] = [];
+		if (ncgroup === '') {
+			// We are showing the default settings
+			groupValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
+		} else if (typeof value !== 'object') {
+			// We are showing a group's settings but no additional values have been defined
+			defaultValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
+		} else {
+			// We are showing a group's settings with both default and additional values
+			groupValues = value.groupSetting !== '' ? value.groupSetting.split(';').map(value => value.trim()) : [];
+			defaultValues = value.defaultSetting !== '' ? value.defaultSetting.split(';').map(value => value.trim()) : [];
+		}
+
+        this.container.addClass('collapsed');
+        this.appendListToggle( defaultValues.length + groupValues.length);
 
 		// Removes existing values in case of refresh
 		try {
 			this.container.find('.multiInputRow').remove();
-		} catch (err) {
-		}
+		} catch (err) {}
 
 		// Insert new values
-        for (const value of values) {
-            this.appendInput(value);
+        for (const value of defaultValues) {
+            this.appendInput(value, false);
+        }
+        for (const value of groupValues) {
+            this.appendInput(value, true);
         }
 
-        if (values[values.length - 1]) {
-            this.appendInput();
-        }
+		// Appends an input box to let the user enter a new value
+        this.appendInput('', true);
 
         this.target.hide();
     }
 
-    private appendListToggle(): void {
+    private appendListToggle(numberOfEntries): void {
 
 		// Removes existing toggle in case of refresh
 		try {
 			this.container.find('a').remove();
-		} catch (err) {
-		}
+		} catch (err) {}
 
         const element = $('<a>');
         const updateLabel = () => {
-            const targetValue = this.target.val()?.toString() || '';
-            const numberOfEntries = targetValue ? targetValue.split(';').length : 0;
-
             element.text(this.container.hasClass('collapsed') ?
                 (
                     numberOfEntries > 0 ?
                         n('sendent', 'Show %n entry', 'Show %n entries', numberOfEntries)
                         :
-                        t('sendet', 'Add new entry')
+                        t('sendent', 'Add new entry')
                 )
                 :
                 n('sendent', 'Hide entry', 'Hide entries', numberOfEntries)
             );
         };
 
-        this.container.addClass('collapsed');
         updateLabel();
 
-        element.appendTo(this.container);
+        element.prependTo(this.container);
         element.on('click', (ev) => {
             ev.preventDefault();
 
@@ -63,17 +74,21 @@ export default class MultiInputList {
         });
     }
 
-    private appendInput(value = '') {
+    private appendInput(value = '', defaultValue = false) {
 
         const rowElement = $('<div class="multiInputRow">');
         const valueElement = $('<input type="text" placeholder="thirdparty.com or mail@thirdparty.com"/>');
+		defaultValue ||  valueElement.prop('disabled', true);
         const deleteElement = $('<button type="button"><span class="icon-delete icon-visible"></span></button>');
+		defaultValue ||  deleteElement.css('display', 'none');
+        const inheritedElement = $('<div style="display: flex;align-items: center; margin-left: 5px"><span style="color: gray">' + t('sendent', 'Inherited') + '</span></div>');
+		defaultValue && inheritedElement.css('display', 'none');
 
         valueElement.val(value);
         valueElement.on('change', () => this.updateValue());
         valueElement.on('input', () => {
             if (rowElement.is(':last-child')) {
-                this.appendInput();
+                this.appendInput('', true);
             }
         })
         valueElement.appendTo(rowElement);
@@ -83,12 +98,14 @@ export default class MultiInputList {
             rowElement.remove();
 
             if (this.container.find('input').length === 0) {
-                this.appendInput();
+                this.appendInput('', true);
             }
 
             this.updateValue();
         });
         deleteElement.appendTo(rowElement);
+
+		inheritedElement.appendTo(rowElement);
 
         rowElement.appendTo(this.container);
     }
@@ -98,5 +115,8 @@ export default class MultiInputList {
         const newValue = changedValues.map(value => value.toString().trim()).filter(value => !!value).join(';');
 
         this.target.val(newValue).trigger('change');
+
+		// TODO Input toogle should be updated with the current number of element here
+		this.appendListToggle(this.container.find('.multiInputRow').length - 1);
     }
 }
