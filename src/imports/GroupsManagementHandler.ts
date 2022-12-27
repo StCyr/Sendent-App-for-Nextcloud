@@ -5,14 +5,19 @@ import { translate as t } from '@nextcloud/l10n'
 import SettingFormHandler from "./SettingFormHandler";
 
 require("jquery-ui/ui/widgets/sortable");
-require("jquery-ui/ui/widgets/selectable");
 
 export default class GroupsManagementHandler {
     private static instance: GroupsManagementHandler;
 	private settingFormHandler: SettingFormHandler;
 
-    private constructor() {
+    public static setup(settingFormHandler): GroupsManagementHandler {
 		console.log('Initializing sendent groups lists');
+
+        if (!this.instance) {
+            this.instance = new GroupsManagementHandler();
+        }
+
+		this.instance.settingFormHandler = settingFormHandler;
 
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
@@ -23,47 +28,34 @@ export default class GroupsManagementHandler {
 			cancel: ".unsortable",
 			connectWith: ".connectedSortable",
 			handle: ".handle",
-			update: this.updateSendentGroups
-		}).selectable({
-			cancel: ".handle",
-			filter: "li",
-			selected: this.showSettingsForGroup.bind(this),
+			update: () => this.instance.updateSendentGroups()
 		}).find( "li" )
+		.on( "click", this.instance.showSettingsForGroup)
         .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#defaultGroup").sortable({
 			cancel: ".unsortable",
 			handle: ".handle",
-		}).selectable({
-			cancel: ".handle",
-			filter: "li",
-			selected: this.showSettingsForGroup.bind(this),
 		}).find( "li" )
+		.on( "click", this.instance.showSettingsForGroup)
         .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
-
-    }
-
-    public static setup(settingFormHandler): GroupsManagementHandler {
-        if (!this.instance) {
-            this.instance = new GroupsManagementHandler();
-        }
-
-		this.instance.settingFormHandler = settingFormHandler;
 
         return this.instance;
     }
 
-	private showSettingsForGroup(event, ui) {
+	private showSettingsForGroup(event) {
 		// Unselect all other previously selected groups
 		$('#groupsManagement div ul li').each(function() {
-			if (this !== ui.selected) {
+			if (this !== event.target) {
 				$(this).removeClass('ui-selected');
+			} else {
+				$(this).addClass('ui-selected');
 			}
 		});
 
 		// Updates settings value
-		let ncgroup = ui.selected.textContent;
+		let ncgroup = event.target.textContent;
 		ncgroup = ncgroup === t('sendent', 'Default') ? '' : ncgroup;
-		this.settingFormHandler.loopThroughSettings(ncgroup);
+		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroup);
 	}
 
 	private updateSendentGroups() {
