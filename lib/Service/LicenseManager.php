@@ -36,9 +36,10 @@ class LicenseManager {
 			throw $e;
 		}
 	}
-	public function pingLicensing(): void {
+
+	public function pingLicensing($ncgroup=''): void {
 		try {
-			$licenses = $this->licenseservice->findAll();
+			$licenses = $this->licenseservice->findByGroup($ncgroup);
 			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
 				$license = $licenses[0];
 				$license = $this->subscriptionvalidationhttpclient->validate($license);
@@ -46,9 +47,10 @@ class LicenseManager {
 		} catch (Exception $e) {
 		}
 	}
-	public function renewLicense() {
+
+	public function renewLicense(string $ncgroup='') {
 		try {
-			$licenses = $this->licenseservice->findAll();
+			$licenses = $this->licenseservice->findByGroup($ncgroup);
 			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
 				$license = $licenses[0];
 				$license = $this->subscriptionvalidationhttpclient->validate($license);
@@ -77,7 +79,8 @@ class LicenseManager {
 						$maxGraceUsers,
 						$license->getEmail(),
 						date_create($license->getDatelastchecked()),
-						$level
+						$level,
+						$ncgroup
 					);
 				} else {
 					$license = new License();
@@ -90,19 +93,16 @@ class LicenseManager {
 		}
 	}
 
-	public function createLicense(string $license, string $email) {
+	public function createLicense(string $license, string $email, string $ncgroup='') {
+		$this->deleteLicense($ncgroup);
+		$licenseData = $this->licenseservice->createNew($license, $email, $ncgroup);
+		return $this->activateLicense($licenseData);
+	}
+
+	public function deleteLicense(string $ncgroup='') {
 		try {
-			$existingLicense = $this->licenseservice->findByLicenseKey($license);
-			if (isset($existingLicense)) {
-				return $this->activateLicense($existingLicense);
-			}
+			$this->licenseservice->delete($ncgroup);
 		} catch (Exception $e) {
-			try {
-				$licenseData = $this->licenseservice->createNew($license, $email);
-				return $this->activateLicense($licenseData);
-			} catch (Exception $e) {
-				$this->handleException($e);
-			}
 		}
 	}
 
@@ -139,7 +139,8 @@ class LicenseManager {
 				$maxGraceUsers,
 				$activatedLicense->getEmail(),
 				date_create("now"),
-				$level
+				$level,
+				$license->getNcgroup()
 			);
 		} else {
 			$license = new License();

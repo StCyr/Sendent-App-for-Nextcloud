@@ -12,10 +12,11 @@ class LicenseStatus implements JsonSerializable {
 	public $email;
 	public $licensekey;
 	public $level;
+	public $ncgroup;
 
 	public function __construct(string $status, string $statusKind,
 	string $level, string $licensekey,
-	string $dateExpiration, string $dateLastCheck, string $email) {
+	string $dateExpiration, string $dateLastCheck, string $email, string $ncgroup='') {
 		// add types in constructor
 		$this->status = $status;
 		$this->statusKind = $statusKind;
@@ -24,6 +25,7 @@ class LicenseStatus implements JsonSerializable {
 		$this->dateLastCheck = $dateLastCheck;
 		$this->email = $email;
 		$this->level = $level;
+		$this->ncgroup = $ncgroup;
 	}
 
 	public function jsonSerialize() {
@@ -34,7 +36,8 @@ class LicenseStatus implements JsonSerializable {
 			'email' => $this->email,
 			'level' => $this->level,
 			'licensekey' => $this->licensekey,
-			'dateLastCheck' => $this->dateLastCheck
+			'dateLastCheck' => $this->dateLastCheck,
+			'ncgroup' => $this->ncgroup,
 		];
 	}
 }

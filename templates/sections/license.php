@@ -30,6 +30,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="licensekeyvalueinput" id="licensekey" value=""
                 placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="licensekey">
             <input type="hidden" name="settingkeykey" value="900">
             <input type="hidden" name="settingkeyid" value="900">
@@ -45,6 +49,10 @@
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="email" name="licensekeyvalueinput" id="licenseEmail" value=""
                 placeholder="Enter email address" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input type="checkbox">
+                <?php p($l->t('Inherited'));?>
+            </label>
             <input type="hidden" name="settingkeyname" value="licenseEmail">
             <input type="hidden" name="settingkeykey" value="901">
             <input type="hidden" name="settingkeyid" value="901">

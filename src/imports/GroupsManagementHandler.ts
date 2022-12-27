@@ -3,14 +3,16 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import { translate as t } from '@nextcloud/l10n'
 import SettingFormHandler from "./SettingFormHandler";
+import LicenseHandler from "./LicenseHandler"
 
 require("jquery-ui/ui/widgets/sortable");
 
 export default class GroupsManagementHandler {
     private static instance: GroupsManagementHandler;
 	private settingFormHandler: SettingFormHandler;
+	private licenseHandler: LicenseHandler;
 
-    public static setup(settingFormHandler): GroupsManagementHandler {
+    public static setup(settingFormHandler: SettingFormHandler, licenseHandler: LicenseHandler): GroupsManagementHandler {
 		console.log('Initializing sendent groups lists');
 
         if (!this.instance) {
@@ -18,6 +20,7 @@ export default class GroupsManagementHandler {
         }
 
 		this.instance.settingFormHandler = settingFormHandler;
+		this.instance.licenseHandler = licenseHandler;
 
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
@@ -52,9 +55,14 @@ export default class GroupsManagementHandler {
 			}
 		});
 
-		// Updates settings value
+		// Gets group for which settings are to be shown
 		let ncgroup = event.target.textContent;
 		ncgroup = ncgroup === t('sendent', 'Default') ? '' : ncgroup;
+
+		// Updates license
+		GroupsManagementHandler.instance.licenseHandler.refreshLicenseStatus(ncgroup)
+
+		// Updates settings value
 		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroup);
 	}
 

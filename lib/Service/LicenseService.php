@@ -20,6 +20,17 @@ class LicenseService {
 		$this->FileStorageManager = $FileStorageManager;
 	}
 
+	public function delete(string $ncgroup='') {
+		try {
+			$list = $this->mapper->findByGroup($ncgroup);
+			foreach ($list as $result) {
+				$this->mapper->delete($result);
+			}
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
 	public function findAll() {
 		try {
 			$list = $this->mapper->findAll();
@@ -37,6 +48,25 @@ class LicenseService {
 			$this->handleException($e);
 		}
 	}
+
+	public function findByGroup(string $ncgroup='') {
+		try {
+			$list = $this->mapper->findByGroup($ncgroup);
+			foreach ($list as $result) {
+				if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
+					$result->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
+				}
+			}
+			return $list;
+			// in order to be able to plug in different storage backends like files
+		// for instance it is a good idea to turn storage related exceptions
+		// into service related exceptions so controllers and service users
+		// have to deal with only one type of exception
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
 	public function find(int $id): void {
 		try {
 			$licensekey = $this->mapper->find($id);
@@ -81,22 +111,21 @@ class LicenseService {
 
 	public function create(string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level) {
+	string $email, DateTime $datelastchecked, string $level, string $ncgroup='') {
 		error_log(print_r("LICENSESERVICE-CREATE", true));
 
 		try {
-			$this->cleanupLicenses($license);
 			error_log(print_r("LICENSESERVICE-LEVEL=		" . $level, true));
 
 			return $this->update(0, $license,
 			$dategraceperiodend, $datelicenseend,
-			$maxusers, $maxgraceusers, $email, $datelastchecked, $level);
+			$maxusers, $maxgraceusers, $email, $datelastchecked, $level, $ncgroup);
 		} catch (Exception $e) {
 			error_log(print_r("LICENSESERVICE-EXCEPTION=" . $e, true));
 
 			$licenseobj = new License();
 			
-			$value = $this->FileStorageManager->writeLicenseTxt($license);
+			$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 			$licenseobj->setLicensekey($value);
 			$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
@@ -105,11 +134,9 @@ class LicenseService {
 			$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
+			$licenseobj->setNcgroup($ncgroup);
 
-			$value = $this->FileStorageManager->writeLicenseTxt($license);
-			$licenseobj->setLicensekey($value);
 			error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), true));
-
 			$licenseresult = $this->mapper->insert($licenseobj);
 			if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
 				$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
@@ -119,15 +146,10 @@ class LicenseService {
 		}
 	}
 
-	public function createNew(string $license, string $email): \OCP\AppFramework\Db\Entity {
-		try {
-			$this->cleanupLicenses($license);
-		} catch (Exception $e) {
-			$this->handleException($e);
-		}
+	public function createNew(string $license, string $email, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
 		$licenseobj = new License();
 		
-		$value = $this->FileStorageManager->writeLicenseTxt($license);
+		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("none");
@@ -136,24 +158,26 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
+		$licenseobj->setNcgroup($ncgroup);
 
 		$licenseresult = $this->mapper->insert($licenseobj);
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
-			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 		}
 		return $licenseresult;
 	}
 
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level): \OCP\AppFramework\Db\Entity {
+	string $email, DateTime $datelastchecked, string $level, string $ncgroup): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
 
-		$this->cleanupLicenses($license);
+		$this->delete($ncgroup);
+
 		$licenseobj = new License();
 
 
-		$value = $this->FileStorageManager->writeLicenseTxt($license);
+		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
 
 		$licenseobj->setEmail($email);
@@ -163,10 +187,11 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
+		$licenseobj->setNcgroup($ncgroup);
 		
 		$licenseresult = $this->mapper->insert($licenseobj);
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
-			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 		}
 		return $licenseresult;
 	}

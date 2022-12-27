@@ -11,7 +11,8 @@ type LicenseStatus = {
     level: string,
     licensekey: string,
     dateLastCheck: string,
-    LatestVSTOAddinVersion : AppVersionStatus
+    LatestVSTOAddinVersion : AppVersionStatus,
+	ncgroup: string,
 }
 type AppVersionStatus = {
     ApplicationName : string
@@ -25,21 +26,20 @@ type AppVersionStatus = {
 export default class LicenseHandler {
     private static instance: LicenseHandler;
 
-    private constructor() {
-        $("#btnLicenseActivation").on('click', (ev) => {
+    private constructor(ncgroup: string) {
+        $("#btnLicenseActivation").on('click', {ncgroup}, (ev) => {
             ev.preventDefault();
 
             const email = $("#licenseEmail").val()?.toString().replace(/\s+/g, '') || '';
             const key = $("#licensekey").val()?.toString().replace(/\s+/g, '') || '';
 
-            this.createLicense(email, key);
+            this.createLicense(email, key, ev.data.ncgroup);
         });
 
-        $("#btnClearLicense").on('click', () => {
+        $("#btnClearLicense").on('click', {ncgroup}, (ev) => {
             $("#licenseEmail").val('');
             $("#licensekey").val('');
-            
-            this.createLicense('', '');
+            this.createLicense('', '', ev.data.ncgroup);
         });
 
         $("#licenseEmail, #licensekey").on('change', () => {
@@ -52,36 +52,37 @@ export default class LicenseHandler {
         });
     }
 
-    public static setup(): LicenseHandler {
+    public static setup(ncgroup: string): LicenseHandler {
         if (!this.instance) {
-            this.instance = new LicenseHandler();
+            this.instance = new LicenseHandler(ncgroup);
 
-            this.instance.refreshLicenseStatus();
+            this.instance.refreshLicenseStatus(ncgroup);
         }
 
         return this.instance;
     }
 
-    public async createLicense(email: string, key: string): Promise<void> {
+    public async createLicense(email: string, key: string, ncgroup: string): Promise<void> {
         this.disableButtons();
 
         try {
-            await this.sendCreationRequest(email, key);
+            await this.sendCreationRequest(email, key, ncgroup);
         } catch (err) {
             console.log('Could not create license', err);
         }
 
         this.enableButtons();
 
-        return this.refreshLicenseStatus();
+        return this.refreshLicenseStatus(ncgroup);
     }
 
-    public async refreshLicenseStatus(): Promise<void> {
+    public async refreshLicenseStatus(ncgroup: string): Promise<void> {
         this.insertLoadIndicator('#licensestatus, #latestVSTOVersion, #licenselastcheck, #licenseexpires, #licenselevel');
         this.disableButtons();
 
+		console.log('Refreshing license status', ncgroup);
         try {
-            const { data: status } = await this.requestStatus();
+            const { data: status } = await this.requestStatus(ncgroup);
             const { data: appStatus } = await this.requestApplicationStatus();
 
             if (status.level !== 'Free' && status.level !== '-' && status.level !== '') {
@@ -103,6 +104,64 @@ export default class LicenseHandler {
 
             this.updateStatus(status.statusKind);
             this.updateButtonStatus(status.statusKind);
+
+			// Shows/Hides inheritance checkbox and disables user input if needed
+			if (ncgroup !== '') {
+				$("#licensekey").next().addClass('settingkeyvalueinherited');
+				if (status.ncgroup === '') {
+					// Group inherits the default license
+					$("#licensekey").next().find("input").prop('checked', true);
+					$("#licensekey").prop('disabled', true);
+					$("#licenseEmail").prop('disabled', true);
+					this.disableButtons();
+				} else {
+					// Group has a specific license
+					$("#licensekey").next().find("input").prop('checked', false);
+					$("#licensekey").prop('disabled', false);
+					$("#licenseEmail").prop('disabled', false);
+			        this.enableButtons();
+				}
+			} else {
+				// We are showing the default license
+				$("#licensekey").next().removeClass('settingkeyvalueinherited');
+				$("#licensekey").prop('disabled', false);
+				$("#licenseEmail").prop('disabled', false);
+		        this.enableButtons();
+			}
+
+			// Sets up inheritance checkbox's action
+            $("#licensekey").next().find("input").off('change')
+            $("#licensekey").next().find("input").on('change', {ncgroup}, (ev) => {
+				if ($("#licensekey").next().find('input:checked').val()) {
+					this.deleteLicense(ev.data.ncgroup);
+					this.refreshLicenseStatus(ev.data.ncgroup).then(() => {
+						$("#licensekey").prop('disabled', true);
+						$("#licenseEmail").prop('disabled', true);
+						this.disableButtons()
+					});
+	            } else {
+					$("#licensekey").prop('disabled', false);
+					$("#licenseEmail").prop('disabled', false);
+					this.createLicense('', '', ev.data.ncgroup);
+					this.enableButtons();
+                }
+            });
+
+			// Makes sure the buttons' click action act on the correct group
+			$("#btnLicenseActivation").off('click')
+			$("#btnLicenseActivation").on('click', {ncgroup}, (ev) => {
+	            ev.preventDefault();
+	            const email = $("#licenseEmail").val()?.toString().replace(/\s+/g, '') || '';
+	            const key = $("#licensekey").val()?.toString().replace(/\s+/g, '') || '';
+	            this.createLicense(email, key, ev.data.ncgroup);
+	        });
+		    $("#btnClearLicense").off('click')
+		    $("#btnClearLicense").on('click', {ncgroup}, (ev) => {
+				$("#licenseEmail").val('');
+		        $("#licensekey").val('');
+	            this.createLicense('', '', ev.data.ncgroup);
+	        });
+
         } catch (err) {
             console.warn('Error while fetching license status', err);
 
@@ -115,9 +174,11 @@ export default class LicenseHandler {
             $("#btnLicenseActivation").val(t("sendent", "Activate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
             $("#btnSupportButton").removeClass("shown").addClass("hidden");
+
+	        this.enableButtons();
         }
 
-        this.enableButtons();
+		return;
     }
 
     private insertLoadIndicator(selector: string) {
@@ -173,14 +234,20 @@ export default class LicenseHandler {
         $("#btnSupportButton, #btnClearLicense, #btnLicenseActivation").removeAttr("disabled");
     }
 
-    private sendCreationRequest(email: string, license: string) {
-        const url = generateUrl('/apps/sendent/api/1.0/license');
+	private deleteLicense(ncgroup: string) {
+        const url = generateUrl('/apps/sendent/api/2.0/license');
 
-        return axios.post(url, { email, license });
+        return axios.delete(url, { data: { group: ncgroup } });
+	}
+
+    private sendCreationRequest(email: string, license: string, ncgroup: string) {
+        const url = generateUrl('/apps/sendent/api/2.0/license');
+
+        return axios.post(url, { email, license, ncgroup });
     }
 
-    private requestStatus() {
-        const url = generateUrl('/apps/sendent/api/1.0/licensestatus');
+    private requestStatus(ncgroup: string) {
+        const url = generateUrl('/apps/sendent/api/2.0/licensestatus?ncgroup=' + ncgroup);
 
         return axios.get<LicenseStatus>(url);
     }

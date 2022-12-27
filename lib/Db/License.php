@@ -19,6 +19,7 @@ class License extends Entity implements JsonSerializable {
 	protected $maxgraceusers;
 	protected $datelastchecked;
 	protected $level;
+	protected $ncgroup;
 
 	public function __construct() {
 		// add types in constructor
@@ -33,7 +34,8 @@ class License extends Entity implements JsonSerializable {
 			'maxgraceusers' => $this->maxgraceusers,
 			'level' => $this->level,
 			'datelicenseend' => $this->datelicenseend,
-			'datelastchecked' => $this->datelastchecked
+			'datelastchecked' => $this->datelastchecked,
+			'ncgroup' => $this->ncgroup
 		];
 	}
 

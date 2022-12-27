@@ -12,6 +12,7 @@ class LicenseMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'sndnt_license', License::class);
 	}
+
 	/**
 	 * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
@@ -54,6 +55,25 @@ class LicenseMapper extends QBMapper {
 		   ->from('sndnt_license')
 		   ->setMaxResults($limit)
 		   ->setFirstResult($offset);
+
+		return $this->findEntities($qb);
+	}
+
+	/**
+	 * @return \OCP\AppFramework\Db\Entity[]
+	 *
+	 * @psalm-return array<\OCP\AppFramework\Db\Entity>
+	 */
+	public function findByGroup(string $ncgroup='', $limit = null, $offset = null): array {
+		$qb = $this->db->getQueryBuilder();
+
+		$qb->select('*')
+		   ->from('sndnt_license')
+		   ->where(
+			$qb->expr()->eq('ncgroup', $qb->createNamedParameter($ncgroup, IQueryBuilder::PARAM_STR))
+		)
+		->setMaxResults($limit)
+		->setFirstResult($offset);
 
 		return $this->findEntities($qb);
 	}

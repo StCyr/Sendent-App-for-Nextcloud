@@ -6,10 +6,10 @@ import GroupsManagementHandler from "./imports/GroupsManagementHandler";
 $(() => {
     console.log('Setting script loaded');
 
-    LicenseHandler.setup();
+    const licenseHandler = LicenseHandler.setup('');
     const settingFormHandler = SettingFormHandler.get()
 	settingFormHandler.loopThroughSettings();
-	GroupsManagementHandler.setup(settingFormHandler);
+	GroupsManagementHandler.setup(settingFormHandler, licenseHandler);
 
     $('#settingsform').on('submit', function (ev) {
         ev.preventDefault();
