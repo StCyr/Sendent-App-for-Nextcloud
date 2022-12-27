@@ -89,21 +89,24 @@ export default class SettingFormHandler {
                 this.initSettingKey(element, key, name, valueType, templateId, value, groupId);
             }
 
-			// When we are not showing the default group'settings, we show the inheritedCheckbox
+			// When we are not showing the default group'settings, we show the inheritedCheckbox. Else, we hide it
+			let label = inputElement.next();
+			if (!label.is('label')) {
+				// In case of free-text settings, the tincymce editor comes in the way between the input and the label
+				label = label.next();
+			}
 			if (ncgroup !== '') {
 				// Shows inherited checkbox
-				let label = inputElement.next();
-				if (!label.is('label')) {
-					// In case of free-text settings, the tincymce editor comes in the way between the input and the label
-					label = label.next();
-				}
 				label.addClass('settingkeyvalueinherited');
+
+				// Checks the checkbox when setting is inherited
 				const inheritedCheckbox = label.find('input');
 				if (setting[0].ncgroup === '') {
 					inheritedCheckbox.prop('checked', true);
 				} else {
 					inheritedCheckbox.prop('checked', false);
 				}
+
 				// Adds onChange action
 				try {
 					inheritedCheckbox.off('change');
@@ -123,6 +126,10 @@ export default class SettingFormHandler {
 						this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
 					}
 				});
+			} else {
+				// Hides inherited checkbox
+				let label = inputElement.next();
+				label.removeClass('settingkeyvalueinherited');
 			}
 
 			// Adds color picker to theming color settings

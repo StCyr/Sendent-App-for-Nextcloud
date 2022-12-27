@@ -76,19 +76,16 @@ textarea{
 	width: 300px;
 }
 
-.connectedSortable {
+.defaultList, .connectedSortable {
     min-width: 270px;
 	margin-right: 5px;
 	padding: 2px;
 	border: 1px solid #eee;
-	min-height: 270px;
 }
-
 .connectedSortable li {
 	padding-left: 2px;
 }
-
-.connectedSortable .ui-selected {
+.defaultList .ui-selected, .connectedSortable .ui-selected {
 	background: #F39814;
 	color: white; 
 }
