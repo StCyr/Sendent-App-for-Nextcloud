@@ -121,6 +121,7 @@ export default class SettingFormHandler {
 				            } else {
 								inputElement.val(defaultSetting.value);
 							}
+        					this.setShowHideAllSettings();
 						})
 					} else {
 						this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
@@ -204,7 +205,6 @@ export default class SettingFormHandler {
         }
 
         try {
-			console.log('updating for group "' + ncgroup + '"');
             const data3 = await this.valuecalls.update(id, id, value, groupId, ncgroup);
 
             $(settingkeyvalueblock).find(".settingkeyvalueinput").val(data3.value);
@@ -250,18 +250,18 @@ export default class SettingFormHandler {
 
         if (settingkeyid == "attachmentmode") {
             if (settingkeyvalue == "MaximumAttachmentSize") {
-                $(".personal-settings-setting-box#attachmentsize").removeClass("hidden").addClass("shown");
+                $(".personal-settings-setting-box.attachmentSize").removeClass("hidden").addClass("shown");
             }
             else {
-                $(".personal-settings-setting-box#attachmentsize").addClass("hidden").removeClass("shown");
+                $(".personal-settings-setting-box.attachmentSize").addClass("hidden").removeClass("shown");
             }
         }
         else if (settingkeyid == "sendmode") {
             if (settingkeyvalue == "Separate") {
-                $(".personal-settings-setting-box#htmlsnippetpassword").removeClass("hidden").addClass("shown");
+                $(".personal-settings-setting-box.htmlSnippetPassword").removeClass("hidden").addClass("shown");
             }
             else {
-                $(".personal-settings-setting-box#htmlsnippetpassword").addClass("hidden").removeClass("shown");
+                $(".personal-settings-setting-box.htmlSnippetPassword").addClass("hidden").removeClass("shown");
             }
         }
     }
