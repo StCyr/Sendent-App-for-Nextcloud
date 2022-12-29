@@ -54,22 +54,29 @@ class LicenseApiController extends ApiController {
 	 *
 	 * @NoCSRFRequired
 	 *
+	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function show(): DataResponse {
+	public function show(string $ncgroup=''): DataResponse {
 		try {
 			try {
-				$this->licensemanager->pingLicensing();
-			} catch (Exception $e) {
+				$this->licensemanager->pingLicensing($ncgroup);
+			} catch (Exception $e) {}
+
+			// Gets license for group $ncgroup
+			$result = $this->service->findByGroup($ncgroup);
+			if (isset($result) && $result !== null && $result !== false && is_array($result) && count($result) === 0) {
+				// No license for group $ncgroup, getting default license
+				$result = $this->service->findByGroup('');				
 			}
-			$result = $this->service->findAll();
+			
 			if (isset($result) && $result !== null && $result !== false) {
 				if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
 					if ($result[0]->isCheckNeeded()) {
 						try {
-							$this->licensemanager->renewLicense();
-							$result = $this->service->findAll();
+							$this->licensemanager->renewLicense($ncgroup);
+							$result = $this->service->findByGroup($ncgroup);
 							if (isset($result) && $result !== null && $result !== false) {
 								if (is_array($result) && count($result) > 0
 								&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
@@ -85,6 +92,7 @@ class LicenseApiController extends ApiController {
 					$dateExpiration = $result[0]->getDatelicenseend();
 					$dateLastCheck = $result[0]->getDatelastchecked();
 					$level = $result[0]->getLevel();
+					$group = $result[0]->getNcgroup();
 					$statusKind = "";
 					$status = "";
 
@@ -112,16 +120,18 @@ class LicenseApiController extends ApiController {
 						$status = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
 						$statusKind = "userlimit";
 					}
-					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email));
+					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email, $group));
 				} elseif (count($result) > 0 && $result[0]->getLevel() == "Error_incomplete") {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
+					$group = $result[0]->getNcgroup();
 					$status = $this->l->t('Missing (or incorrect) email address or license key. %1$sContact support%2$s to get your correct license information.', ["<a href='mailto:support@sendent.nl' style='color:blue'>", "</a>"]);
-					return new DataResponse(new LicenseStatus($status, "error_incomplete" ,"-", $licensekey, "-", "-", $email));
+					return new DataResponse(new LicenseStatus($status, "error_incomplete" ,"-", $licensekey, "-", "-", $email, $group));
 				} elseif (count($result) > 0 && $result[0]->getLevel() == "Error_validating") {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
-					return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "error_validating","-", $licensekey, "-", "-", $email));
+					$group = $result[0]->getNcgroup();
+					return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "error_validating","-", $licensekey, "-", "-", $email, $group));
 				} else {
 					return new DataResponse(new LicenseStatus($this->l->t("No license configured"), "nolicense" ,"-", "-", "-", "-", "-"));
 				}
@@ -134,13 +144,20 @@ class LicenseApiController extends ApiController {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
 	 * @param string $license
 	 * @param string $email
+	 * @param string $ncgroup
 	 */
-	public function create(string $license, string $email) {
-		return $this->licensemanager->createLicense($license, $email);
+	public function create(string $license, string $email, string $ncgroup) {
+		return $this->licensemanager->createLicense($license, $email, $ncgroup);
+	}
+
+	/**
+	 * @param string $ncgroup
+	 */
+	public function delete(string $group) {
+		// Deletes requested settinglicense
+		return $this->licensemanager->deleteLicense($group);
 	}
 
 	/**

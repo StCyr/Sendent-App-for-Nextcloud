@@ -57,6 +57,7 @@ return [
 			'requirements' => ['path' => '.+']
 		],
 		['name' => 'license_api#show', 'url' => '/api/1.0/licensestatus', 'verb' => 'GET'],
+		['name' => 'license_api#delete', 'url' => '/api/1.0/license', 'verb' => 'DELETE'],
 		['name' => 'license_api#create', 'url' => '/api/1.0/license', 'verb' => 'POST'],
 		['name' => 'license_api#validate', 'url' => '/api/1.0/licensevalidation', 'verb' => 'GET'],
 		['name' => 'license_api#renew', 'url' => '/api/1.0/licenserenew', 'verb' => 'GET'],
@@ -95,19 +96,6 @@ return [
 			'verb' => 'OPTIONS',
 			'requirements' => ['path' => '.+']
 		],
-		['name' => 'setting_group_value_v2_api#create', 'url' => '/api/2.0/settinggroupvalue', 'verb' => 'POST'],
-		['name' => 'setting_group_value_v2_api#delete', 'url' => '/api/2.0/settinggroupvalue', 'verb' => 'DELETE'],
-		['name' => 'setting_group_value_v2_api#index', 'url' => '/api/2.0/settinggroupvalue/index', 'verb' => 'GET'],
-		['name' => 'setting_group_value_v2_api#update', 'url' => '/api/2.0/settinggroupvalue/{id}', 'verb' => 'PUT'],
-		[
-			'name' => 'license_v2_api#preflighted_cors',
-			'url' => '/api/2.0/{path}',
-			'verb' => 'OPTIONS',
-			'requirements' => ['path' => '.+']
-		],
-		['name' => 'license_v2_api#create', 'url' => '/api/2.0/license', 'verb' => 'POST'],
-		['name' => 'license_v2_api#delete', 'url' => '/api/2.0/license', 'verb' => 'DELETE'],
-		['name' => 'license_v2_api#show', 'url' => '/api/2.0/licensestatus', 'verb' => 'GET'],
 	]
 ];
 	?>

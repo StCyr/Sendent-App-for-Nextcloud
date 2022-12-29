@@ -235,19 +235,19 @@ export default class LicenseHandler {
     }
 
 	private deleteLicense(ncgroup: string) {
-        const url = generateUrl('/apps/sendent/api/2.0/license');
+        const url = generateUrl('/apps/sendent/api/1.0/license');
 
         return axios.delete(url, { data: { group: ncgroup } });
 	}
 
     private sendCreationRequest(email: string, license: string, ncgroup: string) {
-        const url = generateUrl('/apps/sendent/api/2.0/license');
+        const url = generateUrl('/apps/sendent/api/1.0/license');
 
         return axios.post(url, { email, license, ncgroup });
     }
 
     private requestStatus(ncgroup: string) {
-        const url = generateUrl('/apps/sendent/api/2.0/licensestatus?ncgroup=' + ncgroup);
+        const url = generateUrl('/apps/sendent/api/1.0/licensestatus?ncgroup=' + ncgroup);
 
         return axios.get<LicenseStatus>(url);
     }
