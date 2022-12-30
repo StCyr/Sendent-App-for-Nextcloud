@@ -57,17 +57,18 @@ class LicenseApiController extends ApiController {
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function show(string $ncgroup=''): DataResponse {
+	public function show(string $ncgroup = ''): DataResponse {
 		try {
 			try {
 				$this->licensemanager->pingLicensing($ncgroup);
-			} catch (Exception $e) {}
+			} catch (Exception $e) {
+			}
 
 			// Gets license for group $ncgroup
 			$result = $this->service->findByGroup($ncgroup);
 			if (isset($result) && $result !== null && $result !== false && is_array($result) && count($result) === 0) {
 				// No license for group $ncgroup, getting default license
-				$result = $this->service->findByGroup('');				
+				$result = $this->service->findByGroup('');
 			}
 			
 			if (isset($result) && $result !== null && $result !== false) {

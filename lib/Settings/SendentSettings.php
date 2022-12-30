@@ -55,10 +55,10 @@ class SendentSettings implements ISettings {
 		$this->initialState->provideInitialState('tags', $this->getTagState());
 
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
-		$sendentGroups = $sendentGroups !=='' ? json_decode($sendentGroups) : [];
+		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
 
 		$NCGroups = $this->groupManager->search('');
-		$NCGroups = array_map(function($group) {
+		$NCGroups = array_map(function ($group) {
 			return $group->getDisplayName();
 		}, $NCGroups);
 

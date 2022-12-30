@@ -36,15 +36,15 @@ class SettingGroupValueApiController extends ApiController {
 	 *
 	 * @NoCSRFRequired
 	 *
- 	 * @param string $ncgroup
+	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function index(string $ncgroup=''): DataResponse {
+	public function index(string $ncgroup = ''): DataResponse {
 		
 		// Find group's gid
 		if ($ncgroup !== '') {
 			$groups = $this->groupManager->search($ncgroup);
-			foreach($groups as $group) {
+			foreach ($groups as $group) {
 				if ($group->getDisplayName() === $ncgroup) {
 					$ncgroup = $group->getGID();
 				}
@@ -62,7 +62,7 @@ class SettingGroupValueApiController extends ApiController {
 		// Merges settings from default group
 		if ($ncgroup !== '') {
 			// Gets a list of all settings defined for the group
-			$settingkeyidList = array_map(function($setting) {
+			$settingkeyidList = array_map(function ($setting) {
 				return $setting->getSettingkeyid();
 			}, $list);
 			
@@ -79,9 +79,9 @@ class SettingGroupValueApiController extends ApiController {
 				if (!in_array($result->getSettingkeyid(), $settingkeyidList)) {
 					// Setting is not defined for group, let's set the one from the default group
 					array_push($list, $result);
-				} else if (in_array($result->getSettingkeyid(), [0, 2])) {
+				} elseif (in_array($result->getSettingkeyid(), [0, 2])) {
 					// multivalue settings must be merged with the ones from the default group
-					$list = array_map(function($setting) use ($result) {
+					$list = array_map(function ($setting) use ($result) {
 						if ($setting->getSettingkeyid() === $result->getSettingkeyid()) {
 							$setting->setValue([
 								'defaultSetting' => $result->getValue(),
@@ -143,7 +143,7 @@ class SettingGroupValueApiController extends ApiController {
 	 *
 	 * @return DataResponse
 	 */
-	public function showBySettingKeyId(int $settingkeyid, string $ncgroup=''): DataResponse {
+	public function showBySettingKeyId(int $settingkeyid, string $ncgroup = ''): DataResponse {
 		try {
 			$result = $this->mapper->findBySettingKeyId($settingkeyid, $ncgroup);
 			if ($this->valueIsSettingGroupValueFilePath($result->getValue()) !== false) {
@@ -202,7 +202,7 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function create(int $settingkeyid, int $groupid, string $value, string $group='') {
+	public function create(int $settingkeyid, int $groupid, string $value, string $group = '') {
 		if ($this->valueSizeForDb($value) === false) {
 			$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value, $group);
 		}
@@ -223,7 +223,7 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function update(int $id,int $settingkeyid, int $groupid, string $value, string $group='') {
+	public function update(int $id,int $settingkeyid, int $groupid, string $value, string $group = '') {
 		try {
 			if ($this->valueSizeForDb($value) === false) {
 				$value = $this->FileStorageManager->writeTxt($groupid, $settingkeyid, $value, $group);
@@ -246,7 +246,7 @@ class SettingGroupValueApiController extends ApiController {
 	 *
 	 * @return DataResponse
 	 */
-	public function destroy(int $id, string $ncgroup=''): DataResponse {
+	public function destroy(int $id, string $ncgroup = ''): DataResponse {
 		try {
 			$SettingGroupValue = $this->mapper->find($id, $ncgroup);
 		} catch (Exception $e) {
@@ -260,5 +260,4 @@ class SettingGroupValueApiController extends ApiController {
 			return $this->showBySettingKeyId($id, '');
 		}
 	}
-
 }

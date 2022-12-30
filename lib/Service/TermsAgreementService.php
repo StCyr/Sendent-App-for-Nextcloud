@@ -2,8 +2,6 @@
 
 namespace OCA\Sendent\Service;
 
-use DateTime;
-use DateInterval;
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;

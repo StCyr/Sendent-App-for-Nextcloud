@@ -21,7 +21,7 @@ class SendentFileStorageManager {
 		}
 	}
 
-	public function writeTxt($group, $key, $content, string $ncgroup=''): string {
+	public function writeTxt($group, $key, $content, string $ncgroup = ''): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
 		$filename = $ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt';
@@ -39,7 +39,7 @@ class SendentFileStorageManager {
 		return $filename;
 	}
 
-	public function writeLicenseTxt(string $content, string $ncgroup=''): string {
+	public function writeLicenseTxt(string $content, string $ncgroup = ''): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
 		try {
@@ -73,7 +73,7 @@ class SendentFileStorageManager {
 			return false;
 		}
 	}
-	public function getContent($group, $key, $ncgroup='') {
+	public function getContent($group, $key, $ncgroup = '') {
 		try {
 			$folder = $this->appData->getFolder('settings');
 			$file = $folder->getFile($ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt');
@@ -84,7 +84,7 @@ class SendentFileStorageManager {
 			return '';
 		}
 	}
-	public function getLicenseContent($ncgroup='') {
+	public function getLicenseContent($ncgroup = '') {
 		try {
 			$folder = $this->appData->getFolder('settings');
 			$file = $folder->getFile($ncgroup . 'licenseKeyFile.txt');

@@ -64,7 +64,7 @@ class LicenseMapper extends QBMapper {
 	 *
 	 * @psalm-return array<\OCP\AppFramework\Db\Entity>
 	 */
-	public function findByGroup(string $ncgroup='', $limit = null, $offset = null): array {
+	public function findByGroup(string $ncgroup = '', $limit = null, $offset = null): array {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')

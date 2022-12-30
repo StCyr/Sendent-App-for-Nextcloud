@@ -16,7 +16,7 @@ class LicenseStatus implements JsonSerializable {
 
 	public function __construct(string $status, string $statusKind,
 	string $level, string $licensekey,
-	string $dateExpiration, string $dateLastCheck, string $email, string $ncgroup='') {
+	string $dateExpiration, string $dateLastCheck, string $email, string $ncgroup = '') {
 		// add types in constructor
 		$this->status = $status;
 		$this->statusKind = $statusKind;

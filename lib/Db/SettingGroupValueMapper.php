@@ -19,7 +19,7 @@ class SettingGroupValueMapper extends QBMapper {
 	 *
 	 * @return \OCP\AppFramework\Db\Entity
 	 */
-	public function find(int $id, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
+	public function find(int $id, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
@@ -38,7 +38,7 @@ class SettingGroupValueMapper extends QBMapper {
 	 *
 	 * @return \OCP\AppFramework\Db\Entity
 	 */
-	public function findBySettingKeyId(int $settingkeyid, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
+	public function findBySettingKeyId(int $settingkeyid, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		$qb = $this->db->getQueryBuilder();
 		
 		$qb->select('*')
@@ -92,7 +92,7 @@ class SettingGroupValueMapper extends QBMapper {
 	 *
 	 * @psalm-return array<\OCP\AppFramework\Db\Entity>
 	 */
-	public function findSettingsForNCGroup($gid='', $limit = null, $offset = null): array {
+	public function findSettingsForNCGroup($gid = '', $limit = null, $offset = null): array {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')

@@ -20,7 +20,7 @@ class LicenseService {
 		$this->FileStorageManager = $FileStorageManager;
 	}
 
-	public function delete(string $ncgroup='') {
+	public function delete(string $ncgroup = '') {
 		try {
 			$list = $this->mapper->findByGroup($ncgroup);
 			foreach ($list as $result) {
@@ -49,7 +49,7 @@ class LicenseService {
 		}
 	}
 
-	public function findByGroup(string $ncgroup='') {
+	public function findByGroup(string $ncgroup = '') {
 		try {
 			$list = $this->mapper->findByGroup($ncgroup);
 			foreach ($list as $result) {
@@ -111,7 +111,7 @@ class LicenseService {
 
 	public function create(string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level, string $ncgroup='') {
+	string $email, DateTime $datelastchecked, string $level, string $ncgroup = '') {
 		error_log(print_r("LICENSESERVICE-CREATE", true));
 
 		try {
@@ -146,7 +146,7 @@ class LicenseService {
 		}
 	}
 
-	public function createNew(string $license, string $email, string $ncgroup=''): \OCP\AppFramework\Db\Entity {
+	public function createNew(string $license, string $email, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		$licenseobj = new License();
 		
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
@@ -169,7 +169,7 @@ class LicenseService {
 
 	public function update(int $id,string $license, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level, string $ncgroup): \OCP\AppFramework\Db\Entity {
+	string $email, DateTime $datelastchecked, string $level, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
 
 		$this->delete($ncgroup);
