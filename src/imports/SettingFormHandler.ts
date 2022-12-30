@@ -129,7 +129,7 @@ export default class SettingFormHandler {
 				});
 			} else {
 				// Hides inherited checkbox
-				let label = inputElement.next();
+				const label = inputElement.next();
 				label.removeClass('settingkeyvalueinherited');
 			}
 
