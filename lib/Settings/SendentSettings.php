@@ -54,15 +54,31 @@ class SendentSettings implements ISettings {
 
 		$this->initialState->provideInitialState('tags', $this->getTagState());
 
+		// Gets groups used in the app
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
 		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
 
+		// Gets all Nextcloud groups
 		$NCGroups = $this->groupManager->search('');
 		$NCGroups = array_map(function ($group) {
 			return $group->getDisplayName();
 		}, $NCGroups);
 
+		// Removes sendentGroups from all Nextcloud groups
 		$NCGroups = array_diff($NCGroups, $sendentGroups);
+
+		// Finds out if a Nextcloud group used in the app has been deleted
+		$sendentGroups = array_map(function ($sendentGroup) {
+			$groups = $this->groupManager->search($sendentGroup);
+			foreach ($groups as $group) {
+				if ($group->getDisplayName() === $sendentGroup) {
+					return $sendentGroup;
+				}				
+			}
+			// Group hasn't been found in Nextcloud groups, so it has been deleted
+			return $sendentGroup . ' *** DELETED GROUP ***';
+
+		}, $sendentGroups);
 
 		$params['ncGroups'] = $NCGroups;
 		$params['sendentGroups'] = $sendentGroups;
