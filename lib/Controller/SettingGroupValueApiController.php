@@ -43,9 +43,12 @@ class SettingGroupValueApiController extends ApiController {
 		
 		// Find group's gid
 		if ($ncgroup !== '') {
-			// TODO: Needs an exact match of the displayName here
-			$group = $this->groupManager->search($ncgroup);
-			$ncgroup = $group[0]->getGID();
+			$groups = $this->groupManager->search($ncgroup);
+			foreach($groups as $group) {
+				if ($group->getDisplayName() === $ncgroup) {
+					$ncgroup = $group->getGID();
+				}
+			}
 		}
 
 		// Gets settings for group
