@@ -9,8 +9,6 @@
  */
 return [
 	'routes' => [
-		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-
 		/* V1.0 API's */
 		[
 			'name' => 'setting_key_api#preflighted_cors',
