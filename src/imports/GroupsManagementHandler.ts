@@ -57,6 +57,11 @@ export default class GroupsManagementHandler {
 
 		// Gets group for which settings are to be shown
 		let ncgroup = event.target.textContent;
+
+		// Changes currently selected group information
+		$('#currentGroup').text(ncgroup);
+
+		// Default should be the empty string
 		ncgroup = ncgroup === t('sendent', 'Default') ? '' : ncgroup;
 
 		// Updates license
