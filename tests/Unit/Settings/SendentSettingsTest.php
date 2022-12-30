@@ -8,6 +8,7 @@ use OCP\App\IAppManager;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\IGroupManager;
 use OCP\SystemTag\ISystemTagManager;
 use OCP\SystemTag\TagNotFoundException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -32,6 +33,8 @@ class SendentSettingsTest extends TestCase {
 	public function setUp(): void {
 		/** @var IAppManager */
 		$this->appManager = $this->getMockBuilder(IAppManager::class)->getMock();
+		/** @var IGroupManager */
+		$this->groupManager = $this->getMockBuilder(IGroupManager::class)->getMock();
 		/** @var IInitialState */
 		$this->initialState = $this->getMockBuilder(IInitialState::class)->getMock();
 		/** @var IAppConfig */
@@ -41,6 +44,7 @@ class SendentSettingsTest extends TestCase {
 
 		$this->settings = new SendentSettings(
 			$this->appManager,
+			$this->groupManager,
 			$this->initialState,
 			$this->appConfig,
 			$this->tagManager
@@ -62,13 +66,18 @@ class SendentSettingsTest extends TestCase {
 			->willReturn('1.2.3');
 
 		$this->appConfig
-			->expects($this->exactly(3))
+			->expects($this->exactly(4))
 			->method('getAppValue')
 			->will($this->returnValueMap([
 				[Constants::CONFIG_UPLOAD_TAG , '', ''],
 				[Constants::CONFIG_EXPIRED_TAG , '', '1'],
 				[Constants::CONFIG_REMOVED_TAG , '', '2'],
+				['sendentGroups' , '', ''],
 			]));
+		$this->groupManager
+			->expects($this->once())
+			->method('search')
+			->willReturn([]);
 		$this->tagManager
 			->expects($this->exactly(2))
 			->method('getTagsByIds')
