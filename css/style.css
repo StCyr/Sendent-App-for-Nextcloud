@@ -86,8 +86,8 @@ textarea{
 	padding-left: 2px;
 }
 .defaultList .ui-selected, .connectedSortable .ui-selected {
-	background: #F39814;
-	color: white; 
+	background: var(--color-primary);
+	color: var(--color-primary-text);
 }
 
 label{
