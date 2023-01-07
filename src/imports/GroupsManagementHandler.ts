@@ -26,6 +26,7 @@ export default class GroupsManagementHandler {
 		$("#ncGroups").sortable({
 			connectWith: ".connectedSortable"
 		}).find( "li" )
+		.on( "click", this.instance.showSettingsForGroup)
         .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#sendentGroups").sortable({
 			cancel: ".unsortable",
@@ -46,6 +47,12 @@ export default class GroupsManagementHandler {
     }
 
 	private showSettingsForGroup(event) {
+
+		// Don't do anything if the clicked group is not a Sendent group
+		if (event.target.parentNode.id === "ncGroups") {
+			return;
+		}
+
 		// Unselect all other previously selected groups
 		$('#groupsManagement div ul li').each(function() {
 			if (this !== event.target) {
