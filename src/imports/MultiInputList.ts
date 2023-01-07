@@ -111,12 +111,13 @@ export default class MultiInputList {
     }
 
     private updateValue() {
-        const changedValues = this.container.find('input').map((_, inputElement) => $(inputElement).val()).get();
+
+        // Find all non-default values
+        const changedValues = this.container.find('input').not(':disabled').map((_, inputElement) => $(inputElement).val()).get();
         const newValue = changedValues.map(value => value.toString().trim()).filter(value => !!value).join(';');
 
         this.target.val(newValue).trigger('change');
 
-		// TODO Input toogle should be updated with the current number of element here
 		this.appendListToggle(this.container.find('.multiInputRow').length - 1);
     }
 }
