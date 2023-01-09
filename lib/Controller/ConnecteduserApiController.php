@@ -37,7 +37,7 @@ class ConnecteduserApiController extends ApiController {
 	 * @NoCSRFRequired
 	 *
 	 * Registers a user connection
-	 * 
+	 *
 	 * @return DataResponse
 	 */
 	public function ping(): DataResponse {

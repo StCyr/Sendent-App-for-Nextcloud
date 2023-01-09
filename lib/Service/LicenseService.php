@@ -28,7 +28,6 @@ class LicenseService {
 		$this->mapper = $mapper;
 		$this->FileStorageManager = $FileStorageManager;
 		$this->userManager = $userManager;
-
 	}
 
 	public function delete(string $ncgroup = '') {

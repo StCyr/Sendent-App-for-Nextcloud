@@ -169,5 +169,4 @@ class LicenseManager {
 	public function getCurrentUserCount(string $licenseId) {
 		return $this->connecteduserservice->getCount($licenseId);
 	}
-
 }
