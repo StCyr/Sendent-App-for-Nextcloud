@@ -62,11 +62,14 @@ class ConnectedUserMapper extends QBMapper {
 		return $this->findEntities($qb);
 	}
 
-	public function getCount() {
+	public function getCount(string $licenseId) {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->selectAlias($qb->createFunction('COUNT(*)'), 'count')
-		   ->from('sndnt_connuser');
+			->from('sndnt_connuser')
+			->where(
+				$qb->expr()->eq('licenseid', $qb->createNamedParameter($licenseId, IQueryBuilder::PARAM_STR))
+			);
 
 		$cursor = $qb->execute();
 		$row = $cursor->fetch();

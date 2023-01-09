@@ -166,7 +166,10 @@ class LicenseApiController extends ApiController {
 	 * @NoCSRFRequired
 	 */
 	public function renew() {
-		return $this->licensemanager->renewLicense();
+		// Finds out user's license
+		$license = $this->service->findUserLicense($this->userId);
+
+		$this->licensemanager->renewLicense($license->getNcgroup());
 	}
 
 	/**
@@ -174,7 +177,15 @@ class LicenseApiController extends ApiController {
 	 * @NoCSRFRequired
 	 */
 	public function validate() {
-		$this->licensemanager->renewLicense();
-		return $this->licensemanager->isLocalValid();
+		// Finds out user's license
+		$license = $this->service->findUserLicense($this->userId);
+
+		// Unlicensed?
+		if (is_null($license)) {
+			return false;
+		}
+
+		$this->licensemanager->renewLicense($license->getNcgroup());
+		return $this->licensemanager->isLocalValid($license);
 	}
 }

@@ -7,17 +7,28 @@ use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\AppFramework\Services\IAppConfig;
+use OCP\IGroupManager;
+use OCP\IUserManager;
 
 use OCA\Sendent\Db\License;
 use OCA\Sendent\Db\LicenseMapper;
 
 class LicenseService {
+	private $appConfig;
+	private $groupManager;
 	private $mapper;
 	private $FileStorageManager;
+	private $userManager;
 
-	public function __construct(LicenseMapper $mapper, SendentFileStorageManager $FileStorageManager) {
+	public function __construct(IAppConfig $appConfig, IGroupManager $groupManager,
+				LicenseMapper $mapper, SendentFileStorageManager $FileStorageManager, IUserManager $userManager) {
+		$this->appConfig = $appConfig;
+		$this->groupManager = $groupManager;
 		$this->mapper = $mapper;
 		$this->FileStorageManager = $FileStorageManager;
+		$this->userManager = $userManager;
+
 	}
 
 	public function delete(string $ncgroup = '') {
@@ -97,6 +108,47 @@ class LicenseService {
 			$this->handleException($e);
 		}
 	}
+
+	/**
+	 * Finds the license used by a user
+	 */
+	public function findUserLicense(string $userId) {
+		// Gets groups for which specific settings and/or license are defined
+		// Groups are ordered from highest priority to lowest
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+
+		// Gets user groups
+		$user = $this->userManager->get($userId);
+		$userGroups = $this->groupManager->getUserGroups($user);
+		$userGroups = array_map(function ($group) {
+			return $group->getDisplayName();
+		}, $userGroups);
+
+		// Gets user groups that are sendentGroups
+		$userSendentGroups = array_intersect($sendentGroups, $userGroups);
+
+		// Finds user license
+		if (count($userSendentGroups) === 0) {
+			// User is not member of any sendentGroups => Gets default license
+			$license = $this->findByGroup('');
+		} else {
+			// Gets license of first matching group (highest priority)
+			$license = $this->findByGroup($userSendentGroups[0]);
+			// If the group has no license assigned, then gets default license
+			if (count($license) === 0 || $license[0]->getLicensekey() === '') {
+				$license = $this->findByGroup('');
+			}
+		}
+
+		// If we haven't found a license, then usage is unlicensed
+		if (count($license) === 0) {
+			return null;
+		} else {
+			return $license[0];
+		}
+	}
+
 	/**
 	 * @return never
 	 */

@@ -9,6 +9,7 @@ use JsonSerializable;
 class ConnectedUser extends Entity implements JsonSerializable {
 	protected $userid;
 	protected $dateconnected;
+	protected $licenseid;
 
 	public function __construct() {
 		// add types in constructor
@@ -17,7 +18,8 @@ class ConnectedUser extends Entity implements JsonSerializable {
 		return [
 			'id' => $this->id,
 			'userid' => $this->userid,
-			'dateconnected' => $this->dateconnected
+			'dateconnected' => $this->dateconnected,
+			'licenseid' => $this->licenseid,
 		];
 	}
 }

@@ -38,8 +38,9 @@ class StatusApiController extends ApiController {
 	}
 	/**
 	 * @NoAdminRequired
-	 *
 	 * @NoCSRFRequired
+	 *
+	 * Get the status of the user's license
 	 *
 	 * @return DataResponse
 	 */
@@ -54,30 +55,36 @@ class StatusApiController extends ApiController {
 		$statusobj->currentusers = 0;
 		$statusobj->validlicense = false;
 
-		
-		if ($this->licensemanager->isLicenseCheckNeeded()) {
-			$result = $this->licensemanager->renewLicense();
+		// Finds out user's license
+		$result = $this->licenseservice->findUserLicense($this->userId);
+
+		// Unlicensed?
+		if (is_null($result)) {
+			return new DataResponse($statusobj);
 		}
 
-		$result = $this->licenseservice->findAll();
+		// Renews license if needed
+		if ($result->isCheckNeeded()) {
+			$result = $this->licensemanager->renewLicense($result->getNcgroup());
+		}
 
+		// Gets all license status information
 		if (isset($result) && $result !== null && $result !== false) {
-			if (is_array($result) && count($result) > 0
-				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
-				$statusobj->datelicenseend = $result[0]->getDatelicenseend();
-				$statusobj->maxusers = $result[0]->getMaxusers();
-				$statusobj->dategraceperiodend = $result[0]->getDategraceperiodend();
-				$statusobj->maxusersgrace = $result[0]->getMaxgraceusers();
-				$statusobj->currentusers = $this->licensemanager->getCurrentUserCount();
-				$statusobj->validLicense = !$result[0]->isLicenseExpired();
+			if ($result->getLevel() != "Error_clear" && $result->getLevel() != "Error_incomplete") {
+				$statusobj->datelicenseend = $result->getDatelicenseend();
+				$statusobj->maxusers = $result->getMaxusers();
+				$statusobj->dategraceperiodend = $result->getDategraceperiodend();
+				$statusobj->maxusersgrace = $result->getMaxgraceusers();
+				$statusobj->currentusers = $this->licensemanager->getCurrentUserCount($result->getId());
+				$statusobj->validLicense = !$result->isLicenseExpired();
 				$status = "";
-				if ($result[0]->isCheckNeeded()) {
+				if ($result->isCheckNeeded()) {
 					$status = "RevalidationRequired";
 				}
-				if ($result[0]->isLicenseExpired()) {
+				if ($result->isLicenseExpired()) {
 					$status = "Expired";
 				}
-				if (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+				if (!$result->isCheckNeeded() && !$result->isLicenseExpired()) {
 					$status = "Valid";
 				}
 				$statusobj->licenseaction = $status;
@@ -90,7 +97,7 @@ class StatusApiController extends ApiController {
 			}
 		}
 
-
+		// Returns license status
 		return new DataResponse($statusobj);
 	}
 }

@@ -150,64 +150,24 @@ class LicenseManager {
 		return false;
 	}
 
-	public function isLocalValid(): bool {
-		return $this->licenseExists() && !$this->isExpired() && ($this->isWithinUserCount() || $this->isWithinGraceUserCount()) && !$this->isLicenseCheckNeeded();
-	}
-	public function isValidLicense(): bool {
-		return $this->licenseExists() && !$this->isExpired() && ($this->isWithinUserCount() || $this->isWithinGraceUserCount());
-	}
-	public function isExpired() {
-		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses)) {
-			foreach ($licenses as $license) {
-				return $license->isLicenseExpired();
-			}
-		}
-		return false;
+	public function isLocalValid(License $license): bool {
+		return !$license->isLicenseExpired() && ($this->isWithinUserCount($license) || $this->isWithinGraceUserCount($license)) && !$license->isCheckNeeded();
 	}
 
-	public function licenseExists(): bool {
-		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses)) {
-			return true;
-		}
-		return false;
+	public function isWithinUserCount(License $license): bool {
+		$userCount = $this->connecteduserservice->getCount($license->getId());
+		$maxUserCount = $license->getMaxusers();
+		return $userCount <= $maxUserCount;
 	}
 
-	public function isWithinUserCount(): bool {
-		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses)) {
-			foreach ($licenses as $license) {
-				$userCount = $this->connecteduserservice->getCount();
-				$maxUserCount = $license->getMaxusers();
-				return $userCount <= $maxUserCount;
-			}
-		}
-		return false;
+	public function isWithinGraceUserCount(License $license): bool {
+		$userCount = $this->connecteduserservice->getCount();
+		$maxUserCount = $license->getMaxgraceusers();
+		return $userCount <= $maxUserCount;
 	}
 
-	public function isWithinGraceUserCount(): bool {
-		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses)) {
-			foreach ($licenses as $license) {
-				$userCount = $this->connecteduserservice->getCount();
-				$maxUserCount = $license->getMaxgraceusers();
-				return $userCount <= $maxUserCount;
-			}
-		}
-		return false;
-	}
-	public function getCurrentUserCount() {
-		return $this->connecteduserservice->getCount();
+	public function getCurrentUserCount(string $licenseId) {
+		return $this->connecteduserservice->getCount($licenseId);
 	}
 
-	public function isLicenseCheckNeeded() {
-		$licenses = $this->licenseservice->findAll();
-		if (isset($licenses)) {
-			foreach ($licenses as $license) {
-				return $license->isCheckNeeded();
-			}
-		}
-		return false;
-	}
 }

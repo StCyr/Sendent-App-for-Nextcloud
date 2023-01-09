@@ -59,9 +59,11 @@ class ConnectedUserService {
 			$this->handleException($e);
 		}
 	}
-	public function getCount() {
+
+	// Gets the number of user using $licenseId
+	public function getCount(string $licenseId) {
 		try {
-			return $this->mapper->getCount();
+			return $this->mapper->getCount($licenseId);
 
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -72,15 +74,16 @@ class ConnectedUserService {
 			return 0;
 		}
 	}
-	public function create(string $userid, DateTime $dateconnected): \OCP\AppFramework\Db\Entity {
+	public function create(string $userid, DateTime $dateconnected, int $licenseId): \OCP\AppFramework\Db\Entity {
 		$this->cleanup();
 		$connecteduser = new ConnectedUser();
 		$connecteduser->setUserid($userid);
 		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d H:i:s"));
+		$connecteduser->setLicenseid($licenseId);
 		return $this->mapper->insert($connecteduser);
 	}
 
-	public function update(int $id,string $userid, DateTime $dateconnected): \OCP\AppFramework\Db\Entity {
+	public function update(int $id,string $userid, DateTime $dateconnected, int $licenseId): \OCP\AppFramework\Db\Entity {
 		$this->cleanup();
 		try {
 			$connecteduser = $this->mapper->find($id);
@@ -89,6 +92,7 @@ class ConnectedUserService {
 		}
 		$connecteduser->setUserid($userid);
 		$connecteduser->setDateconnected(date_format($dateconnected,"Y-m-d H:i:s"));
+		$connecteduser->setLicenseid($licenseId);
 		return $this->mapper->update($connecteduser);
 	}
 	
