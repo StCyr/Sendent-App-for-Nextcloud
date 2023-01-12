@@ -27,20 +27,15 @@ export default class GroupsManagementHandler {
 			connectWith: ".connectedSortable"
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
-        .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#sendentGroups").sortable({
 			connectWith: ".connectedSortable",
-			handle: ".handle",
 			update: () => this.instance.updateSendentGroups()
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
-        .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#defaultGroup").sortable({
 			cancel: ".unsortable",
-			handle: ".handle",
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
-        .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 
         return this.instance;
     }

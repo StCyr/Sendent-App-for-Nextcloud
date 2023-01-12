@@ -90,6 +90,10 @@ textarea{
 	color: var(--color-primary-text);
 }
 
+.ui-state-default {
+	padding: 5px;
+}
+
 label{
 	grid-area: a;
 }
