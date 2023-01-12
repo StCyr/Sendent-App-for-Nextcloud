@@ -76,8 +76,8 @@ class LicenseApiController extends ApiController {
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
 					if ($result[0]->isCheckNeeded()) {
 						try {
-							$this->licensemanager->renewLicense($ncgroup);
-							$result = $this->service->findByGroup($ncgroup);
+							$this->licensemanager->renewLicense($result[0]);
+							$result = $this->service->findByGroup($result[0]->getNcgroup());
 							if (isset($result) && $result !== null && $result !== false) {
 								if (is_array($result) && count($result) > 0
 								&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
@@ -169,7 +169,7 @@ class LicenseApiController extends ApiController {
 		// Finds out user's license
 		$license = $this->service->findUserLicense($this->userId);
 
-		$this->licensemanager->renewLicense($license->getNcgroup());
+		$this->licensemanager->renewLicense($license);
 	}
 
 	/**
@@ -185,7 +185,7 @@ class LicenseApiController extends ApiController {
 			return false;
 		}
 
-		$this->licensemanager->renewLicense($license->getNcgroup());
+		$this->licensemanager->renewLicense($license);
 		return $this->licensemanager->isLocalValid($license);
 	}
 }

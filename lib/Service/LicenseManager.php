@@ -48,48 +48,40 @@ class LicenseManager {
 		}
 	}
 
-	public function renewLicense(string $ncgroup = '') {
-		try {
-			$licenses = $this->licenseservice->findByGroup($ncgroup);
-			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
-				$license = $licenses[0];
-				$license = $this->subscriptionvalidationhttpclient->validate($license);
-				if (isset($license)) {
-					$maxUsers = $license->getMaxusers();
-					if (!isset($maxUsers)) {
-						$maxUsers = 1;
-					}
-					$maxGraceUsers = $license->getMaxgraceusers();
-					if (!isset($maxGraceUsers)) {
-						$maxGraceUsers = 1;
-					}
-					$level = $license->getLevel();
-					if (!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == "")) {
-						$level = "Error_incomplete";
-					} elseif (!isset($level)) {
-						$level = "Error_validating";
-					}
-					
-					return $this->licenseservice->update(
-						$license->getId(),
-						$license->getLicensekey(),
-						date_create($license->getDategraceperiodend()),
-						date_create($license->getDatelicenseend()),
-						$maxUsers,
-						$maxGraceUsers,
-						$license->getEmail(),
-						date_create($license->getDatelastchecked()),
-						$level,
-						$ncgroup
-					);
-				} else {
-					$license = new License();
-					$license->setLevel("nolicense");
-					return $license;
-				}
+	public function renewLicense(License $license) {
+		$license = $this->subscriptionvalidationhttpclient->validate($license);
+		if (isset($license)) {
+			$maxUsers = $license->getMaxusers();
+			if (!isset($maxUsers)) {
+				$maxUsers = 1;
 			}
-		} catch (Exception $e) {
-			$this->handleException($e);
+			$maxGraceUsers = $license->getMaxgraceusers();
+			if (!isset($maxGraceUsers)) {
+				$maxGraceUsers = 1;
+			}
+			$level = $license->getLevel();
+			if (!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == "")) {
+				$level = "Error_incomplete";
+			} elseif (!isset($level)) {
+				$level = "Error_validating";
+			}
+
+			return $this->licenseservice->update(
+				$license->getId(),
+				$license->getLicensekey(),
+				date_create($license->getDategraceperiodend()),
+				date_create($license->getDatelicenseend()),
+				$maxUsers,
+				$maxGraceUsers,
+				$license->getEmail(),
+				date_create($license->getDatelastchecked()),
+				$level,
+				$license->getNcgroup()
+			);
+		} else {
+			$license = new License();
+			$license->setLevel("nolicense");
+			return $license;
 		}
 	}
 

@@ -38,6 +38,7 @@ class SubscriptionValidationHttpClient {
 		$validatedLicense->setId($licenseData->getId());
 		$validatedLicense->setLicensekey($licenseData->getLicensekey());
 		$validatedLicense->setEmail($licenseData->getEmail());
+		$validatedLicense->setNcgroup($licenseData->getNcgroup());
 
 		try {
 			$result = $this->licenseHttpClient->post('subscription/validate', $data);

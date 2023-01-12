@@ -65,7 +65,7 @@ class StatusApiController extends ApiController {
 
 		// Renews license if needed
 		if ($result->isCheckNeeded()) {
-			$result = $this->licensemanager->renewLicense($result->getNcgroup());
+			$result = $this->licensemanager->renewLicense($result);
 		}
 
 		// Gets all license status information
