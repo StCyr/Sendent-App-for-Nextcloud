@@ -22,11 +22,11 @@
 				<?php } ?>
 			</ul>
 		</div>
-		<div style="display: flex; flex-direction: column">
+		<div style="display: flex; flex-direction: column; overflow: auto">
 			<ul id="defaultGroup" class="defaultList">
 				<li class="ui-state-default unsortable ui-selected"><?php p($l->t('Default')); ?></li>
 			</ul>
-			<ul id="sendentGroups" class="connectedSortable" style="max-width: 400px">
+			<ul id="sendentGroups" class="connectedSortable" style="min-height: 228px; max-height: 228px;max-width: 400px">
 				<?php foreach ($_['sendentGroups'] as $group) { ?>
 					<li class="ui-state-default"><?php p($group); ?></li>
 				<?php } ?>
