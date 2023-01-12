@@ -133,7 +133,7 @@ class LicenseService {
 			$license = $this->findByGroup('');
 		} else {
 			// Gets license of first matching group (highest priority)
-			$license = $this->findByGroup($userSendentGroups[0]);
+			$license = $this->findByGroup($userSendentGroups[array_keys($userSendentGroups)[0]]);
 			// If the group has no license assigned, then gets default license
 			if (count($license) === 0 || $license[0]->getLicensekey() === '') {
 				$license = $this->findByGroup('');
