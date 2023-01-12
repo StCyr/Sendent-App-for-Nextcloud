@@ -5,19 +5,34 @@ namespace OCA\Sendent\Controller;
 use OCP\AppFramework\ApiController;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\IRequest;
+use OCA\Sendent\Db\SettingGroupValueMapper;
 
 class SettingGroupsManagementController extends ApiController {
 
 	/** @var IAppConfig */
 	private $appConfig;
 
-	public function __construct($appName, IAppConfig $appConfig, IRequest $request) {
+	/** @var SettingGroupValueMapper*/
+	private $mapper;
+
+	public function __construct($appName, IAppConfig $appConfig, IRequest $request, SettingGroupValueMapper $mapper) {
 		parent::__construct($appName, $request);
 		$this->appConfig = $appConfig;
+		$this->mapper = $mapper;
 	}
 
-	public function update($sendentGroups) {
-		$this->appConfig->setAppValue('sendentGroups', json_encode($sendentGroups));
+	public function update($newSendentGroups) {
+
+		// Delete its settings when a group was deleted
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+		$deletedGroup = array_diff($sendentGroups, $newSendentGroups);
+		if (count($deletedGroup) > 0) {
+			$this->mapper->deleteSettingsForGroup($deletedGroup[array_keys($deletedGroup)[0]]);
+		}
+
+		// Saves new groups list
+		$this->appConfig->setAppValue('sendentGroups', json_encode($newSendentGroups));
 		return;
 	}
 }

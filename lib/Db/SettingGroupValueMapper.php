@@ -87,6 +87,13 @@ class SettingGroupValueMapper extends QBMapper {
 		return $this->findEntities($qb);
 	}
 
+	public function deleteSettingsForGroup($gid = '') {
+		$settings = $this->findSettingsForNCGroup($gid);
+		foreach ($settings as $setting) {
+			$this->delete($setting);
+		}
+	}
+
 	/**
 	 * @return \OCP\AppFramework\Db\Entity[]
 	 *

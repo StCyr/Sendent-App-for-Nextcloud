@@ -78,11 +78,11 @@ export default class GroupsManagementHandler {
 		// Get the list of sendent groups from the UI
 		// TODO: Rewrite the selection with a each()
 		const li = $('#sendentGroups li');
-		const sendentGroups = Object.values(li).map(htmlElement => htmlElement.textContent).filter(text => text !== undefined);
+		const newSendentGroups = Object.values(li).map(htmlElement => htmlElement.textContent).filter(text => text !== undefined);
 
 		// Update backend
 		const url = generateUrl('/apps/sendent/api/2.0/groups/update');
-		return axios.post(url, {sendentGroups});
+		return axios.post(url, {newSendentGroups});
 
 	}
 }
