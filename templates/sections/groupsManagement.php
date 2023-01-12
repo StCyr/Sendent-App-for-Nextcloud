@@ -37,16 +37,10 @@
 			</ul>
 		</div>
 	</div>
-	<div class="license-settings-setting-box" id="licenseMessage" style="margin-top: 20px">
-        <div class="settingkeyvalue">
-
-            <div class="labelFullWidth" id="lblLicenseMessage">
-                <?php p($l->t('Showing settings for group ')); ?>
-				<span id="currentGroup" style="font-weight: bold">Default</span>
-            </div>
-            <input type="hidden" name="settingkeyname" value="licenseMessage">
-            <input type="hidden" name="settingkeykey" value="1000">
-            <input type="hidden" name="settingkeyid" value="1000">
-        </div>
-    </div>
+</div>
+<div class="settingTemplateDetailInclude section">
+    <h1 style="margin-bottom: 0px;">
+        <?php p($l->t('Showing settings for group ')); ?>
+		<span id="currentGroup">Default</span>
+    </h1>
 </div>
