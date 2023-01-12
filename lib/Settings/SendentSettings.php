@@ -69,14 +69,19 @@ class SendentSettings implements ISettings {
 
 		// Finds out if a Nextcloud group used in the app has been deleted
 		$sendentGroups = array_map(function ($sendentGroup) {
+			$deleteString = ' *** DELETED GROUP ***';
+
+			$sendentGroup = str_ends_with($sendentGroup, $deleteString) ? substr_replace($sendentGroup, '', -strlen($deleteString)): $sendentGroup;
+
 			$groups = $this->groupManager->search($sendentGroup);
 			foreach ($groups as $group) {
 				if ($group->getDisplayName() === $sendentGroup) {
 					return $sendentGroup;
 				}
 			}
+
 			// Group hasn't been found in Nextcloud groups, so it has been deleted
-			return $sendentGroup . ' *** DELETED GROUP ***';
+			return $sendentGroup . $deleteString;
 		}, $sendentGroups);
 
 		$params['ncGroups'] = $NCGroups;
