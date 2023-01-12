@@ -3,19 +3,15 @@
         <?php p($l->t('Sendent Groups')); ?>
     </h1>
 
-	<div class="license-settings-setting-box" id="licenseMessage">
+	<div class="license-settings-setting-box">
         <div class="settingkeyvalue">
 
-            <div class="labelFullWidth" id="lblLicenseMessage"
-                style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">
+            <div class="labelFullWidth">
                 <?php p($l->t('Specify Nextcloud groups for which you want to apply specific settings by dragging them from the left list to the right one.')); ?>
-                <br><br>
+                <br>
                 <?php p($l->t('Specify precedence by sorting them in the right list; Groups that are higher in the list get greater precedence')); ?>
                 <?php p($l->t(' (ie: If a user is member of several groups, the settings of the group with the greatest precedence will apply).')); ?>
             </div>
-            <input type="hidden" name="settingkeyname" value="licenseMessage">
-            <input type="hidden" name="settingkeykey" value="1000">
-            <input type="hidden" name="settingkeyid" value="1000">
         </div>
     </div>
 	<div style="display: flex; margin-top: 10px">
