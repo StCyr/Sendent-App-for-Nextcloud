@@ -29,7 +29,6 @@ export default class GroupsManagementHandler {
 		.on( "click", this.instance.showSettingsForGroup)
         .prepend( "<div class='handle'><span class='ui-icon ui-icon-carat-2-n-s'></span></div>" );
 		$("#sendentGroups").sortable({
-			cancel: ".unsortable",
 			connectWith: ".connectedSortable",
 			handle: ".handle",
 			update: () => this.instance.updateSendentGroups()
