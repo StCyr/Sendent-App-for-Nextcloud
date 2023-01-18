@@ -7,34 +7,50 @@ script('sendent', 'settings');
 script('sendent', 'termsAgreement');
 style('sendent', ['style']);
 ?>
-<div class="TermsAgreement">
-<?php print_unescaped($this->inc('sections/termsAgreement')); ?>
+
+<div style="overflow:hidden;border: 1px solid #ccc; background-color: #f1f1f1">
+	<button class="tablink active" id="tab_sendent_general" style="margin-left: 5px">General</button>
+	<button class="tablink" id="tab_sendent_settings">Client Settings</button>
 </div>
-<div class="Settingspage">
 
-<?php print_unescaped($this->inc('sections/license')); ?>
+<div class="Settingspage" id="sendent_general">
 
-<form class="form" method="post" id="settingsform">
+	<div class="TermsAgreement">
+		<?php print_unescaped($this->inc('sections/termsAgreement')); ?>
+	</div>
 
-    <?php print_unescaped($this->inc('sections/groupsManagement')); ?>
+	<?php print_unescaped($this->inc('sections/defaultLicenseStatus')); ?>
 
-    <?php print_unescaped($this->inc('sections/general')); ?>
+	<?php print_unescaped($this->inc('sections/outlookAddon')); ?>
 
-    <?php print_unescaped($this->inc('sections/talk')); ?>
+	<?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
 
-    <?php print_unescaped($this->inc('sections/domainExceptions')); ?>
+</div>
 
-    <?php print_unescaped($this->inc('sections/attachments')); ?>
+<div class="Settingspage" id="sendent_settings" style="display:none">
 
-    <?php print_unescaped($this->inc('sections/fileHandling')); ?>
+	<form class="form" method="post" id="settingsform">
 
-    <?php print_unescaped($this->inc('sections/secureMail')); ?>
+	    <?php print_unescaped($this->inc('sections/groupsManagement')); ?>
 
-    <?php print_unescaped($this->inc('sections/guestAccounts')); ?>
+		<?php print_unescaped($this->inc('sections/license')); ?>
 
-    <?php print_unescaped($this->inc('sections/advancedTheming')); ?>
+    	<?php print_unescaped($this->inc('sections/general')); ?>
 
-</form>
+	    <?php print_unescaped($this->inc('sections/talk')); ?>
 
-<?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
+	    <?php print_unescaped($this->inc('sections/domainExceptions')); ?>
+
+    	<?php print_unescaped($this->inc('sections/attachments')); ?>
+
+	    <?php print_unescaped($this->inc('sections/fileHandling')); ?>
+
+    	<?php print_unescaped($this->inc('sections/secureMail')); ?>
+
+	    <?php print_unescaped($this->inc('sections/guestAccounts')); ?>
+
+    	<?php print_unescaped($this->inc('sections/advancedTheming')); ?>
+
+	</form>
+
 </div>

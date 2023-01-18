@@ -7,9 +7,25 @@ $(() => {
     console.log('Setting script loaded');
 
     const licenseHandler = LicenseHandler.setup('');
-    const settingFormHandler = SettingFormHandler.get()
+    const settingFormHandler = SettingFormHandler.get();
 	settingFormHandler.loopThroughSettings();
 	GroupsManagementHandler.setup(settingFormHandler, licenseHandler);
+
+	$('.tablink').on('click', function (ev) {
+    	// Get all elements with class="tabcontent" and hide them
+    	$(".Settingspage").css('display', 'none');
+
+		// Get all elements with class="tablinks" and remove the class "active"
+		$(".tablink").removeClass("active");
+
+		// Show the current tab, and add an "active" class to the button that opened the tab
+		var tabName = ev.currentTarget.id;
+		tabName = "#" + tabName.substring(4);	
+		console.log(tabName);
+		$(tabName).css('display', 'block');
+		ev.currentTarget.className += " active";
+
+	});
 
     $('#settingsform').on('submit', function (ev) {
         ev.preventDefault();

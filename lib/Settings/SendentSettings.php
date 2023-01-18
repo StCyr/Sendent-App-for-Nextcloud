@@ -3,11 +3,14 @@
 namespace OCA\Sendent\Settings;
 
 use OCA\Sendent\Constants;
+use OCA\Sendent\Service\LicenseService;
+use OCA\Sendent\Service\LicenseManager;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IGroupManager;
+use OCP\IL10N;
 use OCP\Settings\ISettings;
 use OCP\SystemTag\ISystemTagManager;
 use OCP\SystemTag\TagNotFoundException;
@@ -29,18 +32,33 @@ class SendentSettings implements ISettings {
 	/** @var ISystemTagManager */
 	private $tagManager;
 
+	/** @var IL10N */
+	private $l;
+
+	/** @var LicenseManager */
+	private $licenseManager;
+
+	/** @var LicenseService */
+	private $licenseService;
+
 	public function __construct(
 		IAppManager $appManager,
 		IGroupManager $groupManager,
 		IInitialState $initialState,
 		IAppConfig $appConfig,
-		ISystemTagManager $tagManager
-			) {
+		ISystemTagManager $tagManager,
+		IL10N $l,
+		LicenseManager $licenseManager,
+		LicenseService $licenseService
+		) {
 		$this->appManager = $appManager;
 		$this->groupManager = $groupManager;
 		$this->initialState = $initialState;
 		$this->appConfig = $appConfig;
 		$this->tagManager = $tagManager;
+		$this->l = $l;
+		$this->licenseManager = $licenseManager;
+		$this->licenseService = $licenseService;
 	}
 
 	/**
@@ -53,6 +71,44 @@ class SendentSettings implements ISettings {
 		]);
 
 		$this->initialState->provideInitialState('tags', $this->getTagState());
+
+		$params = $this->initializeGroups();
+
+		// Gets default license info
+		$license = $this->licenseService->findByGroup("");
+
+		// Sets default license info
+		$params['defaultLicenseLevel'] = $license[0]->getLevel();
+		$params['defaultLicenseExpirationDate'] = $license[0]->getDatelicenseend();
+		$params['defaultLicenseLastCheck'] = $license[0]->getDatelastchecked();
+
+		if ($license[0]->isCleared()) {
+			$params['defaultLicenseStatus'] = $this->l->t("No license configured");
+		} elseif ($license[0]->isIncomplete()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Missing email address or license key.");
+		} elseif ($license[0]->isCheckNeeded()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Revalidation of your license is required");
+		} elseif ($license[0]->isLicenseExpired()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Current license has expired.") .
+				"</br>" .
+				$this->l->t('%1$sContact sales%2$s to renew your license.', ["<a href='mailto:info@sendent.nl' style='color:blue'>", "</a>"]);
+		} elseif (!$license[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Current license is valid");
+		} elseif (!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
+		} elseif (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
+			$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
+		}
+
+		return new TemplateResponse('sendent', 'index', $params);
+	}
+
+	/**
+	 * Returns 2 lists of groups:
+	 * 	1- All Nextcloud groups except the groups in the second list;
+	 * 	2- All Nextcloud groups that are used in for our client settings
+	 */
+	private function initializeGroups() {
 
 		// Gets groups used in the app
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
@@ -87,7 +143,7 @@ class SendentSettings implements ISettings {
 		$params['ncGroups'] = $NCGroups;
 		$params['sendentGroups'] = $sendentGroups;
 
-		return new TemplateResponse('sendent', 'index', $params);
+		return $params;
 	}
 
 	/**
