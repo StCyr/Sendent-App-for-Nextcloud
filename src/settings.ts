@@ -19,7 +19,7 @@ $(() => {
 		$(".tablink").removeClass("active");
 
 		// Show the current tab, and add an "active" class to the button that opened the tab
-		var tabName = ev.currentTarget.id;
+		let tabName = ev.currentTarget.id;
 		tabName = "#" + tabName.substring(4);	
 		console.log(tabName);
 		$(tabName).css('display', 'block');
