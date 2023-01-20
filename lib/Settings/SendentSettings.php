@@ -96,7 +96,7 @@ class SendentSettings implements ISettings {
 			$params['defaultLicenseStatus'] = $this->l->t("Current license has expired.") .
 				"</br>" .
 				$this->l->t('%1$sContact sales%2$s to renew your license.', ["<a href='mailto:info@sendent.nl' style='color:blue'>", "</a>"]);
-		} elseif (!$license[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
+		} elseif (!$license[0]->isCheckNeeded() && !$license[0]->isLicenseExpired()) {
 			$params['defaultLicenseStatus'] = $this->l->t("Current license is valid");
 		} elseif (!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount()) {
 			$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
