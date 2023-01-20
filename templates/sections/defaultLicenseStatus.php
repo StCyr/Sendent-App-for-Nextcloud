@@ -1,8 +1,8 @@
 <div class="settingTemplateDetailExclude section" id="defaultLicenseStatus">
 
-    <h1>
+    <h2>
         <?php p($l->t('Default license information')); ?>
-    </h1>
+    </h2>
 
     <div class="license-settings-setting-box">
         <div class="settingkeyvalue">

@@ -23,6 +23,8 @@ style('sendent', ['style']);
 
 	<?php print_unescaped($this->inc('sections/outlookAddon')); ?>
 
+	<?php print_unescaped($this->inc('sections/dependencies')); ?>
+	
 	<?php print_unescaped($this->inc('sections/retentionAssistant')); ?>
 
 </div>

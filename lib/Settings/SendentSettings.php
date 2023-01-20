@@ -77,6 +77,10 @@ class SendentSettings implements ISettings {
 		// Gets default license info
 		$license = $this->licenseService->findByGroup("");
 
+		// Gets dependencies status
+		$deps = $this->checkDependenciesStatus();
+		$params = array_merge($params, $deps);
+
 		// Sets default license info
 		$params['defaultLicenseLevel'] = $license[0]->getLevel();
 		$params['defaultLicenseExpirationDate'] = $license[0]->getDatelicenseend();
@@ -101,6 +105,44 @@ class SendentSettings implements ISettings {
 		}
 
 		return new TemplateResponse('sendent', 'index', $params);
+	}
+
+	private function checkDependenciesStatus() {
+		$apps = [];
+		foreach (Constants::APPS_REQUIRED as $app) {
+			$appInfo = $this->appManager->getAppInfo($app);
+			if ($this->appManager->isInstalled($app)) {
+				array_push($apps, [
+					'name' => $appInfo['name'],
+					'status' => True
+				]);
+			} else {
+				array_push($apps, [
+					'name' => $app,
+					'status' => False
+				]);
+			}
+		}
+		$params['requiredApps'] = $apps;
+
+		$apps = [];
+		foreach (Constants::APPS_RECOMMENDED as $app) {
+			$appInfo = $this->appManager->getAppInfo($app);
+			if ($this->appManager->isInstalled($app)) {
+				array_push($apps, [
+					'name' => $appInfo['name'],
+					'status' => True
+				]);
+			} else {
+				array_push($apps, [
+					'name' => $app,
+					'status' => False
+				]);
+			}
+		}
+		$params['recommendedApps'] = $apps;
+
+		return $params;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <div class="settingTemplateDetailExclude section" id="outlookAddon">
-	<h1>
+	<h2>
         <?php p($l->t('Outlook Add-in version information')); ?>
-	</h1>
+	</h2>
     <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label class="licenselabel">
