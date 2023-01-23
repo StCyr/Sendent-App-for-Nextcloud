@@ -1,5 +1,6 @@
 /* eslint-disable @nextcloud/no-deprecations */
-import LicenseHandler from "./imports/LicenseHandler"
+import "../css/dependencies.scss";
+import LicenseHandler from "./imports/LicenseHandler";
 import SettingFormHandler from "./imports/SettingFormHandler";
 import GroupsManagementHandler from "./imports/GroupsManagementHandler";
 

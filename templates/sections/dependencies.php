@@ -10,21 +10,19 @@
                 <?php p($l->t('Required applications')); ?>
             </h1>
             <?php foreach($_['requiredApps'] as $app) { ?>
-                <div class="license-settings-setting-box">
-                    <div class="settingkeyvalue">
+                <div class="dependency-settings-setting-box">						
+                    <div class="settingkeyvalue"
+						<?php if ($app['status']) { ?>
+							data-state='success'
+    	                <?php } else { ?>
+							data-state='fail'
+            	        <?php }; ?>
+					>
                         <label class="licenselabel">
                             <span class="templatesettingkeyname licenseitem">
                                 <?php p($app['name']); ?></span>
                         </label>
-                        <?php if ($app['status']) { ?>
-                            <span class="statuskeyvalueinput statusitem statusOK">
-                            <?php p($l->t('Installed')); ?>
-                        <?php } else { ?>
-                            <span class="statuskeyvalueinput statusitem statusNOK">
-                            <?php p($l->t('Not installed')); ?>
-                        <?php }; ?>
-                            </span>
-                    </div>
+					</div>
                 </div>
             <?php }; ?>
         </div>
@@ -34,20 +32,18 @@
                 <?php p($l->t('Recommended applications')); ?>
             </h1>
             <?php foreach($_['recommendedApps'] as $app) { ?>
-                <div class="license-settings-setting-box">
-                    <div class="settingkeyvalue">
+                <div class="dependency-settings-setting-box">
+                    <div class="settingkeyvalue"
+						<?php if ($app['status']) { ?>
+							data-state='success'
+    	                <?php } else { ?>
+							data-state='fail'
+            	        <?php }; ?>
+					>
                         <label class="licenselabel">
                             <span class="templatesettingkeyname licenseitem">
                                 <?php p($app['name']); ?></span>
                         </label>
-                        <?php if ($app['status']) { ?>
-                            <span class="statuskeyvalueinput statusitem statusOK">
-                            <?php p($l->t('Installed')); ?>
-                        <?php } else { ?>
-                            <span class="statuskeyvalueinput statusitem statusNOK">
-                            <?php p($l->t('Not installed')); ?>
-                        <?php }; ?>
-                            </span>
                     </div>
                 </div>
             <?php }; ?>

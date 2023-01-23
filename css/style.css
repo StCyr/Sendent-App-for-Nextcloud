@@ -1,10 +1,7 @@
 #hello {
 	color: red;
 }
-.personal-settings-setting-box{
-	position:relative;
-}
-.license-settings-setting-box{
+.personal-settings-setting-box, .license-settings-setting-box, .dependency-settings-setting-box{
 	position:relative;
 }
 .settingkeyvalueinput{
