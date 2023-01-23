@@ -74,34 +74,35 @@ class SendentSettings implements ISettings {
 
 		$params = $this->initializeGroups();
 
-		// Gets default license info
-		$license = $this->licenseService->findByGroup("");
-
 		// Gets dependencies status
 		$deps = $this->checkDependenciesStatus();
 		$params = array_merge($params, $deps);
 
-		// Sets default license info
-		$params['defaultLicenseLevel'] = $license[0]->getLevel();
-		$params['defaultLicenseExpirationDate'] = $license[0]->getDatelicenseend();
-		$params['defaultLicenseLastCheck'] = $license[0]->getDatelastchecked();
-
-		if ($license[0]->isCleared()) {
+		// Gets default license info
+		$license = $this->licenseService->findByGroup("");
+		if (count($license) === 0) {
 			$params['defaultLicenseStatus'] = $this->l->t("No license configured");
-		} elseif ($license[0]->isIncomplete()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Missing email address or license key.");
-		} elseif ($license[0]->isCheckNeeded()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Revalidation of your license is required");
-		} elseif ($license[0]->isLicenseExpired()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Current license has expired.") .
-				"</br>" .
-				$this->l->t('%1$sContact sales%2$s to renew your license.', ["<a href='mailto:info@sendent.nl' style='color:blue'>", "</a>"]);
-		} elseif (!$license[0]->isCheckNeeded() && !$license[0]->isLicenseExpired()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Current license is valid");
-		} elseif (!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
-		} elseif (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
-			$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
+		} else {
+			$params['defaultLicenseLevel'] = $license[0]->getLevel();
+			$params['defaultLicenseExpirationDate'] = $license[0]->getDatelicenseend();
+			$params['defaultLicenseLastCheck'] = $license[0]->getDatelastchecked();
+			if ($license[0]->isCleared()) {
+				$params['defaultLicenseStatus'] = $this->l->t("No license configured");
+			} elseif ($license[0]->isIncomplete()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Missing email address or license key.");
+			} elseif ($license[0]->isCheckNeeded()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Revalidation of your license is required");
+			} elseif ($license[0]->isLicenseExpired()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Current license has expired.") .
+					"</br>" .
+					$this->l->t('%1$sContact sales%2$s to renew your license.', ["<a href='mailto:info@sendent.nl' style='color:blue'>", "</a>"]);
+			} elseif (!$license[0]->isCheckNeeded() && !$license[0]->isLicenseExpired()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Current license is valid");
+			} elseif (!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
+			} elseif (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
+				$params['defaultLicenseStatus'] = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
+			}
 		}
 
 		return new TemplateResponse('sendent', 'index', $params);
