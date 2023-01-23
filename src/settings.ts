@@ -12,7 +12,7 @@ $(() => {
 	GroupsManagementHandler.setup(settingFormHandler, licenseHandler);
 
 	$('.tablink').on('click', function (ev) {
-    	// Get all elements with class="tabcontent" and hide them
+		// Get all elements with class="tabcontent" and hide them
     	$(".Settingspage").css('display', 'none');
 
 		// Get all elements with class="tablinks" and remove the class "active"
@@ -21,7 +21,6 @@ $(() => {
 		// Show the current tab, and add an "active" class to the button that opened the tab
 		let tabName = ev.currentTarget.id;
 		tabName = "#" + tabName.substring(4);	
-		console.log(tabName);
 		$(tabName).css('display', 'block');
 		ev.currentTarget.className += " active";
 
