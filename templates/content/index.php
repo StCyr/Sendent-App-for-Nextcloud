@@ -13,11 +13,11 @@ style('sendent', ['style']);
 	<button class="tablink" id="tab_sendent_settings">Client Settings</button>
 </div>
 
-<div class="Settingspage" id="sendent_general">
+<div class="TermsAgreement">
+	<?php print_unescaped($this->inc('sections/termsAgreement')); ?>
+</div>
 
-	<div class="TermsAgreement">
-		<?php print_unescaped($this->inc('sections/termsAgreement')); ?>
-	</div>
+<div class="Settingspage" id="sendent_general">
 
 	<?php print_unescaped($this->inc('sections/defaultLicenseStatus')); ?>
 
