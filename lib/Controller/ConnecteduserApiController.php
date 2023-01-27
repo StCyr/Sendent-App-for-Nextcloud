@@ -44,7 +44,7 @@ class ConnecteduserApiController extends ApiController {
 
 		// Finds out user's licenceId
 		$license = $this->licenseService->findUserLicense($this->userId);
-		$licenseId = is_null($license) ? $license->getId() : null;
+		$licenseId = is_null($license) ? null : $license->getId();
 
 		// Creates or updates the connected user entry
 		try {
