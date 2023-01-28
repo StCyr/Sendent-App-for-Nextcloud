@@ -5,6 +5,8 @@ namespace OCA\Sendent\Controller;
 use Exception;
 use OCP\IGroupManager;
 use OCP\IRequest;
+use OCP\IUserManager;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
@@ -14,21 +16,27 @@ use OCA\Sendent\Db\SettingGroupValueMapper;
 use OCA\Sendent\Service\SendentFileStorageManager;
 
 class SettingGroupValueApiController extends ApiController {
+	private $appConfig;
 	private $mapper;
 	private $FileStorageManager;
 	private $groupManager;
+	private $userId;
+	private $userManager;
 
-	public function __construct(IRequest $request, SettingGroupValueMapper $mapper,
-	 SendentFileStorageManager $FileStorageManager, IGroupManager $groupManager) {
+	public function __construct(IAppConfig $appConfig, IRequest $request, SettingGroupValueMapper $mapper,
+	 SendentFileStorageManager $FileStorageManager, IGroupManager $groupManager, IUserManager $userManager, $userId) {
 		parent::__construct(
 			"sendent",
 			$request,
 			'PUT, POST, GET, DELETE, PATCH',
 			'Authorization, Content-Type, Accept',
 			1728000);
+		$this->appConfig = $appConfig;
 		$this->mapper = $mapper;
 		$this->FileStorageManager = $FileStorageManager;
 		$this->groupManager = $groupManager;
+		$this->userId = $userId;
+		$this->userManager = $userManager;
 	}
 
 	/**
@@ -39,7 +47,53 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function index(string $ncgroup = ''): DataResponse {
+	public function index(): DataResponse {
+
+		// Gets groups for which specific settings and/or license are defined
+		// Groups are ordered from highest priority to lowest
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+
+		// Gets user groups
+		$user = $this->userManager->get($this->userId);
+		$userGroups = $this->groupManager->getUserGroups($user);
+		$userGroups = array_map(function ($group) {
+			return $group->getDisplayName();
+		}, $userGroups);
+
+		// Gets user groups that are sendentGroups
+		$userSendentGroups = array_intersect($sendentGroups, $userGroups);
+
+		// Returns settings for 1st matching group
+		if (count($userSendentGroups)) {
+			return $this->getForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]]);
+		} else {
+			return $this->getForNCGroup();
+		}
+
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @NoCSRFRequired
+	 *
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function getForDefaultGroup(): DataResponse {
+		return $this->getForNCGroup();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @NoCSRFRequired
+	 *
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function getForNCGroup(string $ncgroup = ''): DataResponse {
 		
 		// Find group's gid
 		if ($ncgroup !== '') {

@@ -11,12 +11,13 @@ export default class SettingGroupValueAjaxCalls {
 
     public async list(ncgroup?: string): Promise<any> {
 
-		let group = '';
-		if (typeof ncgroup !== 'undefined') {
-			group = ncgroup;
+		axios.get(generateUrl('/apps/sendent/api/1.0/settinggroupvalue/index'));
+		let response;
+		if (typeof ncgroup !== 'undefined' && ncgroup !== '') {
+			response = await axios.get(this.endpoint + '/getForNCGroup/' + ncgroup);
+		} else {
+			response = await axios.get(this.endpoint + '/getForDefaultGroup');
 		}
-
-        const response = await axios.get(this.endpoint + '/index?ncgroup=' + group);
 
         return response.data;
     }

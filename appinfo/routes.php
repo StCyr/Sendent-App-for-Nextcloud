@@ -30,6 +30,8 @@ return [
 			'requirements' => ['path' => '.+']
 		],
 		['name' => 'setting_group_value_api#index', 'url' => '/api/1.0/settinggroupvalue/index', 'verb' => 'GET'],
+		['name' => 'setting_group_value_api#getForDefaultGroup', 'url' => '/api/1.0/settinggroupvalue/getForDefaultGroup', 'verb' => 'GET'],
+		['name' => 'setting_group_value_api#getForNCGroup', 'url' => '/api/1.0/settinggroupvalue/getForNCGroup/{ncgroup}', 'verb' => 'GET'],
 		['name' => 'setting_group_value_api#show', 'url' => '/api/1.0/settinggroupvalue/{id}', 'verb' => 'GET'],
 		['name' => 'setting_group_value_api#showBySettingKeyId', 'url' => '/api/1.0/settinggroupvalue/showbysettingkeyid/{settingkeyid}', 'verb' => 'GET'],
 		['name' => 'setting_group_value_api#findByGroupId', 'url' => '/api/1.0/settinggroupvalue/findByGroupId/{groupid}', 'verb' => 'GET'],
