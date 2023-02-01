@@ -35,8 +35,9 @@
 	</div>
 </div>
 <div class="settingTemplateDetailInclude section">
-    <h1 style="margin-bottom: 0px;">
-        <?php p($l->t('Showing settings for group ')); ?>
-		<span id="currentGroup">Default</span>
-    </h1>
+    <h2 style="margin-bottom: 0px;">
+        <?php p($l->t('Showing settings for ')); ?>
+	<span id="currentGroup">Default</span>
+        <?php p($l->t(' group ')); ?>
+    </h2>
 </div>
