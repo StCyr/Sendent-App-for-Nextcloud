@@ -34,7 +34,7 @@
 		</div>
 	</div>
 </div>
-<div class="settingTemplateDetailInclude section">
+<div class="settingTemplateDetailInclude section" id="groupsManagementShow">
     <h2 style="margin-bottom: 0px;">
         <?php p($l->t('Showing settings for ')); ?>
 	<span id="currentGroup">Default</span>

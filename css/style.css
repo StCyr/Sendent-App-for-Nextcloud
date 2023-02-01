@@ -33,6 +33,15 @@
 .multiInputRow {
 	display: flex;
 }
+.section {
+	z-index: -1;
+}
+#groupsManagementShow {
+	position: sticky;
+	top: 50px;
+	background: var(--color-main-background);
+	z-index: 100;
+}
 
 select{
 	width:100%;
