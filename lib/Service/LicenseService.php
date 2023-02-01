@@ -10,6 +10,7 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\IGroupManager;
 use OCP\IUserManager;
+use Psr\Log\LoggerInterface;
 
 use OCA\Sendent\Db\License;
 use OCA\Sendent\Db\LicenseMapper;
@@ -20,14 +21,17 @@ class LicenseService {
 	private $mapper;
 	private $FileStorageManager;
 	private $userManager;
+	/** @var LoggerInterface */
+	private $logger;
 
-	public function __construct(IAppConfig $appConfig, IGroupManager $groupManager,
+	public function __construct(IAppConfig $appConfig, IGroupManager $groupManager, LoggerInterface $logger,
 				LicenseMapper $mapper, SendentFileStorageManager $FileStorageManager, IUserManager $userManager) {
 		$this->appConfig = $appConfig;
 		$this->groupManager = $groupManager;
 		$this->mapper = $mapper;
 		$this->FileStorageManager = $FileStorageManager;
 		$this->userManager = $userManager;
+		$this->logger = $logger;
 	}
 
 	public function delete(string $ncgroup = '') {
@@ -116,6 +120,7 @@ class LicenseService {
 		// Groups are ordered from highest priority to lowest
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
 		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+		$this->logger->debug('Found sendent groups: ' . implode(',', $sendentGroups));
 
 		// Gets user groups
 		$user = $this->userManager->get($userId);
@@ -123,24 +128,30 @@ class LicenseService {
 		$userGroups = array_map(function ($group) {
 			return $group->getDisplayName();
 		}, $userGroups);
+		$this->logger->debug('Found user groups: ' . implode(',', $userGroups));
 
 		// Gets user groups that are sendentGroups
 		$userSendentGroups = array_intersect($sendentGroups, $userGroups);
+		$this->logger->debug('Groups intersection: ' . implode(',', $userSendentGroups));
 
 		// Finds user license
 		if (count($userSendentGroups) === 0) {
 			// User is not member of any sendentGroups => Gets default license
+			$this->logger->debug('User is not member of any sendent group, getting default group license');
 			$license = $this->findByGroup('');
 		} else {
 			// Gets license of first matching group (highest priority)
 			$license = $this->findByGroup($userSendentGroups[array_keys($userSendentGroups)[0]]);
 			// If the group has no license assigned, then gets default license
 			if (count($license) === 0 || $license[0]->getLicensekey() === '') {
+				$this->logger->debug('Did not find a license for group ' . $userSendentGroups[array_keys($userSendentGroups)[0]]);
 				$license = $this->findByGroup('');
 			}
+			$this->logger->debug('Found license: ' . $license[0]->getId() . ' for group ' . $userSendentGroups[array_keys($userSendentGroups)[0]]);
 		}
 
 		// If we haven't found a license, then usage is unlicensed
+		$this->logger->debug('Found license: ' . $license[0]->getId());
 		if (count($license) === 0) {
 			return null;
 		} else {
