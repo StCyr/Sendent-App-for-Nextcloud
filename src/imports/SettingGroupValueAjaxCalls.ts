@@ -10,8 +10,6 @@ export default class SettingGroupValueAjaxCalls {
     }
 
     public async list(ncgroup?: string): Promise<any> {
-
-		axios.get(generateUrl('/apps/sendent/api/1.0/settinggroupvalue/index'));
 		let response;
 		if (typeof ncgroup !== 'undefined' && ncgroup !== '') {
 			response = await axios.get(this.endpoint + '/getForNCGroup/' + ncgroup);
@@ -19,7 +17,7 @@ export default class SettingGroupValueAjaxCalls {
 			response = await axios.get(this.endpoint + '/getForDefaultGroup');
 		}
 
-        return response.data;
+	    return response.data;
     }
 
     public async delete(id: string, ncgroup: string): Promise<any> {

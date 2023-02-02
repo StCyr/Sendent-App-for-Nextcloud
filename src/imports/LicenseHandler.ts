@@ -100,7 +100,12 @@ export default class LicenseHandler {
             $("#licenseEmail").val(status.email);
             $("#licensekey").val(status.licensekey);
             
-
+			if (ncgroup === '') {
+				$("#defaultlicensestatus").html(status.status);
+	            $("#defaultlicenselastcheck").text(status.dateLastCheck);
+				$("#defaultlicenseexpires").text(status.dateExpiration);
+				$("#defaultlicenselevel").text(status.level);
+			}
 
             this.updateStatus(status.statusKind);
             this.updateButtonStatus(status.statusKind);
