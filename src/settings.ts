@@ -1,5 +1,6 @@
 /* eslint-disable @nextcloud/no-deprecations */
 import "../css/dependencies.scss";
+import DependenciesHandler from "./imports/DependenciesHandler";
 import LicenseHandler from "./imports/LicenseHandler";
 import SettingFormHandler from "./imports/SettingFormHandler";
 import GroupsManagementHandler from "./imports/GroupsManagementHandler";
@@ -7,6 +8,7 @@ import GroupsManagementHandler from "./imports/GroupsManagementHandler";
 $(() => {
     console.log('Setting script loaded');
 
+	DependenciesHandler.setup();
     const licenseHandler = LicenseHandler.setup('');
     const settingFormHandler = SettingFormHandler.get();
 	settingFormHandler.loopThroughSettings();

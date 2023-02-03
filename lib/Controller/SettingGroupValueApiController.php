@@ -41,8 +41,9 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
-	 *
 	 * @NoCSRFRequired
+	 *
+	 * Gets settings for a specific user
 	 *
 	 * @param string $ncgroup
 	 * @return DataResponse
@@ -75,8 +76,9 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
-	 *
 	 * @NoCSRFRequired
+	 *
+	 * Get settings for the default group
 	 *
 	 * @param string $ncgroup
 	 * @return DataResponse
@@ -87,8 +89,9 @@ class SettingGroupValueApiController extends ApiController {
 
 	/**
 	 * @NoAdminRequired
-	 *
 	 * @NoCSRFRequired
+	 *
+	 * Gets settings for group $ncgroup
 	 *
 	 * @param string $ncgroup
 	 * @return DataResponse
