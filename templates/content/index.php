@@ -8,9 +8,9 @@ script('sendent', 'termsAgreement');
 style('sendent', ['style']);
 ?>
 
-<div style="overflow:hidden;border: 1px solid #ccc; background-color: #f1f1f1">
-	<button class="tablink active" id="tab_sendent_general" style="margin-left: 5px">General</button>
-	<button class="tablink" id="tab_sendent_settings">Client Settings</button>
+<div class="tabmenu">
+	<a class="tablink active" id="tab_sendent_general">General</a>
+	<a class="tablink" id="tab_sendent_settings">Client Settings</a>
 </div>
 
 <div class="TermsAgreement">
