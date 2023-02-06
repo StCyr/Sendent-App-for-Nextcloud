@@ -12,11 +12,15 @@ export default class DependenciesHandler {
             this.instance = new DependenciesHandler();
         }
 
+		$('#requiredApps').html('<div class="spinner"> <div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div></div>')
+		$('#recommendedApps').html('<div class="spinner"> <div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div></div>')
+
 		this.instance.getCapabilities().then(resp => {
 			const capabilities = resp.data.ocs.data.capabilities
 			const capabilitiesKeys = Object.keys(capabilities)
 
 			const requiredApps = ["core", "files", "dav", "ocm", "files_sharing", "password_policy", "theming"]			
+			$('#requiredApps').html('')
 			requiredApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
@@ -30,6 +34,7 @@ export default class DependenciesHandler {
 			})
 
 			const recommendedApps = ["activity", "talk"]
+			$('#recommendedApps').html('')
 			recommendedApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
