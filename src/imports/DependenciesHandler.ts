@@ -21,6 +21,7 @@ export default class DependenciesHandler {
 
 			const requiredApps = ["core", "files", "dav", "ocm", "files_sharing", "password_policy", "theming"]			
 			$('#requiredApps').html('')
+			let allGood = true
 			requiredApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
@@ -28,12 +29,20 @@ export default class DependenciesHandler {
 					const capability = capabilities[idx]
 					$(div).appendTo('#requiredApps')
 				} else {
+					allGood = false
 					let div = this.instance.createSettingBox(app, false)
 					$(div).appendTo('#requiredApps')
 				}
 			})
 
+			if (allGood) {
+				$('#requiredApps').html('')
+				let div = this.instance.createSettingBox('All installed', true)
+				$(div).appendTo('#requiredApps')
+			}
+
 			const recommendedApps = ["activity", "talk"]
+			allGood = true
 			$('#recommendedApps').html('')
 			recommendedApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
@@ -42,11 +51,17 @@ export default class DependenciesHandler {
 					const capability = capabilities[idx]
 					$(div).appendTo('#recommendedApps')
 				} else {
+					allGood = false
 					let div = this.instance.createSettingBox(app, false)
 					$(div).appendTo('#recommendedApps')
 				}
 			})
 
+			if (allGood) {
+				$('#recommendedApps').html('')
+				let div = this.instance.createSettingBox('All installed', true)
+				$(div).appendTo('#recommendedApps')
+			}
 
 		});
 
