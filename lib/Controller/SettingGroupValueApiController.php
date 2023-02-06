@@ -67,9 +67,9 @@ class SettingGroupValueApiController extends ApiController {
 
 		// Returns settings for 1st matching group
 		if (count($userSendentGroups)) {
-			return $this->getForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]]);
+			return $this->getForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]], true);
 		} else {
-			return $this->getForNCGroup();
+			return $this->getForNCGroup('', true);
 		}
 
 	}
@@ -96,7 +96,7 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function getForNCGroup(string $ncgroup = ''): DataResponse {
+	public function getForNCGroup(string $ncgroup = '', bool $wantUserSettings = false): DataResponse {
 		
 		// Find group's gid
 		if ($ncgroup !== '') {
@@ -138,12 +138,16 @@ class SettingGroupValueApiController extends ApiController {
 					array_push($list, $result);
 				} elseif (in_array($result->getSettingkeyid(), [0, 2])) {
 					// multivalue settings must be merged with the ones from the default group
-					$list = array_map(function ($setting) use ($result) {
+					$list = array_map(function ($setting) use ($result, $wantUserSettings) {
 						if ($setting->getSettingkeyid() === $result->getSettingkeyid()) {
-							$setting->setValue([
-								'defaultSetting' => $result->getValue(),
-								'groupSetting' => $setting->getValue()
-							]);
+							if ($wantUserSettings) {
+								$setting->setValue($result->getValue() . ';' . $setting->getValue());
+							} else {
+								$setting->setValue([
+									'defaultSetting' => $result->getValue(),
+									'groupSetting' => $setting->getValue()
+								]);
+							}
 						}
 						return $setting;
 					},$list);
