@@ -38,7 +38,7 @@
 }
 #groupsManagementShow {
 	position: sticky;
-	top: 84px;
+	top: 92px;
 	background: var(--color-main-background);
 	z-index: 100;
 }
@@ -48,16 +48,21 @@
 	z-index: 100;
 	width: 100%;
 	height: 34px;
-	padding: 5px;
+	padding: 5px 5px 35px 5px;
 	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+	background-color: var(--color-main-background);
 }
 .tablink {
 	margin: 10px;
+	font-size: 150%;
 }
 .tablink.active {
 	font-weight: bold;
 	border-bottom: 1px solid black;
+}
+
+.Settingspage {
+	padding-top: 15px;
 }
 
 select{
