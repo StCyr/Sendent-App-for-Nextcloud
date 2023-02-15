@@ -3,9 +3,9 @@
 /** @var $_ array */
 ?>
 <div class="settingTemplateDetailExclude section" id="license">
-    <h1>
+    <h2>
         <?php p($l->t('License information')); ?>
-    </h1>
+    </h2>
     <div class="license-settings-setting-box" id="licenseMessage">
         <div class="settingkeyvalue">
 

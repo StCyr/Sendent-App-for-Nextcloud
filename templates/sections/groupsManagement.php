@@ -1,7 +1,7 @@
 <div class="settingTemplateDetailInclude section" id="groupsManagement">
-    <h1>
+    <h2>
         <?php p($l->t('Sendent Groups')); ?>
-    </h1>
+    </h2>
 
 	<div class="license-settings-setting-box">
         <div class="settingkeyvalue">

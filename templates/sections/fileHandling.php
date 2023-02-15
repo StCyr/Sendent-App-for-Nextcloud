@@ -1,7 +1,7 @@
 <div class="settingTemplateDetailInclude section" id="filehandling">
-    <h1>
+    <h2>
         <?php p($l->t('Share Files & Share Public Folder')); ?>
-    </h1>
+    </h2>
 
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">

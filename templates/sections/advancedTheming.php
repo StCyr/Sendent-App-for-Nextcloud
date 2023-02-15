@@ -1,7 +1,7 @@
 <div class="settingTemplateDetailInclude section" id="advancedTheming">
-    <h1>
+    <h2>
         <?php p($l->t('Theming')); ?>
-    </h1>
+    </h2>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
