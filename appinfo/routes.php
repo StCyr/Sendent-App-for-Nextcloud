@@ -57,6 +57,7 @@ return [
 			'requirements' => ['path' => '.+']
 		],
 		['name' => 'license_api#show', 'url' => '/api/1.0/licensestatus', 'verb' => 'GET'],
+		['name' => 'license_api#showForNCGroup', 'url' => '/api/1.0/licensestatusForNCGroup', 'verb' => 'GET'],
 		['name' => 'license_api#delete', 'url' => '/api/1.0/license', 'verb' => 'DELETE'],
 		['name' => 'license_api#create', 'url' => '/api/1.0/license', 'verb' => 'POST'],
 		['name' => 'license_api#validate', 'url' => '/api/1.0/licensevalidation', 'verb' => 'GET'],

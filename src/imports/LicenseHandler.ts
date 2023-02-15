@@ -252,7 +252,8 @@ export default class LicenseHandler {
     }
 
     private requestStatus(ncgroup: string) {
-        const url = generateUrl('/apps/sendent/api/1.0/licensestatus?ncgroup=' + ncgroup);
+
+        const url = generateUrl('/apps/sendent/api/1.0/licensestatusForNCGroup?ncgroup=' + ncgroup);
 
         return axios.get<LicenseStatus>(url);
     }

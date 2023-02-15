@@ -5,18 +5,25 @@ namespace OCA\Sendent\Controller;
 use Exception;
 use OCA\Sendent\Controller\Dto\LicenseStatus;
 use OCA\Sendent\Service\LicenseManager;
+use OCP\IGroupManager;
 use OCP\IRequest;
+use OCP\IUserManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\AppFramework\Services\IAppConfig;
 use OCA\Sendent\Service\LicenseService;
 use OCA\Sendent\Service\NotFoundException;
 use OCP\IL10N;
 
 class LicenseApiController extends ApiController {
+	private $appConfig;
 	private $service;
+	private $groupManager;
 	private $userId;
+	private $userManager;
+
 	private $licensemanager;
 
 	/** @var IL10N */
@@ -24,15 +31,21 @@ class LicenseApiController extends ApiController {
 
 	public function __construct(
 			  $appName,
+			  IAppConfig $appConfig,
 			  IRequest $request,
+			  IGroupManager $groupManager,
+			  IUserManager $userManager,
 			  LicenseManager $licensemanager,
 			  LicenseService $licenseservice,
 			  IL10N $l,
-			  $userId
+			  $userId	  
 	   ) {
 		parent::__construct($appName, $request);
+		$this->appConfig = $appConfig;
 		$this->service = $licenseservice;
+		$this->groupManager = $groupManager;
 		$this->userId = $userId;
+		$this->userManager = $userManager;
 		$this->licensemanager = $licensemanager;
 		$this->l = $l;
 	}
@@ -49,15 +62,52 @@ class LicenseApiController extends ApiController {
 			throw $e;
 		}
 	}
+
 	/**
 	 * @NoAdminRequired
-	 *
 	 * @NoCSRFRequired
+	 *
+	 * Returns license status for current user
 	 *
 	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
-	public function show(string $ncgroup = ''): DataResponse {
+	public function show(): DataResponse {
+
+		// Gets groups for which specific settings and/or license are defined
+		// Groups are ordered from highest priority to lowest
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+
+		// Gets user groups
+		$user = $this->userManager->get($this->userId);
+		$userGroups = $this->groupManager->getUserGroups($user);
+		$userGroups = array_map(function ($group) {
+			return $group->getDisplayName();
+		}, $userGroups);
+
+		// Gets user groups that are sendentGroups
+		$userSendentGroups = array_intersect($sendentGroups, $userGroups);
+
+		// Returns settings for 1st matching group
+		if (count($userSendentGroups)) {
+			return $this->showForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]], true);
+		} else {
+			return $this->showForNCGroup('', true);
+		}
+
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * Returns license status for group $ncgroup
+	 *
+	 * @param string $ncgroup
+	 * @return DataResponse
+	 */
+	public function showForNCGroup(string $ncgroup = ''): DataResponse {
 		try {
 			try {
 				$this->licensemanager->pingLicensing($ncgroup);
