@@ -21,46 +21,86 @@ export default class DependenciesHandler {
 
 			const requiredApps = ["core", "files", "dav", "ocm", "files_sharing", "password_policy", "theming"]			
 			$('#requiredApps').html('')
+			let div = document.createElement('div')
+			$(div).attr('id','requiredAppsList')
+			$(div).appendTo('#requiredApps')
 			let allGood = true
 			requiredApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
-					let div = this.instance.createSettingBox(app, true)
+					div = this.instance.createSettingBox(app, true)
 					const capability = capabilities[idx]
-					$(div).appendTo('#requiredApps')
+					$(div).appendTo('#requiredApps #requiredAppsList')
 				} else {
 					allGood = false
-					let div = this.instance.createSettingBox(app, false)
-					$(div).appendTo('#requiredApps')
+					div = this.instance.createSettingBox(app, false)
+					$(div).appendTo('#requiredApps #requiredAppsList')
 				}
 			})
 
+			div = document.createElement('div')
+			$(div).attr('id','allRequiredAppsInstalled')
+			$(div).appendTo('#requiredApps')
+			div = this.instance.createSettingBox('All installed', true)
+			$(div).appendTo('#requiredApps #allRequiredAppsInstalled')
+
+			// When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
 			if (allGood) {
-				$('#requiredApps').html('')
-				let div = this.instance.createSettingBox('All installed', true)
-				$(div).appendTo('#requiredApps')
+				$('#requiredApps #requiredAppsList').detach().appendTo('#requiredApps #allRequiredAppsInstalled')
+				$('#requiredApps #requiredAppsList').attr('style', 'margin-left: 20px')
+				$('#requiredApps #allRequiredAppsInstalled span').attr('style', 'cursor: pointer')
+				$('#requiredApps #requiredAppsList').addClass('hidden')
+				$('#requiredApps #allRequiredAppsInstalled').on('click', () => {
+					if ($('#requiredApps #requiredAppsList').hasClass('hidden')) {
+						$('#requiredApps #requiredAppsList').removeClass('hidden')
+					} else {
+						$('#requiredApps #requiredAppsList').addClass('hidden')
+					}
+				})
+			} else {
+				$('#requiredApps #allRequiredAppsInstalled').addClass('hidden')
 			}
 
-			const recommendedApps = ["activity", "talk"]
-			allGood = true
+			const recommendedApps = ["activity", "spreed"]
 			$('#recommendedApps').html('')
+			div = document.createElement('div')
+			$(div).attr('id','recommendedAppsList')
+			$(div).appendTo('#recommendedApps')
+			allGood = true
 			recommendedApps.forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
 					let div = this.instance.createSettingBox(app, true)
 					const capability = capabilities[idx]
-					$(div).appendTo('#recommendedApps')
+					$(div).appendTo('#recommendedApps #recommendedAppsList')
 				} else {
 					allGood = false
 					let div = this.instance.createSettingBox(app, false)
-					$(div).appendTo('#recommendedApps')
+					$(div).appendTo('#recommendedApps #recommendedAppsList')
 				}
 			})
 
+			div = document.createElement('div')
+			$(div).attr('id','allRecommendedAppsInstalled')
+			$(div).appendTo('#recommendedApps')
+			div = this.instance.createSettingBox('All installed', true)
+			$(div).appendTo('#recommendedApps #allRecommendedAppsInstalled')
+
+			// When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
 			if (allGood) {
-				$('#recommendedApps').html('')
-				let div = this.instance.createSettingBox('All installed', true)
-				$(div).appendTo('#recommendedApps')
+				$('#recommendedApps #recommendedAppsList').detach().appendTo('#recommendedApps #allRecommendedAppsInstalled')
+				$('#recommendedApps #recommendedAppsList').attr('style', 'margin-left: 20px')
+				$('#recommendedApps #allRecommendedAppsInstalled span').attr('style', 'cursor: pointer')
+				$('#recommendedApps #recommendedAppsList').addClass('hidden')
+				$('#recommendedApps #allRecommendedAppsInstalled').on('click', () => {
+					if ($('#recommendedApps #recommendedAppsList').hasClass('hidden')) {
+						$('#recommendedApps #recommendedAppsList').removeClass('hidden')
+					} else {
+						$('#recommendedApps #recommendedAppsList').addClass('hidden')
+					}
+				})
+			} else {
+				$('#recommendedApps #allRecommendedAppsInstalled').addClass('hidden')
 			}
 
 		});
