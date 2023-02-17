@@ -38,7 +38,7 @@
 }
 #groupsManagementShow {
 	position: sticky;
-	top: 92px;
+	top: 6.033em;
 	background: var(--color-main-background);
 	z-index: 100;
 }
