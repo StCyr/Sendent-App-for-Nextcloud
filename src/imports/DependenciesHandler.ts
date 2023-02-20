@@ -19,21 +19,29 @@ export default class DependenciesHandler {
 			const capabilities = resp.data.ocs.data.capabilities
 			const capabilitiesKeys = Object.keys(capabilities)
 
-			const requiredApps = ["core", "files", "dav", "ocm", "files_sharing", "password_policy", "theming"]			
+			const requiredApps = {
+				'core': 'core',
+				'files': 'files',
+				'dav': 'dav',
+				'ocm': 'ocm',
+				'files_sharing': 'files sharing',
+				'password_policy': 'password policy',
+				'theming': 'theming'			
+			}
 			$('#requiredApps').html('')
 			let div = document.createElement('div')
 			$(div).attr('id','requiredAppsList')
 			$(div).appendTo('#requiredApps')
 			let allGood = true
-			requiredApps.forEach(app => {
+			Object.keys(requiredApps).forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
-					div = this.instance.createSettingBox(app, true)
+					div = this.instance.createSettingBox(requiredApps[app], true)
 					const capability = capabilities[idx]
 					$(div).appendTo('#requiredApps #requiredAppsList')
 				} else {
 					allGood = false
-					div = this.instance.createSettingBox(app, false)
+					div = this.instance.createSettingBox(requiredApps[app], false)
 					$(div).appendTo('#requiredApps #requiredAppsList')
 				}
 			})
@@ -61,21 +69,24 @@ export default class DependenciesHandler {
 				$('#requiredApps #allRequiredAppsInstalled').addClass('hidden')
 			}
 
-			const recommendedApps = ["activity", "spreed"]
+			const recommendedApps = {
+				'activity': 'activity',
+				'spreed': 'Talk'
+			}
 			$('#recommendedApps').html('')
 			div = document.createElement('div')
 			$(div).attr('id','recommendedAppsList')
 			$(div).appendTo('#recommendedApps')
 			allGood = true
-			recommendedApps.forEach(app => {
+			Object.keys(recommendedApps).forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
-					let div = this.instance.createSettingBox(app, true)
+					let div = this.instance.createSettingBox(recommendedApps[app], true)
 					const capability = capabilities[idx]
 					$(div).appendTo('#recommendedApps #recommendedAppsList')
 				} else {
 					allGood = false
-					let div = this.instance.createSettingBox(app, false)
+					let div = this.instance.createSettingBox(recommendedApps[app], false)
 					$(div).appendTo('#recommendedApps #recommendedAppsList')
 				}
 			})
