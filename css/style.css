@@ -36,12 +36,6 @@
 .section {
 	z-index: -1;
 }
-#groupsManagementShow {
-	position: sticky;
-	top: 6.033em;
-	background: var(--color-main-background);
-	z-index: 100;
-}
 
 .tabmenu {
 	position: fixed;
