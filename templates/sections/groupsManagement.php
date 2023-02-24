@@ -15,22 +15,32 @@
         </div>
     </div>
 	<div style="display: flex; margin-top: 10px">
-		<div style="min-height: 270px; max-height: 270px; overflow: auto">
-			<ul id="ncGroups" class="connectedSortable" style="min-height: 100%">
-				<?php foreach ($_['ncGroups'] as $group) { ?>
-					<li class="ui-state-default"><?php p($group); ?></li>
-				<?php } ?>
-			</ul>
+		<div>
+			<h1>
+		        <?php p($l->t('Inactive')); ?>
+			</h1>
+			<div style="min-height: 270px; max-height: 270px; overflow: auto">
+				<ul id="ncGroups" class="connectedSortable" style="min-height: 100%">
+					<?php foreach ($_['ncGroups'] as $group) { ?>
+						<li class="ui-state-default"><?php p($group); ?></li>
+					<?php } ?>
+				</ul>
+			</div>
 		</div>
-		<div style="display: flex; flex-direction: column; overflow: auto">
-			<ul id="defaultGroup" class="defaultList">
-				<li class="ui-state-default unsortable ui-selected"><?php p($l->t('Default')); ?></li>
-			</ul>
-			<ul id="sendentGroups" class="connectedSortable" style="min-height: 228px; max-height: 228px;max-width: 400px">
-				<?php foreach ($_['sendentGroups'] as $group) { ?>
-					<li class="ui-state-default"><?php p($group); ?></li>
-				<?php } ?>
-			</ul>
+		<div>
+			<h1>
+		        <?php p($l->t('Active')); ?>
+			</h1>
+			<div style="display: flex; flex-direction: column; overflow: auto">
+				<ul id="defaultGroup" class="defaultList">
+					<li class="ui-state-default unsortable ui-selected"><?php p($l->t('Default')); ?></li>
+				</ul>
+				<ul id="sendentGroups" class="connectedSortable" style="min-height: 228px; max-height: 228px;max-width: 400px">
+					<?php foreach ($_['sendentGroups'] as $group) { ?>
+						<li class="ui-state-default"><?php p($group); ?></li>
+					<?php } ?>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
