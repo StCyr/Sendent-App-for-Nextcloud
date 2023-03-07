@@ -22,7 +22,7 @@
     <screenshot>https://download.sendent.nl/serverapp/1.0.0/publicsharedate.png</screenshot>
 
     <dependencies>
-        <nextcloud min-version="20" max-version="25"/>
+        <nextcloud min-version="25" max-version="26"/>
     </dependencies>
 
     <settings>
