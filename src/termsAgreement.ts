@@ -38,9 +38,28 @@ function showAgreement()
 {
     $(".TermsAgreement").removeClass("hidden").addClass("shown");
     $(".Settingspage").removeClass("shown").addClass("hidden");
+
+	$('.tablink').prop('onclick', null).off('click');
 }
 function hideAgreement()
 {
     $(".TermsAgreement").removeClass("shown").addClass("hidden");
     $(".Settingspage").removeClass("hidden").addClass("shown");
+
+	// Activate tab bar
+    $('.tablink').on('click', function (ev) {
+         // Get all elements with class="tabcontent" and hide them
+        $(".Settingspage").css('display', 'none');
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        $(".tablink").removeClass("active");
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+       let tabName = ev.currentTarget.id;
+       tabName = "#" + tabName.substring(4);
+       $(tabName).css('display', 'block');
+       ev.currentTarget.className += " active";
+
+    });
+
 }
