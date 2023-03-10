@@ -262,4 +262,10 @@ export default class LicenseHandler {
 
         return axios.get<LicenseStatus>(url);
     }
+
+	public getReport() {
+        const url = generateUrl('/apps/sendent/api/1.0/licensereport');
+
+		return axios.get(url);
+	}
 }

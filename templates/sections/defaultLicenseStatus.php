@@ -42,7 +42,10 @@
         </div>
     </div>
 
-    <div class="labelFullWidth" style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">
+    <div class="labelFullWidth" style="color:slate-gray;font-style:italic;font-size:smaller">
         <p><?php p($l->t('To make changes to your license(s), please head out to the "Client Settings" tab.')); ?> 
+    </div>
+	<div>
+		<input type="button" id="btnDownloadLicenseReport" value="Download license report" style="margin-top:20px;">
     </div>
 </div>

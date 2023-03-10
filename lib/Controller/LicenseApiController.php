@@ -4,6 +4,7 @@ namespace OCA\Sendent\Controller;
 
 use Exception;
 use OCA\Sendent\Controller\Dto\LicenseStatus;
+use OCA\Sendent\Db\License;
 use OCA\Sendent\Service\LicenseManager;
 use OCP\IGroupManager;
 use OCP\IRequest;
@@ -237,5 +238,38 @@ class LicenseApiController extends ApiController {
 
 		$this->licensemanager->renewLicense($license);
 		return $this->licensemanager->isLocalValid($license);
+	}
+
+	/**
+	 *
+	 * Generates a report of all licenses used
+	 *
+	 */
+	public function report() {
+
+		// Gets groups for which specific settings and/or license are defined and add it the default one
+		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
+		$sendentGroups = json_decode($sendentGroups);
+		array_push($sendentGroups,'');
+
+		// Gets license of each groups, handling inheritance
+		$licenses = [];
+		foreach($sendentGroups as $group) {
+			$license = $this->service->findByGroup($group);
+			if (!empty($license)) {
+				$license = $license[0]->jsonSerialize();
+				$license += ['inherited' => false];
+				if ($group === '') {
+					$license['ncgroup'] = 'Default license';
+				}
+			} else {
+				$license = new License;
+				$license = $license->jsonSerialize();
+				$license += ['inherited' => true];
+				$license['ncgroup'] = $group;
+			}
+			array_push($licenses, $license);
+		}
+		return json_encode($licenses);
 	}
 }

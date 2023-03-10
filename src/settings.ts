@@ -14,6 +14,23 @@ $(() => {
 	settingFormHandler.loopThroughSettings();
 	GroupsManagementHandler.setup(settingFormHandler, licenseHandler);
 
+	$('#btnDownloadLicenseReport').on('click', function (ev) {
+		licenseHandler.getReport().then(resp => {
+			let licenses = JSON.parse(resp.data);
+			let csv = 'Group,Key,Email,Expiration date,Level, Inherited\n';
+			licenses.forEach(function(row) {
+				const data = row['ncgroup'] + ',' + row['licensekey'] + ',' + row['email'] + ',' + row['datalicenseend'] + ',' + row['level'] + ',' + row['inherited'];
+				csv += data;
+				csv += "\n";
+			});
+			let dummy = document.createElement('a');
+			dummy.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+			dummy.target = '_blank';
+			dummy.download = 'SendentLicensesReport.csv';
+			dummy.click();
+		});
+	})
+
     $('#settingsform').on('submit', function (ev) {
         ev.preventDefault();
         //I had an issue that the forms were submitted in geometrical progression after the next submit.

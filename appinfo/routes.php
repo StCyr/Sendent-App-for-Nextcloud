@@ -62,6 +62,7 @@ return [
 		['name' => 'license_api#create', 'url' => '/api/1.0/license', 'verb' => 'POST'],
 		['name' => 'license_api#validate', 'url' => '/api/1.0/licensevalidation', 'verb' => 'GET'],
 		['name' => 'license_api#renew', 'url' => '/api/1.0/licenserenew', 'verb' => 'GET'],
+		['name' => 'license_api#report', 'url' => '/api/1.0/licensereport', 'verb' => 'GET'],
 
 		[
 			'name' => 'connecteduser_api#preflighted_cors',
