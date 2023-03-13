@@ -78,6 +78,9 @@ class SendentSettings implements ISettings {
 		$license = $this->licenseService->findByGroup("");
 		if (count($license) === 0) {
 			$params['defaultLicenseStatus'] = $this->l->t("No license configured");
+			$params['defaultLicenseLevel'] = '';
+			$params['defaultLicenseExpirationDate'] = '';
+			$params['defaultLicenseLastCheck'] = '';
 		} else {
 			$params['defaultLicenseLevel'] = $license[0]->getLevel();
 			$params['defaultLicenseExpirationDate'] = $license[0]->getDatelicenseend();

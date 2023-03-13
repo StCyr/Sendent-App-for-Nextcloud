@@ -151,10 +151,10 @@ class LicenseService {
 		}
 
 		// If we haven't found a license, then usage is unlicensed
-		$this->logger->debug('Found license: ' . $license[0]->getId());
 		if (count($license) === 0) {
 			return null;
 		} else {
+			$this->logger->debug('Found license: ' . $license[0]->getId());
 			return $license[0];
 		}
 	}
