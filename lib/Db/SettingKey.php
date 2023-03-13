@@ -16,7 +16,7 @@ class SettingKey extends Entity implements JsonSerializable {
 		// add types in constructor
 	}
 
-	public function jsonSerialize() {
+	public function jsonSerialize() : mixed {
 		return [
 			'id' => $this->id,
 			'key' => $this->key,

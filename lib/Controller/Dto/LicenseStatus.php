@@ -28,7 +28,7 @@ class LicenseStatus implements JsonSerializable {
 		$this->ncgroup = $ncgroup;
 	}
 
-	public function jsonSerialize() {
+	public function jsonSerialize() : mixed {
 		return [
 			'status' => $this->status,
 			'statusKind' => $this->statusKind,

@@ -16,7 +16,7 @@ class SubscriptionIn implements JsonSerializable {
 		$this->email = $license->getEmail();
 		$this->amountusers = $connectedusercount;
 	}
-	public function jsonSerialize() {
+	public function jsonSerialize() : mixed {
 		return [
 			'Key' => $this->key,
 			'AmountUsers' => $this->amountusers,
