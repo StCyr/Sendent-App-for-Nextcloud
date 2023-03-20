@@ -13,7 +13,7 @@ class SettingTemplate extends Entity implements JsonSerializable {
 		// add types in constructor
 	}
 
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'id' => $this->id,
 			'templatename' => $this->templatename

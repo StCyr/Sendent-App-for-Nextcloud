@@ -17,7 +17,7 @@ class AppVersionResponse implements JsonSerializable {
 	public function __construct() {
 		// add types in constructor
 	}
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'ApplicationName' => $this->applicationName,
 			'Version' => $this->version,

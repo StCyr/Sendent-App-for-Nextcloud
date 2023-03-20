@@ -16,7 +16,7 @@ class SettingGroupValue extends Entity implements JsonSerializable {
 		// add types in constructor
 	}
 
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'id' => $this->id,
 			'groupid' => $this->groupid,

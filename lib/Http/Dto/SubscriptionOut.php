@@ -16,7 +16,7 @@ class SubscriptionOut implements JsonSerializable {
 	public function __construct() {
 	}
 
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'Key' => $this->key,
 			'AmountUsers' => $this->amountusers,

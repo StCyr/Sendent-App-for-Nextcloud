@@ -22,7 +22,7 @@ class Status implements JsonSerializable {
 	public function __construct() {
 		// add types in constructor
 	}
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'Version' => $this->version,
 			'CurrentUserId' => $this->currentuserid,

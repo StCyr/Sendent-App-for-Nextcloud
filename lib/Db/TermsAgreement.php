@@ -12,7 +12,7 @@ class TermsAgreement extends Entity implements JsonSerializable {
 	public function __construct() {
 		// add types in constructor
 	}
-	public function jsonSerialize() : mixed {
+	public function jsonSerialize() {
 		return [
 			'Version' => $this->version,
 			'Agreed' => $this->agreed,
