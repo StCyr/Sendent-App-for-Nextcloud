@@ -19,7 +19,7 @@ $(() => {
 			let licenses = JSON.parse(resp.data);
 			let csv = 'Group,Key,Email,Expiration date,Level, Inherited\n';
 			licenses.forEach(function(row) {
-				const data = row['ncgroup'] + ',' + row['licensekey'] + ',' + row['email'] + ',' + row['datalicenseend'] + ',' + row['level'] + ',' + row['inherited'];
+				const data = row['ncgroup'] + ',' + row['licensekey'] + ',' + row['email'] + ',' + row['datelicenseend'] + ',' + row['level'] + ',' + row['inherited'];
 				csv += data;
 				csv += "\n";
 			});
