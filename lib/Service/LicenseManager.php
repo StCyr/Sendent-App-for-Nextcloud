@@ -37,12 +37,18 @@ class LicenseManager {
 		}
 	}
 
-	public function pingLicensing($ncgroup = ''): void {
+	/**
+	 *
+	 * Reports licenses usage to sendent licensing server
+	 *
+	 */
+	public function pingLicensing(): void {
 		try {
-			$licenses = $this->licenseservice->findByGroup($ncgroup);
+			$licenses = $this->licenseservice->findAll();
 			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
-				$license = $licenses[0];
-				$license = $this->subscriptionvalidationhttpclient->validate($license);
+				foreach ($licenses as $license) {
+					$license = $this->subscriptionvalidationhttpclient->validate($license);
+				}
 			}
 		} catch (Exception $e) {
 		}

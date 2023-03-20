@@ -110,8 +110,9 @@ class LicenseApiController extends ApiController {
 	 */
 	public function showForNCGroup(string $ncgroup = ''): DataResponse {
 		try {
+			// Try to report client licenses usage to our licensing server
 			try {
-				$this->licensemanager->pingLicensing($ncgroup);
+				$this->licensemanager->pingLicensing();
 			} catch (Exception $e) {
 			}
 
