@@ -4,6 +4,7 @@ namespace OCA\Sendent\Service;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use Psr\Log\LoggerInterface;
 
 use OCA\Sendent\Db\License;
 use OCA\Sendent\Http\SubscriptionValidationHttpClient;
@@ -15,10 +16,14 @@ class LicenseManager {
 	protected $connecteduserservice;
 	protected $subscriptionvalidationhttpclient;
 
-	public function __construct(LicenseService $licenseservice,
+	/** @var LoggerInterface */
+	private $logger;
+
+	public function __construct(LicenseService $licenseservice, LoggerInterface $logger,
 	ConnectedUserService $connecteduserservice,
 	SubscriptionValidationHttpClient $subscriptionvalidationhttpclient) {
 		$this->licenseservice = $licenseservice;
+		$this->logger = $logger;
 		$this->connecteduserservice = $connecteduserservice;
 		$this->subscriptionvalidationhttpclient = $subscriptionvalidationhttpclient;
 	}
@@ -47,14 +52,17 @@ class LicenseManager {
 			$licenses = $this->licenseservice->findAll();
 			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
 				foreach ($licenses as $license) {
+					$this->logger->info('Pinging licensing server with license ' . $license->getId());
 					$license = $this->subscriptionvalidationhttpclient->validate($license);
 				}
 			}
 		} catch (Exception $e) {
+			$this->logger->error('Error while pinging licensing server');
 		}
 	}
 
 	public function renewLicense(License $license) {
+		$this->logger->info('Renewing license ' . $license->getId());
 		$license = $this->subscriptionvalidationhttpclient->validate($license);
 		if (isset($license)) {
 			$maxUsers = $license->getMaxusers();
@@ -92,6 +100,7 @@ class LicenseManager {
 	}
 
 	public function createLicense(string $license, string $email, string $ncgroup = '') {
+		$this->logger->info('Creating license ' . $license->getId());
 		$this->deleteLicense($ncgroup);
 		$licenseData = $this->licenseservice->createNew($license, $email, $ncgroup);
 		return $this->activateLicense($licenseData);
@@ -99,8 +108,14 @@ class LicenseManager {
 
 	public function deleteLicense(string $ncgroup = '') {
 		try {
+			if ($ncgroup === '') {
+				$this->logger->info('Deleting license for default group');
+			} else {
+				$this->logger->info('Deleting license for group ' . $ncgroup);
+			}
 			$this->licenseservice->delete($ncgroup);
 		} catch (Exception $e) {
+			$this->logger->error('Error while deleting license');
 		}
 	}
 

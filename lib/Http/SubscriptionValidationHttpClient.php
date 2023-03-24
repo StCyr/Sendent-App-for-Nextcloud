@@ -32,6 +32,9 @@ class SubscriptionValidationHttpClient {
 		}
 
 		$connectedUserCount = $connectedUserCount ?? $this->connectedUserService->getCount($licenseData->getId());
+
+		$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-USERCOUNT= ' . $connectedUserCount);
+
 		$data = new SubscriptionIn($licenseData, $connectedUserCount);
 
 		$validatedLicense = new License();

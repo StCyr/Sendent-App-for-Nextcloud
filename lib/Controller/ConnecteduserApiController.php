@@ -8,12 +8,14 @@ use OCP\IRequest;
 use OCP\IUserManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
+use Psr\Log\LoggerInterface;
 
 use OCA\Sendent\Service\LicenseService;
 use OCA\Sendent\Service\ConnectedUserService;
 
 class ConnecteduserApiController extends ApiController {
 	private $licenseService;
+	private $logger;
 	private $service;
 	private $userId;
 	private $userManager;
@@ -22,12 +24,14 @@ class ConnecteduserApiController extends ApiController {
 			  $appName,
 			  IRequest $request,
 			  LicenseService $licenseService,
+			  LoggerInterface $logger,
 			  ConnectedUserService $service,
 			  IUserManager $userManager,
 			  $userId
 	   ) {
 		parent::__construct($appName, $request);
 		$this->licenseService = $licenseService;
+		$this->logger = $logger;
 		$this->service = $service;
 		$this->userId = $userId;
 	}
@@ -41,6 +45,8 @@ class ConnecteduserApiController extends ApiController {
 	 * @return DataResponse
 	 */
 	public function ping(): DataResponse {
+
+		$this->logger->info('Got outlook add-in connection for user ' . $this->userId);
 
 		// Finds out user's licenceId
 		$license = $this->licenseService->findUserLicense($this->userId);

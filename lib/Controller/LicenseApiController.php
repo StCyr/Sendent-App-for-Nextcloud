@@ -17,6 +17,7 @@ use OCP\AppFramework\Services\IAppConfig;
 use OCA\Sendent\Service\LicenseService;
 use OCA\Sendent\Service\NotFoundException;
 use OCP\IL10N;
+use Psr\Log\LoggerInterface;
 
 class LicenseApiController extends ApiController {
 	private $appConfig;
@@ -30,6 +31,9 @@ class LicenseApiController extends ApiController {
 	/** @var IL10N */
 	private $l;
 
+	/** @var LoggerInterface */
+	private $logger;
+
 	public function __construct(
 			  $appName,
 			  IAppConfig $appConfig,
@@ -38,6 +42,7 @@ class LicenseApiController extends ApiController {
 			  IUserManager $userManager,
 			  LicenseManager $licensemanager,
 			  LicenseService $licenseservice,
+			  LoggerInterface $logger,
 			  IL10N $l,
 			  $userId	  
 	   ) {
@@ -48,6 +53,7 @@ class LicenseApiController extends ApiController {
 		$this->userId = $userId;
 		$this->userManager = $userManager;
 		$this->licensemanager = $licensemanager;
+		$this->logger = $logger;
 		$this->l = $l;
 	}
 	/**
@@ -75,6 +81,8 @@ class LicenseApiController extends ApiController {
 	 */
 	public function show(): DataResponse {
 
+		$this->logger->info('Getting license information for user ' . $this->userId);
+
 		// Gets groups for which specific settings and/or license are defined
 		// Groups are ordered from highest priority to lowest
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
@@ -92,8 +100,10 @@ class LicenseApiController extends ApiController {
 
 		// Returns settings for 1st matching group
 		if (count($userSendentGroups)) {
+			$this->logger->info('First matching group of user ' . $this->userId . ' is ' . $userSendentGroups[array_keys($userSendentGroups)[0]]);
 			return $this->showForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]], true);
 		} else {
+			$this->logger->info('User ' . $this->userId . ' is not member of any sendent group');
 			return $this->showForNCGroup('', true);
 		}
 
@@ -109,11 +119,19 @@ class LicenseApiController extends ApiController {
 	 * @return DataResponse
 	 */
 	public function showForNCGroup(string $ncgroup = ''): DataResponse {
+
+		if ($ncgroup === "") {
+			$this->logger->info('Getting license information for default group');
+		} else {
+			$this->logger->info('Getting license information for group ' . $ncgroup);
+		}
+
 		try {
 			// Try to report client licenses usage to our licensing server
 			try {
 				$this->licensemanager->pingLicensing();
 			} catch (Exception $e) {
+				$this->logger->error('Error while pinging licensing server');
 			}
 
 			// Gets license for group $ncgroup
@@ -127,6 +145,7 @@ class LicenseApiController extends ApiController {
 				if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
 					if ($result[0]->isCheckNeeded()) {
+						$this->logger->info('Check needed for license ' . $result[0]->getId());
 						try {
 							$this->licensemanager->renewLicense($result[0]);
 							$result = $this->service->findByGroup($result[0]->getNcgroup());
@@ -138,6 +157,7 @@ class LicenseApiController extends ApiController {
 								}
 							}
 						} catch (Exception $e) {
+							$this->logger->error('Error while renewing license ' . $result[0]->getId());
 						}
 					}
 					$email = $result[0]->getEmail();
@@ -192,6 +212,7 @@ class LicenseApiController extends ApiController {
 				return new DataResponse(new LicenseStatus($this->l->t("No license configured"), "nolicense" ,"-", "-", "-", "-", "-"));
 			}
 		} catch (Exception $e) {
+			$this->logger->error('Cannot verify license');
 			return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "fatal" ,"-", "-", "-", "-", "-"));
 		}
 	}
