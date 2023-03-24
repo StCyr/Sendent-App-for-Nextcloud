@@ -97,16 +97,10 @@ class SettingGroupValueApiController extends ApiController {
 	 * @return DataResponse
 	 */
 	public function getForNCGroup(string $ncgroup = '', bool $wantUserSettings = false): DataResponse {
-		
-		// Find group's gid
-		if ($ncgroup !== '') {
-			$groups = $this->groupManager->search($ncgroup);
-			foreach ($groups as $group) {
-				if ($group->getDisplayName() === $ncgroup) {
-					$ncgroup = $group->getGID();
-				}
-			}
-		}
+
+		// If the NC group has been deleted, it has $deleteString appended to its displayName in the sendent app
+		$deleteString = ' *** DELETED GROUP ***';
+		$ncgroup = str_ends_with($ncgroup, $deleteString) ? substr_replace($ncgroup, '', -strlen($deleteString)): $ncgroup;
 
 		// Gets settings for group
 		$list = $this->mapper->findSettingsForNCGroup($ncgroup);

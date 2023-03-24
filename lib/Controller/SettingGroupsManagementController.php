@@ -29,6 +29,7 @@ class SettingGroupsManagementController extends ApiController {
 		$deletedGroup = array_diff($sendentGroups, $newSendentGroups);
 		if (count($deletedGroup) > 0) {
 			$this->mapper->deleteSettingsForGroup($deletedGroup[array_keys($deletedGroup)[0]]);
+			// TODO: We should probably remove the license too here
 		}
 
 		// Saves new groups list
