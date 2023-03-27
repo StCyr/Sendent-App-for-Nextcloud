@@ -100,7 +100,7 @@ class LicenseManager {
 	}
 
 	public function createLicense(string $license, string $email, string $ncgroup = '') {
-		$this->logger->info('Creating license ' . $license->getId());
+		$this->logger->info('Creating license');
 		$this->deleteLicense($ncgroup);
 		$licenseData = $this->licenseservice->createNew($license, $email, $ncgroup);
 		return $this->activateLicense($licenseData);
