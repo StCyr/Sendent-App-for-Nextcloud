@@ -8,6 +8,7 @@ use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use Psr\Log\LoggerInterface;
 
 use OCA\Sendent\Db\ConnectedUser;
 use OCA\Sendent\Db\ConnectedUserMapper;
@@ -15,7 +16,11 @@ use OCA\Sendent\Db\ConnectedUserMapper;
 class ConnectedUserService {
 	private $mapper;
 
-	public function __construct(ConnectedUserMapper $mapper) {
+	/** @var LoggerInterface */
+	protected $logger;
+
+	public function __construct(LoggerInterface $logger, ConnectedUserMapper $mapper) {
+		$this->logger = $logger;
 		$this->mapper = $mapper;
 	}
 
@@ -27,6 +32,7 @@ class ConnectedUserService {
 	 * @return never
 	 */
 	private function handleException(Exception $e) {
+		$this->logger->error($e->getMessage());
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
 			throw new NotFoundException($e->getMessage());
@@ -70,6 +76,7 @@ class ConnectedUserService {
 		// into service related exceptions so controllers and service users
 		// have to deal with only one type of exception
 		} catch (Exception $e) {
+			$this->logger->error('Could not get user count for license ' . $licenseId);
 			$this->handleException($e);
 			return 0;
 		}

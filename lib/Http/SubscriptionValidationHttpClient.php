@@ -28,6 +28,7 @@ class SubscriptionValidationHttpClient {
 		$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE');
 
 		if ($licenseData->getLicensekey() === "" || $licenseData->getEmail() === "") {
+			$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE: No key or email information found for license');
 			return null;
 		}
 
