@@ -101,10 +101,10 @@ class LicenseApiController extends ApiController {
 		// Returns settings for 1st matching group
 		if (count($userSendentGroups)) {
 			$this->logger->info('First matching group of user ' . $this->userId . ' is ' . $userSendentGroups[array_keys($userSendentGroups)[0]]);
-			return $this->showForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]], true);
+			return $this->showForNCGroup($userSendentGroups[array_keys($userSendentGroups)[0]]);
 		} else {
 			$this->logger->info('User ' . $this->userId . ' is not member of any sendent group');
-			return $this->showForNCGroup('', true);
+			return $this->showForNCGroup('');
 		}
 
 	}
@@ -127,13 +127,6 @@ class LicenseApiController extends ApiController {
 		}
 
 		try {
-			// Try to report client licenses usage to our licensing server
-			try {
-				$this->licensemanager->pingLicensing();
-			} catch (Exception $e) {
-				$this->logger->error('Error while pinging licensing server');
-			}
-
 			// Gets license for group $ncgroup
 			$result = $this->service->findByGroup($ncgroup);
 			if (isset($result) && $result !== null && $result !== false && is_array($result) && count($result) === 0) {
@@ -144,6 +137,15 @@ class LicenseApiController extends ApiController {
 			if (isset($result) && $result !== null && $result !== false) {
 				if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
+
+					// Try to report client license usage to our licensing server
+					try {
+						$this->licensemanager->pingLicensing($result[0]);
+					} catch (Exception $e) {
+						$this->logger->error('Error while pinging licensing server for license ' . $result[0]->getId());
+					}
+
+					// Renew license if needed
 					if ($result[0]->isCheckNeeded()) {
 						$this->logger->info('Check needed for license ' . $result[0]->getId());
 						try {
@@ -160,6 +162,8 @@ class LicenseApiController extends ApiController {
 							$this->logger->error('Error while renewing license ' . $result[0]->getId());
 						}
 					}
+
+					// Reports license status
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$dateExpiration = $result[0]->getDatelicenseend();

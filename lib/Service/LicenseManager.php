@@ -47,15 +47,10 @@ class LicenseManager {
 	 * Reports licenses usage to sendent licensing server
 	 *
 	 */
-	public function pingLicensing(): void {
+	public function pingLicensing(License $license): void {
 		try {
-			$licenses = $this->licenseservice->findAll();
-			if (isset($licenses) && $licenses !== null && count($licenses) > 0) {
-				foreach ($licenses as $license) {
-					$this->logger->info('Pinging licensing server with license ' . $license->getId());
-					$license = $this->subscriptionvalidationhttpclient->validate($license);
-				}
-			}
+			$this->logger->info('Pinging licensing server with license ' . $license->getId());
+			$license = $this->subscriptionvalidationhttpclient->validate($license);
 		} catch (Exception $e) {
 			$this->logger->error('Error while pinging licensing server');
 		}

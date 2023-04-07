@@ -41,7 +41,7 @@ class LicenseHttpClient {
 
 		try {
 			$response = $this->client->post($uri, [
-				'json' => $data,
+				'json' => $data->jsonSerialize(),
 				'header' => [
 					'api-version' => '1',
 				],
