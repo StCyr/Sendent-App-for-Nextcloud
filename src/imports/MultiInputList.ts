@@ -4,30 +4,30 @@ import { translate as t, translatePlural as p } from '@nextcloud/l10n';
 export default class MultiInputList {
     constructor(private container: JQuery<HTMLElement>, value, private target: JQuery<HTMLElement>, ncgroup: string) {
 
-		// Retrieve group and default settings value
-		let defaultValues: string[] = [];
-		let groupValues: string[] = [];
-		if (ncgroup === '') {
-			// We are showing the default settings
-			groupValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
-		} else if (typeof value !== 'object') {
-			// We are showing a group's settings but no additional values have been defined
-			defaultValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
-		} else {
-			// We are showing a group's settings with both default and additional values
-			groupValues = value.groupSetting !== '' ? value.groupSetting.split(';').map(value => value.trim()) : [];
-			defaultValues = value.defaultSetting !== '' ? value.defaultSetting.split(';').map(value => value.trim()) : [];
-		}
+	// Retrieve group and default settings value
+	let defaultValues: string[] = [];
+	let groupValues: string[] = [];
+	if (ncgroup === '') {
+		// We are showing the default settings
+		groupValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
+	} else if (typeof value !== 'object') {
+		// We are showing a group's settings but no additional values have been defined
+		defaultValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
+	} else {
+		// We are showing a group's settings with both default and additional values
+		groupValues = value.groupSetting !== '' ? value.groupSetting.split(';').map(value => value.trim()) : [];
+		defaultValues = value.defaultSetting !== '' ? value.defaultSetting.split(';').map(value => value.trim()) : [];
+	}
 
         this.container.addClass('collapsed');
         this.appendListToggle( defaultValues.length + groupValues.length);
 
-		// Removes existing values in case of refresh
-		try {
-			this.container.find('.multiInputRow').remove();
-		} catch (err) {}
+	// Removes existing values in case of refresh
+	try {
+		this.container.find('.multiInputRow').remove();
+	} catch (err) {}
 
-		// Insert new values
+	// Insert new values
         for (const value of defaultValues) {
             this.appendInput(value, false);
         }
@@ -35,7 +35,7 @@ export default class MultiInputList {
             this.appendInput(value, true);
         }
 
-		// Appends an input box to let the user enter a new value
+	// Appends an input box to let the user enter a new value
         this.appendInput('', true);
 
         this.target.hide();
