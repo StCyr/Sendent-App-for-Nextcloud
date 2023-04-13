@@ -48,4 +48,25 @@
             <input type="hidden" name="settingkeyid" value="4">
         </div>
     </div>
+    <div class="personal-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label>
+                <span class="templatesettingkeyname">
+                    <?php p($l->t('Sender exceptions')); ?>
+                </span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <input class="settingkeyvalueinput multiValueInput" type="text" name="settingkeyvalueinput"
+                id="senderexceptions" value="" placeholder="foobar@acme.org"
+                autocomplete="on" autocapitalize="none" autocorrect="off">
+            <div class="multiInputContainer"></div>
+            <input type="hidden" name="settingkeyname" value="senderexceptions">
+            <input type="hidden" name="settingkeytemplateid" value="0">
+            <input type="hidden" name="settinggroupid" value="0">
+            <input type="hidden" name="settingkeykey" value="5">
+            <input type="hidden" name="settingkeyid" value="5">
+        </div>
+    </div>
+
 </div>

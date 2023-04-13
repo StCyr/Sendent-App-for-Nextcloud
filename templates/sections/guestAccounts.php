@@ -80,7 +80,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Guest account snippet')); ?>
+                    <?php p($l->t('Guest account share files snippet')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -96,8 +96,29 @@
             <input type="hidden" name="settinggroupid" value="0">
             <input type="hidden" name="settingkeykey" value="302">
             <input type="hidden" name="settingkeyid" value="302">
+        </div>
+    </div>
 
+    <div class="personal-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label>
+                <span class="templatesettingkeynametextareakind">
+                    <?php p($l->t('Public share guest account snippet')); ?>
+                </span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <details>
+                <summary><?php p($l->t('Toggle editor')); ?></summary>
 
+                <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
+                    id="htmlsnippetpublicaccounts"></textarea>
+            </details>
+            <input type="hidden" name="settingkeyname" value="htmlsnippetpublicaccounts">
+            <input type="hidden" name="settingkeytemplateid" value="0">
+            <input type="hidden" name="settinggroupid" value="0">
+            <input type="hidden" name="settingkeykey" value="303">
+            <input type="hidden" name="settingkeyid" value="303">
         </div>
     </div>
 </div>
