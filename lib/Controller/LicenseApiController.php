@@ -190,10 +190,10 @@ class LicenseApiController extends ApiController {
 					} elseif (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
 						$status = $this->l->t("Current license is valid");
 						$statusKind = "valid";
-					} elseif (!$this->licensemanager->isWithinUserCount() && $this->licensemanager->isWithinGraceUserCount()) {
+					} elseif (!$this->licensemanager->isWithinUserCount($result[0]) && $this->licensemanager->isWithinGraceUserCount($result[0])) {
 						$status = $this->l->t("Current amount of active users exceeds licensed amount. Some users might not be able to use Sendent.");
 						$statusKind = "userlimit";
-					} elseif (!$this->licensemanager->isWithinUserCount() && !$this->licensemanager->isWithinGraceUserCount()) {
+					} elseif (!$this->licensemanager->isWithinUserCount($result[0]) && !$this->licensemanager->isWithinGraceUserCount($result[0])) {
 						$status = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
 						$statusKind = "userlimit";
 					}
