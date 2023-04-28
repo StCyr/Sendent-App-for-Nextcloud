@@ -28,10 +28,18 @@ namespace OCA\Sendent\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
+use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 class Version000020Date20221230193400 extends SimpleMigrationStep {
+
+	/** @var IDBConnection */
+	private $db;
+
+	public function __construct(IDBConnection $db) {
+		$this->db = $db;
+	}
 
 	/**
 	 * @param IOutput $output
@@ -66,5 +74,16 @@ class Version000020Date20221230193400 extends SimpleMigrationStep {
 	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+		$query = $this->db->getQueryBuilder();
+
+		$query->select('id')
+				->from('sndnt_license');
+		$cursor = $query->execute();
+		$row = $cursor->fetch();
+		$cursor->closeCursor();
+
+		$query->update('sndnt_connuser')
+				->set('licenseid', $query->createNamedParameter($row['id']));
+		$query->executeStatement();
 	}
 }

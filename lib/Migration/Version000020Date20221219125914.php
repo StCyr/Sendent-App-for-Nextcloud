@@ -55,12 +55,16 @@ class Version000020Date20221219125914 extends SimpleMigrationStep {
 		$table = $schema->getTable('sndnt_license');
 		$table->addColumn('ncgroup', \OCP\DB\Types::STRING, [
 			'length' => 64,
+			'notnull' => false,
+			'default' => ''
 		]);
 
 		// Adds a column to store the gid of the group to which the setting applies
 		$table = $schema->getTable('sndnt_stnggrval');
 		$table->addColumn('ncgroup', \OCP\DB\Types::STRING, [
 			'length' => 64,
+			'notnull' => false,
+			'default' => ''
 		]);
 
 		// Recreates index
