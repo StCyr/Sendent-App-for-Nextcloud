@@ -1,6 +1,6 @@
 <div class="settingTemplateDetailInclude section" id="filehandling">
     <h2>
-        <?php p($l->t('Share Files & Share Public Folder')); ?>
+        <?php p($l->t('Share Files & Receive files')); ?>
     </h2>
 
     <div class="personal-settings-setting-box">
@@ -15,8 +15,8 @@
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathuploadfiles" value=""
                 placeholder="e.g: /Outlook/Public-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="pathuploadfiles">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -41,8 +41,8 @@
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                     id="sharefilehtml"></textarea>
 				<label style="display:none">
-					<input type="checkbox">
-					<?php p($l->t('Inherited'));?>
+					<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+					<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 				</label>
             </details>
             <input type="hidden" name="settingkeyname" type="html" value="sharefilehtml">
@@ -58,7 +58,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
-                    <?php p($l->t('Path for Share Public Folder')); ?>
+                    <?php p($l->t('Path for Receive files')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -66,8 +66,8 @@
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathpublicshare" value=""
                 placeholder="e.g:/Outlook/Upload-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="pathpublicshare">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -80,7 +80,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Share Public Folder snippet')); ?>
+                    <?php p($l->t('Receive files snippet')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -91,8 +91,8 @@
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                 id="sharefolderhtml"></textarea>
 				<label style="display:none">
-					<input type="checkbox">
-					<?php p($l->t('Inherited'));?>
+					<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+					<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 				</label>
             </details>
             <input type="hidden" name="settingkeyname" value="sharefolderhtml">

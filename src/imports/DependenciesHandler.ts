@@ -28,6 +28,7 @@ export default class DependenciesHandler {
 				'password_policy': 'password policy',
 				'theming': 'theming'			
 			}
+			
 			$('#requiredApps').html('')
 			let div = document.createElement('div')
 			$(div).attr('id','requiredAppsList')
@@ -36,12 +37,12 @@ export default class DependenciesHandler {
 			Object.keys(requiredApps).forEach(app => {
 				const idx = capabilitiesKeys.findIndex((key) => key === app)
 				if (idx !== -1) {
-					div = this.instance.createSettingBox(requiredApps[app], true)
+					let div = this.instance.createSettingBox(requiredApps[app], true)
 					const capability = capabilities[idx]
 					$(div).appendTo('#requiredApps #requiredAppsList')
 				} else {
 					allGood = false
-					div = this.instance.createSettingBox(requiredApps[app], false)
+					let div = this.instance.createSettingBox(requiredApps[app], false)
 					$(div).appendTo('#requiredApps #requiredAppsList')
 				}
 			})
@@ -49,25 +50,25 @@ export default class DependenciesHandler {
 			div = document.createElement('div')
 			$(div).attr('id','allRequiredAppsInstalled')
 			$(div).appendTo('#requiredApps')
-			div = this.instance.createSettingBox('All installed', true)
-			$(div).appendTo('#requiredApps #allRequiredAppsInstalled')
+			//div = this.instance.createSettingBox('All installed', true)
+			//$(div).appendTo('#requiredApps #allRequiredAppsInstalled')
 
-			// When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
-			if (allGood) {
-				$('#requiredApps #requiredAppsList').detach().appendTo('#requiredApps #allRequiredAppsInstalled')
-				$('#requiredApps #requiredAppsList').attr('style', 'margin-left: 20px')
-				$('#requiredApps #allRequiredAppsInstalled span').attr('style', 'cursor: pointer')
-				$('#requiredApps #requiredAppsList').addClass('hidden')
-				$('#requiredApps #allRequiredAppsInstalled').on('click', () => {
-					if ($('#requiredApps #requiredAppsList').hasClass('hidden')) {
-						$('#requiredApps #requiredAppsList').removeClass('hidden')
-					} else {
-						$('#requiredApps #requiredAppsList').addClass('hidden')
-					}
-				})
-			} else {
-				$('#requiredApps #allRequiredAppsInstalled').addClass('hidden')
-			}
+			// // When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
+			// if (allGood) {
+			// 	$('#requiredApps #requiredAppsList').detach().appendTo('#requiredApps #allRequiredAppsInstalled')
+			// 	$('#requiredApps #requiredAppsList').attr('style', 'margin-left: 20px')
+			// 	$('#requiredApps #allRequiredAppsInstalled span').attr('style', 'cursor: pointer')
+			// 	$('#requiredApps #requiredAppsList').addClass('hidden')
+			// 	$('#requiredApps #allRequiredAppsInstalled').on('click', () => {
+			// 		if ($('#requiredApps #requiredAppsList').hasClass('hidden')) {
+			// 			$('#requiredApps #requiredAppsList').removeClass('hidden')
+			// 		} else {
+			// 			$('#requiredApps #requiredAppsList').addClass('hidden')
+			// 		}
+			// 	})
+			// } else {
+			// 	$('#requiredApps #allRequiredAppsInstalled').addClass('hidden')
+			// }
 
 			const recommendedApps = {
 				'activity': 'activity',
@@ -94,25 +95,25 @@ export default class DependenciesHandler {
 			div = document.createElement('div')
 			$(div).attr('id','allRecommendedAppsInstalled')
 			$(div).appendTo('#recommendedApps')
-			div = this.instance.createSettingBox('All installed', true)
-			$(div).appendTo('#recommendedApps #allRecommendedAppsInstalled')
+			//div = this.instance.createSettingBox('All installed', true)
+			//$(div).appendTo('#recommendedApps #allRecommendedAppsInstalled')
 
-			// When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
-			if (allGood) {
-				$('#recommendedApps #recommendedAppsList').detach().appendTo('#recommendedApps #allRecommendedAppsInstalled')
-				$('#recommendedApps #recommendedAppsList').attr('style', 'margin-left: 20px')
-				$('#recommendedApps #allRecommendedAppsInstalled span').attr('style', 'cursor: pointer')
-				$('#recommendedApps #recommendedAppsList').addClass('hidden')
-				$('#recommendedApps #allRecommendedAppsInstalled').on('click', () => {
-					if ($('#recommendedApps #recommendedAppsList').hasClass('hidden')) {
-						$('#recommendedApps #recommendedAppsList').removeClass('hidden')
-					} else {
-						$('#recommendedApps #recommendedAppsList').addClass('hidden')
-					}
-				})
-			} else {
-				$('#recommendedApps #allRecommendedAppsInstalled').addClass('hidden')
-			}
+			// // When all dependencies are satisfied mmoves the apps list into the AllInstalled div and make it foldable
+			// if (allGood) {
+			// 	$('#recommendedApps #recommendedAppsList').detach().appendTo('#recommendedApps #allRecommendedAppsInstalled')
+			// 	$('#recommendedApps #recommendedAppsList').attr('style', 'margin-left: 20px')
+			// 	$('#recommendedApps #allRecommendedAppsInstalled span').attr('style', 'cursor: pointer')
+			// 	$('#recommendedApps #recommendedAppsList').addClass('hidden')
+			// 	$('#recommendedApps #allRecommendedAppsInstalled').on('click', () => {
+			// 		if ($('#recommendedApps #recommendedAppsList').hasClass('hidden')) {
+			// 			$('#recommendedApps #recommendedAppsList').removeClass('hidden')
+			// 		} else {
+			// 			//$('#recommendedApps #recommendedAppsList').addClass('hidden')
+			// 		}
+			// 	})
+			// } else {
+			// 	//$('#recommendedApps #allRecommendedAppsInstalled').addClass('hidden')
+			// }
 
 		});
 

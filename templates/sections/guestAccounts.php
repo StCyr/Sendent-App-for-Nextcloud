@@ -16,8 +16,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="guestaccountsenabled">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -40,8 +40,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="guestaccountsenforced">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -65,8 +65,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="disableanonymousshare">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -80,7 +80,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Guest account share files snippet')); ?>
+                    <?php p($l->t('Share files Guest account snippet ')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -103,7 +103,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Public share guest account snippet')); ?>
+                    <?php p($l->t('Receive files Guest account snippet')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>

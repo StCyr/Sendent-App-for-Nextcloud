@@ -10,7 +10,7 @@ style('sendent', ['style']);
 
 <div class="tabmenu">
 	<a class="tablink active" id="tab_sendent_general">General</a>
-	<a class="tablink" id="tab_sendent_settings">Client Settings</a>
+	<a class="tablink" id="tab_sendent_settings">Group Settings</a>
 </div>
 
 <div class="TermsAgreement">
@@ -18,10 +18,9 @@ style('sendent', ['style']);
 </div>
 
 <div class="Settingspage" id="sendent_general">
+	<?php print_unescaped($this->inc('sections/outlookAddon')); ?>
 
 	<?php print_unescaped($this->inc('sections/defaultLicenseStatus')); ?>
-
-	<?php print_unescaped($this->inc('sections/outlookAddon')); ?>
 
 	<?php print_unescaped($this->inc('sections/dependencies')); ?>
 	

@@ -110,7 +110,7 @@ class SendentSettings implements ISettings {
 	/**
 	 * Returns 2 lists of groups:
 	 * 	1- All Nextcloud groups except the groups in the second list;
-	 * 	2- All Nextcloud groups that are used in for our client settings
+	 * 	2- All Nextcloud groups that are used in for our group settings
 	 */
 	private function initializeGroups() {
 

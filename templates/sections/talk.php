@@ -16,8 +16,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="talkenabled">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -40,8 +40,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="generatetalkpassword">
             <input type="hidden" name="settingkeytemplateid" value="0">

@@ -1,6 +1,6 @@
 <div class="settingTemplateDetailInclude section" id="attachments">
     <h2>
-        <?php p($l->t('Attachment settings')); ?>
+        <?php p($l->t('Attachment settings and sender exceptions')); ?>
     </h2>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
@@ -16,8 +16,8 @@
                 <option value="Off"><?php p($l->t('None')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="attachmentmode">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -38,8 +38,8 @@
             <input class="settingkeyvalueinput" type="numeric" name="settingkeyvalueinput" id="attachmentsize" value="1"
                 placeholder="e.g: 10" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="attachmentsize">
             <input type="hidden" name="settingkeytemplateid" value="0">

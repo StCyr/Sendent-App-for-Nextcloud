@@ -97,7 +97,7 @@ class RetentionAssistant {
 
             element.text(t('sendent', 'Workflow configured for automated file tagging'));
             element.append('<br />');
-            element.append($('<em>').text(t('sendent', 'All uploaded files are tagged with "{name}"', {name: workflowTag.name})));
+            element.append($('<li class="RetentionListItemSubItem">').text(t('sendent', 'All uploaded files are tagged with "{name}"', {name: workflowTag.name})));
 
             return;
         }
@@ -199,7 +199,7 @@ class RetentionAssistant {
             element.text(t('sendent', 'Retention rules configured'));
             element.append('<br />');
             element.append(
-                $('<em>').text(t(
+                $('<li class="RetentionListItemSubItem">').text(t(
                     'sendent',
                     'Expired or removed shares which are tagged with "{workflowName}" are getting the additional tag "{expiredName}" respectively "{removedName}"',
                     {workflowName: workflowTag.name, expiredName: expiredTag.name, removedName: removedTag.name}

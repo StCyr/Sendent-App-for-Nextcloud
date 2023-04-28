@@ -1,7 +1,7 @@
 <div class="settingTemplateDetailExclude section">
 
     <h2>
-        <?php p($l->t('Dependencies')); ?>
+        <?php p($l->t('Dependencies Checker')); ?>
     </h2>
 
     <div style="display: flex; flex-direction: row">

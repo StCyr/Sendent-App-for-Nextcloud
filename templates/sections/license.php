@@ -24,25 +24,6 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
-                    <?php p($l->t('License key')); ?></span>
-            </label>
-            <div class="status-error icon-error error hidden"></div>
-            <div class="status-ok icon-checkmark ok hidden"></div>
-            <input class="settingkeyvalueinput" type="text" name="licensekeyvalueinput" id="licensekey" value=""
-                placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
-            <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
-            </label>
-            <input type="hidden" name="settingkeyname" value="licensekey">
-            <input type="hidden" name="settingkeykey" value="900">
-            <input type="hidden" name="settingkeyid" value="900">
-        </div>
-    </div>
-    <div class="license-settings-setting-box">
-        <div class="settingkeyvalue">
-            <label>
-                <span class="templatesettingkeyname">
                     <?php p($l->t('Licensed email address')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -50,14 +31,34 @@
             <input class="settingkeyvalueinput" type="email" name="licensekeyvalueinput" id="licenseEmail" value=""
                 placeholder="Enter email address" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="licenseEmail">
             <input type="hidden" name="settingkeykey" value="901">
             <input type="hidden" name="settingkeyid" value="901">
         </div>
     </div>
+    <div class="license-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label>
+                <span class="templatesettingkeyname">
+                    <?php p($l->t('License key')); ?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <input class="settingkeyvalueinput" type="text" name="licensekeyvalueinput" id="licensekey" value=""
+                placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
+            <label style="display:none">
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
+            </label>
+            <input type="hidden" name="settingkeyname" value="licensekey">
+            <input type="hidden" name="settingkeykey" value="900">
+            <input type="hidden" name="settingkeyid" value="900">
+        </div>
+    </div>
+
     <div class="license-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
