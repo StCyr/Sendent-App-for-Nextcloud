@@ -24,7 +24,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
-                    <?php p($l->t('Licensed email address')); ?></span>
+                    <?php p($l->t('License email address')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -48,7 +48,7 @@
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
             <input class="settingkeyvalueinput" type="text" name="licensekeyvalueinput" id="licensekey" value=""
-                placeholder="Put your licensekey here" autocomplete="on" autocapitalize="none" autocorrect="off">
+                placeholder="Put your license key here" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
                 <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
                 <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>

@@ -1,6 +1,6 @@
 <div class="settingTemplateDetailInclude section" id="filehandling">
     <h2>
-        <?php p($l->t('Share Files & Receive files')); ?>
+        <?php p($l->t('Share Files & Public share')); ?>
     </h2>
 
     <div class="personal-settings-setting-box">
@@ -58,7 +58,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
-                    <?php p($l->t('Path for Receive files')); ?>
+                    <?php p($l->t('Path for Public share')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -80,7 +80,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Receive files snippet')); ?>
+                    <?php p($l->t('Public share snippet')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>

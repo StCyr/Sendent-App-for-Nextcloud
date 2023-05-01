@@ -22,6 +22,10 @@
         margin-left: 0px;
         color: darkslategray;
     }
+    .assistantButton {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
     &[data-state="active"]::before {
         z-index: 2;
         content: '';

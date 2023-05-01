@@ -103,7 +103,7 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeynametextareakind">
-                    <?php p($l->t('Receive files Guest account snippet')); ?>
+                    <?php p($l->t('Public share guest account snippet')); ?>
                 </span>
             </label>
             <div class="status-error icon-error error hidden"></div>

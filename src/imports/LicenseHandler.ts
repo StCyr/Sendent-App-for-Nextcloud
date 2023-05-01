@@ -84,26 +84,34 @@ export default class LicenseHandler {
         try {
             const { data: status } = await this.requestStatus(ncgroup);
             const { data: appStatus } = await this.requestApplicationStatus();
-
+            
+            let LatestVSTOAddinVersionReleaseDate = new Date(appStatus.LatestVSTOAddinVersion.ReleaseDate);
+            let LatestVSTOAddinVersionReleaseDateString = LatestVSTOAddinVersionReleaseDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
+            let statusdateLastCheckDate = new Date(status.dateLastCheck);
+            let statusdateLastCheckDateString = statusdateLastCheckDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
+            let statusdateExpirationDate = new Date(status.dateExpiration);
+            let statusdateExpirationDateString = statusdateExpirationDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
+            
+            
             if (status.level !== 'Free' && status.level !== '-' && status.level !== '') {
                 $("#btnSupportButton").removeClass("hidden").addClass("shown");
                 $("#latestVSTOVersion").text(appStatus.LatestVSTOAddinVersion.Version);
-                $("#latestVSTOVersionReleaseDate").text(appStatus.LatestVSTOAddinVersion.ReleaseDate);
+                $("#latestVSTOVersionReleaseDate").text(LatestVSTOAddinVersionReleaseDateString);
                 document.getElementById("latestVSTOVersionDownload")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlBinary);
                 document.getElementById("latestVSTOVersionReleaseNotes")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlReleaseNotes);
             }
 
             $("#licensestatus").html(status.status);
-            $("#licenselastcheck").text(status.dateLastCheck);
-            $("#licenseexpires").text(status.dateExpiration);
+            $("#licenselastcheck").text(statusdateLastCheckDateString);
+            $("#licenseexpires").text(statusdateExpirationDateString);
             $("#licenselevel").text(status.level);
             $("#licenseEmail").val(status.email);
             $("#licensekey").val(status.licensekey);
             
 			if (ncgroup === '') {
 				$("#defaultlicensestatus").html(status.status);
-	            $("#defaultlicenselastcheck").text(status.dateLastCheck);
-				$("#defaultlicenseexpires").text(status.dateExpiration);
+	            $("#defaultlicenselastcheck").text(statusdateLastCheckDateString);
+				$("#defaultlicenseexpires").text(statusdateExpirationDateString);
 				$("#defaultlicenselevel").text(status.level);
 			}
 

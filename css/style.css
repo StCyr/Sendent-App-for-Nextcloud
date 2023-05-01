@@ -32,11 +32,23 @@
 	grid-area:d;
 	margin-left: 5px;
 }
+.multiInputContainer input {
+		min-width: 300px;
+		max-width:300px;
+		display: inline-flex;
+}
+.multiInputContainer button {
+	display: inline-flex;
+}
+.multiInputContainer{
+	min-width:300px;
+}
 .multiInputContainer a,
 .settingkeyvalue summary {
 	line-height: 34px;
 	margin-top: 4px;
 	font-style: italic;
+	min-width:300px;
 }
 .multiInputContainer .multiInputRow:last-child {
 	margin-bottom: 1em;
@@ -46,9 +58,6 @@
 }
 .multiInputContainer.collapsed .multiInputRow {
 	display: none;
-}
-.multiInputRow {
-	display: flex;
 }
 .section {
 	z-index: -1;
@@ -154,7 +163,9 @@ textarea{
 .ui-state-default {
 	padding: 5px;
 }
-
+.ui-state-default.ui-immutable {
+	background:lightgray;
+}
 label{
 	grid-area: a;
 }
