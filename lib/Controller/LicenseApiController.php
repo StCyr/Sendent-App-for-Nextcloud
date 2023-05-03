@@ -280,11 +280,11 @@ class LicenseApiController extends ApiController {
 		// Gets license of each groups, handling inheritance
 		$licenses = [];
 		foreach($sendentGroups as $gid) {
-			$license = $this->service->findByGroup($group);
+			$license = $this->service->findByGroup($gid);
 			if (!empty($license)) {
 				$license = $license[0]->jsonSerialize();
 				$license += ['inherited' => false];
-				if ($group === '') {
+				if ($gid === '') {
 					$license['ncgroup'] = 'Default license';
 				}
 			} else {
