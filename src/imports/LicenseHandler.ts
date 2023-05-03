@@ -248,7 +248,7 @@ export default class LicenseHandler {
     private sendCreationRequest(email: string, license: string, gid: string) {
         const url = generateUrl('/apps/sendent/api/1.0/license');
 
-        return axios.post(url, { email, license, gid });
+        return axios.post(url, { email, license, ncgroup: gid });
     }
 
     private requestStatus(gid: string) {

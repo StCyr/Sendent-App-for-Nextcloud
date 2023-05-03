@@ -21,10 +21,10 @@ class SendentFileStorageManager {
 		}
 	}
 
-	public function writeTxt($group, $key, $content, string $ncgroup = ''): string {
+	public function writeTxt($group, $key, $content, string $gid = ''): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
-		$filename = $ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt';
+		$filename = $gid . $group . '_' . $key . 'settinggroupvaluefile.txt';
 		try {
 			if (!$folder->fileExists($key)) {
 				$pngFile = $folder->newFile($filename);
@@ -39,21 +39,21 @@ class SendentFileStorageManager {
 		return $filename;
 	}
 
-	public function writeLicenseTxt(string $content, string $ncgroup = ''): string {
+	public function writeLicenseTxt(string $content, string $gid = ''): string {
 		$this->ensureFolderExists();
 		$folder = $this->appData->getFolder('settings');
 		try {
 			if (!$folder->fileExists('licenseKeyFile')) {
-				$pngFile = $folder->newFile($ncgroup . 'licenseKeyFile.txt');
+				$pngFile = $folder->newFile($gid . 'licenseKeyFile.txt');
 			} else {
-				$pngFile = $folder->getFile($ncgroup . 'licenseKeyFile.txt');
+				$pngFile = $folder->getFile($gid . 'licenseKeyFile.txt');
 			}
 		} catch (NotFoundException $e) {
-			$pngFile = $folder->newFile($ncgroup . 'licenseKeyFile.txt');
+			$pngFile = $folder->newFile($gid . 'licenseKeyFile.txt');
 		}
 
 		$pngFile->putContent($content);
-		return $ncgroup . 'licenseKeyFile.txt';
+		return $gid . 'licenseKeyFile.txt';
 	}
 	public function fileExists($group, $key): bool {
 		try {
@@ -73,10 +73,10 @@ class SendentFileStorageManager {
 			return false;
 		}
 	}
-	public function getContent($group, $key, $ncgroup = '') {
+	public function getContent($group, $key, $gid = '') {
 		try {
 			$folder = $this->appData->getFolder('settings');
-			$file = $folder->getFile($ncgroup . $group . '_' . $key . 'settinggroupvaluefile.txt');
+			$file = $folder->getFile($gid . $group . '_' . $key . 'settinggroupvaluefile.txt');
 			// check if file exists and read from it if possible
 
 			return $file->getContent();
@@ -84,10 +84,10 @@ class SendentFileStorageManager {
 			return '';
 		}
 	}
-	public function getLicenseContent($ncgroup = '') {
+	public function getLicenseContent($gid = '') {
 		try {
 			$folder = $this->appData->getFolder('settings');
-			$file = $folder->getFile($ncgroup . 'licenseKeyFile.txt');
+			$file = $folder->getFile($gid . 'licenseKeyFile.txt');
 			// check if file exists and read from it if possible
 
 			return $file->getContent();
