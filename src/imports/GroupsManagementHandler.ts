@@ -8,16 +8,17 @@ import LicenseHandler from "./LicenseHandler"
 require("jquery-ui/ui/widgets/sortable");
 
 export default class GroupsManagementHandler {
-    private static instance: GroupsManagementHandler;
+
+	private static instance: GroupsManagementHandler;
 	private settingFormHandler: SettingFormHandler;
 	private licenseHandler: LicenseHandler;
 
-    public static setup(settingFormHandler: SettingFormHandler, licenseHandler: LicenseHandler): GroupsManagementHandler {
+	public static setup(settingFormHandler: SettingFormHandler, licenseHandler: LicenseHandler): GroupsManagementHandler {
 		console.log('Initializing sendent groups lists');
 
-        if (!this.instance) {
-            this.instance = new GroupsManagementHandler();
-        }
+		if (!this.instance) {
+			this.instance = new GroupsManagementHandler();
+		}
 
 		this.instance.settingFormHandler = settingFormHandler;
 		this.instance.licenseHandler = licenseHandler;
@@ -37,8 +38,8 @@ export default class GroupsManagementHandler {
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
 
-        return this.instance;
-    }
+		return this.instance;
+	}
 
 	private showSettingsForGroup(event) {
 
