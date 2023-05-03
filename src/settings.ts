@@ -9,7 +9,7 @@ $(() => {
 	console.log('Setting script loaded');
 
 	DependenciesHandler.setup();
-	const licenseHandler = LicenseHandler.setup('');
+	const licenseHandler = LicenseHandler.setup();
 	const settingFormHandler = SettingFormHandler.get();
 	settingFormHandler.loopThroughSettings();
 	GroupsManagementHandler.setup(settingFormHandler, licenseHandler);

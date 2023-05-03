@@ -58,19 +58,20 @@ export default class GroupsManagementHandler {
 		});
 
 		// Gets group for which settings are to be shown
-		let ncgroup = event.target.textContent;
+		let ncgroupDisplayName = event.target.textContent
+		const ncgroupGid = event.target.dataset.gid;
 
 		// Changes currently selected group information
-		$('#currentGroup').text(ncgroup);
+		$('#currentGroup').text(ncgroupDisplayName);
 
 		// Default should be the empty string
-		ncgroup = ncgroup === t('sendent', 'Default') ? '' : ncgroup;
+		ncgroupDisplayName = ncgroupDisplayName === t('sendent', 'Default') ? '' : ncgroupDisplayName;
 
 		// Updates license
-		GroupsManagementHandler.instance.licenseHandler.refreshLicenseStatus(ncgroup)
+		GroupsManagementHandler.instance.licenseHandler.refreshLicenseStatus(ncgroupGid)
 
 		// Updates settings value
-		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroup);
+		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroupGid);
 	}
 
 	private updateSendentGroups() {

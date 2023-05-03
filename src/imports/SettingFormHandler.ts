@@ -28,9 +28,9 @@ export default class SettingFormHandler {
         this.logoUrl = $('#header .logo').css('background-image').replace(/url\(("|')(.+)("|')\)/gi, '$2').trim();
     }
 
-    public async loopThroughSettings(ncgroup=''): Promise<void> {
-		console.log('Displaying settings for group "' + ncgroup + '"');
-        const allSettings = await this.valuecalls.list(ncgroup);
+    public async loopThroughSettings(gid=''): Promise<void> {
+		console.log('Displaying settings for group "' + gid + '"');
+        const allSettings = await this.valuecalls.list(gid);
 
         $(".settingkeyvalue").each((index, element) => {
             const inputElement = $(element).find<HTMLTextAreaElement>('.settingkeyvalueinput');
@@ -48,7 +48,7 @@ export default class SettingFormHandler {
             const setting = allSettings.filter(candidate => candidate.settingkeyid.toString() === key);
 
             if (setting.length < 1) {
-                this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
+                this.saveSetting($(element).parents('.personal-settings-setting-box'), gid);
             }
 
             this.updateUI($(element));
@@ -60,10 +60,10 @@ export default class SettingFormHandler {
 
 			// Adds an onChange event handler
             inputElement.on('change', () => {
-                this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
+                this.saveSetting($(element).parents('.personal-settings-setting-box'), gid);
 
 				// Unchecks inherited checkbox if needed
-				if (ncgroup !== '') {
+				if (gid !== '') {
 					let label = inputElement.next();
 					if (!label.is('label')) {
 						// In case of free-text settings, the tincymce editor comes in the way between the input and the label
@@ -95,7 +95,7 @@ export default class SettingFormHandler {
 				// In case of free-text settings, the tincymce editor comes in the way between the input and the label
 				label = label.next();
 			}
-			if (ncgroup !== '') {
+			if (gid !== '') {
 				// Shows inherited checkbox
 				label.addClass('settingkeyvalueinherited');
 
@@ -114,7 +114,7 @@ export default class SettingFormHandler {
 				inheritedCheckbox.on('change', () => {
 					if (label.find('input:checked').val()) {
 						console.log('refreshing setting');
-						this.valuecalls.delete(key, ncgroup).then((defaultSetting) => {
+						this.valuecalls.delete(key, gid).then((defaultSetting) => {
 							// Refresh group setting with default setting after inheritance has been removed
 							if (inputElement.prop('tagName') === 'TEXTAREA') {
 								this.refreshTinymceEditor(inputElement, defaultSetting.value);
@@ -124,7 +124,7 @@ export default class SettingFormHandler {
         					this.setShowHideAllSettings();
 						})
 					} else {
-						this.saveSetting($(element).parents('.personal-settings-setting-box'), ncgroup);
+						this.saveSetting($(element).parents('.personal-settings-setting-box'), gid);
 					}
 				});
 			} else {
@@ -144,7 +144,7 @@ export default class SettingFormHandler {
                 const multiInputContainer = $(element).find('.multiInputContainer');
                 const currentValue = setting.length > 0 ? setting[0].value : '';
 
-                new MultiInputList(multiInputContainer, currentValue, inputElement, ncgroup)
+                new MultiInputList(multiInputContainer, currentValue, inputElement, gid)
             }
 
 			// Free text settings
@@ -190,7 +190,7 @@ export default class SettingFormHandler {
         }
     }
 
-    public async saveSetting(settingbox: JQuery<HTMLElement>, ncgroup: string): Promise<boolean> {
+    public async saveSetting(settingbox: JQuery<HTMLElement>, gid: string): Promise<boolean> {
         const settingkeyvalueblock = $(settingbox).find(".settingkeyvalue")[0]; //@TODO
 
         //@TODO move to method
@@ -205,14 +205,14 @@ export default class SettingFormHandler {
         }
 
         try {
-            const data3 = await this.valuecalls.update(id, id, value, groupId, ncgroup);
+            const data3 = await this.valuecalls.update(id, id, value, groupId, gid);
 
             $(settingkeyvalueblock).find(".settingkeyvalueinput").val(data3.value);
 
 
         } catch (err) {
             //when no settinggroupvalue is present
-            const data3 = await this.valuecalls.create(id, value, groupId, ncgroup);
+            const data3 = await this.valuecalls.create(id, value, groupId, gid);
 
             $(settingkeyvalueblock).find(".settingkeyvalueinput").val(data3.value);
         }
