@@ -117,32 +117,34 @@ class SendentSettings implements ISettings {
 		// Gets groups used in the app
 		$sendentGroups = $this->appConfig->getAppValue('sendentGroups', '');
 		$sendentGroups = $sendentGroups !== '' ? json_decode($sendentGroups) : [];
+		$sendentGroups = array_map(function ($gid) {
+			$group = $this->groupManager->get($gid);
+			if (!is_null($group)) {
+				return array(
+					"displayName" => $group->getDisplayName(),
+					"gid" => $group->getGid()
+				);
+			} else {
+				return array(
+					"displayName" => $gid . ' *** DELETED GROUP ***',
+					"gid" => $gid
+				);
+			}
+		}, $sendentGroups);
 
 		// Gets all Nextcloud groups
 		$NCGroups = $this->groupManager->search('');
 		$NCGroups = array_map(function ($group) {
-			return $group->getDisplayName();
+			return array(
+				"displayName" => $group->getDisplayName(),
+				"gid" => $group->getGid()
+			);
 		}, $NCGroups);
 
 		// Removes sendentGroups from all Nextcloud groups
-		$NCGroups = array_diff($NCGroups, $sendentGroups);
-
-		// Finds out if a Nextcloud group used in the app has been deleted
-		$sendentGroups = array_map(function ($sendentGroup) {
-			$deleteString = ' *** DELETED GROUP ***';
-
-			$sendentGroup = str_ends_with($sendentGroup, $deleteString) ? substr_replace($sendentGroup, '', -strlen($deleteString)): $sendentGroup;
-
-			$groups = $this->groupManager->search($sendentGroup);
-			foreach ($groups as $group) {
-				if ($group->getDisplayName() === $sendentGroup) {
-					return $sendentGroup;
-				}
-			}
-
-			// Group hasn't been found in Nextcloud groups, so it has been deleted
-			return $sendentGroup . $deleteString;
-		}, $sendentGroups);
+		$NCGroups = array_udiff($NCGroups, $sendentGroups, function($g1, $g2) {
+			return strcmp($g1['gid'], $g2['gid']);
+		});
 
 		$params['ncGroups'] = $NCGroups;
 		$params['sendentGroups'] = $sendentGroups;

@@ -76,7 +76,6 @@ class LicenseApiController extends ApiController {
 	 *
 	 * Returns license status for current user
 	 *
-	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
 	public function show(): DataResponse {
@@ -92,7 +91,7 @@ class LicenseApiController extends ApiController {
 		$user = $this->userManager->get($this->userId);
 		$userGroups = $this->groupManager->getUserGroups($user);
 		$userGroups = array_map(function ($group) {
-			return $group->getDisplayName();
+			return $group->getGid();
 		}, $userGroups);
 
 		// Gets user groups that are sendentGroups
@@ -231,7 +230,7 @@ class LicenseApiController extends ApiController {
 	}
 
 	/**
-	 * @param string $ncgroup
+	 * @param string $group
 	 */
 	public function delete(string $group) {
 		// Deletes requested settinglicense
@@ -280,19 +279,19 @@ class LicenseApiController extends ApiController {
 
 		// Gets license of each groups, handling inheritance
 		$licenses = [];
-		foreach($sendentGroups as $group) {
-			$license = $this->service->findByGroup($group);
+		foreach($sendentGroups as $gid) {
+			$license = $this->service->findByGroup($gid);
 			if (!empty($license)) {
 				$license = $license[0]->jsonSerialize();
 				$license += ['inherited' => false];
-				if ($group === '') {
+				if ($gid === '') {
 					$license['ncgroup'] = 'Default license';
 				}
 			} else {
 				$license = new License;
 				$license = $license->jsonSerialize();
 				$license += ['inherited' => true];
-				$license['ncgroup'] = $group;
+				$license['ncgroup'] = $gid; // Maybe we should use displayName here
 			}
 			array_push($licenses, $license);
 		}

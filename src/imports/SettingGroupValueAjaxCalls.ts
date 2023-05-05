@@ -9,10 +9,10 @@ export default class SettingGroupValueAjaxCalls {
         this.endpoint = generateUrl('/apps/sendent/api/1.0/settinggroupvalue');
     }
 
-    public async list(ncgroup?: string): Promise<any> {
+    public async list(gid?: string): Promise<any> {
 		let response;
-		if (typeof ncgroup !== 'undefined' && ncgroup !== '') {
-			response = await axios.get(this.endpoint + '/getForNCGroup/' + ncgroup);
+		if (typeof gid !== 'undefined' && gid !== '') {
+			response = await axios.get(this.endpoint + '/getForNCGroup/' + gid);
 		} else {
 			response = await axios.get(this.endpoint + '/getForDefaultGroup');
 		}
@@ -20,8 +20,8 @@ export default class SettingGroupValueAjaxCalls {
 	    return response.data;
     }
 
-    public async delete(id: string, ncgroup: string): Promise<any> {
-        const response = await axios.delete(this.endpoint + '/' + id, { data: { ncgroup } });
+    public async delete(id: string, gid: string): Promise<any> {
+        const response = await axios.delete(this.endpoint + '/' + id, { data: { ncgroup: gid } });
 
         return response.data;
     }
@@ -38,10 +38,10 @@ export default class SettingGroupValueAjaxCalls {
         return response.data;
     }
 
-    public async update(id: string, settingkeyid: string, value: string, groupid: string, ncgroup?: string): Promise<any> {
+    public async update(id: string, settingkeyid: string, value: string, groupid: string, gid?: string): Promise<any> {
 		let group = '';
-		if (typeof ncgroup !== 'undefined') {
-			group = ncgroup;
+		if (typeof gid !== 'undefined') {
+			group = gid;
 		}
         const data = { settingkeyid, value, groupid, group };
         const response = await axios.put(this.endpoint + '/' + id, data);
@@ -51,10 +51,10 @@ export default class SettingGroupValueAjaxCalls {
         return response.data;
     }
 
-    public async create(settingkeyid: string, value: string, groupid: string, ncgroup?: string): Promise<any> {
+    public async create(settingkeyid: string, value: string, groupid: string, gid?: string): Promise<any> {
 		let group = '';
-		if (typeof ncgroup !== 'undefined') {
-			group = ncgroup;
+		if (typeof gid !== 'undefined') {
+			group = gid;
 		}
         const data = { settingkeyid, value, groupid, group };
         const response = await axios.post(this.endpoint, data);

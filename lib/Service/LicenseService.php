@@ -126,7 +126,7 @@ class LicenseService {
 		$user = $this->userManager->get($userId);
 		$userGroups = $this->groupManager->getUserGroups($user);
 		$userGroups = array_map(function ($group) {
-			return $group->getDisplayName();
+			return $group->getGid();
 		}, $userGroups);
 		$this->logger->debug('Found user groups: ' . implode(',', $userGroups));
 

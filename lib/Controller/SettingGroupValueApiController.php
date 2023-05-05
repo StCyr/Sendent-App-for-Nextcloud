@@ -45,7 +45,6 @@ class SettingGroupValueApiController extends ApiController {
 	 *
 	 * Gets settings for a specific user
 	 *
-	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
 	public function index(): DataResponse {
@@ -59,7 +58,7 @@ class SettingGroupValueApiController extends ApiController {
 		$user = $this->userManager->get($this->userId);
 		$userGroups = $this->groupManager->getUserGroups($user);
 		$userGroups = array_map(function ($group) {
-			return $group->getDisplayName();
+			return $group->getGid();
 		}, $userGroups);
 
 		// Gets user groups that are sendentGroups
@@ -80,7 +79,6 @@ class SettingGroupValueApiController extends ApiController {
 	 *
 	 * Get settings for the default group
 	 *
-	 * @param string $ncgroup
 	 * @return DataResponse
 	 */
 	public function getForDefaultGroup(): DataResponse {
@@ -97,10 +95,6 @@ class SettingGroupValueApiController extends ApiController {
 	 * @return DataResponse
 	 */
 	public function getForNCGroup(string $ncgroup = '', bool $wantUserSettings = false): DataResponse {
-
-		// If the NC group has been deleted, it has $deleteString appended to its displayName in the sendent app
-		$deleteString = ' *** DELETED GROUP ***';
-		$ncgroup = str_ends_with($ncgroup, $deleteString) ? substr_replace($ncgroup, '', -strlen($deleteString)): $ncgroup;
 
 		// Gets settings for group
 		$list = $this->mapper->findSettingsForNCGroup($ncgroup);
@@ -254,7 +248,7 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param int $settingkeyid
 	 * @param int $groupid
 	 * @param string $value
-	 * @param string $ncgroup
+	 * @param string $group
 	 * @return DataResponse
 	 */
 	public function create(int $settingkeyid, int $groupid, string $value, string $group = '') {
@@ -275,7 +269,7 @@ class SettingGroupValueApiController extends ApiController {
 	 * @param int $settingkeyid
 	 * @param int $groupid
 	 * @param string $value
-	 * @param string $ncgroup
+	 * @param string $group
 	 * @return DataResponse
 	 */
 	public function update(int $id,int $settingkeyid, int $groupid, string $value, string $group = '') {

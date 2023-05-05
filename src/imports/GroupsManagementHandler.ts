@@ -8,16 +8,17 @@ import LicenseHandler from "./LicenseHandler"
 require("jquery-ui/ui/widgets/sortable");
 
 export default class GroupsManagementHandler {
-    private static instance: GroupsManagementHandler;
+
+	private static instance: GroupsManagementHandler;
 	private settingFormHandler: SettingFormHandler;
 	private licenseHandler: LicenseHandler;
 
-    public static setup(settingFormHandler: SettingFormHandler, licenseHandler: LicenseHandler): GroupsManagementHandler {
+	public static setup(settingFormHandler: SettingFormHandler, licenseHandler: LicenseHandler): GroupsManagementHandler {
 		console.log('Initializing sendent groups lists');
 
-        if (!this.instance) {
-            this.instance = new GroupsManagementHandler();
-        }
+		if (!this.instance) {
+			this.instance = new GroupsManagementHandler();
+		}
 
 		this.instance.settingFormHandler = settingFormHandler;
 		this.instance.licenseHandler = licenseHandler;
@@ -37,8 +38,8 @@ export default class GroupsManagementHandler {
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
 
-        return this.instance;
-    }
+		return this.instance;
+	}
 
 	private showSettingsForGroup(event) {
 
@@ -57,19 +58,20 @@ export default class GroupsManagementHandler {
 		});
 
 		// Gets group for which settings are to be shown
-		let ncgroup = event.target.textContent;
+		let ncgroupDisplayName = event.target.textContent
+		const ncgroupGid = event.target.dataset.gid;
 
 		// Changes currently selected group information
-		$('#currentGroup').text(ncgroup);
+		$('#currentGroup').text(ncgroupDisplayName);
 
 		// Default should be the empty string
-		ncgroup = ncgroup === t('sendent', 'Default') ? '' : ncgroup;
+		ncgroupDisplayName = ncgroupDisplayName === t('sendent', 'Default') ? '' : ncgroupDisplayName;
 
 		// Updates license
-		GroupsManagementHandler.instance.licenseHandler.refreshLicenseStatus(ncgroup)
+		GroupsManagementHandler.instance.licenseHandler.refreshLicenseStatus(ncgroupGid)
 
 		// Updates settings value
-		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroup);
+		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroupGid);
 	}
 
 	private updateSendentGroups() {
@@ -78,7 +80,7 @@ export default class GroupsManagementHandler {
 		// Get the list of sendent groups from the UI
 		// TODO: Rewrite the selection with a each()
 		const li = $('#sendentGroups li');
-		const newSendentGroups = Object.values(li).map(htmlElement => htmlElement.textContent).filter(text => text !== undefined);
+		const newSendentGroups = Object.values(li).map(htmlElement => htmlElement.dataset?.gid).filter(text => text !== undefined);
 
 		// Update backend
 		const url = generateUrl('/apps/sendent/api/2.0/groups/update');

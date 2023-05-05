@@ -2,12 +2,12 @@
 import { translate as t, translatePlural as p } from '@nextcloud/l10n';
 
 export default class MultiInputList {
-    constructor(private container: JQuery<HTMLElement>, value, private target: JQuery<HTMLElement>, ncgroup: string) {
+    constructor(private container: JQuery<HTMLElement>, value, private target: JQuery<HTMLElement>, gid: string) {
 
 	// Retrieve group and default settings value
 	let defaultValues: string[] = [];
 	let groupValues: string[] = [];
-	if (ncgroup === '') {
+	if (gid === '') {
 		// We are showing the default settings
 		groupValues = value !== '' ? value.split(';').map(value => value.trim()) : [];
 	} else if (typeof value !== 'object') {
