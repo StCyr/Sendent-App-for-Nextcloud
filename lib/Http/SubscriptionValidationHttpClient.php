@@ -50,7 +50,7 @@ class SubscriptionValidationHttpClient {
 		try {
 			$result = $this->licenseHttpClient->post('subscription/validate', $data);
 
-			if (isset($result) && $result != null) { //TODO: Cyrille (this seems to result in TRUE which shouldn't be possible when the license service is down because the post call on line 51 should return null)
+			if (isset($result) && $result != null) {
 				$validatedLicense->setLevel($result->level);
 				$validatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));
 				$validatedLicense->setDatelicenseend(date_format(date_create($result->expirationDate), "Y-m-d"));

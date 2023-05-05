@@ -70,11 +70,6 @@ class LicenseManager {
 				$maxGraceUsers = 1;
 			}
 			$level = $license->getLevel();
-			// if (!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == "")) {
-			// 	$level = "Error_incomplete";
-			// } elseif (!isset($level)) {
-			// 	$level = "Error_validating";
-			// }
 
 			if($level != "Error_validating")
 			{

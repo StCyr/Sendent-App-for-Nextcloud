@@ -137,30 +137,21 @@ class LicenseApiController extends ApiController {
 				if (is_array($result) && count($result) > 0
 				&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
 
-					// Try to report client license usage to our licensing server
-					// try {
-					// 	$this->licensemanager->pingLicensing($result[0]);
-					// } catch (Exception $e) {
-					// 	$this->logger->error('Error while pinging licensing server for license ' . $result[0]->getId());
-					// }
 
-					// // Renew license if needed
-					// if ($result[0]->isCheckNeeded()) {
-						$this->logger->info('Check needed for license ' . $result[0]->getId());
-						try {
-							$this->licensemanager->renewLicense($result[0]);
-							$result = $this->service->findByGroup($result[0]->getNcgroup());
-							if (isset($result) && $result !== null && $result !== false) {
-								if (is_array($result) && count($result) > 0
-								&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
-								} else {
-									throw new Exception();
-								}
+					$this->logger->info('Check needed for license ' . $result[0]->getId());
+					try {
+						$this->licensemanager->renewLicense($result[0]);
+						$result = $this->service->findByGroup($result[0]->getNcgroup());
+						if (isset($result) && $result !== null && $result !== false) {
+							if (is_array($result) && count($result) > 0
+							&& $result[0]->getLevel() != "Error_clear" && $result[0]->getLevel() != "Error_incomplete") {
+							} else {
+								throw new Exception();
 							}
-						} catch (Exception $e) {
-							$this->logger->error('Error while renewing license ' . $result[0]->getId());
 						}
-					// }
+					} catch (Exception $e) {
+						$this->logger->error('Error while renewing license ' . $result[0]->getId());
+					}
 
 					// Reports license status
 					$email = $result[0]->getEmail();
