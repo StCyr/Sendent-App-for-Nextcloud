@@ -194,7 +194,7 @@ class LicenseApiController extends ApiController {
 					$group = $result[0]->getNcgroup();
 					$status = $this->l->t('Missing (or incorrect) email address or license key. %1$sContact support%2$s to get your correct license information.', ["<a href='mailto:support@sendent.nl' style='color:blue'>", "</a>"]);
 					return new DataResponse(new LicenseStatus($status, "error_incomplete" ,"-", $licensekey, "-", "-", $email, $group));
-				} elseif (count($result) > 0 && $result[0]->getLevel() == "Error_validating") {
+				} elseif (count($result) > 0 && $result[0]->getLevel() == License::ERROR_VALIDATING) {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$group = $result[0]->getNcgroup();

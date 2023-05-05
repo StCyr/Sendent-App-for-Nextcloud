@@ -71,7 +71,7 @@ class LicenseManager {
 			}
 			$level = $license->getLevel();
 
-			if($level != "Error_validating")
+			if($level != License::ERROR_VALIDATING)
 			{
 			return $this->licenseservice->update(
 				$license->getId(),
@@ -125,8 +125,8 @@ class LicenseManager {
 				$level = "Error_incomplete";
 				error_log(print_r("LICENSEMANAGER-LEVEL=		Error_incomplete", true));
 			} elseif (!isset($level)) {
-				$level = "Error_validating";
-				error_log(print_r("LICENSEMANAGER-LEVEL=		Error_validating", true));
+				$level = License::ERROR_VALIDATING;
+				error_log(print_r("LICENSEMANAGER-LEVEL=		". License::ERROR_VALIDATING, true));
 			}
 			$maxUsers = $activatedLicense->getMaxusers();
 			if (!isset($maxUsers)) {
