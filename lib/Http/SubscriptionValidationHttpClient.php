@@ -26,15 +26,18 @@ class SubscriptionValidationHttpClient {
 
 	public function validate(License $licenseData, $connectedUserCount = null): ?License {
 		$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE');
+		error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE', true));
 
 		if ($licenseData->getLicensekey() === "" || $licenseData->getEmail() === "") {
 			$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE: No key or email information found for license');
+			error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE: No key or email information found for license', true));
 			return null;
 		}
 
 		$connectedUserCount = $connectedUserCount ?? $this->connectedUserService->getCount($licenseData->getId());
 
 		$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-USERCOUNT= ' . $connectedUserCount);
+		error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-USERCOUNT= ' . $connectedUserCount, true));
 
 		$data = new SubscriptionIn($licenseData, $connectedUserCount);
 
@@ -47,7 +50,7 @@ class SubscriptionValidationHttpClient {
 		try {
 			$result = $this->licenseHttpClient->post('subscription/validate', $data);
 
-			if (isset($result)) {
+			if (isset($result) && $result != null) { //TODO: Cyrille (this seems to result in TRUE which shouldn't be possible when the license service is down because the post call on line 51 should return null)
 				$validatedLicense->setLevel($result->level);
 				$validatedLicense->setDategraceperiodend(date_format(date_create($result->gracePeriodEnd), "Y-m-d"));
 				$validatedLicense->setDatelicenseend(date_format(date_create($result->expirationDate), "Y-m-d"));
@@ -56,15 +59,19 @@ class SubscriptionValidationHttpClient {
 				$validatedLicense->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
 
 				$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		' . $result->level);
+				error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		' . $result->level, true));
 
 				return $validatedLicense;
 			}
-
-			$validatedLicense->setLevel(License::ERROR_VALIDATING);
+			else
+			{
+				$validatedLicense->setLevel(License::ERROR_VALIDATING);
+			}
 		} catch (Exception $e) {
 			$this->logger->error('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION: ' . $e->getMessage(), [
 				'exception' => $e,
 			]);
+			error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION: ' . $e->getMessage(), true));
 
 			$validatedLicense->setLevel(License::ERROR_INCOMPLETE);
 		}

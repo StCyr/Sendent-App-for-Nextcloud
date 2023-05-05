@@ -49,6 +49,7 @@ class LicenseManager {
 	 */
 	public function pingLicensing(License $license): void {
 		try {
+			error_log(print_r('Pinging licensing server with license ' . $license->getId(), true));
 			$this->logger->info('Pinging licensing server with license ' . $license->getId());
 			$license = $this->subscriptionvalidationhttpclient->validate($license);
 		} catch (Exception $e) {
@@ -69,12 +70,14 @@ class LicenseManager {
 				$maxGraceUsers = 1;
 			}
 			$level = $license->getLevel();
-			if (!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == "")) {
-				$level = "Error_incomplete";
-			} elseif (!isset($level)) {
-				$level = "Error_validating";
-			}
+			// if (!isset($level) && ($license->getEmail() == "" || $license->getLicensekey() == "")) {
+			// 	$level = "Error_incomplete";
+			// } elseif (!isset($level)) {
+			// 	$level = "Error_validating";
+			// }
 
+			if($level != "Error_validating")
+			{
 			return $this->licenseservice->update(
 				$license->getId(),
 				$license->getLicensekey(),
@@ -87,6 +90,7 @@ class LicenseManager {
 				$level,
 				$license->getNcgroup()
 			);
+		}
 		} else {
 			$license = new License();
 			$license->setLevel("nolicense");

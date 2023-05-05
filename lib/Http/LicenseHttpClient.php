@@ -54,6 +54,9 @@ class LicenseHttpClient {
 			$this->logger->error('License client could not connect to license server: ' . $e->getMessage());
 
 			return null;
+		} catch(Exception $e){
+			$this->logger->error('License client could not connect to license server. There was an undefined error: ' . $e->getMessage());
+			return null;
 		}
 
 		if ($response->getStatusCode() === Http::STATUS_OK) {

@@ -234,14 +234,12 @@ class LicenseService {
 	string $email, DateTime $datelastchecked, string $level, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
 
-		$this->delete($ncgroup);
-
 		$licenseobj = new License();
-
+		
 
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
-
+		$licenseobj->setId($id);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
 		$licenseobj->setMaxusers($maxusers);
@@ -251,7 +249,7 @@ class LicenseService {
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 		$licenseobj->setNcgroup($ncgroup);
 		
-		$licenseresult = $this->mapper->insert($licenseobj);
+		$licenseresult = $this->mapper->update($licenseobj);
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
 			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 		}
