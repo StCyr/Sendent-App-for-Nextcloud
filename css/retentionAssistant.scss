@@ -12,7 +12,20 @@
         background-position: center center;
         text-align: center;
     }
-
+    // .RetentionCheckButton{
+    //     margin: 20px;
+    // }
+    .RetentionListItem {
+        margin-left: 20px;
+    }
+    .RetentionListItemSubItem{
+        margin-left: 0px;
+        color: darkslategray;
+    }
+    .assistantButton {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
     &[data-state="active"]::before {
         z-index: 2;
         content: '';

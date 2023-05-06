@@ -14,8 +14,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="securemail">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -38,8 +38,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -62,8 +62,8 @@
             <input class="settingkeyvalueinput" type="text" name="settingkeyvalueinput" id="pathsecuremailbox" value=""
                 placeholder="e.g: /Outlook/SecureMail-Share/" autocomplete="on" autocapitalize="none" autocorrect="off">
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="pathsecuremailbox">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -89,8 +89,8 @@
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                     id="securemailhtml"></textarea>
                 <label style="display:none">
-                    <input type="checkbox">
-                    <?php p($l->t('Inherited'));?>
+                    <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                    <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
                 </label>
             </details>
             <input type="hidden" name="settingkeyname" value="securemailhtml">

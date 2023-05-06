@@ -20,8 +20,8 @@
                 <option value="es">Español</option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="setlanguage">
             <input type="hidden" name="settingkeykey" value="20">
@@ -45,8 +45,8 @@
                 <option value="False"><?php p($l->t('Top of email body')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="insertatcursor">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -69,8 +69,8 @@
                 <option value="False"><?php p($l->t('Do not add upload date to folder path')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="dateaddition">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -93,8 +93,8 @@
                 <option value="False" selected><?php p($l->t('Disabled')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="debugmode">
             <input type="hidden" name="settingkeykey" value="22">
@@ -117,8 +117,8 @@
                 <option value="True"><?php p($l->t('Disabled')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="disablesettings">
             <input type="hidden" name="settingkeykey" value="17">
@@ -142,8 +142,8 @@
                 <option value="BeforeSendAndAfter"><?php p($l->t('Before and after sending')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="passwordcontrolbehavior">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -167,8 +167,8 @@
                 <option disabled value="External"><?php p($l->t('Use external service (like sms-gateway)')); ?></option>
             </select>
 			<label style="display:none">
-				<input type="checkbox">
-				<?php p($l->t('Inherited'));?>
+				<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+				<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 			</label>
             <input type="hidden" name="settingkeyname" value="sendmode">
             <input type="hidden" name="settingkeytemplateid" value="0">
@@ -191,8 +191,8 @@
                 <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
                 id="htmlsnippetpassword"></textarea>
 				<label style="display:none">
-					<input type="checkbox">
-					<?php p($l->t('Inherited'));?>
+					<input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+					<span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
 				</label>
             </details>
             <div class="status-error icon-error error hidden"></div>

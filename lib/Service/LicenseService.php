@@ -214,7 +214,7 @@ class LicenseService {
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
 		$licenseobj->setEmail($email);
-		$licenseobj->setLevel("none");
+		$licenseobj->setLevel("None");
 		$licenseobj->setMaxusers(1);
 		$licenseobj->setMaxgraceusers(1);
 		$licenseobj->setDategraceperiodend(date_format(date_create("now"), "Y-m-d"));

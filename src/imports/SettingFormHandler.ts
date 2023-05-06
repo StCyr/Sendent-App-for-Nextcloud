@@ -98,7 +98,7 @@ export default class SettingFormHandler {
 			if (gid !== '') {
 				// Shows inherited checkbox
 				label.addClass('settingkeyvalueinherited');
-
+                
 				// Checks the checkbox when setting is inherited
 				const inheritedCheckbox = label.find('input');
 				if (setting[0].ncgroup === '') {

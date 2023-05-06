@@ -43,7 +43,7 @@
     </div>
 
     <div class="labelFullWidth" style="color:slate-gray;font-style:italic;font-size:smaller">
-        <p><?php p($l->t('To make changes to your license(s), please head out to the "Client Settings" tab.')); ?> 
+        <p><?php p($l->t('To make changes to your license(s), please go to the "Group Settings" tab.')); ?> 
     </div>
 	<div>
 		<input type="button" id="btnDownloadLicenseReport" value="Download license report" style="margin-top:20px;">

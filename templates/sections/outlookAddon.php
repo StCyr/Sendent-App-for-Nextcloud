@@ -6,7 +6,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname statusitem">
-                    <?php p($l->t('Latest Outlook Add-in version')); ?></span>
+                    <?php p($l->t('Latest downloadable version')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -20,7 +20,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname statusitem">
-                    <?php p($l->t('Releasedate')); ?></span>
+                    <?php p($l->t('Release date')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -34,7 +34,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname statusitem">
-                    <?php p($l->t('Downloadlink')); ?></span>
+                    <?php p($l->t('Download latest version')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -49,11 +49,11 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname statusitem">
-                    <?php p($l->t('Releasenotes')); ?></span>
+                    <?php p($l->t('Release notes')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
-            <a style="color:blue; text-decoration:underline;" class="statuskeyvalueinput statusitem" name="statuskeyvalueinput" id="latestVSTOVersionReleaseNotes"><?php p($l->t('Open')); ?></a> <br>
+            <a style="color:blue; text-decoration:underline;" target="_Blank" class="statuskeyvalueinput statusitem" name="statuskeyvalueinput" id="latestVSTOVersionReleaseNotes"><?php p($l->t('Open')); ?></a> <br>
             <input type="hidden" name="settingkeyname" value="latestVSTOVersionReleaseNotes">
             <input type="hidden" name="settingkeykey" value="905">
             <input type="hidden" name="settingkeyid" value="905">

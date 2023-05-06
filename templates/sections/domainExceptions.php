@@ -1,6 +1,6 @@
 <div class="settingTemplateDetailInclude section" id="domainExceptions">
     <h2>
-        <?php p($l->t('Domain settings')); ?>
+        <?php p($l->t('Domain settings for recipient exceptions')); ?>
     </h2>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
@@ -57,8 +57,8 @@
                 <option selected value="False"><?php p($l->t('Disabled')); ?></option>
             </select>
             <label style="display:none">
-                <input type="checkbox">
-                <?php p($l->t('Inherited'));?>
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
             </label>
             <input type="hidden" name="settingkeyname" value="attachmentdomainexceptionsexternalpopup">
             <input type="hidden" name="settingkeytemplateid" value="0">

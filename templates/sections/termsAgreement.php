@@ -23,9 +23,10 @@
                     <a target="blank" style="color:blue;font-style: italic;" href="https://www.sendent.com/terms-and-conditions/"><?php p($l->t('Review terms and conditions'));?></a> 
                     <br>
                     <br>
-
-                <input type="checkbox" id="termsAgreementCheckbox" name="termsAgreementCheckbox" value="yes"> 
-                                   <label for="termsAgreementCheckbox"><?php p($l->t('I have read the terms and conditions and I agree.'));?></label>
+        <div class="settingkeyvalueinherited">
+                <input type="checkbox" class="settingkeyvalueinheritedcheckbox" id="termsAgreementCheckbox" name="termsAgreementCheckbox" value="yes"> 
+                                   <span class="settingkeyvalueinheritedlabel" for="termsAgreementCheckbox"><?php p($l->t('I have read the terms and conditions and I agree.'));?></label>
+                                   </div>
             </div>
                 </div>
                     
