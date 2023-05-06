@@ -46,7 +46,7 @@ class SubscriptionValidationHttpClient {
 		$validatedLicense->setLicensekey($licenseData->getLicensekey());
 		$validatedLicense->setEmail($licenseData->getEmail());
 		$validatedLicense->setNcgroup($licenseData->getNcgroup());
-
+		
 		try {
 			$result = $this->licenseHttpClient->post('subscription/validate', $data);
 
@@ -66,6 +66,8 @@ class SubscriptionValidationHttpClient {
 			else
 			{
 				$validatedLicense->setLevel(License::ERROR_VALIDATING);
+				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE SETTING LEVEL TO ERROR_VALIDATING", true));
+
 			}
 		} catch (Exception $e) {
 			$this->logger->error('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION: ' . $e->getMessage(), [
@@ -73,7 +75,7 @@ class SubscriptionValidationHttpClient {
 			]);
 			error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION: ' . $e->getMessage(), true));
 
-			$validatedLicense->setLevel(License::ERROR_INCOMPLETE);
+			$validatedLicense->setLevel(License::ERROR_VALIDATING);
 		}
 
 		return $validatedLicense;

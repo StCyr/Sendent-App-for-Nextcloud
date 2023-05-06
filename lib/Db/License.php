@@ -41,7 +41,7 @@ class License extends Entity implements JsonSerializable {
 
 	public function isCheckNeeded(): bool {
 		$diffDay = new DateInterval('P7D');
-		if (date_create($this->datelastchecked) >= date_sub(date_create("now"), $diffDay) && $this->level != ERROR_VALIDATING) {
+		if (date_create($this->datelastchecked) >= date_sub(date_create("now"), $diffDay) && $this->level != License::ERROR_VALIDATING) {
 			error_log(print_r("LICENSE-ISCHECKNEEDED: FALSE", true));
 
 			return false;

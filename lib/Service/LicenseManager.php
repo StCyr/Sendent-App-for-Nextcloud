@@ -59,8 +59,10 @@ class LicenseManager {
 
 	public function renewLicense(License $license) {
 		$this->logger->info('Renewing license ' . $license->getId());
+		error_log(print_r("Renewing license " . $license->getId(), true));
+
 		$license = $this->subscriptionvalidationhttpclient->validate($license);
-		if (isset($license)) {
+		if (isset($license) && $license != null) {
 			$maxUsers = $license->getMaxusers();
 			if (!isset($maxUsers)) {
 				$maxUsers = 1;
@@ -73,18 +75,20 @@ class LicenseManager {
 
 			if($level != License::ERROR_VALIDATING)
 			{
-			return $this->licenseservice->update(
-				$license->getId(),
-				$license->getLicensekey(),
-				date_create($license->getDategraceperiodend()),
-				date_create($license->getDatelicenseend()),
-				$maxUsers,
-				$maxGraceUsers,
-				$license->getEmail(),
-				date_create($license->getDatelastchecked()),
-				$level,
-				$license->getNcgroup()
-			);
+				error_log(print_r("RENEWLICENSE LICENSE LEVEL IS NOT ERROR_VALIDATING", true));
+
+				return $this->licenseservice->update(
+					$license->getId(),
+					$license->getLicensekey(),
+					date_create($license->getDategraceperiodend()),
+					date_create($license->getDatelicenseend()),
+					$maxUsers,
+					$maxGraceUsers,
+					$license->getEmail(),
+					date_create($license->getDatelastchecked()),
+					$level,
+					$license->getNcgroup()
+				);
 		}
 		} else {
 			$license = new License();

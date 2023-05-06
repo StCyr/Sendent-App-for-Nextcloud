@@ -233,9 +233,7 @@ class LicenseService {
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
-
 		$licenseobj = new License();
-		
 
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
