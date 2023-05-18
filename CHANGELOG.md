@@ -217,3 +217,8 @@
 ## 1.3.2 - 2022-11-27
 ### Feature
 - New settings for Guest Accounts feature
+
+## 2.0.0 - 2023-05-18
+### Feature
+- Group based settings
+- Improvements in license configuration and management

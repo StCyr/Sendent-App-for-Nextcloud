@@ -45,10 +45,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '1.3.2') {
+		if ($firstRun !== '2.0.0') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '1.3.2');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.0');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -103,6 +103,12 @@ class InitialLoadManager {
 			if ($this->SettingKeyMapper->settingKeyCount("301") < 1) {
 				$this->addGuestAccountSettings();
 			}
+			if ($this->SettingKeyMapper->settingKeyCount("303") < 1) {
+				$this->addGuestAccountSettings();
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("5") < 1) {
+				$this->addSenderExceptionSettings();
+			}
 			$this->fixPaths();
 			$this->fixSnippets();
 		} catch (Exception $e) {
@@ -140,6 +146,8 @@ class InitialLoadManager {
 			$securemailpath = $this->showBySettingKeyId(12);
 			$passwordhtmlsnippet = $this->showBySettingKeyId(30);
 			$guestaccounthtmlsnippet = $this->showBySettingKeyId(302);
+			$guestaccountpublicsharehtmlsnippet = $this->showBySettingKeyId(303);
+
 			if (!is_null($folderpath)) {
 				if ($folderpath->getValue() === '') {
 					$this->update($folderpath->getId(), $folderpath->getSettingkeyid(), $folderpath->getGroupid(), $this->getsharefolderhtml());
@@ -165,6 +173,12 @@ class InitialLoadManager {
 					$this->update($guestaccounthtmlsnippet->getId(), $guestaccounthtmlsnippet->getSettingkeyid(), $guestaccounthtmlsnippet->getGroupid(), $this->getguestaccountshtml());
 				}
 			}
+			if(!is_null($guestaccountpublicsharehtmlsnippet)){
+				if($guestaccountpublicsharehtmlsnippet->getValue() === ''){
+					$this->update($guestaccountpublicsharehtmlsnippet->getId(), $guestaccountpublicsharehtmlsnippet->getSettingkeyid(), $guestaccountpublicsharehtmlsnippet->getGroupid(), $this->getguestaccountspublicsharehtml());
+					
+				}
+			}
 		} catch (Exception $exception) {
 		}
 	}
@@ -173,7 +187,10 @@ class InitialLoadManager {
 		$this->createKey("31", "attachmentdomainexceptionsexternalpopup", "0", "select-one");
 		$this->createGroupValue("0", "31", "False");
 	}
-
+	public function addSenderExceptionSettings(): void {
+		$this->createKey("5", "senderexceptions", "0", "text");
+		$this->createGroupValue("0", "5", "");
+	}
 	public function addHtmlpasswordsnippet(): void {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
@@ -453,6 +470,7 @@ class InitialLoadManager {
 		$this->createKey("26", "guestaccountsenforced", "0", "select-one");
 		$this->createKey("301", "disableanonymousshare", "0", "select-one");
 		$this->createKey("302", "htmlsnippetguestaccounts", "0", "textarea");
+		$this->createKey("303", "htmlsnippetpublicaccounts", "0", "textarea");
 
 		$this->createGroupValue("0", "20", "en");
 		$this->createGroupValue("0", "19", "BeforeSend");
@@ -478,6 +496,7 @@ class InitialLoadManager {
 		$this->createGroupValue("0", "26", "False");
 		$this->createGroupValue("0", "301", "False");
 		$this->createGroupValue("0", "302", $this->getguestaccountshtml());
+		$this->createGroupValue("0", "303", $this->getguestaccountspublicsharehtml());
 	}
 
 	public function createKey(string $key, string $name, string $templateid, string $valuetype) {
@@ -603,7 +622,9 @@ class InitialLoadManager {
 	public function getguestaccountshtml(): string {
 		return $this->getHTMLTemplate('htmlsnippetguestaccounts');
 	}
-
+	public function getguestaccountspublicsharehtml(): string {
+		return $this->getHTMLTemplate('htmlsnippetpublicaccounts');
+	}
 	private function getHTMLTemplate(string $id): string {
 		$appRoot = $this->appManager->getAppPath(Application::APPID);
 
