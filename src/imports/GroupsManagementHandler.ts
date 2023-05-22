@@ -25,12 +25,13 @@ export default class GroupsManagementHandler {
 
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
+			items: "li:not(.ui-state-disabled",
 			connectWith: ".connectedSortable"
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
 		$("#sendentGroups").sortable({
 			connectWith: ".connectedSortable",
-			update: () => this.instance.updateSendentGroups()
+			update: () => this.instance.updateGroupLists()
 		}).find( "li" )
 		.on( "click", this.instance.showSettingsForGroup)
 		$("#defaultGroup").sortable({
@@ -74,8 +75,10 @@ export default class GroupsManagementHandler {
 		GroupsManagementHandler.instance.settingFormHandler.loopThroughSettings(ncgroupGid);
 	}
 
-	private updateSendentGroups() {
-		console.log('Updating backend');
+	private updateGroupLists() {
+
+		// Disable sortable attribute for NC groups that have been deleted
+		$('#ncGroups li').filter(function() {return this.innerHTML.endsWith('*** DELETED GROUP ***')}).addClass('ui-state-disabled')
 
 		// Get the list of sendent groups from the UI
 		// TODO: Rewrite the selection with a each()
@@ -83,6 +86,7 @@ export default class GroupsManagementHandler {
 		const newSendentGroups = Object.values(li).map(htmlElement => htmlElement.dataset?.gid).filter(text => text !== undefined);
 
 		// Update backend
+		console.log('Updating backend');
 		const url = generateUrl('/apps/sendent/api/2.0/groups/update');
 		return axios.post(url, {newSendentGroups});
 
