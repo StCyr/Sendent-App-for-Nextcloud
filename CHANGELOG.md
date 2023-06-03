@@ -222,3 +222,7 @@
 ### Feature
 - Group based settings
 - Improvements in license configuration and management
+
+## 2.0.1 - 2023-06-03
+### Fix
+- Fix for deleted groups in combination with group settings
