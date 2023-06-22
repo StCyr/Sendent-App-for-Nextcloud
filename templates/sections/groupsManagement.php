@@ -29,7 +29,7 @@
 			<h1>
 		        <?php p($l->t('Inactive')); ?>
 			</h1>
-			<div style="display: flex; flex-direction: column; overflow: auto">
+			<div class="listContainer">
 				<ul id="ncGroups" class="connectedSortable" style="min-height: 270px; max-height: 100%;max-width: 400px">
 					<?php foreach ($_['ncGroups'] as $group) { ?>
 						<li class="ui-state-default" data-gid="<?php p($group['displayName']); ?>"><?php p($group['displayName']); ?></li>
@@ -41,7 +41,7 @@
 			<h1>
 		        <?php p($l->t('Active')); ?>
 			</h1>
-			<div style="display: flex; flex-direction: column; overflow: auto">
+			<div class="listContainer">
 				<ul id="defaultGroup" class="defaultList">
 					<li class="ui-state-default unsortable ui-selected"><?php p($l->t('Default')); ?></li>
 				</ul>

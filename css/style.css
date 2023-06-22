@@ -146,11 +146,17 @@ textarea{
 	width: 300px;
 }
 
+.listContainer {
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	max-height: 270px;
+	border: 1px solid #eee;
+}
+
 .defaultList, .connectedSortable {
     min-width: 270px;
-	margin-right: 5px;
 	padding: 2px;
-	border: 1px solid #eee;
 }
 .connectedSortable li {
 	padding-left: 2px;
