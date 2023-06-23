@@ -23,6 +23,20 @@ export default class GroupsManagementHandler {
 		this.instance.settingFormHandler = settingFormHandler;
 		this.instance.licenseHandler = licenseHandler;
 
+		// Activates group lists filters
+		$("#ncGroupsFilter").on( "keyup", function() {
+			const value = $(this).val()!.toString().toLowerCase()
+			$("#ncGroups li").each(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			})
+		})
+		$("#sendentGroupsFilter").on( "keyup", function() {
+			const value = $(this).val()!.toString().toLowerCase()
+			$("#sendentGroups li").each(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			})
+		})
+
 		// Makes the Sendent groups lists sortable
 		$("#ncGroups").sortable({
 			items: "li:not(.ui-state-disabled",
