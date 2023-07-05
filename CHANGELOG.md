@@ -226,3 +226,9 @@
 ## 2.0.1 - 2023-06-03
 ### Fix
 - Fix for deleted groups in combination with group settings
+
+## 2.0.2 - 2023-07-04
+### Feature
+- Improved group settings management
+### Support
+- Added support for Nextcloud 27
