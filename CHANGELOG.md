@@ -232,3 +232,9 @@
 - Improved group settings management
 ### Support
 - Added support for Nextcloud 27
+
+## 2.0.3 - 2023-08-05
+##Feature
+- Added setting to control Secure Mail UI in Sendent Nextcloud Add-in for Outlook
+### Fix
+- Updated support information for app registration on Nextcloud appstore.

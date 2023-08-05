@@ -45,10 +45,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '2.0.0') {
+		if ($firstRun !== '2.0.3') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.0');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.3');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -60,6 +60,9 @@ class InitialLoadManager {
 	private function runInitialLoadTasks115(): void {
 		try {
 			if ($this->SettingKeyMapper->settingKeyCount("20") < 1) {
+				$this->initialLoading();
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("600") < 1) {
 				$this->initialLoading();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("23") < 1) {
@@ -498,7 +501,10 @@ class InitialLoadManager {
 		$this->createGroupValue("0", "302", $this->getguestaccountshtml());
 		$this->createGroupValue("0", "303", $this->getguestaccountspublicsharehtml());
 	}
-
+	public function addSecureMailUIMode(): void {
+		$this->createKey("600", "securemailuimode", "0", "select-one");
+		$this->createGroupValue("0", "600", "toolbar");
+	}
 	public function createKey(string $key, string $name, string $templateid, string $valuetype) {
 		try {
 			$SettingKey = new settingkey();

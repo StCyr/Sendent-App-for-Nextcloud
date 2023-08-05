@@ -54,6 +54,32 @@
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
+                    <?php p($l->t('Secure Mail UI mode')); ?>
+                </span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <select class="settingkeyvalueinput" type="select" name="settingkeyvalueinput" id="securemailuimode">
+                <option selected value="toolbar"><?php p($l->t('Toolbar in message compose window')); ?></option>
+                <option value="button"><?php p($l->t('Button in ribbon')); ?></option>
+            </select>
+            <label style="display:none">
+                <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <input type="hidden" name="settingkeyname" value="securemailuimode">
+            <input type="hidden" name="settingkeytemplateid" value="0">
+            <input type="hidden" name="settinggroupid" value="0">
+            <input type="hidden" name="settingkeykey" value="600">
+            <input type="hidden" name="settingkeyid" value="600">
+        </div>
+    </div>
+    <div class="personal-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label>
+                <span class="templatesettingkeyname">
                     <?php p($l->t('Path for Secure Mail')); ?>
                 </span>
             </label>
