@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@eastdesire/jscolor": "^2.4.5",
-    "@nextcloud/axios": "^1.6.0",
+    "@nextcloud/axios": "^1.11.0",
     "@nextcloud/eslint-plugin": "^2.0.0",
     "@nextcloud/router": "^2.0.0",
     "@types/jquery": "^3.3.6",

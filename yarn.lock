@@ -180,7 +180,7 @@
   dependencies:
     "@nextcloud/event-bus" "^3.1.0"
 
-"@nextcloud/axios@^1.6.0":
+"@nextcloud/axios@^1.11.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@nextcloud/axios/-/axios-1.11.0.tgz#d4cbc83bec63862529b8f76a588d701185cdf72e"
   integrity sha512-NyaiSC2GX2CPaH/MUGGMTTTza/TW9ZqWNGWq6LJ+pLER8nqZ9BQkwJ5kXUYGo+i3cka68PO+9WhcDv4fSABpuQ==
