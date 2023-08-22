@@ -45,10 +45,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '2.0.3') {
+		if ($firstRun !== '2.0.4') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.3');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.4');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -63,7 +63,7 @@ class InitialLoadManager {
 				$this->initialLoading();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("600") < 1) {
-				$this->initialLoading();
+				$this->addSecureMailUIMode();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("23") < 1) {
 				$this->addSendmode();

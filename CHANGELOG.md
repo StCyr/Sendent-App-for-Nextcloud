@@ -238,3 +238,7 @@
 - Added setting to control Secure Mail UI in Sendent Nextcloud Add-in for Outlook
 ### Fix
 - Updated support information for app registration on Nextcloud appstore.
+
+## 2.0.4 - 2023-08-22
+### Fix
+- Fixes issue where upon updating the snippet-settings are reset.
