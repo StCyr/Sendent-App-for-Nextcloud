@@ -12,6 +12,7 @@ class License extends Entity implements JsonSerializable {
 	public const ERROR_VALIDATING = 'Error_validating';
 
 	protected $licensekey;
+	protected $licensekeytoken;
 	protected $email;
 	protected $dategraceperiodend;
 	protected $datelicenseend;
@@ -20,7 +21,7 @@ class License extends Entity implements JsonSerializable {
 	protected $datelastchecked;
 	protected $level;
 	protected $ncgroup;
-
+	protected $subscriptionstatus;
 	public function __construct() {
 		// add types in constructor
 	}
@@ -28,7 +29,9 @@ class License extends Entity implements JsonSerializable {
 		return [
 			'id' => $this->id,
 			'licensekey' => $this->licensekey,
+			'licensekeytoken' => $this->licensekeytoken,
 			'email' => $this->email,
+			'subscriptionstatus' => $this->subscriptionstatus,
 			'dategraceperiodend' => $this->dategraceperiodend,
 			'maxusers' => $this->maxusers,
 			'maxgraceusers' => $this->maxgraceusers,
@@ -43,7 +46,6 @@ class License extends Entity implements JsonSerializable {
 		$diffDay = new DateInterval('P7D');
 		if (date_create($this->datelastchecked) >= date_sub(date_create("now"), $diffDay) && $this->level != License::ERROR_VALIDATING) {
 			error_log(print_r("LICENSE-ISCHECKNEEDED: FALSE", true));
-
 			return false;
 		}
 		error_log(print_r("LICENSE-ISCHECKNEEDED: TRUE", true));
@@ -63,10 +65,20 @@ class License extends Entity implements JsonSerializable {
 		return false;
 	}
 	public function isLicenseExpired(): bool {
-		if (date_create($this->datelicenseend) < date_create("now")
-		&& date_create($this->dategraceperiodend) < date_create("now")) {
+		if ((date_create($this->datelicenseend) < date_create("now")
+		&& date_create($this->dategraceperiodend) < date_create("now"))
+		|| ($this->subscriptionstatus == "2" || $this->subscriptionstatus == "4" || $this->subscriptionstatus == "5" || $this->subscriptionstatus == "6"  || $this->subscriptionstatus == "7" )) {
 			return true;
 		}
 		return false;
+	}
+	public function isLicenseSuspended(): bool {
+		return $this->subscriptionstatus == "5";
+	}
+	public function isLicenseInactive(): bool {
+		return $this->subscriptionstatus == "4";
+	}
+	public function isLicenseRenewedOrSwitched(): bool {
+		return $this->subscriptionstatus == "6" || $this->subscriptionstatus == "7";
 	}
 }

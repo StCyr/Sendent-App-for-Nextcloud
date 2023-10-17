@@ -80,6 +80,8 @@ class LicenseManager {
 				return $this->licenseservice->update(
 					$license->getId(),
 					$license->getLicensekey(),
+					$license->getLicensekeytoken(),
+					$license->getSubscriptionstatus(),
 					date_create($license->getDategraceperiodend()),
 					date_create($license->getDatelicenseend()),
 					$maxUsers,
@@ -97,10 +99,10 @@ class LicenseManager {
 		}
 	}
 
-	public function createLicense(string $license, string $email, string $ncgroup = '') {
+	public function createLicense(string $license, string $licenseKeyToken, string $subscriptionStatus, string $email, string $ncgroup = '') {
 		$this->logger->info('Creating license');
 		$this->deleteLicense($ncgroup);
-		$licenseData = $this->licenseservice->createNew($license, $email, $ncgroup);
+		$licenseData = $this->licenseservice->createNew($license, $licenseKeyToken, $subscriptionStatus, $email, $ncgroup);
 		return $this->activateLicense($licenseData);
 	}
 
@@ -144,6 +146,8 @@ class LicenseManager {
 
 			return $this->licenseservice->create(
 				$activatedLicense->getLicensekey(),
+				$activatedLicense->getLicensekeytoken(),
+				$activatedLicense->getSubscriptionstatus(),
 				date_create($activatedLicense->getDategraceperiodend()),
 				date_create($activatedLicense->getDatelicenseend()),
 				$maxUsers,

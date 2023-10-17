@@ -20,8 +20,8 @@ class LicenseHttpClient {
 	/** @var string */
 	protected $baseUrl;
 
-	public function __construct(IClientService $clientService, LoggerInterface $logger, string $baseUrl = "https://api.scwcloud.sendent.nl/") {
-		// public function __construct(IClientService $clientService, LoggerInterface $logger, string $baseUrl = "http://localhost:8085/") {
+	//public function __construct(IClientService $clientService, LoggerInterface $logger, string $baseUrl = "https://api.scwcloud.sendent.nl/") {
+		public function __construct(IClientService $clientService, LoggerInterface $logger, string $baseUrl = "http://127.0.0.1:8085/") {
 		$this->client = $clientService->newClient();
 		$this->logger = $logger;
 		$this->baseUrl = $baseUrl;
@@ -42,8 +42,8 @@ class LicenseHttpClient {
 		try {
 			$response = $this->client->post($uri, [
 				'json' => $data->jsonSerialize(),
-				'header' => [
-					'api-version' => '1',
+				'headers' => [
+					'api-version' => '2.0',
 				],
 			]);
 		} catch (BadResponseException $e) {

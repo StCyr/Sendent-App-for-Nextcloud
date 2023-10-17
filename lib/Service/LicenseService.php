@@ -52,6 +52,9 @@ class LicenseService {
 				if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
 					$result->setLicensekey($this->FileStorageManager->getLicenseContent());
 				}
+				if ($this->valueIsLicenseKeyFilePath($result->getLicensekeytoken()) !== false) {
+					$result->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
+				}
 			}
 			return $list;
 			// in order to be able to plug in different storage backends like files
@@ -70,6 +73,9 @@ class LicenseService {
 				if ($this->valueIsLicenseKeyFilePath($result->getLicensekey()) !== false) {
 					$result->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 				}
+				if ($this->valueIsLicenseKeyFilePath($result->getLicensekeytoken()) !== false) {
+					$result->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
+				}
 			}
 			return $list;
 			// in order to be able to plug in different storage backends like files
@@ -87,6 +93,9 @@ class LicenseService {
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
 				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
 			}
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekeytoken()) !== false) {
+				$licensekey->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
+			}
 
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -102,6 +111,9 @@ class LicenseService {
 			$licensekey = $this->mapper->findByLicenseKey($key);
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekey()) !== false) {
 				$licensekey->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
+			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekeytoken()) !== false) {
+				$licensekey->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
 			}
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -171,7 +183,7 @@ class LicenseService {
 		}
 	}
 
-	public function create(string $license, DateTime $dategraceperiodend,
+	public function create(string $license, string $licenseKeyToken, string $subscriptionStatus, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level, string $ncgroup = '') {
 		error_log(print_r("LICENSESERVICE-CREATE", true));
@@ -179,7 +191,7 @@ class LicenseService {
 		try {
 			error_log(print_r("LICENSESERVICE-LEVEL=		" . $level, true));
 
-			return $this->update(0, $license,
+			return $this->update(0, $license, $licenseKeyToken, $subscriptionStatus,
 			$dategraceperiodend, $datelicenseend,
 			$maxusers, $maxgraceusers, $email, $datelastchecked, $level, $ncgroup);
 		} catch (Exception $e) {
@@ -189,6 +201,9 @@ class LicenseService {
 			
 			$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 			$licenseobj->setLicensekey($value);
+			$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
+			$licenseobj->setLicensekeytoken($currentlyActiveValue);
+			$licenseobj->setSubscriptionstatus($subscriptionStatus);
 			$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
 			$licenseobj->setMaxusers($maxusers);
@@ -201,18 +216,23 @@ class LicenseService {
 			error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), true));
 			$licenseresult = $this->mapper->insert($licenseobj);
 			if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
-				$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent());
+				$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 			}
-
+			if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
+				$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
+			}
 			return $licenseresult;
 		}
 	}
 
-	public function createNew(string $license, string $email, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
+	public function createNew(string $license, string $licenseKeyToken, string $subscriptionStatus, string $email, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		$licenseobj = new License();
 		
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
+		$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
+		$licenseobj->setLicensekeytoken($currentlyActiveValue);
+		$licenseobj->setSubscriptionstatus($subscriptionStatus);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel("None");
 		$licenseobj->setMaxusers(1);
@@ -226,10 +246,13 @@ class LicenseService {
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
 			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
 		}
+		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
+			$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
+		}
 		return $licenseresult;
 	}
 
-	public function update(int $id,string $license, DateTime $dategraceperiodend,
+	public function update(int $id,string $license, string $licenseKeyToken, string $subscriptionStatus, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
 	string $email, DateTime $datelastchecked, string $level, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
@@ -237,6 +260,9 @@ class LicenseService {
 
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 		$licenseobj->setLicensekey($value);
+		$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
+		$licenseobj->setLicensekeytoken($currentlyActiveValue);
+		$licenseobj->setSubscriptionstatus($subscriptionStatus);
 		$licenseobj->setId($id);
 		$licenseobj->setEmail($email);
 		$licenseobj->setLevel($level);
@@ -250,6 +276,9 @@ class LicenseService {
 		$licenseresult = $this->mapper->update($licenseobj);
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekey()) !== false) {
 			$licenseresult->setLicensekey($this->FileStorageManager->getLicenseContent($ncgroup));
+		}
+		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
+			$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
 		}
 		return $licenseresult;
 	}
@@ -272,6 +301,7 @@ class LicenseService {
 			}
 		}
 	}
+
 	private function valueIsLicenseKeyFilePath($value): bool {
 		if (strpos($value, 'licenseKeyFile') !== false) {
 			return true;
