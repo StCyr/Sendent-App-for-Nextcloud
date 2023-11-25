@@ -167,6 +167,12 @@ class LicenseService {
 			return null;
 		} else {
 			$this->logger->debug('Found license: ' . $license[0]->getId());
+			if ($this->valueIsLicenseKeyFilePath($license[0]->getLicensekey()) !== false) {
+				$license[0]->setLicensekey($this->FileStorageManager->getLicenseContent());
+			}
+			if ($this->valueIsLicenseKeyFilePath($license[0]->getLicensekeytoken()) !== false) {
+				$license[0]->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
+			}
 			return $license[0];
 		}
 	}

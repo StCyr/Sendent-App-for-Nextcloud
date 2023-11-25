@@ -51,7 +51,7 @@ class LicenseManager {
 		try {
 			error_log(print_r('Pinging licensing server with license ' . $license->getId(), true));
 			$this->logger->info('Pinging licensing server with license ' . $license->getId());
-			$license = $this->subscriptionvalidationhttpclient->validate($license);
+			$pingResultLicense = $this->subscriptionvalidationhttpclient->validate($license);
 		} catch (Exception $e) {
 			$this->logger->error('Error while pinging licensing server');
 		}
@@ -92,7 +92,10 @@ class LicenseManager {
 					$license->getNcgroup()
 				);
 		}
-		} else {
+		} else if($this->isLocalValid($license)){
+			return $license;
+		}
+		else{
 			$license = new License();
 			$license->setLevel("nolicense");
 			return $license;
@@ -157,7 +160,10 @@ class LicenseManager {
 				$level,
 				$license->getNcgroup()
 			);
-		} else {
+		} else if($this->isLocalValid($license)){
+			return $license;
+		}
+		else{
 			$license = new License();
 			$license->setLevel("nolicense");
 			return $license;

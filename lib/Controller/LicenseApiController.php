@@ -391,8 +391,12 @@ class LicenseApiController extends ApiController {
 				elseif (count($result) > 0 && $result[0]->getLevel() == License::ERROR_VALIDATING) {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
+					$this->logger->info('License key returned is: ' . $licensekey);
+					$dateExpiration = $result[0]->getDatelicenseend();
+					$dateLastCheck = $result[0]->getDatelastchecked();
+					$level = $result[0]->getLevel();
 					$group = $result[0]->getNcgroup();
-					return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "error_validating","-", $licensekey, "-", "-", $email, $group));
+					return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "error_validating",$level, $licensekey, $dateExpiration, $dateLastCheck, $email, $group));
 				} 
 				else {
 					return new DataResponse(new LicenseStatus($this->l->t("No license configured"), "nolicense" ,"-", "-", "-", "-", "-"));
@@ -403,7 +407,14 @@ class LicenseApiController extends ApiController {
 			}
 		} catch (Exception $e) {
 			$this->logger->error('Cannot verify license');
-			return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "fatal" ,"-", "-", "-", "-", "-"));
+			$email = $result[0]->getEmail();
+					$licensekey = $result[0]->getLicensekey();
+					$this->logger->info('License key returned is: ' . $licensekey);
+					$dateExpiration = $result[0]->getDatelicenseend();
+					$dateLastCheck = $result[0]->getDatelastchecked();
+					$level = $result[0]->getLevel();
+					$group = $result[0]->getNcgroup();
+			return new DataResponse(new LicenseStatus($this->l->t("Cannot verify your license. Please make sure your licensekey and email address are correct before you try to 'Activate license'."), "fatal" ,$level, $licensekey, $dateExpiration, $dateLastCheck, $email, $group));
 		}
 	}
 	/**

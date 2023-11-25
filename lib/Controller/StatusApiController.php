@@ -53,8 +53,8 @@ class StatusApiController extends ApiController {
 		$statusobj->maxusersgrace = 0;
 		$statusobj->maxusers = 0;
 		$statusobj->currentusers = 0;
-		$statusobj->validlicense = false;
-
+		$statusobj->validLicense = false;
+		try{
 		// Finds out user's license
 		$result = $this->licenseservice->findUserLicense($this->userId);
 
@@ -65,7 +65,9 @@ class StatusApiController extends ApiController {
 
 		// Renews license if needed
 		if ($result->isCheckNeeded()) {
+			
 			$result = $this->licensemanager->renewLicense($result);
+			
 		}
 
 		// Gets all license status information
@@ -97,6 +99,10 @@ class StatusApiController extends ApiController {
 			}
 		}
 
+	}
+		catch (Exception $e) {
+			
+		}
 		// Returns license status
 		return new DataResponse($statusobj);
 	}

@@ -40,11 +40,14 @@ class AppVersionHttpClient {
 
 				return $appVersionResponse;
 			}
+			else{
+				return new AppVersionResponse();
+			}
 		} catch (Exception $e) {
 			$this->logger->error('AppVersionHttpClient-latest-EXCEPTION: ' . $e->getMessage(), [
 				'exception' => $e,
 			]);
-			return null;
+			return new AppVersionResponse();
 		}
 	}
 }
