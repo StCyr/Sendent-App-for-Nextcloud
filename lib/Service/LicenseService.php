@@ -191,7 +191,7 @@ class LicenseService {
 
 	public function create(string $license, string $licenseKeyToken, string $subscriptionStatus, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level, string $ncgroup = '') {
+	string $email, DateTime $datelastchecked, string $level = '', string $technicalLevel= '', string $product = '', int $isTrial = -1, string $ncgroup = '') {
 		error_log(print_r("LICENSESERVICE-CREATE", true));
 
 		try {
@@ -199,7 +199,7 @@ class LicenseService {
 
 			return $this->update(0, $license, $licenseKeyToken, $subscriptionStatus,
 			$dategraceperiodend, $datelicenseend,
-			$maxusers, $maxgraceusers, $email, $datelastchecked, $level, $ncgroup);
+			$maxusers, $maxgraceusers, $email, $datelastchecked, $level, $technicalLevel, $product, $isTrial, $ncgroup);
 		} catch (Exception $e) {
 			error_log(print_r("LICENSESERVICE-EXCEPTION=" . $e, true));
 
@@ -217,6 +217,9 @@ class LicenseService {
 			$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
+			$licenseobj->setTechnicallevel($technicalLevel);
+			$licenseobj->setProduct($product);
+			$licenseobj->setIstrial($isTrial);
 			$licenseobj->setNcgroup($ncgroup);
 
 			error_log(print_r("LICENSESERVICE-EXCEPTION-LEVEL=" . $licenseobj->getLevel(), true));
@@ -246,6 +249,9 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format(date_create("now"), "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
+		$licenseobj->setTechnicallevel('');
+		$licenseobj->setProduct('');
+		$licenseobj->setIstrial(-1);
 		$licenseobj->setNcgroup($ncgroup);
 
 		$licenseresult = $this->mapper->insert($licenseobj);
@@ -260,7 +266,7 @@ class LicenseService {
 
 	public function update(int $id,string $license, string $licenseKeyToken, string $subscriptionStatus, DateTime $dategraceperiodend,
 	DateTime $datelicenseend, int $maxusers, int $maxgraceusers,
-	string $email, DateTime $datelastchecked, string $level, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
+	string $email, DateTime $datelastchecked, string $level = '', string $technicalLevel = '', string $product = '', int $isTrial = -1, string $ncgroup = ''): \OCP\AppFramework\Db\Entity {
 		error_log(print_r("LICENSESERVICE-UPDATE", true));
 		$licenseobj = new License();
 
@@ -277,6 +283,9 @@ class LicenseService {
 		$licenseobj->setDategraceperiodend(date_format($dategraceperiodend, "Y-m-d"));
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
+		$licenseobj->setTechnicallevel($technicalLevel);
+		$licenseobj->setProduct($product);
+		$licenseobj->setIstrial($isTrial);
 		$licenseobj->setNcgroup($ncgroup);
 		
 		$licenseresult = $this->mapper->update($licenseobj);

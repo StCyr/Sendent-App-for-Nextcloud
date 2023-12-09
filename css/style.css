@@ -198,6 +198,11 @@ label{
 	margin: 0;
 	line-height: 34px;
   }
+
+  &[data-state="licenseproductavailable"]::before {
+	content: '';
+	background-image: var(--icon-checkmark-color-green);
+}
 .templatesettingkeynametextareakind {
 	vertical-align: text-top;
   }

@@ -13,6 +13,8 @@ type LicenseStatus = {
     dateLastCheck: string,
     LatestVSTOAddinVersion : AppVersionStatus,
 	ncgroup: string,
+    product: string,
+    istrial: number
 }
 type AppVersionStatus = {
     ApplicationName : string
@@ -77,7 +79,7 @@ export default class LicenseHandler {
     }
 
     public async refreshLicenseStatus(gid: string): Promise<void> {
-        this.insertLoadIndicator('#licensestatus, #latestVSTOVersion, #licenselastcheck, #licenseexpires, #licenselevel');
+        this.insertLoadIndicator('#licensestatus, #latestVSTOVersion, #licenselastcheck, #licenseexpires, #licenselevel, #licenseProducts, #licenseSubscriptionType');
         this.disableButtons();
 
 		console.log('Refreshing license status', gid);
@@ -91,8 +93,20 @@ export default class LicenseHandler {
             let statusdateLastCheckDateString = statusdateLastCheckDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
             let statusdateExpirationDate = new Date(status.dateExpiration);
             let statusdateExpirationDateString = statusdateExpirationDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
+            let statusSubscriptionType = status.istrial == 1 ? "Trial" : status.istrial == 0 ? "Payed subscription" : "Subscrptiontype cannot be determined";
+            let statusSubscriptionLevel = status.level == '0' || status.level == ''|| status.level == null ? status.product : status.level;
+
+
+            statusSubscriptionLevel = statusSubscriptionLevel.replace('\r\n', '<br/>');
+            status.product = status.product.replace('\r\n', '<br/>');
             
             
+            console.log('status.istrial = ' + status.istrial);
+            console.log('status.level = ' + status.level);
+            console.log('status.product = ' + status.product);
+            console.log('statusSubscriptionType = ' + statusSubscriptionType);
+            console.log('statusSubscriptionLevel = ' + statusSubscriptionLevel);
+
             if (status.level !== 'Free' && status.level !== '-' && status.level !== '') {
                 $("#btnSupportButton").removeClass("hidden").addClass("shown");
                 $("#latestVSTOVersion").text(appStatus.LatestVSTOAddinVersion.Version);
@@ -100,19 +114,43 @@ export default class LicenseHandler {
                 document.getElementById("latestVSTOVersionDownload")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlBinary);
                 document.getElementById("latestVSTOVersionReleaseNotes")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlReleaseNotes);
             }
+            if(statusSubscriptionLevel == '' || statusSubscriptionLevel == status.product)
+            {
+                $("#licenselevelcontainer").removeClass("shown").addClass("hidden");
+                $("#defaultlicenselevelcontainer").removeClass("shown").addClass("hidden");
+            }
+            else
+            {                
+                $("#licenselevelcontainer").removeClass("hidden").addClass("shown");
+                $("#defaultlicenselevelcontainer").removeClass("hidden").addClass("shown");
+            }
+            if(status.product == '')
+            {
+                $("#licensesupportedproductscontainer").removeClass("shown").addClass("hidden");
+                $("#defaultlicensesupportedproductscontainer").removeClass("shown").addClass("hidden");
+            }
+            else
+            {                
+                $("#licensesupportedproductscontainer").removeClass("hidden").addClass("shown");
+                $("#defaultlicensesupportedproductscontainer").removeClass("hidden").addClass("shown");
+            }
 
             $("#licensestatus").html(status.status);
             $("#licenselastcheck").text(statusdateLastCheckDateString);
             $("#licenseexpires").text(statusdateExpirationDateString);
-            $("#licenselevel").text(status.level);
+            $("#licenselevel").html(statusSubscriptionLevel);
             $("#licenseEmail").val(status.email);
             $("#licensekey").val(status.licensekey);
+            $("#licenseProducts").html(status.product);
+            $("#licenseSubscriptionType").html(statusSubscriptionType);
             
 			if (gid === '') {
 				$("#defaultlicensestatus").html(status.status);
 	            $("#defaultlicenselastcheck").text(statusdateLastCheckDateString);
 				$("#defaultlicenseexpires").text(statusdateExpirationDateString);
-				$("#defaultlicenselevel").text(status.level);
+				$("#defaultlicenselevel").html(statusSubscriptionLevel);
+                $("#defaultlicenseproducts").html(status.product);
+                $("#defaultlicensesubscriptiontype").html(statusSubscriptionType);
 			}
 
             this.updateStatus(status.statusKind);
@@ -174,13 +212,14 @@ export default class LicenseHandler {
 		        $("#licensekey").val('');
 	            this.createLicense('', '', ev.data.gid);
 	        });
-
         } catch (err) {
             console.warn('Error while fetching license status', err);
 
             $("#licensestatus").text(t("sendent", "Cannot verify your license. Please make sure your licensekey and emailaddress are correct before you try to 'Activate license'."));
             $("#licenselastcheck").text(t("sendent", "Just now"));
             $("#licenseexpires, #licenselevel").text("-");
+            $("#licenseProducts, #licenselevel").text("-");
+            $("#licenseSubscriptionType, #licenselevel").text("-");
 
             this.showErrorStatus();
 
@@ -191,6 +230,10 @@ export default class LicenseHandler {
 	        this.enableButtons();
         }
 
+        //Remove exchange connector for now.
+        $("tr[id*='exchange']").each(function (i, el) {
+            $(this).removeClass("shown").addClass("hidden");
+        });
 		return;
     }
 

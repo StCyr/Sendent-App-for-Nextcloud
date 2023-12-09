@@ -8,6 +8,24 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
+                    <?php p($l->t('Subscription type')); ?></span>
+            </label>
+            <span class="statuskeyvalueinput statusitem" id="defaultlicensesubscriptiontype"><?php p($_['defaultlicensesubscriptiontype']); ?></span>
+        </div>
+    </div>
+    <div class="license-settings-setting-box" id="defaultlicensesupportedproductscontainer">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname licenseitem">
+                    <?php p($l->t('Supported products')); ?></span>
+            </label>
+            <span class="statuskeyvalueinput statusitem" id="defaultlicenselevel"><?php p($_['defaultlicenseproducts']); ?></span>
+        </div>
+    </div>
+    <div class="license-settings-setting-box" id="defaultlicenselevelcontainer">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname licenseitem">
                     <?php p($l->t('Subscription level')); ?></span>
             </label>
             <span class="statuskeyvalueinput statusitem" id="defaultlicenselevel"><?php p($_['defaultLicenseLevel']); ?></span>

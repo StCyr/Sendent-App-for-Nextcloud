@@ -89,6 +89,9 @@ class LicenseManager {
 					$license->getEmail(),
 					date_create($license->getDatelastchecked()),
 					$level,
+					$license->getTechnicallevel(),
+					$license->getProduct(),
+					$license->getIstrial(),
 					$license->getNcgroup()
 				);
 		}
@@ -158,6 +161,9 @@ class LicenseManager {
 				$activatedLicense->getEmail(),
 				date_create("now"),
 				$level,
+				$license->getTechnicallevel(),
+				$license->getProduct(),
+				$license->getIstrial(),
 				$license->getNcgroup()
 			);
 		} else if($this->isLocalValid($license)){

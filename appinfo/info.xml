@@ -3,8 +3,8 @@
     <id>sendent</id>
     <name>Sendent</name>
     <summary lang="en">Sendent allows you to securely exchange files and emails</summary>
-    <description lang="en">Sendent allows you to securely exchange files and emails. Sendent is linked to Microsoft Outlook, so you can continue to work from your trusted email program while you mail more easily and securely. Very useful, for example, to share privacy-sensitive documents or content or to send attachments that are normally too large to email. All files are uploaded to your personal Nextcloud environment from which you determine who has access to them.</description>
-    <version>2.0.6</version>
+    <description lang="en">Sendent now securely exchanges files and emails, integrating with both Microsoft Outlook and Microsoft Teams. This enhanced capability allows users to seamlessly conduct their work, not only within their preferred email environment but also within the collaborative framework of Microsoft Teams. Whether sharing privacy-sensitive documents, content, or handling attachments that exceed standard email size constraints, Sendent ensures a streamlined and secure communication experience. All files are directed to your Nextcloud instance, empowering you to control and manage access permissions effectively.</description>
+    <version>2.0.7</version>
     <licence>agplv3</licence>
     <author mail="support@sendent.nl" homepage="https://www.sendent.nl">Sendent B.V.</author>
     <namespace>Sendent</namespace>

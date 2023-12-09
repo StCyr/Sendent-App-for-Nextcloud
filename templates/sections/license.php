@@ -85,8 +85,36 @@
             <input type="hidden" name="settingkeyid" value="900">
         </div>
     </div>
-
     <div class="license-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname licenseitem">
+                    <?php p($l->t('Subscription type')); ?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenseSubscriptionType"></span>
+            <input type="hidden" name="settingkeyname" value="licenseSubscriptionType">
+            <input type="hidden" name="settingkeykey" value="902">
+            <input type="hidden" name="settingkeyid" value="902">
+        </div>
+    </div>
+    <div class="license-settings-setting-box" id="defaultlicensesupportedproductscontainer">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname licenseitem">
+                    <?php p($l->t('Supported products')); ?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <div class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenseProducts"></span>
+            <input type="hidden" name="settingkeyname" value="licenseProducts">
+            <input type="hidden" name="settingkeykey" value="902">
+            <input type="hidden" name="settingkeyid" value="902">
+        </div>
+    </div>
+
+    <div class="license-settings-setting-box" id="licenselevelcontainer">
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
@@ -95,9 +123,9 @@
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
             <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenselevel"></span>
-            <input type="hidden" name="settingkeyname" value="licenselevel">
-            <input type="hidden" name="settingkeykey" value="902">
-            <input type="hidden" name="settingkeyid" value="902">
+                <input type="hidden" name="settingkeyname" value="licenselevel">
+                <input type="hidden" name="settingkeykey" value="902">
+                <input type="hidden" name="settingkeyid" value="902">
         </div>
     </div>
     <div class="license-settings-setting-box">

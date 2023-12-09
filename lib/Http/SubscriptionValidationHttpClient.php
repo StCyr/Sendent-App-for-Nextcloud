@@ -60,6 +60,10 @@ class SubscriptionValidationHttpClient {
 				$validatedLicense->setSubscriptionstatus($result->subscriptionStatus);
 				$validatedLicense->setMaxgraceusers($result->amountUsersMax);
 				$validatedLicense->setDatelastchecked(date_format(date_create("now"), "Y-m-d"));
+				$validatedLicense->setIstrial($result->isTrial);
+				$validatedLicense->setTechnicallevel($result->technicalProductLevel);
+				$validatedLicense->setProduct($result->product);
+
 
 				$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-LEVEL=		' . $result->level);
 				$this->logger->info('SUBSCRIPTIONVALIDATIONHTTPCLIENT-KEY=			' . $result->key);
@@ -72,6 +76,9 @@ class SubscriptionValidationHttpClient {
 			{
 				$validatedLicense->setLevel(License::ERROR_VALIDATING);
 				$validatedLicense->setSubscriptionstatus(License::ERROR_VALIDATING);
+				$validatedLicense->setIstrial(-1);
+				$validatedLicense->setTechnicallevel(License::ERROR_VALIDATING);
+				$validatedLicense->setProduct(License::ERROR_VALIDATING);
 				error_log(print_r("SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE SETTING LEVEL TO ERROR_VALIDATING", true));
 
 			}
@@ -82,6 +89,9 @@ class SubscriptionValidationHttpClient {
 			error_log(print_r('SUBSCRIPTIONVALIDATIONHTTPCLIENT-VALIDATE-EXCEPTION: ' . $e->getMessage(), true));
 			$validatedLicense->setSubscriptionstatus(License::ERROR_VALIDATING);
 			$validatedLicense->setLevel(License::ERROR_VALIDATING);
+			$validatedLicense->setIstrial(-1);
+			$validatedLicense->setTechnicallevel(License::ERROR_VALIDATING);
+			$validatedLicense->setProduct(License::ERROR_VALIDATING);
 		}
 
 		return $validatedLicense;
