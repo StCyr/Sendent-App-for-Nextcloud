@@ -242,3 +242,7 @@
 ## 2.0.4 - 2023-08-22
 ### Fix
 - Fixes issue where upon updating the snippet-settings are reset.
+
+## 2.0.5 - 2023-12-13
+### Support
+- Official Nextcloud version 28 support.
