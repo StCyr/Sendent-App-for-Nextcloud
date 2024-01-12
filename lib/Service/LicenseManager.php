@@ -58,43 +58,53 @@ class LicenseManager {
 	}
 
 	public function renewLicense(License $license) {
+		if (isset($license) && $license != null) {
+			$this->logger->info('Local provided license for renewal is not null we CAN continue with license: ' . $license->getId());
+			
+		}
+		else{
+			
+			$license = new License();
+			$license->setLevel("nolicense");
+			return $license;
+		}
 		$this->logger->info('Renewing license ' . $license->getId());
 		error_log(print_r("Renewing license " . $license->getId(), true));
 
-		$license = $this->subscriptionvalidationhttpclient->validate($license);
-		if (isset($license) && $license != null) {
-			$maxUsers = $license->getMaxusers();
+		$validatedLicense = $this->subscriptionvalidationhttpclient->validate($license);
+		if (isset($validatedLicense) && $validatedLicense != null) {
+			$maxUsers = $validatedLicense->getMaxusers();
 			if (!isset($maxUsers)) {
 				$maxUsers = 1;
 			}
-			$maxGraceUsers = $license->getMaxgraceusers();
+			$maxGraceUsers = $validatedLicense->getMaxgraceusers();
 			if (!isset($maxGraceUsers)) {
 				$maxGraceUsers = 1;
 			}
-			$level = $license->getLevel();
+			$level = $validatedLicense->getLevel();
 
 			if($level != License::ERROR_VALIDATING)
 			{
 				error_log(print_r("RENEWLICENSE LICENSE LEVEL IS NOT ERROR_VALIDATING", true));
 
 				return $this->licenseservice->update(
-					$license->getId(),
-					$license->getLicensekey(),
-					$license->getLicensekeytoken(),
-					$license->getSubscriptionstatus(),
-					date_create($license->getDategraceperiodend()),
-					date_create($license->getDatelicenseend()),
+					$validatedLicense->getId(),
+					$validatedLicense->getLicensekey(),
+					$validatedLicense->getLicensekeytoken(),
+					$validatedLicense->getSubscriptionstatus(),
+					date_create($validatedLicense->getDategraceperiodend()),
+					date_create($validatedLicense->getDatelicenseend()),
 					$maxUsers,
 					$maxGraceUsers,
-					$license->getEmail(),
-					date_create($license->getDatelastchecked()),
+					$validatedLicense->getEmail(),
+					date_create($validatedLicense->getDatelastchecked()),
 					$level,
-					$license->getTechnicallevel(),
-					$license->getProduct(),
-					$license->getIstrial(),
-					$license->getNcgroup()
+					$validatedLicense->getTechnicallevel(),
+					$validatedLicense->getProduct(),
+					$validatedLicense->getIstrial(),
+					$validatedLicense->getNcgroup()
 				);
-		}
+			}
 		} else if($this->isLocalValid($license)){
 			return $license;
 		}

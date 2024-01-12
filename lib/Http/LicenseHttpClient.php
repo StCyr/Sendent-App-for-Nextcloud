@@ -59,15 +59,17 @@ class LicenseHttpClient {
 			$this->logger->error('License client could not connect to license server. There was an undefined error: ' . $e->getMessage());
 			return null;
 		}
-
+		try{
 		if ($response->getStatusCode() === Http::STATUS_OK) {
 			$this->logger->info('Successfully contacted license server');
 
 			return json_decode($response->getBody());
 		}
-
-		$this->logger->error('Unknown error from license client: ' . $response->getStatusCode() . ' ' . $response->getBody());
-
+	}
+	catch(Exception $e)
+	{
+		$this->logger->error('Unknown error from license client: ' . $response->getStatusCode() . ' ' . $response->getBody() . $e->getMessage());
+	}
 		return null;
 	}
 	

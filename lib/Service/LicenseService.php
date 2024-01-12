@@ -55,6 +55,9 @@ class LicenseService {
 				if ($this->valueIsLicenseKeyFilePath($result->getLicensekeytoken()) !== false) {
 					$result->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
 				}
+				if ($this->valueIsLicenseProductKeyFilePath($result->getProduct()) !== false) {
+					$result->setProduct($this->FileStorageManager->getLicenseProductContent());
+				}
 			}
 			return $list;
 			// in order to be able to plug in different storage backends like files
@@ -76,6 +79,9 @@ class LicenseService {
 				if ($this->valueIsLicenseKeyFilePath($result->getLicensekeytoken()) !== false) {
 					$result->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
 				}
+				if ($this->valueIsLicenseProductKeyFilePath($result->getProduct()) !== false) {
+					$result->setProduct($this->FileStorageManager->getLicenseProductContent($ncgroup));
+				}
 			}
 			return $list;
 			// in order to be able to plug in different storage backends like files
@@ -96,6 +102,9 @@ class LicenseService {
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekeytoken()) !== false) {
 				$licensekey->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
 			}
+			if ($this->valueIsLicenseProductKeyFilePath($licensekey->getProduct()) !== false) {
+				$licensekey->setProduct($this->FileStorageManager->getLicenseProductContent());
+			}
 
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -114,6 +123,9 @@ class LicenseService {
 			}
 			if ($this->valueIsLicenseKeyFilePath($licensekey->getLicensekeytoken()) !== false) {
 				$licensekey->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
+			}
+			if ($this->valueIsLicenseProductKeyFilePath($licensekey->getProduct()) !== false) {
+				$licensekey->setProduct($this->FileStorageManager->getLicenseProductContent());
 			}
 			// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
@@ -173,6 +185,9 @@ class LicenseService {
 			if ($this->valueIsLicenseKeyFilePath($license[0]->getLicensekeytoken()) !== false) {
 				$license[0]->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent());
 			}
+			if ($this->valueIsLicenseProductKeyFilePath($license[0]->getProduct()) !== false) {
+				$license[0]->setProduct($this->FileStorageManager->getLicenseProductContent());
+			}
 			return $license[0];
 		}
 	}
@@ -208,6 +223,8 @@ class LicenseService {
 			$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
 			$licenseobj->setLicensekey($value);
 			$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
+			$licenseProductValue = $this->FileStorageManager->writeLicenseProductsTxt($product, $ncgroup);
+
 			$licenseobj->setLicensekeytoken($currentlyActiveValue);
 			$licenseobj->setSubscriptionstatus($subscriptionStatus);
 			$licenseobj->setEmail($email);
@@ -218,7 +235,7 @@ class LicenseService {
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 			$licenseobj->setTechnicallevel($technicalLevel);
-			$licenseobj->setProduct($product);
+			$licenseobj->setProduct($licenseProductValue);
 			$licenseobj->setIstrial($isTrial);
 			$licenseobj->setNcgroup($ncgroup);
 
@@ -229,6 +246,9 @@ class LicenseService {
 			}
 			if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
 				$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
+			}
+			if ($this->valueIsLicenseProductKeyFilePath($licenseresult->getProduct()) !== false) {
+				$licenseresult->setProduct($this->FileStorageManager->getLicenseProductContent($ncgroup));
 			}
 			return $licenseresult;
 		}
@@ -261,6 +281,9 @@ class LicenseService {
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
 			$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
 		}
+		if ($this->valueIsLicenseProductKeyFilePath($licenseresult->getProduct()) !== false) {
+			$licenseresult->setProduct($this->FileStorageManager->getLicenseProductContent($ncgroup));
+		}
 		return $licenseresult;
 	}
 
@@ -271,8 +294,11 @@ class LicenseService {
 		$licenseobj = new License();
 
 		$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
-		$licenseobj->setLicensekey($value);
 		$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
+		$licenseProductValue = $this->FileStorageManager->writeLicenseProductsTxt($product, $ncgroup);
+
+
+		$licenseobj->setLicensekey($value);
 		$licenseobj->setLicensekeytoken($currentlyActiveValue);
 		$licenseobj->setSubscriptionstatus($subscriptionStatus);
 		$licenseobj->setId($id);
@@ -284,7 +310,7 @@ class LicenseService {
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 		$licenseobj->setTechnicallevel($technicalLevel);
-		$licenseobj->setProduct($product);
+		$licenseobj->setProduct($licenseProductValue);
 		$licenseobj->setIstrial($isTrial);
 		$licenseobj->setNcgroup($ncgroup);
 		
@@ -294,6 +320,9 @@ class LicenseService {
 		}
 		if ($this->valueIsLicenseKeyFilePath($licenseresult->getLicensekeytoken()) !== false) {
 			$licenseresult->setLicensekeytoken($this->FileStorageManager->getCurrentlyActiveLicenseContent($ncgroup));
+		}
+		if ($this->valueIsLicenseProductKeyFilePath($licenseresult->getProduct()) !== false) {
+			$licenseresult->setProduct($this->FileStorageManager->getLicenseProductContent($ncgroup));
 		}
 		return $licenseresult;
 	}
@@ -319,6 +348,12 @@ class LicenseService {
 
 	private function valueIsLicenseKeyFilePath($value): bool {
 		if (strpos($value, 'licenseKeyFile') !== false) {
+			return true;
+		}
+		return false;
+	}
+	private function valueIsLicenseProductKeyFilePath($value): bool {
+		if (strpos($value, 'licenseProductKeyFile') !== false) {
 			return true;
 		}
 		return false;

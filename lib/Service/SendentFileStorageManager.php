@@ -71,7 +71,22 @@ class SendentFileStorageManager {
 		$pngFile->putContent($content);
 		return $gid . 'tokenlicenseKeyFile.txt';
 	}
-	
+	public function writeLicenseProductsTxt(string $content, string $gid = ''): string {
+		$this->ensureFolderExists();
+		$folder = $this->appData->getFolder('settings');
+		try {
+			if (!$folder->fileExists('licenseProductKeyFile')) {
+				$pngFile = $folder->newFile($gid . 'licenseProductKeyFile.txt');
+			} else {
+				$pngFile = $folder->getFile($gid . 'licenseProductKeyFile.txt');
+			}
+		} catch (NotFoundException $e) {
+			$pngFile = $folder->newFile($gid . 'licenseProductKeyFile.txt');
+		}
+
+		$pngFile->putContent($content);
+		return $gid . 'licenseProductKeyFile.txt';
+	}
 	public function fileExists($group, $key): bool {
 		try {
 			$folder = $this->appData->getFolder('settings');
@@ -105,6 +120,17 @@ class SendentFileStorageManager {
 		try {
 			$folder = $this->appData->getFolder('settings');
 			$file = $folder->getFile($gid . 'licenseKeyFile.txt');
+			// check if file exists and read from it if possible
+
+			return $file->getContent();
+		} catch (NotFoundException $e) {
+			return '';
+		}
+	}
+	public function getLicenseProductContent($gid = '') {
+		try {
+			$folder = $this->appData->getFolder('settings');
+			$file = $folder->getFile($gid . 'licenseProductKeyFile.txt');
 			// check if file exists and read from it if possible
 
 			return $file->getContent();
