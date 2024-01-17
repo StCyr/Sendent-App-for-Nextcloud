@@ -89,6 +89,21 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
+                    <?php p($l->t('License last checked')); ?></span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <span style="font-style:italic;color:black !important;" class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenselastcheck"></span>
+            <input type="hidden" name="settingkeyname" value="licenselastcheck">
+            <input type="hidden" name="settingkeykey" value="904">
+            <input type="hidden" name="settingkeyid" value="904">
+        </div>
+    </div>
+    <br><br>
+    <div class="license-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label class="licenselabel">
+                <span class="templatesettingkeyname licenseitem">
                     <?php p($l->t('Subscription type')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
@@ -103,7 +118,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('Supported products')); ?></span>
+                    <?php p($l->t('Supported product(s)')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -132,7 +147,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License status')); ?></span>
+                    <?php p($l->t('Subscription status')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -147,7 +162,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License expiration date')); ?></span>
+                    <?php p($l->t('Subscription expiration date')); ?></span>
             </label>
             <div class="status-error icon-error error hidden"></div>
             <div class="status-ok icon-checkmark ok hidden"></div>
@@ -157,22 +172,8 @@
             <input type="hidden" name="settingkeyid" value="905">
         </div>
     </div>
-    <div class="license-settings-setting-box">
-        <div class="settingkeyvalue">
-            <label class="licenselabel">
-                <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License last check')); ?></span>
-            </label>
-            <div class="status-error icon-error error hidden"></div>
-            <div class="status-ok icon-checkmark ok hidden"></div>
-            <span class="licensekeyvalueinput licenseitem" name="licensekeyvalueinput" id="licenselastcheck"></span>
-            <input type="hidden" name="settingkeyname" value="licenselastcheck">
-            <input type="hidden" name="settingkeykey" value="904">
-            <input type="hidden" name="settingkeyid" value="904">
-        </div>
-    </div>
-    <br><br>
 
+    <br><br>
     <div class="licensesection test" id="licensesection">
     </div>
 

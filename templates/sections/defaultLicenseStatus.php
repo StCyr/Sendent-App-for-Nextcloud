@@ -19,7 +19,7 @@
                 <span class="templatesettingkeyname licenseitem">
                     <?php p($l->t('Supported products')); ?></span>
             </label>
-            <span class="statuskeyvalueinput statusitem" id="defaultlicenselevel"></span>
+            <span class="statuskeyvalueinput statusitem" id="defaultlicenseproducts"></span>
         </div>
     </div>
     <div class="license-settings-setting-box" id="defaultlicenselevelcontainer">
@@ -35,7 +35,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License status')); ?></span>
+                    <?php p($l->t('Subscription status')); ?></span>
             </label>
             <span class="statuskeyvalueinput statusitem" id="defaultlicensestatus"><?php p($_['defaultLicenseStatus']); ?></span>
         </div>
@@ -45,7 +45,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License expiration date')); ?></span>
+                    <?php p($l->t('Subscription expiration date')); ?></span>
             </label>
             <span class="statuskeyvalueinput statusitem" id="defaultlicenseexpires"><?php p($_['defaultLicenseExpirationDate']); ?></span>
         </div>
@@ -54,7 +54,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('License last check')); ?></span>
+                    <?php p($l->t('License last checked')); ?></span>
             </label>
             <span class="statuskeyvalueinput statusitem" id="defaultlicenselastcheck"><?php p($_['defaultLicenseLastCheck']); ?></span>
         </div>

@@ -221,11 +221,12 @@ class LicenseService {
 			$licenseobj = new License();
 			
 			$value = $this->FileStorageManager->writeLicenseTxt($license, $ncgroup);
-			$licenseobj->setLicensekey($value);
 			$currentlyActiveValue = $this->FileStorageManager->writeCurrentlyActiveLicenseTxt($licenseKeyToken, $ncgroup);
 			$licenseProductValue = $this->FileStorageManager->writeLicenseProductsTxt($product, $ncgroup);
-
+			$licenseobj->setLicensekey($value);
 			$licenseobj->setLicensekeytoken($currentlyActiveValue);
+			$licenseobj->setProduct($licenseProductValue);
+			
 			$licenseobj->setSubscriptionstatus($subscriptionStatus);
 			$licenseobj->setEmail($email);
 			$licenseobj->setLevel($level);
@@ -235,7 +236,6 @@ class LicenseService {
 			$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 			$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 			$licenseobj->setTechnicallevel($technicalLevel);
-			$licenseobj->setProduct($licenseProductValue);
 			$licenseobj->setIstrial($isTrial);
 			$licenseobj->setNcgroup($ncgroup);
 
@@ -299,7 +299,9 @@ class LicenseService {
 
 
 		$licenseobj->setLicensekey($value);
-		$licenseobj->setLicensekeytoken($currentlyActiveValue);
+		$licenseobj->setLicensekeytoken($currentlyActiveValue);		
+		$licenseobj->setProduct($licenseProductValue);
+		
 		$licenseobj->setSubscriptionstatus($subscriptionStatus);
 		$licenseobj->setId($id);
 		$licenseobj->setEmail($email);
@@ -310,7 +312,6 @@ class LicenseService {
 		$licenseobj->setDatelicenseend(date_format($datelicenseend, "Y-m-d"));
 		$licenseobj->setDatelastchecked(date_format($datelastchecked, "Y-m-d"));
 		$licenseobj->setTechnicallevel($technicalLevel);
-		$licenseobj->setProduct($licenseProductValue);
 		$licenseobj->setIstrial($isTrial);
 		$licenseobj->setNcgroup($ncgroup);
 		

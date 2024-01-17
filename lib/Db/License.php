@@ -87,6 +87,9 @@ class License extends Entity implements JsonSerializable {
 	}
 	public function isSupportedProduct() : bool{
 		return str_contains($this->product, 'Outlook') || str_contains($this->product, 'outlook')
+			|| str_contains($this->product, 'Basic') || str_contains($this->product, 'basic')
+			|| str_contains($this->product, 'Professional') || str_contains($this->product, 'professional')
+			|| str_contains($this->product, 'Premium') || str_contains($this->product, 'premium')
 			|| str_contains($this->product, 'Teams') || str_contains($this->product, 'teams')
 			|| str_contains($this->level, 'Teams') || str_contains($this->product, 'teams');
 	}

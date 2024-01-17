@@ -242,3 +242,11 @@
 ## 2.0.4 - 2023-08-22
 ### Fix
 - Fixes issue where upon updating the snippet-settings are reset.
+
+## 3.0.0 - 2024-01-16
+### Features
+- More insight into your subscription information for the configured license key(s)
+  - View product- and productlevel that are supported within your subscription
+  - Enhanced status display for your subscription
+- App no longer requires entering a new licensekey when your subscription renewes. The latest licensekey is automatically fetched based on the initial licensekey that is configured.
+- Support for the upcoming new Sendent products

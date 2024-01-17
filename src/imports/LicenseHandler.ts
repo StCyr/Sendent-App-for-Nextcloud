@@ -93,7 +93,7 @@ export default class LicenseHandler {
             let statusdateLastCheckDateString = statusdateLastCheckDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
             let statusdateExpirationDate = new Date(status.dateExpiration);
             let statusdateExpirationDateString = statusdateExpirationDate.toLocaleDateString('nl-NL', { timeZone: 'UTC' });
-            let statusSubscriptionType = status.istrial == 1 ? "Trial" : status.istrial == 0 ? "Payed subscription" : "Subscrptiontype cannot be determined";
+            let statusSubscriptionType = status.istrial == 1 ? "Trial" : status.istrial == 0 ? "Payed subscription" : "Subscriptiontype cannot be determined";
             let statusSubscriptionLevel = status.level == '0' || status.level == ''|| status.level == null ? status.product : status.level;
 
 
@@ -114,7 +114,7 @@ export default class LicenseHandler {
                 document.getElementById("latestVSTOVersionDownload")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlBinary);
                 document.getElementById("latestVSTOVersionReleaseNotes")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlReleaseNotes);
             }
-            if(statusSubscriptionLevel == '' || statusSubscriptionLevel == status.product)
+            if(statusSubscriptionLevel == '' || statusSubscriptionLevel == status.product ||  status.product.toLowerCase().includes(statusSubscriptionLevel.toLowerCase()))
             {
                 $("#licenselevelcontainer").removeClass("shown").addClass("hidden");
                 $("#defaultlicenselevelcontainer").removeClass("shown").addClass("hidden");
