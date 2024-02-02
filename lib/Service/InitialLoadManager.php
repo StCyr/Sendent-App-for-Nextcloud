@@ -45,10 +45,10 @@ class InitialLoadManager {
 	public function checkUpdateNeeded115(): bool {
 		$firstRun = $this->config->getAppValue('sendent', 'firstRunAppVersion');
 
-		if ($firstRun !== '2.0.4') {
+		if ($firstRun !== '3.0.1') {
 			try {
 				$this->runInitialLoadTasks115();
-				$this->config->setAppValue('sendent', 'firstRunAppVersion', '2.0.4');
+				$this->config->setAppValue('sendent', 'firstRunAppVersion', '3.0.1');
 			} catch (PreConditionNotMetException $e) {
 				return false;
 			}
@@ -70,6 +70,9 @@ class InitialLoadManager {
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("30") < 1) {
 				$this->addHtmlpasswordsnippet();
+			}
+			if ($this->SettingKeyMapper->settingKeyCount("203") < 1) {
+				$this->addHtmlTalksnippet();
 			}
 			if ($this->SettingKeyMapper->settingKeyCount("31") < 1) {
 				$this->addPopupExternalMail();
@@ -150,6 +153,7 @@ class InitialLoadManager {
 			$passwordhtmlsnippet = $this->showBySettingKeyId(30);
 			$guestaccounthtmlsnippet = $this->showBySettingKeyId(302);
 			$guestaccountpublicsharehtmlsnippet = $this->showBySettingKeyId(303);
+			$talkhtmlsnippet = $this->showBySettingKeyId(203);
 
 			if (!is_null($folderpath)) {
 				if ($folderpath->getValue() === '') {
@@ -182,6 +186,11 @@ class InitialLoadManager {
 					
 				}
 			}
+			if (!is_null($talkhtmlsnippet)) {
+				if ($talkhtmlsnippet->getValue() === '') {
+					$this->update($talkhtmlsnippet->getId(), $talkhtmlsnippet->getSettingkeyid(), $talkhtmlsnippet->getGroupid(), $this->gethtmltalksnippet());
+				}
+			}
 		} catch (Exception $exception) {
 		}
 	}
@@ -197,6 +206,10 @@ class InitialLoadManager {
 	public function addHtmlpasswordsnippet(): void {
 		$this->createKey("30", "htmlsnippetpassword", "0", "textarea");
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
+	}
+	public function addHtmlTalksnippet(): void {
+		$this->createKey("203", "talkhtml", "0", "textarea");
+		$this->createGroupValue("0", "203", $this->gethtmltalksnippet());
 	}
 	public function addTalkSettingUpdate(): void {
 		$this->createKey("201", "generatetalkpassword", "0", "textarea");
@@ -474,6 +487,7 @@ class InitialLoadManager {
 		$this->createKey("301", "disableanonymousshare", "0", "select-one");
 		$this->createKey("302", "htmlsnippetguestaccounts", "0", "textarea");
 		$this->createKey("303", "htmlsnippetpublicaccounts", "0", "textarea");
+		$this->createKey("203", "talkhtml", "0", "textarea");
 
 		$this->createGroupValue("0", "20", "en");
 		$this->createGroupValue("0", "19", "BeforeSend");
@@ -494,6 +508,7 @@ class InitialLoadManager {
 		$this->createGroupValue("0", "25", "False");
 		$this->createGroupValue("0", "24", "/Outlook/SecureMail-Share/");
 		$this->createGroupValue("0", "12", $this->getsharefilehtml());
+		$this->createGroupValue("0", "203", $this->gethtmltalksnippet());
 		$this->createGroupValue("0", "30", $this->gethtmlpasswordsnippet());
 		$this->createGroupValue("0", "27", "False");
 		$this->createGroupValue("0", "26", "False");
@@ -620,7 +635,9 @@ class InitialLoadManager {
 	public function gethtmlpasswordsnippet(): string {
 		return $this->getHTMLTemplate('htmlsnippetpassword');
 	}
-
+	public function gethtmltalksnippet(): string {
+		return $this->getHTMLTemplate('talkhtml');
+	}
 	public function getsharefolderhtml(): string {
 		return $this->getHTMLTemplate('sharefolderhtml');
 	}

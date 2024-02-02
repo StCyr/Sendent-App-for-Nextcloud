@@ -50,4 +50,33 @@
             <input type="hidden" name="settingkeyid" value="201">
         </div>
     </div>
+    <div class="personal-settings-setting-box">
+        <div class="settingkeyvalue">
+            <label>
+                <span class="templatesettingkeynametextareakind">
+                    <?php p($l->t('Talk snippet')); ?>
+                </span>
+            </label>
+            <div class="status-error icon-error error hidden"></div>
+            <div class="status-ok icon-checkmark ok hidden"></div>
+            <details>
+                <summary><?php p($l->t('Toggle editor')); ?></summary>
+
+                <textarea class="settingkeyvalueinput" name="settingkeyvalueinput" type="html"
+                    id="talkhtml"></textarea>
+                <label style="display:none">
+                    <input class="settingkeyvalueinheritedcheckbox"  type="checkbox" />
+                    <span class="settingkeyvalueinheritedlabel"><?php p($l->t('Use default group settings'));?></span>
+                </label>
+            </details>
+            <input type="hidden" name="settingkeyname" value="talkhtml">
+            <input type="hidden" name="settingkeytemplateid" value="0">
+            <input type="hidden" name="settinggroupid" value="0">
+            <input type="hidden" name="settingkeykey" value="203">
+            <input type="hidden" name="settingkeyid" value="203">
+
+
+        </div>
+    </div>
 </div>
+
