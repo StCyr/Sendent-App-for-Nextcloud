@@ -387,7 +387,7 @@ class LicenseApiController extends ApiController {
 						$statusKind = "valid";
 					} 
 					elseif (!$result[0]->isCheckNeeded() && !$result[0]->isLicenseExpired()) {
-						$status = $this->l->t("Current license is valid but there could be an issue for the supported products: " . $product);
+						$status = $this->l->t("Current license is valid but there could be an issue for the supported product(s): " . $product);
 						$statusKind = "valid";
 					} 
 					elseif (!$this->licensemanager->isWithinUserCount($result[0]) && $this->licensemanager->isWithinGraceUserCount($result[0])) {

@@ -17,7 +17,7 @@
         <div class="settingkeyvalue">
             <label class="licenselabel">
                 <span class="templatesettingkeyname licenseitem">
-                    <?php p($l->t('Supported products')); ?></span>
+                    <?php p($l->t('Supported product(s)')); ?></span>
             </label>
             <span class="statuskeyvalueinput statusitem" id="defaultlicenseproducts"></span>
         </div>
