@@ -18,7 +18,7 @@ style('sendent', ['style']);
 </div>
 
 <div class="Settingspage" id="sendent_general">
-	<?php print_unescaped($this->inc('sections/outlookAddon')); ?>
+	 
 
 	<?php print_unescaped($this->inc('sections/defaultLicenseStatus')); ?>
 

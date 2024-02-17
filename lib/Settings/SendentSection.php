@@ -60,6 +60,6 @@ class SendentSection implements IIconSection {
 	 * the priority values. It is required to return a value between 0 and 99.
 	 */
 	public function getPriority() {
-		return 80;
+		return 50;
 	}
 }

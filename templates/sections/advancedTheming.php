@@ -1,6 +1,7 @@
 <div class="settingTemplateDetailInclude section" id="advancedTheming">
     <h2>
         <?php p($l->t('Theming')); ?>
+        <i style="color:gray !important;font-size:12px !important">(for VSTO add-in only)</i>
     </h2>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">

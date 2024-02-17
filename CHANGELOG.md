@@ -243,7 +243,7 @@
 ### Fix
 - Fixes issue where upon updating the snippet-settings are reset.
 
-## 3.0.0 - 2024-01-16
+## 3.0.0 - 2024-02-17
 ### Features
 - More insight into your subscription information for the configured license key(s)
   - View product- and productlevel that are supported within your subscription
