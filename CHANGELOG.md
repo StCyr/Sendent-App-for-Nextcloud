@@ -243,6 +243,27 @@
 ### Fix
 - Fixes issue where upon updating the snippet-settings are reset.
 
+## 3.0.0 - 2024-02-25
+### Features
+- More insight into your subscription information for the configured license key(s)
+  - View product- and productlevel that are supported within your subscription
+  - Enhanced status display for your subscription
+- App no longer requires entering a new licensekey when your subscription renewes. The latest licensekey is automatically fetched based on the initial licensekey that is configured.
+- Support for the upcoming new Sendent products
+
+## 3.0.1 - 2024-02-26
+### Bugfix
+- Minor bugfix after release.
+
+## 3.0.3 - 2024-02-27
+### Bugfix
+- Minor bugfix to fix issues where the  "Outlook Add-in version information" block would not work properly.
+
+## 3.0.4 - 2024-03-09
+### Bugfix
+- Minor bugfix to fix issues where the  "Outlook Add-in version information" block would not work properly.
+- Fix for license status not being shown properly for some users.
+- Fix for darkmode compatibility. 
 ## 2.0.5 - 2023-12-13
 ### Support
 - Official Nextcloud version 28 support.
