@@ -264,3 +264,6 @@
 - Minor bugfix to fix issues where the  "Outlook Add-in version information" block would not work properly.
 - Fix for license status not being shown properly for some users.
 - Fix for darkmode compatibility. 
+## 2.0.5 - 2023-12-13
+### Support
+- Official Nextcloud version 28 support.
