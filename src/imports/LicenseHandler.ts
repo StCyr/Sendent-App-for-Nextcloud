@@ -107,13 +107,50 @@ export default class LicenseHandler {
             console.log('statusSubscriptionType = ' + statusSubscriptionType);
             console.log('statusSubscriptionLevel = ' + statusSubscriptionLevel);
 
-            if (status.level !== 'Free' && status.level !== '-' && status.level !== '') {
+            if ((statusSubscriptionLevel !== 'Free' && statusSubscriptionLevel !== '-' && statusSubscriptionLevel !== '') && status.status == 'Current license is valid') {
+                $("#outlookAddon").removeClass("hidden").addClass("shown");
                 $("#btnSupportButton").removeClass("hidden").addClass("shown");
                 $("#latestVSTOVersion").text(appStatus.LatestVSTOAddinVersion.Version);
                 $("#latestVSTOVersionReleaseDate").text(LatestVSTOAddinVersionReleaseDateString);
                 document.getElementById("latestVSTOVersionDownload")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlBinary);
                 document.getElementById("latestVSTOVersionReleaseNotes")?.setAttribute("href", appStatus.LatestVSTOAddinVersion.UrlReleaseNotes);
+                $("#outlookAddon").removeClass("hidden").addClass("shown");
+                $("#outlookAddon_Releasedate").removeClass("hidden").addClass("shown");
+                $("#outlookAddon_Latestversion").removeClass("hidden").addClass("shown");
+                $("#outlookAddon_download").removeClass("hidden").addClass("shown");
+                $("#outlookAddon_releasenotes").removeClass("hidden").addClass("shown");
+
+                let date1 = new Date(appStatus.LatestVSTOAddinVersion.ReleaseDate);
+                let date2 = new Date();
+                
+                // Calculating the time difference
+                // of two dates
+                let Difference_In_Time =
+                    date2.getTime() - date1.getTime();
+                
+                // Calculating the no. of days between
+                // two dates
+                let Difference_In_Days =
+                    Math.round
+                        (Difference_In_Time / (1000 * 3600 * 24));
+
+                if(Difference_In_Days < 24)
+                {
+                    $("#newbadge").removeClass("hidden").addClass("shown");
+                }
+                else
+                {
+                    $("#newbadge").removeClass("shown").addClass("hidden");
+                }
             }
+            else{
+                $("#btnSupportButton").removeClass("hidden").addClass("shown");
+                $("#outlookAddon").removeClass("shown").addClass("hidden");
+                $("#outlookAddon_Releasedate").removeClass("shown").addClass("hidden");
+                $("#outlookAddon_Latestversion").removeClass("shown").addClass("hidden");
+                $("#outlookAddon_download").removeClass("shown").addClass("hidden");
+                $("#outlookAddon_releasenotes").removeClass("shown").addClass("hidden");
+          }
             if(statusSubscriptionLevel == '' || statusSubscriptionLevel == status.product ||  status.product.toLowerCase().includes(statusSubscriptionLevel.toLowerCase()))
             {
                 $("#licenselevelcontainer").removeClass("shown").addClass("hidden");
@@ -221,7 +258,7 @@ export default class LicenseHandler {
             $("#licenseProducts, #licenselevel").text("-");
             $("#licenseSubscriptionType, #licenselevel").text("-");
 
-            this.showErrorStatus();
+            //this.showErrorStatus();
 
             $("#btnLicenseActivation").val(t("sendent", "Activate license"));
             $("#btnLicenseActivation").removeClass("hidden").addClass("shown");
@@ -243,11 +280,11 @@ export default class LicenseHandler {
 
     private updateStatus(kind: string) {
         if (['valid'].includes(kind)) {
-            this.showOkStatus();
+            //this.showOkStatus();
         } else if (['check', 'nolicense', 'userlimit'].includes(kind)) {
-            this.showWarningStatus();
+            //this.showWarningStatus();
         } else {
-            this.showErrorStatus();
+            //this.showErrorStatus();
         }
     }
 
@@ -270,17 +307,17 @@ export default class LicenseHandler {
         }
     }
 
-    private showErrorStatus() {
-        $("#license .licensekeyvalueinput").addClass("errorStatus").removeClass("okStatus warningStatus");
-    }
+    // private showErrorStatus() {
+    //     $("#license .licensekeyvalueinput").addClass("errorStatus").removeClass("okStatus warningStatus");
+    // }
 
-    private showWarningStatus() {
-        $("#license .licensekeyvalueinput").addClass("warningStatus").removeClass("okStatus errorStatus");
-    }
+    // private showWarningStatus() {
+    //     $("#license .licensekeyvalueinput").addClass("warningStatus").removeClass("okStatus errorStatus");
+    // }
 
-    private showOkStatus() {
-        $("#license .licensekeyvalueinput").addClass("okStatus").removeClass("errorStatus warningStatus");
-    }
+    // private showOkStatus() {
+    //     $("#license .licensekeyvalueinput").addClass("okStatus").removeClass("errorStatus warningStatus");
+    // }
 
     private disableButtons() {
         $("#btnSupportButton, #btnClearLicense, #btnLicenseActivation").prop('disabled', true);
