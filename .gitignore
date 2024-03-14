@@ -10,3 +10,9 @@ node_modules/
 /js/retentionAssistant.js*
 /js/settings.js*
 /js/termsAgreement.js*
+certificates/sendent.crt
+certificates/sendent.csr
+certificates/sendent.key
+certificates/sendent.key signature.rtf
+certificates/sendent.p12
+certificates/sendent.pem
