@@ -243,6 +243,10 @@
 ### Fix
 - Fixes issue where upon updating the snippet-settings are reset.
 
+## 2.0.5 - 2023-12-13
+### Support
+- Official Nextcloud version 28 support.
+
 ## 3.0.0 - 2024-02-25
 ### Features
 - More insight into your subscription information for the configured license key(s)
@@ -264,6 +268,7 @@
 - Minor bugfix to fix issues where the  "Outlook Add-in version information" block would not work properly.
 - Fix for license status not being shown properly for some users.
 - Fix for darkmode compatibility. 
-## 2.0.5 - 2023-12-13
-### Support
-- Official Nextcloud version 28 support.
+
+## 3.0.7 - 2024-03-16
+### Bugfix
+- Fix issue for license validation which in some cases caused validation not be be run for some Outlook Add-in users.

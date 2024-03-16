@@ -256,14 +256,14 @@ class LicenseApiController extends ApiController {
 						$status = $this->l->t("Current amount of active users exceeds licensed amount. Additional users trying to use Sendent will be prevented from doing so.");
 						$statusKind = "userlimit";
 					}
-					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email, $istrial, $group));
+					return new DataResponse(new LicenseStatus($status, $statusKind, $level,$licensekey, $dateExpiration, $dateLastCheck, $email,$product, $istrial, $group));
 				} 
 				elseif (count($result) > 0 && $result[0]->getLevel() == "Error_incomplete") {
 					$email = $result[0]->getEmail();
 					$licensekey = $result[0]->getLicensekey();
 					$group = $result[0]->getNcgroup();
 					$status = $this->l->t('Missing (or incorrect) email address or license key. %1$sContact support%2$s to get your correct license information.', ["<a href='mailto:support@sendent.nl' style='color:blue'>", "</a>"]);
-					return new DataResponse(new LicenseStatus($status, "error_incomplete" ,"-", $licensekey, "-", "-", $email, "-", 0, $group));
+					return new DataResponse(new LicenseStatus($status, "error_incomplete" ,"-", $licensekey, "-", "-", $email, "-",0, $group));
 				} 
 				elseif (count($result) > 0 && $result[0]->getLevel() == License::ERROR_VALIDATING) {
 					$email = $result[0]->getEmail();
