@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailExclude section">
+<div class="section">
 
     <h2>
         <?php p($l->t('Dependencies Checker')); ?>

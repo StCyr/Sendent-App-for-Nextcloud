@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="guestaccounts">
+<div class="section" id="guestaccounts">
     <h2>
         <?php p($l->t('Guest accounts')); ?>
     </h2>

@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="advancedTheming">
+<div class="section" id="advancedTheming">
     <h2>
         <?php p($l->t('Theming')); ?>
         <i style="color:gray !important;font-size:12px !important">(for VSTO add-in only)</i>

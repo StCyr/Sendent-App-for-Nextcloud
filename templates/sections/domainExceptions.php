@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="domainExceptions">
+<div class="section" id="domainExceptions">
     <h2>
         <?php p($l->t('Domain settings for recipient exceptions')); ?>
     </h2>

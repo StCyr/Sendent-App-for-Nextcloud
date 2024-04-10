@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailExclude section" id="outlookAddon">
+<div class=" section" id="outlookAddon">
 	<h2>
         <?php p($l->t('Outlook Add-in version information')); ?>
 	</h2>

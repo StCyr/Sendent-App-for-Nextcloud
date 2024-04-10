@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="generalsettings">
+<div class="section" id="generalsettings">
     <h2>
         <?php p($l->t('General')); ?>
     </h2>

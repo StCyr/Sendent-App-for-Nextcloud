@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="filehandling">
+<div class="section" id="filehandling">
     <h2>
         <?php p($l->t('Share Files & Public share')); ?>
     </h2>

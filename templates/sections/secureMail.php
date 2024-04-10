@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="securemail">
+<div class="section" id="securemail">
     <h2>
         <?php p($l->t('Secure Mail')); ?>
     </h2>

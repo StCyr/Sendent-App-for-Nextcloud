@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="groupsManagement">
+<div class="section" id="groupsManagement">
     <h2>
         <?php p($l->t('Sendent Groups')); ?>
     </h2>

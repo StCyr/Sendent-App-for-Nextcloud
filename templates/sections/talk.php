@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="talk">
+<div class="section" id="talk">
     <h2>
         <?php p($l->t('Talk settings')); ?>
     </h2>

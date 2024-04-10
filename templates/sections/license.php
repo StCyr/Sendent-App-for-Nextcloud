@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailExclude section" id="license">
+<div class="section" id="license">
     <h2>
         <?php p($l->t('License information')); ?>
     </h2>

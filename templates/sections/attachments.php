@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailInclude section" id="attachments">
+<div class="section" id="attachments">
     <h2>
         <?php p($l->t('Attachment settings and sender exceptions')); ?>
     </h2>

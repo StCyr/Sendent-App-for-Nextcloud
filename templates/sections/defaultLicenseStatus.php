@@ -1,4 +1,4 @@
-<div class="settingTemplateDetailExclude section" id="defaultLicenseStatus">
+<div class="section" id="defaultLicenseStatus">
 
     <h2>
         <?php p($l->t('Default license information')); ?>
