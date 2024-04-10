@@ -19,7 +19,7 @@
                     <?php p($l->t('Before you can use the Sendent app for Nextcloud, please read and agree with the terms and conditions.')); ?>
 
                     <br>
-                    <a target="blank" style="color:blue;font-style: italic;" href="https://www.sendent.com/terms-and-conditions/"><?php p($l->t('Review terms and conditions'));?></a> 
+                    <a target="blank" style="color: var(--color-primary-element);font-style: italic;" href="https://www.sendent.com/terms-and-conditions/"><?php p($l->t('Review terms and conditions'));?></a> 
                     <br>
                     <br>
                     <div class="settingkeyvalueinherited">

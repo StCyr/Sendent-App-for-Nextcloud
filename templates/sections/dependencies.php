@@ -24,7 +24,7 @@
     <br>
     <p>
         <?php p($l->t('Click ')); ?>
-        <a href='../apps' style="color: blue; text-decoration: underline">here</a>
+        <a href='../apps' style="color: var(--color-primary-element); text-decoration: underline">here</a>
         <?php p($l->t(' to open the app store to install missing dependencies.')); ?>
     </p>
 </div>
