@@ -1,6 +1,6 @@
 <div class=" section" id="outlookAddon">
 	<h2>
-        <?php p($l->t('Outlook Add-in version information')); ?>
+        <?php p($l->t('Sendent for Outlook (Windows only)')); ?>
 	</h2>
     <div class="license-settings-setting-box" id="outlookAddon_Latestversion">
         <div class="settingkeyvalue">
