@@ -1,8 +1,7 @@
-<div class="section" id="filehandling">
-    <h2>
+<div id="filehandling">
+    <h1>
         <?php p($l->t('Share Files & Public share')); ?>
-    </h2>
-
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

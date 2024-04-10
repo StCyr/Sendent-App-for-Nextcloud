@@ -1,7 +1,7 @@
-<div class="section" id="generalsettings">
-    <h2>
+<div id="generalsettings">
+    <h1>
         <?php p($l->t('General')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

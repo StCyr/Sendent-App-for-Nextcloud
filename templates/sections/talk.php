@@ -1,7 +1,7 @@
-<div class="section" id="talk">
-    <h2>
+<div id="talk">
+    <h1>
         <?php p($l->t('Talk settings')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

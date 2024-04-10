@@ -1,7 +1,7 @@
-<div class="section" id="domainExceptions">
-    <h2>
+<div id="domainExceptions">
+    <h1>
         <?php p($l->t('Domain settings for recipient exceptions')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

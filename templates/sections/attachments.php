@@ -1,7 +1,7 @@
-<div class="section" id="attachments">
-    <h2>
+<div id="attachments">
+    <h1>
         <?php p($l->t('Attachment settings and sender exceptions')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

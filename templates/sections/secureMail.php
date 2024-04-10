@@ -1,7 +1,7 @@
-<div class="section" id="securemail">
-    <h2>
+<div id="securemail">
+    <h1>
         <?php p($l->t('Secure Mail')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

@@ -1,7 +1,7 @@
-<div class="section" id="license">
-    <h2>
+<div id="license">
+    <h1>
         <?php p($l->t('License information')); ?>
-    </h2>
+    </h1>
     <div class="license-settings-setting-box" id="licenseMessage">
         <div class="settingkeyvalue">
             <div class="labelFullWidth" id="lblLicenseMessage" style="display:grid;float:left;text-align:left;color:slate-gray;font-style:italic;font-size:smaller">

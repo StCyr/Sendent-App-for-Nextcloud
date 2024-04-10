@@ -1,7 +1,7 @@
-<div class="section" id="guestaccounts">
-    <h2>
+<div id="guestaccounts">
+    <h1>
         <?php p($l->t('Guest accounts')); ?>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

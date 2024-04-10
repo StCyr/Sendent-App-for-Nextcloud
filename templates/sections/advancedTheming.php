@@ -1,8 +1,8 @@
-<div class="section" id="advancedTheming">
-    <h2>
+<div id="advancedTheming">
+    <h1>
         <?php p($l->t('Theming')); ?>
         <i style="color:gray !important;font-size:12px !important">(for VSTO add-in only)</i>
-    </h2>
+    </h1>
     <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>

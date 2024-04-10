@@ -2,27 +2,25 @@
     <h2>
         <?php p($l->t('Sendent Groups')); ?>
     </h2>
-	<div class="license-settings-setting-box">
-        <div class="settingkeyvalue">
-			<div class="labelFullWidth">
-            	<div style="margin-bottom:10px;" class="labelFullWidth">
-					<p> 
-						<?php p($l->t("With the integration of Nextcloud's Groups feature, Sendent now enables greater customization of settings within an organization. Administrators can assign specific Sendent settings to Nextcloud groups, which can then be used to create customized settings for users in that group.")); ?>
-					</p>
-				</div>
-				<div style="margin-bottom:10px;" class="labelFullWidth">
-					<p > 
-						<?php p($l->t("To get started, simply select the relevant groups from the left list and drag them to the right. Arrange the right list by precedence, with higher-precedence groups at the top. If a user belongs to multiple groups, the settings of the group with the highest precedence will apply.")); ?>
-					</p>
-				</div>
-				<div style="margin-bottom:10px;" class="labelFullWidth">
-					<p> 
-						<i><?php p($l->t("Note: When customizing a non-default group's settings, you may click on the 'Use Default group setting' check box to copy the Default group's setting.")); ?></i>
-					</p>            
-        		</div>
+    <div class="settingkeyvalue">
+		<div class="labelFullWidth">
+        	<div style="margin-bottom:10px;" class="labelFullWidth">
+				<p> 
+					<?php p($l->t("With the integration of Nextcloud's Groups feature, Sendent now enables greater customization of settings within an organization. Administrators can assign specific Sendent settings to Nextcloud groups, which can then be used to create customized settings for users in that group.")); ?>
+				</p>
 			</div>
-    	</div>
-	</div>
+			<div style="margin-bottom:10px;" class="labelFullWidth">
+				<p > 
+					<?php p($l->t("To get started, simply select the relevant groups from the left list and drag them to the right. Arrange the right list by precedence, with higher-precedence groups at the top. If a user belongs to multiple groups, the settings of the group with the highest precedence will apply.")); ?>
+				</p>
+			</div>
+			<div style="margin-bottom:10px;" class="labelFullWidth">
+				<p> 
+					<i><?php p($l->t("Note: When customizing a non-default group's settings, you may click on the 'Use Default group setting' check box to copy the Default group's setting.")); ?></i>
+				</p>            
+        	</div>
+		</div>
+    </div>
 	<div style="display: flex; margin-top: 10px">
 		<div>
 			<h1>
@@ -54,9 +52,4 @@
 			</div>
 		</div>
 	</div>
-    <h2 style="margin: 25px 0 0 0;">
-        <?php p($l->t('Showing settings for ')); ?>
-			<span id="currentGroup">Default</span>
-        <?php p($l->t(' group ')); ?>
-    </h2>
 </div>

@@ -34,23 +34,22 @@ style('sendent', ['style']);
 
 	    <?php print_unescaped($this->inc('sections/groupsManagement')); ?>
 
-		<?php print_unescaped($this->inc('sections/license')); ?>
-
-    	<?php print_unescaped($this->inc('sections/general')); ?>
-
-	    <?php print_unescaped($this->inc('sections/talk')); ?>
-
-	    <?php print_unescaped($this->inc('sections/domainExceptions')); ?>
-
-    	<?php print_unescaped($this->inc('sections/attachments')); ?>
-
-	    <?php print_unescaped($this->inc('sections/fileHandling')); ?>
-
-    	<?php print_unescaped($this->inc('sections/secureMail')); ?>
-
-	    <?php print_unescaped($this->inc('sections/guestAccounts')); ?>
-
-    	<?php print_unescaped($this->inc('sections/advancedTheming')); ?>
+		<div class="section">
+			<h2>
+        		<?php p($l->t('Settings for ')); ?>
+					<span id="currentGroup">Default</span>
+        		<?php p($l->t(' group ')); ?>
+    		</h2>
+			<?php print_unescaped($this->inc('sections/license')); ?>
+    		<?php print_unescaped($this->inc('sections/general')); ?>
+	    	<?php print_unescaped($this->inc('sections/talk')); ?>
+		    <?php print_unescaped($this->inc('sections/domainExceptions')); ?>
+    		<?php print_unescaped($this->inc('sections/attachments')); ?>
+		    <?php print_unescaped($this->inc('sections/fileHandling')); ?>
+    		<?php print_unescaped($this->inc('sections/secureMail')); ?>
+	    	<?php print_unescaped($this->inc('sections/guestAccounts')); ?>
+    		<?php print_unescaped($this->inc('sections/advancedTheming')); ?>
+		</div>
 
 	</form>
 
