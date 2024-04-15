@@ -33,7 +33,6 @@
 	position: relative;
 	vertical-align: middle;
 	align-items: center;
-	margin-top:10px !important;
 	grid-area:e;
 	margin-left: 5px;
 }
@@ -41,7 +40,6 @@
 	position: relative;
 	vertical-align: middle;
 	align-items: center;
-	margin-top:-14px;
 	grid-area:d;
 	margin-left: 5px;
 }

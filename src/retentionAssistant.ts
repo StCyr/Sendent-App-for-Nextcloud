@@ -1,6 +1,6 @@
 import '../css/retentionAssistant.scss';
 import { loadState } from '@nextcloud/initial-state';
-import confirmPassword from '@nextcloud/password-confirmation';
+import { confirmPassword } from '@nextcloud/password-confirmation';
 import { translate as t, translatePlural as p } from '@nextcloud/l10n'
 import logger from './utils/logger';
 import { api } from './common/api';
