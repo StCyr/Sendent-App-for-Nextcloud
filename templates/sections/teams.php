@@ -2,7 +2,8 @@
     <h1>
         <?php p($l->t('General')); ?>
     </h1>
-    <div class="personal-settings-setting-box">
+    <p><?php p($l->t('Upon release of the new Sendent for MS Teams integration, which will be coming soon, this page will contain all settings for the new integration. ')); ?></p>
+    <!-- <div class="personal-settings-setting-box">
         <div class="settingkeyvalue">
             <label>
                 <span class="templatesettingkeyname">
@@ -25,7 +26,7 @@
             <input type="hidden" name="settinggroupid" value="0">
             <input type="hidden" name="settingkeyid" value="700 ">
         </div>
-    </div>
+    </div> -->
 
 </div>
 
