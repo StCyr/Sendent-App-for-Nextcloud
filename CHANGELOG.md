@@ -272,3 +272,11 @@
 ## 3.0.7 - 2024-03-16
 ### Bugfix
 - Fix issue for license validation which in some cases caused validation not be be run for some Outlook Add-in users.
+
+## 3.0.8 - 2024-05-05
+### Support
+- Nextcloud 29 support.
+
+## 3.0.9 - 2024-05-23
+### Maintenance
+- Minor bugfixes and improvements.
