@@ -46,7 +46,7 @@
     "@nextcloud/initial-state": "^1.2.0",
     "@nextcloud/l10n": "^1.4.1",
     "@nextcloud/logger": "^2.1.0",
-    "@nextcloud/password-confirmation": "^1.0.1",
+    "@nextcloud/password-confirmation": "^3.0.1",
     "jquery": "^3.6.2",
     "jquery-ui": "^1.13.2",
     "tinymce": "^5.8.2",
