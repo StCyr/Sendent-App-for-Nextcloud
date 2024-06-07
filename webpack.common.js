@@ -54,7 +54,7 @@ module.exports = {
 		}),
 	],
 	resolve: {
-		extensions: ['*', '.ts', '.js', '.scss'],
+		extensions: ['.*', '.ts', '.js', '.scss'],
 		symlinks: false,
 	},
 }
